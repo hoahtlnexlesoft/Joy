@@ -74,6 +74,8 @@ function colorFor(name: string) {
   return USER_COLORS[h % USER_COLORS.length]
 }
 
+const GOTO_KEY = 'joy-review-goto'
+
 function ago(t: number) {
   const s = Math.max(1, Math.round((Date.now() - t) / 1000))
   if (s < 60) return 'just now'
@@ -95,6 +97,7 @@ export function CommentLayer() {
   const [draftText, setDraftText] = useState('')
   const [nameInput, setNameInput] = useState('')
   const [active, setActive] = useState<string | null>(null)
+  const [flash, setFlash] = useState<string | null>(null)
   const [tick, setTick] = useState(0)
   const [copied, setCopied] = useState(false)
   const [filter, setFilter] = useState<'open' | 'resolved'>('open')
@@ -244,16 +247,60 @@ export function CommentLayer() {
     setOpen(true)
   }
 
+  const focusThread = useCallback(
+    (id: string) => {
+      const t = threadsRef.current.find((x) => x.id === id)
+      if (!t) return
+      setActive(id)
+      setFlash(id)
+      const p = pos(t)
+      window.scrollTo({ top: Math.max(0, p.y - window.innerHeight / 2), behavior: 'smooth' })
+      let el: HTMLElement | null = null
+      try {
+        el = document.querySelector(t.selector)
+      } catch {}
+      if (el) {
+        el.style.outline = `3px solid ${colorFor(t.author)}`
+        el.style.outlineOffset = '3px'
+      }
+      setTimeout(() => {
+        if (el) {
+          el.style.outline = ''
+          el.style.outlineOffset = ''
+        }
+        setFlash((f) => (f === id ? null : f))
+      }, 2600)
+    },
+    [pos],
+  )
+
   const goTo = (t: Thread) => {
     if (t.page !== page) {
-      const file = t.page.endsWith('.html') ? t.page : `${t.page}.html`
-      location.href = `./${file}`
+      try {
+        sessionStorage.setItem(GOTO_KEY, t.id)
+      } catch {}
+      const isStatic = location.pathname.endsWith('.html')
+      location.href = isStatic ? `./${t.page.replace(/\.html$/, '')}.html` : t.page === 'home' ? '/' : `/${t.page.replace(/\.html$/, '')}`
       return
     }
-    setActive(t.id)
-    const p = pos(t)
-    window.scrollTo({ top: Math.max(0, p.y - 200), behavior: 'smooth' })
+    focusThread(t.id)
   }
+
+  // arriving from another page: jump to the comment that was clicked
+  useEffect(() => {
+    if (!threads.length) return
+    let id: string | null = null
+    try {
+      id = sessionStorage.getItem(GOTO_KEY)
+    } catch {}
+    if (!id || !threads.some((x) => x.id === id)) return
+    try {
+      sessionStorage.removeItem(GOTO_KEY)
+    } catch {}
+    const target = id
+    const tm = setTimeout(() => focusThread(target), 900)
+    return () => clearTimeout(tm)
+  }, [threads, focusThread])
 
   const exportText = () => {
     const lines = threads.map(
@@ -302,6 +349,7 @@ export function CommentLayer() {
               style={{ left: p.x, top: p.y, ...(t.resolved ? {} : { backgroundColor: colorFor(t.author) }) }}
               aria-label={`Comment ${idx}`}
             >
+              {flash === t.id && <span className="absolute inset-0 -z-10 animate-ping rounded-full opacity-70" style={{ backgroundColor: t.resolved ? '#10b981' : colorFor(t.author) }} />}
               {t.resolved ? <Check className="size-4" /> : idx}
             </button>
           )

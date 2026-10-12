@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { ArrowRight, Mail, MessageCircle, MessageCircleHeart, Phone, X } from '@/components/joy/cute-icons'
+import { Mail, MessageCircle, MessageCircleHeart, Phone, X } from '@/components/joy/cute-icons'
 
 const CHANNELS = [
   { icon: Mail, label: 'Email', value: 'support@joykids.app', note: 'Reply within 24 hours', href: 'mailto:support@joykids.app' },
@@ -45,7 +45,7 @@ export function ContactBubble() {
               <X className="size-4" />
             </button>
           </header>
-          <ul className="space-y-1 px-3 py-3">
+          <ul className="space-y-1 px-3 py-3 pb-4">
             {CHANNELS.map(({ icon: Icon, label, value, note, href }) => (
               <li key={label}>
                 <a
@@ -66,14 +66,6 @@ export function ContactBubble() {
               </li>
             ))}
           </ul>
-          <div className="px-4 pb-4">
-            <a
-              href="mailto:support@joykids.app"
-              className="flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-joy text-xs font-extrabold uppercase tracking-[0.12em] text-white"
-            >
-              Send us a message <ArrowRight className="size-4" />
-            </a>
-          </div>
         </section>
       )}
       <button

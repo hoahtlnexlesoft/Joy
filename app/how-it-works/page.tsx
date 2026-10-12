@@ -501,11 +501,11 @@ export default function HowItWorksPage() {
                 <ul className="grid gap-3 md:grid-cols-3">
                   {[
                     { icon: Mail, label: 'Email', value: 'support@joykids.app', href: 'mailto:support@joykids.app', tint: 'bg-peach text-joy-orange' },
-                    { icon: MessageCircle, label: 'Telegram', value: '@JoyKidsSupport', href: 'https://t.me/JoyKidsSupport', tint: 'bg-sky text-joy-sky' },
-                    { icon: Phone, label: 'WhatsApp', value: '+95 9 123 456 789', href: 'https://wa.me/959123456789', tint: 'bg-mint text-joy-mint' },
+                    { icon: MessageCircle, label: 'Telegram', value: '@JoyKidsSupport', href: 'https://t.me/JoyKidsSupport', appHref: 'tg://resolve?domain=JoyKidsSupport', tint: 'bg-sky text-joy-sky' },
+                    { icon: Phone, label: 'WhatsApp', value: '+95 9 123 456 789', href: 'https://wa.me/959123456789', appHref: 'whatsapp://send?phone=959123456789', tint: 'bg-mint text-joy-mint' },
                   ].map((c) => (
                     <li key={c.label}>
-                      <ContactLink href={c.href} className="flex items-center gap-4 rounded-3xl bg-white p-5 ring-1 ring-border transition-all hover:-translate-y-0.5 hover:shadow-lg">
+                      <ContactLink href={c.href} appHref={(c as { appHref?: string }).appHref} className="flex items-center gap-4 rounded-3xl bg-white p-5 ring-1 ring-border transition-all hover:-translate-y-0.5 hover:shadow-lg">
                         <span className={cn('inline-flex size-12 shrink-0 items-center justify-center rounded-2xl', c.tint)}>
                           <c.icon className="size-5" aria-hidden="true" />
                         </span>

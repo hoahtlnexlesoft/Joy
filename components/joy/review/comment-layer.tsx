@@ -67,6 +67,13 @@ function selectorFor(el: Element): string {
   return parts.join(' > ')
 }
 
+const USER_COLORS = ['#4f46e5', '#0d9488', '#d97706', '#0284c7', '#7c3aed', '#16a34a', '#dc2626', '#0891b2', '#c026d3', '#65a30d']
+function colorFor(name: string) {
+  let h = 0
+  for (const ch of name.trim().toLowerCase()) h = (h * 31 + ch.charCodeAt(0)) >>> 0
+  return USER_COLORS[h % USER_COLORS.length]
+}
+
 function ago(t: number) {
   const s = Math.max(1, Math.round((Date.now() - t) / 1000))
   if (s < 60) return 'just now'
@@ -290,9 +297,9 @@ export function CommentLayer() {
                 setOpen(true)
               }}
               className={`pointer-events-auto absolute grid size-8 -translate-x-1/2 -translate-y-full place-items-center rounded-full rounded-bl-none text-xs font-bold text-white shadow-lg ring-2 ring-white transition hover:scale-110 ${
-                t.resolved ? 'bg-emerald-500' : 'bg-indigo-600'
+                t.resolved ? 'bg-emerald-500' : ''
               } ${active === t.id ? 'scale-125' : ''}`}
-              style={{ left: p.x, top: p.y }}
+              style={{ left: p.x, top: p.y, ...(t.resolved ? {} : { backgroundColor: colorFor(t.author) }) }}
               aria-label={`Comment ${idx}`}
             >
               {t.resolved ? <Check className="size-4" /> : idx}
@@ -434,12 +441,12 @@ export function CommentLayer() {
               return (
                 <div key={t.id} className={`px-5 py-3 text-sm transition ${isActive ? 'bg-white' : 'hover:bg-white/60'}`}>
                   <button onClick={() => goTo(t)} className="flex w-full items-start gap-3 text-left">
-                    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-indigo-600 text-xs font-bold uppercase text-white">
+                    <span style={{ backgroundColor: colorFor(t.author) }} className="grid size-8 shrink-0 place-items-center rounded-full text-xs font-bold uppercase text-white">
                       {(t.author.trim()[0] || '?').toUpperCase()}
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="flex items-baseline gap-1.5">
-                        <b className="truncate text-slate-900">{t.author}</b>
+                        <b className="truncate" style={{ color: colorFor(t.author) }}>{t.author}</b>
                         <span className="shrink-0 text-xs text-slate-400">· {ago(t.at)}</span>
                         {t.resolved && <Check className="size-3.5 shrink-0 self-center text-emerald-500" />}
                       </span>
@@ -452,8 +459,8 @@ export function CommentLayer() {
                   {isActive && (
                     <div className="ml-11">
                       {t.replies.map((r) => (
-                        <p key={r.id} className="mt-2 border-l-2 border-indigo-200 pl-2 text-xs text-slate-600">
-                          <b>{r.author}</b> · {r.text}
+                        <p key={r.id} className="mt-2 border-l-2 pl-2 text-xs text-slate-600" style={{ borderColor: colorFor(r.author) }}>
+                          <b style={{ color: colorFor(r.author) }}>{r.author}</b> · {r.text}
                         </p>
                       ))}
                       <div className="mt-2 flex gap-1">

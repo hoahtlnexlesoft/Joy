@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Archive, ArrowRight, Baby, Check, ChevronDown, Crown, Eye, Gem, Lock, Minus, Repeat2, Sparkles } from '@/components/joy/cute-icons'
+import { ChoosePlanButton } from '@/components/joy/choose-plan-button'
 import { SiteHeader } from '@/components/joy/site-header'
 import { SiteFooter, TryJoyCta } from '@/components/joy/site-footer'
 import { Eyebrow, JoyButton, SectionHeading } from '@/components/joy/ui'
@@ -296,9 +297,7 @@ export default function PricingPage() {
                       </p>
                       <p className="text-sm text-muted-foreground">{plan.monthly}</p>
                     </div>
-                    <JoyButton href="#download" variant={plan.popular ? 'primary' : 'dark'} className="w-full">
-                      Choose plan
-                    </JoyButton>
+                    <ChoosePlanButton variant={plan.popular ? 'primary' : 'dark'} className="w-full" />
                     <details className="group mt-auto rounded-2xl bg-muted/70 px-4 py-3">
                       <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold [&::-webkit-details-marker]:hidden">
                         See benefits

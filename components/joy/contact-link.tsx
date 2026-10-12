@@ -14,15 +14,10 @@ export function ContactLink({
   children: ReactNode
   title?: string
 }) {
-  const isMail = href.startsWith('mailto:')
   const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
     e.preventDefault()
     try {
-      if (isMail) {
-        window.location.href = href
-        return
-      }
       const w = window.open(href, '_blank', 'noopener,noreferrer')
       if (!w) window.location.href = href
     } catch {
@@ -36,7 +31,8 @@ export function ContactLink({
       href={href}
       onClick={onClick}
       title={title}
-      {...(isMail ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+      target="_blank"
+      rel="noopener noreferrer"
       className={className}
     >
       {children}

@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from 'react'
 import { Play, X } from '@/components/joy/cute-icons'
 import { joyButtonClass } from '../ui'
 
-const VIDEO_SRC = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+const VIDEO_MP4 = '/videos/joy-daily-activities.mp4'
+const VIDEO_WEBM = '/videos/joy-daily-activities.webm'
+const POSTER = '/videos/joy-daily-activities-poster.webp'
 
 export function VideoButton({ className, children }: { className?: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(false)
@@ -46,8 +48,9 @@ export function VideoButton({ className, children }: { className?: string; child
             >
               <X className="size-5" />
             </button>
-            <video controls autoPlay playsInline poster="/images/joy-guide-friends.webp" className="aspect-video w-full bg-black">
-              <source src={VIDEO_SRC} type="video/mp4" />
+            <video controls autoPlay playsInline poster={POSTER} className="aspect-video w-full bg-black">
+              <source src={VIDEO_WEBM} type="video/webm" />
+              <source src={VIDEO_MP4} type="video/mp4" />
               Your browser does not support inline video playback.
             </video>
           </div>

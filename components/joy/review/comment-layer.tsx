@@ -375,32 +375,20 @@ export function CommentLayer() {
         </div>
       </div>
 
-      {/* floating comments button (bottom-right) */}
-      <button
-        data-review-ui
-        onClick={() => setOpen((o) => !o)}
-        className={`fixed bottom-4 z-[80] grid size-14 place-items-center rounded-full bg-indigo-600 text-white shadow-xl transition-all ${
-          open ? "right-4 sm:right-[23.5rem]" : "right-24"
-        } ${open ? 'max-sm:hidden' : ''}`}
-        aria-label="Comments"
-      >
-        <MessageCircle className="size-6" />
-        {threads.filter((t) => !t.resolved).length > 0 && (
-          <span className="absolute -right-1 -top-1 grid size-5 place-items-center rounded-full bg-white text-[10px] font-bold text-indigo-600 shadow ring-1 ring-indigo-200">
-            {threads.filter((t) => !t.resolved).length}
-          </span>
-        )}
-      </button>
-
       {/* slim open/close tab on the panel edge */}
       <button
         data-review-ui
         onClick={() => setOpen((o) => !o)}
-        className={`fixed top-1/2 z-[86] grid h-16 w-5 -translate-y-1/2 place-items-center rounded-l-xl bg-indigo-600 text-white shadow-lg transition-all hover:w-6 ${
+        className={`fixed top-1/2 z-[86] grid h-20 w-5 -translate-y-1/2 place-items-center rounded-l-xl bg-indigo-600 text-white shadow-lg transition-all hover:w-6 ${
           open ? 'right-0 max-sm:hidden sm:right-[22rem]' : 'right-0'
         }`}
         aria-label={open ? 'Collapse comments' : 'Open comments'}
       >
+        {threads.filter((t) => !t.resolved).length > 0 && (
+          <span className="absolute -left-2.5 -top-2.5 grid min-w-5 place-items-center rounded-full bg-white px-1 text-[10px] font-bold leading-5 text-indigo-600 shadow ring-1 ring-indigo-200">
+            {threads.filter((t) => !t.resolved).length}
+          </span>
+        )}
         <svg viewBox="0 0 24 24" className={`size-3.5 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M15 6l-6 6 6 6" /></svg>
       </button>
 

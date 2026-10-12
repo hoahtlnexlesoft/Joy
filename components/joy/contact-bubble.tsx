@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { ArrowRight, Mail, MessageCircle, Phone, X } from '@/components/joy/cute-icons'
+import { ArrowRight, Mail, MessageCircle, MessageCircleHeart, Phone, X } from '@/components/joy/cute-icons'
 
 const CHANNELS = [
   { icon: Mail, label: 'Email', value: 'support@joykids.app', note: 'Reply within 24 hours', href: 'mailto:support@joykids.app' },
@@ -82,7 +82,7 @@ export function ContactBubble() {
         aria-label={open ? 'Close contact' : 'Contact customer service'}
         aria-expanded={open}
       >
-        {open ? <X className="size-6" /> : <MessageCircle className="size-6" />}
+        {open ? <X className="size-6" /> : <MessageCircleHeart className="size-7" />}
       </button>
     </div>
   )

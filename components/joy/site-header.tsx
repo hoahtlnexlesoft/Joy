@@ -16,7 +16,6 @@ const links = [
   { href: '/how-it-works', label: 'How it works' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/parent', label: 'Parent Portal' },
-  { href: '/#download', label: 'Download' },
 ]
 
 export function SiteHeader() {

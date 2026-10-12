@@ -183,14 +183,6 @@ export function FeatureShowcase() {
                   </div>
 
                   <div className="flex flex-col gap-3 text-white">
-                    <p
-                      className={cn(
-                        'text-pretty text-[15px] font-medium leading-snug md:leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]',
-                        isActive ? 'md:max-w-md' : 'md:line-clamp-4 md:text-sm',
-                      )}
-                    >
-                      {feature.description}
-                    </p>
                     <a
                       href={`#${feature.id}`}
                       aria-label={`Explore ${feature.label}`}

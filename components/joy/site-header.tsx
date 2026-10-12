@@ -13,7 +13,7 @@ import { CuteIcon, type CuteName } from './parent/icons'
 
 const links = [
   { href: '/#about', label: 'About Joy' },
-  { href: '/how-it-works', label: 'How it works' },
+  { href: '/how-it-works', label: 'Parent Guide' },
   { href: '/pricing', label: 'Pricing' },
 ]
 

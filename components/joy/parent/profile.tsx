@@ -94,7 +94,7 @@ function Payments({ app }: { app: App }) {
               <span role="cell">{fmtDate(p.date)}</span>
               <span role="cell"><b className="block">{p.item}</b><small className="text-xs text-muted-foreground">{p.ref}</small></span>
               <span role="cell">{p.child}</span>
-              <span role="cell" className="flex flex-col items-start gap-0.5"><ChannelBadge ch={p.channel} /><small className="text-xs text-muted-foreground">{CHANNELS[p.channel].sub}</small></span>
+              <span role="cell" className="flex flex-col items-start gap-0.5"><ChannelBadge ch={p.channel} /></span>
               <span role="cell" className="flex items-center gap-2 md:flex-col md:items-end md:gap-0.5"><b>{money(p.amount)}</b><span className="rounded-full bg-[#e4f7e6] px-2 py-0.5 text-[10px] font-bold text-[#2f8f3a]">{p.status}</span></span>
               <span role="cell" className="md:text-right"><button type="button" aria-label={`View invoice for ${p.item}`} onClick={(e) => { e.stopPropagation(); app.open({ k: 'invoice', pay: p }) }} className="inline-flex h-8 items-center gap-1.5 rounded-full bg-gradient-to-r from-[#ffe9f0] to-[#fff0d2] px-3 text-xs font-bold text-[#d6336c] ring-1 ring-[#ffd3e2] transition hover:-translate-y-0.5"><FileText className="size-3.5" />Invoice</button></span>
             </div>

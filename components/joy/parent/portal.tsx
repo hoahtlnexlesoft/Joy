@@ -121,7 +121,7 @@ export function ParentPortal() {
           <aside className="hidden self-start lg:sticky lg:top-20 lg:block">
             <div className="flex flex-col gap-4">
               <nav aria-label="Parent menu" className="flex flex-col gap-1 rounded-[1.75rem] bg-white p-3 shadow-[0_0_0_1px_var(--border)]">
-                {navBtn(nav === 'children', () => go({ name: 'children' }), <CuteIcon name="children" active={nav === 'children'} />, 'Children List')}
+                {navBtn(nav === 'children', () => go({ name: 'children' }), <CuteIcon name="children" active={nav === 'children'} />, 'Children')}
                 {navBtn(nav === 'plans', () => go({ name: 'plans' }), <CuteIcon name="plans" active={nav === 'plans'} />, 'Plans')}
                 <p className="mt-3 px-3 pb-1 text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground">My Profile</p>
                 {SECTIONS.map((i) => navBtn(sec === i.id, () => go({ name: 'profile', sec: i.id }), <CuteIcon name={i.id} active={sec === i.id} className="size-8" />, i.label, true))}
@@ -144,7 +144,7 @@ export function ParentPortal() {
       </div>
 
       <nav aria-label="Parent menu" className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 gap-1 border-t border-border bg-white/95 p-2 backdrop-blur lg:hidden">
-        {([['children', 'children', 'Children List', () => go({ name: 'children' })], ['plans', 'plans', 'Plans', () => go({ name: 'plans' })], ['profile', 'profile', 'My Profile', () => go({ name: 'profile', sec: 'account' })]] as const).map(([id, ic, l, fn]) => (
+        {([['children', 'children', 'Children', () => go({ name: 'children' })], ['plans', 'plans', 'Plans', () => go({ name: 'plans' })], ['profile', 'profile', 'My Profile', () => go({ name: 'profile', sec: 'account' })]] as const).map(([id, ic, l, fn]) => (
           <button key={id} type="button" onClick={fn} aria-current={nav === id ? 'page' : undefined} className={cn('flex flex-col items-center gap-0.5 rounded-xl py-1.5 text-[11px] font-semibold', nav === id ? 'bg-[#fff0f4] text-[#dd4e82]' : 'text-muted-foreground')}><CuteIcon name={ic} className="size-8" active={nav === id} />{l}</button>
         ))}
       </nav>

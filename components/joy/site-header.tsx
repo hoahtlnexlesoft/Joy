@@ -110,7 +110,7 @@ export function SiteHeader() {
               <button type="button" onClick={showLogin} className="whitespace-nowrap rounded-full px-2 py-2 text-[13px] font-semibold text-foreground hover:bg-muted lg:px-4 lg:text-sm">
                 Log in
               </button>
-              <JoyButton href="/pricing" className="h-9 whitespace-nowrap px-3 text-[13px] lg:h-10 lg:px-5 lg:text-sm">
+              <JoyButton href="/#download" className="h-9 whitespace-nowrap px-3 text-[13px] lg:h-10 lg:px-5 lg:text-sm">
                 Try for free
               </JoyButton>
             </>
@@ -157,7 +157,7 @@ export function SiteHeader() {
               <button type="button" onClick={showLogin} className="inline-flex min-h-11 items-center justify-center rounded-full px-4 text-sm font-semibold text-foreground hover:bg-muted">
                 Log in
               </button>
-              <Link href="/pricing" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-full bg-gradient-joy px-4 text-sm font-semibold text-white shadow-sm">Try for free</Link>
+              <Link href="/#download" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-full bg-gradient-joy px-4 text-sm font-semibold text-white shadow-sm">Try for free</Link>
             </div>
           )}
         </div>
@@ -168,7 +168,7 @@ export function SiteHeader() {
 }
 
 const accountLinks: { href: string; icon: CuteName; label: string }[] = [
-  { href: '/parent#children', icon: 'children', label: 'Children List' },
+  { href: '/parent#children', icon: 'children', label: 'Children' },
   { href: '/parent#plans', icon: 'plans', label: 'Plans' },
   { href: '/parent#profile-account', icon: 'account', label: 'Account details' },
   { href: '/parent#profile-payments', icon: 'payments', label: 'Payments' },

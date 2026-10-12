@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Caveat, Fredoka, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
+import { ContactBubble } from '@/components/joy/contact-bubble'
 import { CommentLayer } from '@/components/joy/review/comment-layer'
 
 const caveat = Caveat({
@@ -55,6 +56,7 @@ export default function RootLayout({
     <html lang="en" className={`${fredoka.variable} ${jakarta.variable} ${caveat.variable}`}>
       <body className="antialiased">
         {children}
+        <ContactBubble />
         {process.env.NODE_ENV === 'production' && <Analytics />}
         {process.env.NEXT_PUBLIC_JOY_REVIEW === '1' && <CommentLayer />}
       </body>

@@ -380,7 +380,7 @@ export function CommentLayer() {
         data-review-ui
         onClick={() => setOpen((o) => !o)}
         className={`fixed bottom-4 z-[80] grid size-14 place-items-center rounded-full bg-indigo-600 text-white shadow-xl transition-all ${
-          open ? "right-4 sm:right-[23.5rem]" : "right-9"
+          open ? "right-4 sm:right-[23.5rem]" : "right-24"
         } ${open ? 'max-sm:hidden' : ''}`}
         aria-label="Comments"
       >

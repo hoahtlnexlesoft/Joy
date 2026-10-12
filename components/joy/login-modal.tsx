@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { createPortal } from 'react-dom'
 import { useRouter } from 'next/navigation'
 import { DEMO_PARENT, joyLogin } from '@/lib/joy-session'
 import { useCallback, useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
@@ -86,7 +87,7 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
 
   if (!open) return null
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[100] grid place-items-center overflow-hidden overscroll-none bg-[#fff0f5]/55 p-3 backdrop-blur-md sm:p-4"
       onMouseDown={(event) => {
@@ -379,7 +380,7 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
         `}</style>
       </section>
     </div>
-  )
+  , document.body)
 }
 
 export function LoginTrigger({ children, className }: { children: ReactNode; className: string }) {

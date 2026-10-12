@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Play, X } from '@/components/joy/cute-icons'
 import { joyButtonClass } from '../ui'
 
@@ -30,7 +31,8 @@ export function VideoButton({ className, children }: { className?: string; child
       <button ref={btnRef} type="button" onClick={() => setOpen(true)} className={joyButtonClass('ghost', className)} aria-haspopup="dialog">
         {children}
       </button>
-      {open && (
+      {open &&
+        createPortal(
         <div
           data-no-reveal
           role="dialog"
@@ -55,7 +57,7 @@ export function VideoButton({ className, children }: { className?: string; child
             </video>
           </div>
         </div>
-      )}
+      , document.body)}
     </>
   )
 }

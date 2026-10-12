@@ -28,7 +28,7 @@ export function VideoButton({ className, children }: { className?: string; child
 
   return (
     <>
-      <button ref={btnRef} type="button" onClick={() => setOpen(true)} className={joyButtonClass('ghost', className)} aria-haspopup="dialog">
+      <button ref={btnRef} type="button" onClick={(e) => { if (!e.defaultPrevented) setOpen(true) }} className={joyButtonClass('ghost', className)} aria-haspopup="dialog">
         {children}
       </button>
       {open &&

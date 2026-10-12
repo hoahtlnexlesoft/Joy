@@ -36,7 +36,8 @@ export function ContactLink({
   }
 
   const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+    // respect hosts (e.g. a comment/review mode) that already cancelled this click
+    if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
     e.preventDefault()
     if (!appHref || isMobile()) return openWeb()
 

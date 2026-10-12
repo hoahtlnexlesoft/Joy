@@ -69,7 +69,7 @@ export function ContactBubble() {
         </section>
       )}
       <button
-        onClick={() => setOpen((o) => !o)}
+        onClick={(e) => { if (!e.defaultPrevented) setOpen((o) => !o) }}
         className="grid size-14 place-items-center rounded-full bg-gradient-joy text-white shadow-xl ring-4 ring-white/70 transition hover:scale-105"
         aria-label={open ? 'Close contact' : 'Contact customer service'}
         aria-expanded={open}

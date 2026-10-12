@@ -20,7 +20,7 @@ export function ChoosePlanButton({ variant, className }: { variant: 'primary' | 
   }
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} className={joyButtonClass(variant, className)} aria-haspopup="dialog">
+      <button type="button" onClick={(e) => { if (!e.defaultPrevented) setOpen(true) }} className={joyButtonClass(variant, className)} aria-haspopup="dialog">
         Choose plan
       </button>
       <LoginModal open={open} onClose={close} />

@@ -15,7 +15,6 @@ const links = [
   { href: '/#about', label: 'About Joy' },
   { href: '/how-it-works', label: 'How it works' },
   { href: '/pricing', label: 'Pricing' },
-  { href: '/parent', label: 'Parent Portal' },
 ]
 
 export function SiteHeader() {

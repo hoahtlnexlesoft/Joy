@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { ContactLink } from '@/components/joy/contact-link'
 import { Mail, MessageCircle, MessageCircleHeart, Phone, X } from '@/components/joy/cute-icons'
 
 const CHANNELS = [
@@ -48,10 +49,8 @@ export function ContactBubble() {
           <ul className="space-y-1 px-3 py-3 pb-4">
             {CHANNELS.map(({ icon: Icon, label, value, note, href }) => (
               <li key={label}>
-                <a
+                <ContactLink
                   href={href}
-                  target={href.startsWith('http') ? '_blank' : undefined}
-                  rel="noreferrer"
                   className="flex items-center gap-3 rounded-2xl px-2 py-2 transition hover:bg-pink-50"
                 >
                   <span className="grid size-11 shrink-0 place-items-center rounded-full bg-pink-50 text-pink-600 ring-1 ring-pink-100">
@@ -62,7 +61,7 @@ export function ContactBubble() {
                     <span className="block truncate text-sm font-bold text-slate-900">{value}</span>
                     <span className="block truncate text-xs text-slate-500">{note}</span>
                   </span>
-                </a>
+                </ContactLink>
               </li>
             ))}
           </ul>

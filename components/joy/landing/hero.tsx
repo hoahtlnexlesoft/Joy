@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Play, Sparkles } from '@/components/joy/cute-icons'
 import { JoyButton } from '../ui'
+import { VideoButton } from './video-button'
 import { FeatureShowcase } from './feature-showcase'
 
 function Butterfly({ a, b, className, style, small }: { a: string; b: string; className?: string; style?: React.CSSProperties; small?: boolean }) {
@@ -46,12 +47,12 @@ export function Hero() {
             <JoyButton href="#download" className="h-12 px-6 text-sm md:h-11 md:px-5 lg:h-14 lg:px-8 lg:text-base">
               Try for free
             </JoyButton>
-            <JoyButton href="/how-it-works" variant="ghost" className="h-12 px-4 text-sm md:h-11 lg:h-14 lg:px-6 lg:text-base">
+            <VideoButton className="h-12 px-4 text-sm md:h-11 lg:h-14 lg:px-6 lg:text-base">
               <span className="inline-flex size-7 items-center justify-center rounded-full bg-gradient-joy text-white">
                 <Play className="size-3 fill-current" aria-hidden="true" />
               </span>
               See how it works
-            </JoyButton>
+            </VideoButton>
           </div>
           <p className="text-sm text-muted-foreground">
             Create your parent account in a few minutes. Already have one?{' '}

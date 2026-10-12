@@ -100,7 +100,8 @@ export function CommentLayer() {
   const [flash, setFlash] = useState<string | null>(null)
   const [tick, setTick] = useState(0)
   const [copied, setCopied] = useState(false)
-  const [filter, setFilter] = useState<'open' | 'resolved'>('open')
+  const [copiedId, setCopiedId] = useState<string | null>(null)
+  const [filter, setFilter] = useState<'all' | 'open' | 'resolved'>('all')
   const hoverRef = useRef<HTMLElement | null>(null)
   const page = typeof window === 'undefined' ? '' : pagePath()
 
@@ -227,7 +228,7 @@ export function CommentLayer() {
   }, [])
 
   const pageThreads = useMemo(() => threads.filter((t) => t.page === page), [threads, page])
-  const shown = threads.filter((t) => (filter === 'open' ? !t.resolved : t.resolved))
+  const shown = threads.filter((t) => (filter === 'all' ? true : filter === 'open' ? !t.resolved : t.resolved))
 
   const submitDraft = () => {
     if (!draft || !draftText.trim()) return
@@ -301,6 +302,18 @@ export function CommentLayer() {
     const tm = setTimeout(() => focusThread(target), 900)
     return () => clearTimeout(tm)
   }, [threads, focusThread])
+
+  const copyOne = (t: Thread) => {
+    const text =
+      `#${threads.indexOf(t) + 1} [${t.resolved ? 'resolved' : 'open'}] page: ${t.page} | element: ${t.selector}\n  ${t.author}: ${t.text}` +
+      t.replies.map((r) => `\n    ↳ ${r.author}: ${r.text}`).join('')
+    const done = () => {
+      setCopiedId(t.id)
+      setTimeout(() => setCopiedId((c) => (c === t.id ? null : c)), 1600)
+    }
+    if (navigator.clipboard?.writeText) navigator.clipboard.writeText(text).then(done, done)
+    else done()
+  }
 
   const exportText = () => {
     const lines = threads.map(
@@ -467,7 +480,7 @@ export function CommentLayer() {
           </header>
           <div className="px-5 pb-2">
             <div className="inline-flex gap-1 rounded-full bg-black/5 p-1 text-xs font-bold">
-              {(['open', 'resolved'] as const).map((f) => (
+              {(['all', 'open', 'resolved'] as const).map((f) => (
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
@@ -481,14 +494,22 @@ export function CommentLayer() {
           <div className="flex-1 overflow-y-auto pb-24">
             {shown.length === 0 && (
               <p className="px-5 py-10 text-center text-sm text-slate-400">
-                {filter === 'open' ? 'No comments yet. Switch to “Comment” and click anything on the page.' : 'Nothing resolved yet.'}
+                {filter === 'resolved' ? 'Nothing resolved yet.' : 'No comments yet. Switch to “Comment” and click anything on the page.'}
               </p>
             )}
             {shown.map((t) => {
               const isActive = active === t.id
               return (
-                <div key={t.id} className={`px-5 py-3 text-sm transition ${isActive ? 'bg-white' : 'hover:bg-white/60'}`}>
-                  <button onClick={() => goTo(t)} className="flex w-full items-start gap-3 text-left">
+                <div key={t.id} className={`group relative px-5 py-3 text-sm transition ${isActive ? 'bg-white' : 'hover:bg-white/60'} ${t.resolved && !isActive ? 'opacity-60' : ''}`}>
+                  <button
+                    onClick={() => copyOne(t)}
+                    className="absolute right-3 top-3 z-10 grid size-7 place-items-center rounded-full bg-white/80 text-slate-500 shadow-sm ring-1 ring-black/5 hover:bg-white hover:text-indigo-600"
+                    aria-label="Copy comment"
+                    title="Copy comment"
+                  >
+                    {copiedId === t.id ? <Check className="size-3.5 text-emerald-600" /> : <ClipboardCopy className="size-3.5" />}
+                  </button>
+                  <button onClick={() => goTo(t)} className="flex w-full items-start gap-3 pr-8 text-left">
                     <span style={{ backgroundColor: colorFor(t.author) }} className="grid size-8 shrink-0 place-items-center rounded-full text-xs font-bold uppercase text-white">
                       {(t.author.trim()[0] || '?').toUpperCase()}
                     </span>
@@ -496,7 +517,11 @@ export function CommentLayer() {
                       <span className="flex items-baseline gap-1.5">
                         <b className="truncate" style={{ color: colorFor(t.author) }}>{t.author}</b>
                         <span className="shrink-0 text-xs text-slate-400">· {ago(t.at)}</span>
-                        {t.resolved && <Check className="size-3.5 shrink-0 self-center text-emerald-500" />}
+                        {t.resolved && (
+                          <span className="inline-flex shrink-0 items-center gap-0.5 self-center rounded-full bg-emerald-50 px-1.5 text-[10px] font-bold text-emerald-600">
+                            <Check className="size-3" /> Resolved
+                          </span>
+                        )}
                       </span>
                       <span className={`mt-0.5 block text-slate-700 ${isActive ? '' : 'line-clamp-2'}`}>{t.text}</span>
                       <span className="mt-0.5 block text-[11px] text-slate-400">

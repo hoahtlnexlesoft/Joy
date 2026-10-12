@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Heart, Mail, MessageCircle, Phone, ShieldCheck, Sparkles } from '@/components/joy/cute-icons'
 import { GrowthCycleIllustration } from '@/components/joy/landing/growth-cycle-slider'
+import { ContactLink } from '@/components/joy/contact-link'
 import { BlinkingAnimals } from '@/components/joy/blinking-animals'
 import { SiteHeader } from '@/components/joy/site-header'
 import { SiteFooter, TryJoyCta } from '@/components/joy/site-footer'
@@ -504,12 +505,12 @@ export default function HowItWorksPage() {
                     { icon: Phone, label: 'WhatsApp', value: '+95 9 123 456 789', href: 'https://wa.me/959123456789', tint: 'bg-mint text-joy-mint' },
                   ].map((c) => (
                     <li key={c.label}>
-                      <a href={c.href} className="flex items-center gap-4 rounded-3xl bg-white p-5 ring-1 ring-border transition-all hover:-translate-y-0.5 hover:shadow-lg">
+                      <ContactLink href={c.href} className="flex items-center gap-4 rounded-3xl bg-white p-5 ring-1 ring-border transition-all hover:-translate-y-0.5 hover:shadow-lg">
                         <span className={cn('inline-flex size-12 shrink-0 items-center justify-center rounded-2xl', c.tint)}>
                           <c.icon className="size-5" aria-hidden="true" />
                         </span>
                         <span className="min-w-0 flex-1"><span className="block text-xs text-muted-foreground">{c.label}</span><span className="block truncate font-semibold" title={c.value}>{c.value}</span></span>
-                      </a>
+                      </ContactLink>
                     </li>
                   ))}
                 </ul>

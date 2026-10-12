@@ -11,6 +11,14 @@ const variants: Record<Variant, string> = {
   dark: 'bg-foreground text-background hover:bg-foreground/90',
 }
 
+export function joyButtonClass(variant: Variant = 'primary', className?: string) {
+  return cn(
+    'inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+    variants[variant],
+    className,
+  )
+}
+
 export function JoyButton({
   href,
   variant = 'primary',

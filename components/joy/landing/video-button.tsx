@@ -1,0 +1,58 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+import { Play, X } from '@/components/joy/cute-icons'
+import { joyButtonClass } from '../ui'
+
+const VIDEO_SRC = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+
+export function VideoButton({ className, children }: { className?: string; children: React.ReactNode }) {
+  const [open, setOpen] = useState(false)
+  const btnRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const k = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    document.addEventListener('keydown', k)
+    return () => {
+      document.body.style.overflow = prev
+      document.removeEventListener('keydown', k)
+      btnRef.current?.focus()
+    }
+  }, [open])
+
+  return (
+    <>
+      <button ref={btnRef} type="button" onClick={() => setOpen(true)} className={joyButtonClass('ghost', className)} aria-haspopup="dialog">
+        {children}
+      </button>
+      {open && (
+        <div
+          data-no-reveal
+          role="dialog"
+          aria-modal="true"
+          aria-label="How Joy works – video"
+          className="fixed inset-0 z-[100] grid place-items-center bg-[#2a2240]/70 p-4 backdrop-blur-sm"
+          onClick={() => setOpen(false)}
+        >
+          <div className="relative w-full max-w-3xl overflow-hidden rounded-[1.75rem] bg-black shadow-2xl ring-1 ring-white/20" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="absolute right-3 top-3 z-10 grid size-9 place-items-center rounded-full bg-white/90 text-foreground shadow hover:bg-white"
+              aria-label="Close video"
+            >
+              <X className="size-5" />
+            </button>
+            <video controls autoPlay playsInline poster="/images/joy-guide-friends.webp" className="aspect-video w-full bg-black">
+              <source src={VIDEO_SRC} type="video/mp4" />
+              Your browser does not support inline video playback.
+            </video>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}

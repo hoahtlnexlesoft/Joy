@@ -344,121 +344,148 @@ export function CommentLayer() {
         </span>
       )}
 
-      {/* toolbar */}
-      <div data-review-ui className="fixed right-3 top-1/2 z-[80] flex -translate-y-1/2 flex-col-reverse items-end gap-2">
+      {/* bottom-center mode pill (Browse / Comment) */}
+      <div data-review-ui className="fixed bottom-4 left-1/2 z-[80] flex -translate-x-1/2 flex-col items-center gap-2">
         {mode && (
-          <span className="absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 whitespace-nowrap rounded-full bg-slate-900/90 px-3 py-2 text-xs font-semibold text-white sm:block">
+          <span className="whitespace-nowrap rounded-full bg-slate-900/90 px-3 py-1.5 text-xs font-semibold text-white">
             Click anything to comment · Esc to cancel
           </span>
         )}
-        <button
-          onClick={() => setOpen((o) => !o)}
-          className="relative grid size-12 place-items-center rounded-full bg-white text-pink-600 shadow-xl ring-1 ring-pink-200"
-          aria-label="Comments"
-        >
-          <MessageCircle className="size-5" />
-          {threads.filter((t) => !t.resolved).length > 0 && (
-            <span className="absolute -right-1 -top-1 grid size-5 place-items-center rounded-full bg-pink-500 text-[10px] font-bold text-white">
-              {threads.filter((t) => !t.resolved).length}
-            </span>
-          )}
-        </button>
-        <button
-          onClick={() => {
-            setDraft(null)
-            setMode((m) => !m)
-          }}
-          className={`flex h-12 items-center gap-2 rounded-full px-5 text-sm font-bold text-white shadow-xl ${mode ? 'bg-slate-900' : 'bg-gradient-joy'}`}
-        >
-          <MousePointerClick className="size-4" />
-          {mode ? 'Cancel' : 'Comment'}
-        </button>
+        <div className="flex items-center gap-1 rounded-full bg-slate-900 p-1 text-sm font-semibold shadow-xl ring-1 ring-white/10">
+          <button
+            onClick={() => {
+              setDraft(null)
+              setMode(false)
+            }}
+            className={`flex h-9 items-center gap-2 rounded-full px-4 transition ${!mode ? 'bg-gradient-joy text-white' : 'text-slate-300 hover:text-white'}`}
+          >
+            <MousePointerClick className="size-4" />
+            Browse
+          </button>
+          <button
+            onClick={() => {
+              setDraft(null)
+              setMode(true)
+            }}
+            className={`flex h-9 items-center gap-2 rounded-full px-4 transition ${mode ? 'bg-gradient-joy text-white' : 'text-slate-300 hover:text-white'}`}
+          >
+            <MessageCircle className="size-4" />
+            Comment
+          </button>
+        </div>
       </div>
 
-      {/* sidebar */}
+      {/* floating comments button (bottom-right) */}
+      <button
+        data-review-ui
+        onClick={() => setOpen((o) => !o)}
+        className={`fixed bottom-4 z-[80] grid size-14 place-items-center rounded-full bg-gradient-joy text-white shadow-xl transition-all ${
+          open ? 'right-4 sm:right-[23.5rem]' : 'right-4'
+        } ${open ? 'max-sm:hidden' : ''}`}
+        aria-label="Comments"
+      >
+        <MessageCircle className="size-6" />
+        {threads.filter((t) => !t.resolved).length > 0 && (
+          <span className="absolute -right-1 -top-1 grid size-5 place-items-center rounded-full bg-white text-[10px] font-bold text-pink-600 shadow ring-1 ring-pink-200">
+            {threads.filter((t) => !t.resolved).length}
+          </span>
+        )}
+      </button>
+
+      {/* docked comments panel (right side) */}
       {open && (
         <aside
           data-review-ui
-          className="fixed right-3 top-16 z-[80] flex max-h-[calc(100vh-8rem)] w-[22rem] max-w-[calc(100vw-1.5rem)] sm:right-40 flex-col overflow-hidden rounded-3xl bg-white text-left shadow-2xl ring-1 ring-pink-200"
+          className="fixed bottom-0 right-0 top-0 z-[85] flex w-[22rem] max-w-full flex-col bg-[#f6f3f5] text-left shadow-2xl ring-1 ring-black/5"
         >
-          <header className="flex items-center justify-between gap-2 border-b border-pink-100 px-4 py-3">
-            <div className="flex gap-1 rounded-full bg-pink-50 p-1 text-xs font-bold">
+          <header className="flex items-center justify-between gap-2 px-5 pb-2 pt-5">
+            <h2 className="text-sm font-bold text-slate-900">Comments</h2>
+            <div className="flex items-center gap-1">
+              <button onClick={exportText} className="flex h-8 items-center gap-1 rounded-full px-3 text-xs font-semibold text-slate-600 hover:bg-black/5">
+                {copied ? <Check className="size-3.5" /> : <ClipboardCopy className="size-3.5" />}
+                {copied ? 'Copied' : 'Copy all'}
+              </button>
+              <button onClick={() => setOpen(false)} className="grid size-8 place-items-center rounded-full text-slate-600 hover:bg-black/5" aria-label="Close">
+                <X className="size-4" />
+              </button>
+            </div>
+          </header>
+          <div className="px-5 pb-2">
+            <div className="inline-flex gap-1 rounded-full bg-black/5 p-1 text-xs font-bold">
               {(['open', 'resolved'] as const).map((f) => (
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
-                  className={`rounded-full px-3 py-1 capitalize ${filter === f ? 'bg-white text-pink-600 shadow' : 'text-slate-500'}`}
+                  className={`rounded-full px-3 py-1 capitalize ${filter === f ? 'bg-white text-pink-600 shadow-sm' : 'text-slate-500'}`}
                 >
                   {f}
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-1">
-              <button onClick={exportText} className="flex h-8 items-center gap-1 rounded-full px-3 text-xs font-semibold text-slate-600 hover:bg-slate-100">
-                {copied ? <Check className="size-3.5" /> : <ClipboardCopy className="size-3.5" />}
-                {copied ? 'Copied' : 'Copy all'}
-              </button>
-              <button onClick={() => setOpen(false)} className="grid size-8 place-items-center rounded-full hover:bg-slate-100" aria-label="Close">
-                <X className="size-4" />
-              </button>
-            </div>
-          </header>
-          <div className="flex-1 space-y-2 overflow-y-auto p-3">
+          </div>
+          <div className="flex-1 overflow-y-auto pb-24">
             {shown.length === 0 && (
-              <p className="py-8 text-center text-sm text-slate-400">
-                {filter === 'open' ? 'No comments yet. Press “Comment” and click anything on the page.' : 'Nothing resolved yet.'}
+              <p className="px-5 py-10 text-center text-sm text-slate-400">
+                {filter === 'open' ? 'No comments yet. Switch to “Comment” and click anything on the page.' : 'Nothing resolved yet.'}
               </p>
             )}
-            {shown.map((t) => (
-              <div
-                key={t.id}
-                className={`rounded-2xl border p-3 text-sm ${active === t.id ? 'border-pink-300 bg-pink-50/60' : 'border-slate-100'}`}
-              >
-                <button onClick={() => goTo(t)} className="block w-full text-left">
-                  <div className="flex items-center justify-between text-xs text-slate-400">
-                    <span className="font-bold text-slate-700">
-                      #{threads.indexOf(t) + 1} {t.author}
+            {shown.map((t) => {
+              const isActive = active === t.id
+              return (
+                <div key={t.id} className={`px-5 py-3 text-sm transition ${isActive ? 'bg-white' : 'hover:bg-white/60'}`}>
+                  <button onClick={() => goTo(t)} className="flex w-full items-start gap-3 text-left">
+                    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-gradient-joy text-xs font-bold uppercase text-white">
+                      {(t.author.trim()[0] || '?').toUpperCase()}
                     </span>
-                    <span>
-                      {t.page} · {ago(t.at)}
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-baseline gap-1.5">
+                        <b className="truncate text-slate-900">{t.author}</b>
+                        <span className="shrink-0 text-xs text-slate-400">· {ago(t.at)}</span>
+                        {t.resolved && <Check className="size-3.5 shrink-0 self-center text-emerald-500" />}
+                      </span>
+                      <span className={`mt-0.5 block text-slate-700 ${isActive ? '' : 'line-clamp-2'}`}>{t.text}</span>
+                      <span className="mt-0.5 block text-[11px] text-slate-400">
+                        #{threads.indexOf(t) + 1} · {t.page}
+                      </span>
                     </span>
-                  </div>
-                  <p className="mt-1 text-slate-800">{t.text}</p>
-                </button>
-                {t.replies.map((r) => (
-                  <p key={r.id} className="mt-2 border-l-2 border-pink-200 pl-2 text-xs text-slate-600">
-                    <b>{r.author}</b> · {r.text}
-                  </p>
-                ))}
-                {active === t.id && (
-                  <div className="mt-2 flex gap-1">
-                    <input
-                      value={replyText}
-                      onChange={(e) => setReplyText(e.target.value)}
-                      onKeyDown={(e) => e.key === 'Enter' && addReply(t.id)}
-                      placeholder={name ? 'Reply…' : 'Add a comment first to set your name'}
-                      disabled={!name}
-                      className="h-8 min-w-0 flex-1 rounded-full border border-slate-200 px-3 text-xs outline-none focus:border-pink-400"
-                    />
-                    <button
-                      onClick={() => save(threads.map((x) => (x.id === t.id ? { ...x, resolved: !x.resolved } : x)))}
-                      className="grid size-8 place-items-center rounded-full bg-emerald-50 text-emerald-600"
-                      aria-label="Resolve"
-                      title={t.resolved ? 'Reopen' : 'Resolve'}
-                    >
-                      <Check className="size-4" />
-                    </button>
-                    <button
-                      onClick={() => save(threads.filter((x) => x.id !== t.id))}
-                      className="grid size-8 place-items-center rounded-full bg-rose-50 text-rose-500"
-                      aria-label="Delete"
-                    >
-                      <Trash2 className="size-4" />
-                    </button>
-                  </div>
-                )}
-              </div>
-            ))}
+                  </button>
+                  {isActive && (
+                    <div className="ml-11">
+                      {t.replies.map((r) => (
+                        <p key={r.id} className="mt-2 border-l-2 border-pink-200 pl-2 text-xs text-slate-600">
+                          <b>{r.author}</b> · {r.text}
+                        </p>
+                      ))}
+                      <div className="mt-2 flex gap-1">
+                        <input
+                          value={replyText}
+                          onChange={(e) => setReplyText(e.target.value)}
+                          onKeyDown={(e) => e.key === 'Enter' && addReply(t.id)}
+                          placeholder={name ? 'Reply…' : 'Add a comment first to set your name'}
+                          disabled={!name}
+                          className="h-8 min-w-0 flex-1 rounded-full border border-slate-200 bg-white px-3 text-xs outline-none focus:border-pink-400"
+                        />
+                        <button
+                          onClick={() => save(threads.map((x) => (x.id === t.id ? { ...x, resolved: !x.resolved } : x)))}
+                          className="grid size-8 place-items-center rounded-full bg-emerald-50 text-emerald-600"
+                          aria-label="Resolve"
+                          title={t.resolved ? 'Reopen' : 'Resolve'}
+                        >
+                          <Check className="size-4" />
+                        </button>
+                        <button
+                          onClick={() => save(threads.filter((x) => x.id !== t.id))}
+                          className="grid size-8 place-items-center rounded-full bg-rose-50 text-rose-500"
+                          aria-label="Delete"
+                        >
+                          <Trash2 className="size-4" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
         </aside>
       )}

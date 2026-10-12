@@ -5,14 +5,17 @@ import { JoyButton } from '../ui'
 import { VideoButton } from './video-button'
 import { FeatureShowcase } from './feature-showcase'
 
-function Butterfly({ a, b, className, style, small }: { a: string; b: string; className?: string; style?: React.CSSProperties; small?: boolean }) {
+function ButterflyPic({ src, w, className, style, flip }: { src: string; w: number; className?: string; style?: React.CSSProperties; flip?: boolean }) {
   return (
     <span className={className} style={style}>
-      <svg viewBox="0 0 40 32" className={small ? 'size-8' : 'size-11'}>
-        <g className="joy-wing joy-wing-l"><path d="M20 16C14 2 2 2 3 12c1 8 10 8 17 4z" fill={a} /><path d="M20 17C13 24 6 30 11 28c6-1 9-5 9-11z" fill={b} /></g>
-        <g className="joy-wing joy-wing-r"><path d="M20 16C26 2 38 2 37 12c-1 8-10 8-17 4z" fill={a} /><path d="M20 17C27 24 34 30 29 28c-6-1-9-5-9-11z" fill={b} /></g>
-        <rect x="19" y="9" width="2" height="14" rx="1" fill="#5b3a4a" />
-      </svg>
+      <Image
+        src={src}
+        alt=""
+        width={w}
+        height={Math.round(w * 0.82)}
+        className={`joy-flutter h-auto drop-shadow-[0_8px_14px_rgba(120,90,200,0.25)] ${flip ? '-scale-x-100' : ''}`}
+        style={{ width: w }}
+      />
     </span>
   )
 }
@@ -78,9 +81,9 @@ export function Hero() {
           <div className="pointer-events-none absolute inset-0 z-20" aria-hidden="true">
             <span className="joy-giggle absolute left-[30%] top-[6%] rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-semibold text-joy-pink shadow ring-1 ring-border">Hehe!</span>
             <span className="joy-giggle absolute right-[24%] top-[10%] rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-semibold text-joy-pink shadow ring-1 ring-border" style={{ animationDelay: '-1.1s' }}>Haha!</span>
-            <Butterfly className="joy-fly absolute left-[4%] top-[18%]" a="#f0449a" b="#ffb3d4" />
-            <Butterfly className="joy-fly absolute right-[6%] top-[42%]" a="#4aa8ff" b="#bfe0ff" style={{ animationDelay: '-4s', animationDuration: '9s' }} small />
-            <Butterfly className="joy-fly absolute left-[10%] top-[62%]" a="#ff9a3c" b="#ffd8a8" style={{ animationDelay: '-2s', animationDuration: '11s' }} small />
+            <ButterflyPic src="/images/butterfly-purple.webp" w={76} className="joy-fly absolute left-[0%] top-[22%]" />
+            <ButterflyPic src="/images/butterfly-blue.webp" w={60} className="joy-fly absolute right-[4%] top-[40%]" style={{ animationDelay: '-4s', animationDuration: '9s' }} />
+            <ButterflyPic src="/images/butterfly-purple.webp" w={52} flip className="joy-fly absolute left-[10%] top-[62%]" style={{ animationDelay: '-2s', animationDuration: '11s' }} />
           </div>
           <div className="animate-float absolute left-0 top-2 flex md:origin-top-left md:scale-[0.7] lg:top-8 lg:scale-100 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:px-4 md:py-3 lg:-left-10">
             <span className="text-2xl" aria-hidden="true">🦁</span>

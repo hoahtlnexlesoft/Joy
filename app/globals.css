@@ -347,6 +347,8 @@ html, body { overflow-x: clip; max-width: 100%; }
   100% { opacity: 0; transform: translateY(-14px) scale(0.9); }
 }
 .joy-fly { animation: joy-fly 8s ease-in-out infinite alternate; }
+.joy-flutter { animation: joy-flutter 0.5s ease-in-out infinite alternate; transform-origin: 50% 60%; }
+@keyframes joy-flutter { from { transform: scale(1, 1); } to { transform: scale(0.93, 1.05); } }
 @keyframes joy-fly {
   0% { transform: translate(0, 0) rotate(8deg); }
   25% { transform: translate(5rem, -1.2rem) rotate(-6deg); }
@@ -366,7 +368,7 @@ html, body { overflow-x: clip; max-width: 100%; }
   100% { transform: translate(1rem, -0.6rem) rotate(6deg); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .joy-giggle, .joy-fly, .joy-wing { animation: none; }
+  .joy-giggle, .joy-fly, .joy-wing, .joy-flutter { animation: none; }
   .joy-giggle { opacity: 1; }
 }
 

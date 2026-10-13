@@ -4,7 +4,6 @@ import { Play, Sparkles } from '@/components/joy/cute-icons'
 import { JoyButton } from '../ui'
 import { VideoButton } from './video-button'
 import { FeatureShowcase } from './feature-showcase'
-import { FreePlanNote, isOptionB } from './option-b'
 
 export function Hero() {
   return (
@@ -43,18 +42,12 @@ export function Hero() {
               See how it works
             </VideoButton>
           </div>
-          {isOptionB ? (
-            <>
-              <FreePlanNote />
-            </>
-          ) : (
           <p className="text-sm text-muted-foreground">
             Create your parent account in a few minutes. Already have one?{' '}
             <Link href="#download" className="font-semibold text-foreground underline underline-offset-4">
               Log in
             </Link>
           </p>
-          )}
         </div>
 
         <div className="relative max-lg:pt-14">
@@ -70,7 +63,7 @@ export function Hero() {
             priority
             className="relative mx-auto h-auto w-full max-w-[22rem] sm:max-w-[26rem] lg:max-w-[28rem] drop-shadow-[0_20px_30px_rgba(244,150,120,0.18)]"
           />
-          <div className={isOptionB ? 'hidden' : 'absolute left-0 top-0 flex sm:left-[10%] md:left-[18%] lg:left-auto lg:top-8 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur lg:px-4 lg:py-3 lg:-left-10'}>
+          <div className={'absolute left-0 top-0 flex sm:left-[10%] md:left-[18%] lg:left-auto lg:top-8 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur lg:px-4 lg:py-3 lg:-left-10'}>
             <span className="text-2xl" aria-hidden="true">🦁</span>
             <div>
               <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Child nature</p>
@@ -78,7 +71,7 @@ export function Hero() {
             </div>
           </div>
           <div
-            className={isOptionB ? 'hidden' : 'absolute bottom-6 right-0 flex sm:right-[10%] md:right-[18%] lg:right-auto lg:bottom-10 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur lg:px-4 lg:py-3 lg:-right-8'}
+            className={'absolute bottom-6 right-0 flex sm:right-[10%] md:right-[18%] lg:right-auto lg:bottom-10 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur lg:px-4 lg:py-3 lg:-right-8'}
           >
             <span className="text-2xl" aria-hidden="true">😊</span>
             <div>

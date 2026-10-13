@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
+import { TelegramIcon } from '@/components/joy/telegram-icon'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Heart, Mail, MessageCircle, Phone, ShieldCheck, Sparkles } from '@/components/joy/cute-icons'
+import { ArrowRight, Heart, Mail, Phone, ShieldCheck, Sparkles } from '@/components/joy/cute-icons'
 import { GrowthCycleIllustration } from '@/components/joy/landing/growth-cycle-slider'
 import { ContactLink } from '@/components/joy/contact-link'
 import { BlinkingAnimals } from '@/components/joy/blinking-animals'
@@ -502,7 +503,7 @@ export default function HowItWorksPage() {
                 <ul className="grid gap-3 md:grid-cols-3">
                   {[
                     { icon: Mail, label: 'Email', value: 'support@joykids.app', href: 'mailto:support@joykids.app', tint: 'bg-peach text-joy-orange' },
-                    { icon: MessageCircle, label: 'Telegram', value: '@JoyKidsSupport', href: 'https://t.me/JoyKidsSupport', appHref: 'tg://resolve?domain=JoyKidsSupport', tint: 'bg-sky text-joy-sky' },
+                    { icon: TelegramIcon, label: 'Telegram', value: '@JoyKidsSupport', href: 'https://t.me/JoyKidsSupport', appHref: 'tg://resolve?domain=JoyKidsSupport', tint: 'bg-sky text-joy-sky' },
                     { icon: Phone, label: 'WhatsApp', value: '+95 9 123 456 789', href: 'https://wa.me/959123456789', appHref: 'whatsapp://send?phone=959123456789', tint: 'bg-mint text-joy-mint' },
                   ].map((c) => (
                     <li key={c.label}>

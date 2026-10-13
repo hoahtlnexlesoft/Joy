@@ -3,11 +3,12 @@
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { ContactLink } from '@/components/joy/contact-link'
-import { Mail, MessageCircle, MessageCircleHeart, Phone, X } from '@/components/joy/cute-icons'
+import { TelegramIcon } from '@/components/joy/telegram-icon'
+import { Mail, MessageCircleHeart, Phone, X } from '@/components/joy/cute-icons'
 
 const CHANNELS = [
   { icon: Mail, label: 'Email', value: 'support@joykids.app', note: 'Reply within 24 hours', href: 'mailto:support@joykids.app' },
-  { icon: MessageCircle, label: 'Telegram', value: '@JoyKidsSupport', note: 'Chat with the Joy team', href: 'https://t.me/JoyKidsSupport', appHref: 'tg://resolve?domain=JoyKidsSupport' },
+  { icon: TelegramIcon, label: 'Telegram', value: '@JoyKidsSupport', note: 'Chat with the Joy team', href: 'https://t.me/JoyKidsSupport', appHref: 'tg://resolve?domain=JoyKidsSupport' },
   { icon: Phone, label: 'WhatsApp', value: '+95 9 123 456 789', note: 'Quick answers, any time', href: 'https://wa.me/959123456789', appHref: 'whatsapp://send?phone=959123456789' },
 ]
 

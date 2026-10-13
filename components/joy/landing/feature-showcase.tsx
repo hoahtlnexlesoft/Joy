@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { ArrowRight, CalendarDays, Compass, Library, Smile, Waypoints, type LucideIcon } from '@/components/joy/cute-icons'
+import { ArrowRight } from '@/components/joy/cute-icons'
+import { BooksIcon, DayIcon, SmileyIcon, SproutIcon, StepsIcon } from '@/components/joy/landing/showcase-icons'
 import { cn } from '@/lib/utils'
 
 type Feature = {
@@ -12,7 +13,9 @@ type Feature = {
   description: string
   image: string
   alt: string
-  icon: LucideIcon
+  icon: (p: { className?: string }) => React.ReactElement
+  badgeBg: string
+  badgeFg: string
   overlay: string
   imageScale?: string
 }
@@ -34,7 +37,9 @@ const features: Feature[] = [
     description: "Discover your child's core element, animal friend, and natural growth archetype.",
     image: '/images/child-nature-animals.jpg',
     alt: 'A group of cute animal friends on a fluffy pastel cloud with a rainbow',
-    icon: Compass,
+    icon: SproutIcon,
+    badgeBg: 'bg-gradient-to-br from-[#FFC857] to-[#FF8A3D]',
+    badgeFg: 'text-[#E2661F]',
     overlay: 'from-[#5a2a12]/95 via-[#5a2a12]/60',
     imageScale: 'scale-100',
   },
@@ -45,7 +50,9 @@ const features: Feature[] = [
     description: 'A continuous journey through Alpha, Omega, Crystal, and Rainbow adapted to their age.',
     image: '/images/growth-path-cycle.jpg',
     alt: 'Growth path cycle of cute characters: Alpha, Omega, Crystal and Rainbow',
-    icon: Waypoints,
+    icon: StepsIcon,
+    badgeBg: 'bg-gradient-to-br from-[#D59BFF] to-[#9A63F0]',
+    badgeFg: 'text-[#8348E0]',
     overlay: 'from-[#5b1f4d]/95 via-[#5b1f4d]/60',
   },
   {
@@ -55,7 +62,9 @@ const features: Feature[] = [
     description: 'Morning mindfulness, afternoon adventures, and evening enchantment routines.',
     image: '/images/daily-adventure.jpg',
     alt: 'Four happy kids and a puppy on a mountain trail with a map, binoculars and a tent by the lake',
-    icon: CalendarDays,
+    icon: DayIcon,
+    badgeBg: 'bg-gradient-to-br from-[#5EE0B5] to-[#1FB59A]',
+    badgeFg: 'text-[#E8487D]',
     overlay: 'from-[#163d33]/95 via-[#163d33]/60',
   },
   {
@@ -65,7 +74,9 @@ const features: Feature[] = [
     description: 'Explore 1,000+ interactive videos, exercises, music, and mindfulness stories.',
     image: '/images/joy-collection-yoga.jpg',
     alt: 'A group of cute animal friends on a fluffy pastel cloud with a rainbow',
-    icon: Library,
+    icon: BooksIcon,
+    badgeBg: 'bg-gradient-to-br from-[#9D8CFF] to-[#6262EE]',
+    badgeFg: 'text-[#6A4FE0]',
     overlay: 'from-[#2e1f63]/95 via-[#2e1f63]/60',
   },
   {
@@ -75,7 +86,9 @@ const features: Feature[] = [
     description: 'Parents see daily emotion check-ins and activity summaries in one clear dashboard.',
     image: '/images/feeling-log-heart.jpg',
     alt: 'A cheerful child surrounded by floating emotion bubbles',
-    icon: Smile,
+    icon: SmileyIcon,
+    badgeBg: 'bg-gradient-to-br from-[#FF9DBE] to-[#F2558F]',
+    badgeFg: 'text-[#C23A6E]',
     overlay: 'from-[#1b3a63]/95 via-[#1b3a63]/60',
   },
 ]
@@ -169,8 +182,15 @@ export function FeatureShowcase() {
 
                 <div className="relative flex h-full flex-col justify-between p-5 md:p-6">
                   <div className="flex items-start justify-between gap-3">
-                    <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-white/25 text-white ring-1 ring-white/40 backdrop-blur-md md:size-14">
-                      <Icon className="size-6 md:size-7" aria-hidden="true" />
+                    <span
+                      className={cn(
+                        'relative inline-flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-[1.1rem] shadow-[0_8px_18px_-6px_rgba(40,20,60,0.55)] ring-2 ring-white/90 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110 md:size-14',
+                        feature.badgeBg,
+                        feature.badgeFg,
+                      )}
+                    >
+                      <span aria-hidden="true" className="absolute -left-1 -top-2 h-1/2 w-[85%] rotate-[-18deg] rounded-full bg-white/35" />
+                      <Icon className="relative size-8 drop-shadow-[0_1px_1px_rgba(0,0,0,0.15)] md:size-9" />
                     </span>
                     <span
                       className={cn(

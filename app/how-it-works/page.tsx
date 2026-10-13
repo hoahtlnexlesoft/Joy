@@ -93,7 +93,7 @@ function Topic({
   children?: React.ReactNode
 }) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-32 relative z-[1] rounded-[2rem] bg-white/95 px-4 py-5 md:px-5 md:py-6 lg:py-8 shadow-[0_12px_38px_-30px_rgba(42,34,64,0.32)] ring-1 ring-border/70 backdrop-blur-[2px] md:px-9 md:py-5">
+    <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-32 relative z-[1] max-sm:rounded-[1.5rem] rounded-[2rem] bg-white/95 px-3 py-4 sm:px-4 sm:py-5 md:px-5 md:py-6 lg:py-8 shadow-[0_12px_38px_-30px_rgba(42,34,64,0.32)] ring-1 ring-border/70 backdrop-blur-[2px] md:px-9 md:py-5">
       <div className="flex items-center gap-4">
         <GuideIcon id={id} variant="section" />
         <h2 id={`${id}-title`} className="text-3xl font-medium tracking-tight md:text-4xl">
@@ -107,7 +107,7 @@ function Topic({
 }
 
 function Card({ className, children }: { className?: string; children: React.ReactNode }) {
-  return <div className={cn('rounded-3xl p-6', className)}>{children}</div>
+  return <div className={cn('rounded-3xl p-4 sm:p-6', className)}>{children}</div>
 }
 
 export default function HowItWorksPage() {
@@ -130,7 +130,7 @@ export default function HowItWorksPage() {
       <GuideDecorations />
       <SiteHeader />
       <main className="relative overflow-clip">
-        <section className="relative z-10 overflow-hidden px-4 pb-8 pt-8 md:min-h-[460px] md:pb-6 lg:pb-10 md:pt-6 lg:pt-10">
+        <section className="relative z-10 overflow-hidden px-3 sm:px-4 pb-8 pt-8 md:min-h-[460px] md:pb-6 lg:pb-10 md:pt-6 lg:pt-10">
           <div className="relative mx-auto grid max-w-6xl items-center gap-3 md:grid-cols-[.95fr_1.05fr] md:gap-4 lg:gap-8">
             <div className="flex flex-col items-center gap-4 text-center md:items-start md:text-left">
               <Eyebrow>Parent guide</Eyebrow>
@@ -156,13 +156,13 @@ export default function HowItWorksPage() {
           </div>
         </section>
 
-        <section aria-label="Browse guide topics" className="relative z-10 px-4 pb-8 pt-2 md:pb-8 lg:pb-14">
+        <section aria-label="Browse guide topics" className="relative z-10 px-3 sm:px-4 pb-8 pt-2 md:pb-8 lg:pb-14">
           <div className="mx-auto max-w-6xl">
             <TopicGrid topics={topics} />
           </div>
         </section>
 
-        <div className="relative z-10 px-4 pb-10">
+        <div className="relative z-10 px-2.5 sm:px-4 pb-10">
           <div className="mx-auto grid max-w-6xl gap-5 lg:grid-cols-[220px_1fr] lg:gap-12">
             <GuideToc topics={topics} />
 
@@ -301,7 +301,7 @@ export default function HowItWorksPage() {
               <section
                 id="stages"
                 aria-labelledby="stages-title"
-                className="scroll-mt-32 relative z-[1] overflow-hidden rounded-[2rem] bg-white/95 px-5 py-8 shadow-[0_12px_38px_-30px_rgba(42,34,64,0.32)] ring-1 ring-border/70 backdrop-blur-[2px] md:px-9 md:py-5 lg:py-9"
+                className="scroll-mt-32 relative z-[1] overflow-hidden max-sm:rounded-[1.5rem] rounded-[2rem] bg-white/95 px-3 py-6 sm:px-5 sm:py-8 shadow-[0_12px_38px_-30px_rgba(42,34,64,0.32)] ring-1 ring-border/70 backdrop-blur-[2px] md:px-9 md:py-5 lg:py-9"
               >
                 <div className="relative">
                   <span aria-hidden="true" className="absolute -right-1 top-0 size-5 rotate-45 rounded-md bg-joy-lilac/15" />
@@ -314,7 +314,7 @@ export default function HowItWorksPage() {
                 </div>
 
                 <div className="mt-6 grid items-center gap-5 lg:grid-cols-[1.15fr_0.95fr]">
-                  <figure className="rounded-[1.75rem] bg-gradient-to-br from-white via-[#fffdfb] to-[#f7f3ff] p-4 ring-1 ring-border/80 sm:p-5">
+                  <figure className="rounded-[1.75rem] bg-gradient-to-br from-white via-[#fffdfb] to-[#f7f3ff] p-3.5 ring-1 ring-border/80 sm:p-5">
                     <GrowthCycleIllustration />
                     <figcaption className="mt-2 text-center text-xs leading-relaxed text-muted-foreground">
                       The journey repeats and adapts as your child grows.
@@ -337,7 +337,7 @@ export default function HowItWorksPage() {
                   </ol>
                 </div>
 
-                <section aria-labelledby="improvement-title" className="relative mt-6 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#fffaf3] via-white to-[#f6f1ff] p-5 ring-1 ring-border/80 sm:p-6 md:p-7">
+                <section aria-labelledby="improvement-title" className="relative mt-6 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#fffaf3] via-white to-[#f6f1ff] p-4 ring-1 ring-border/80 sm:p-6 md:p-7">
                   <span aria-hidden="true" className="absolute -right-5 -top-6 size-20 rotate-45 rounded-2xl border-[10px] border-white/70" />
                   <div className="relative grid items-center gap-6 md:grid-cols-[1fr_0.85fr] md:gap-6 lg:gap-10">
                     <div>

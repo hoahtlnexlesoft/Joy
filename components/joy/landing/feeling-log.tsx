@@ -234,7 +234,7 @@ export function FeelingLog() {
     <section
       id="feeling-log"
       aria-labelledby="feeling-title"
-      className="scroll-mt-28 bg-foreground px-4 py-10 text-background md:py-9 lg:py-28"
+      className="scroll-mt-28 bg-foreground px-3 sm:px-4 py-10 text-background md:py-9 lg:py-28"
     >
       <div className="mx-auto grid max-w-6xl items-center gap-8 lg:gap-14 lg:grid-cols-[0.9fr_1.1fr]">
         <div className="flex flex-col items-start gap-4 md:gap-6">
@@ -266,7 +266,7 @@ export function FeelingLog() {
         </div>
 
         <figure className="relative">
-          <div className="rounded-[2rem] bg-background p-4 text-foreground shadow-2xl md:p-5">
+          <div className="rounded-[2rem] bg-background p-3 text-foreground shadow-2xl sm:p-4 md:p-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Image

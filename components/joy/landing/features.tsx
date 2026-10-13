@@ -38,7 +38,7 @@ function FeatureRow({
         <p className="text-pretty text-lg leading-relaxed text-muted-foreground">{body}</p>
         {extra}
       </div>
-      <div className={cn('relative rounded-[2.25rem] p-5 md:p-7', tint, reverse && 'md:order-1')}>{children}</div>
+      <div className={cn('relative rounded-[2.25rem] max-sm:rounded-[1.75rem] p-3 sm:p-5 md:p-7', tint, reverse && 'md:order-1')}>{children}</div>
     </article>
   )
 }
@@ -75,7 +75,7 @@ function TagList({ tags = movementTags }: { tags?: typeof movementTags }) {
 
 export function Features() {
   return (
-    <section id="about" aria-labelledby="about-title" className="scroll-mt-28 px-4 py-8 md:py-9 lg:py-24">
+    <section id="about" aria-labelledby="about-title" className="scroll-mt-28 px-3 sm:px-4 py-8 md:py-9 lg:py-24">
       <div className="mx-auto mb-8 max-w-4xl text-center md:mb-9 lg:mb-28">
         <h2 id="about-title" className="text-3xl font-normal leading-snug tracking-tight md:text-4xl md:leading-[1.15] lg:text-5xl">
           Every child grows in their own way. Joy gets to know yours, then{' '}
@@ -141,7 +141,7 @@ export function Features() {
             </div>
           }
         >
-          <div className="mx-auto max-w-sm rounded-[2rem] bg-white p-3.5 shadow-xl">
+          <div className="mx-auto max-w-none sm:max-w-sm rounded-[2rem] bg-white p-3 sm:p-3.5 shadow-xl">
             <div className="flex items-center justify-between">
               <span className="rounded-full bg-gradient-joy px-3 py-1 text-xs font-semibold text-white">Premium Plus</span>
               <span className="text-xs font-medium text-muted-foreground">Today</span>
@@ -179,7 +179,7 @@ export function Features() {
           tint="bg-lavender"
           reverse
         >
-          <div className="mx-auto max-w-sm rounded-[2rem] bg-white p-3.5 shadow-xl">
+          <div className="mx-auto max-w-none sm:max-w-sm rounded-[2rem] bg-white p-3 sm:p-3.5 shadow-xl">
             <div className="flex items-center justify-between">
               <p className="font-display text-lg font-medium">Heart &amp; Mind Balance</p>
               <span className="rounded-full bg-mint px-2.5 py-1 text-[11px] font-semibold text-[#1d7a55]">Free Plan</span>

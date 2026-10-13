@@ -122,6 +122,7 @@ export function CommentLayer() {
   const [flash, setFlash] = useState<string | null>(null)
   const [tick, setTick] = useState(0)
   const [copied, setCopied] = useState(false)
+  const [replyFor, setReplyFor] = useState<string | null>(null)
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [filter, setFilter] = useState<'all' | 'open' | 'resolved'>('all')
   const hoverRef = useRef<HTMLElement | null>(null)
@@ -379,6 +380,7 @@ export function CommentLayer() {
     if (lastSig === sig && now - Number(lastAt) < 1500) return
     lastSend.current = `${sig}@@${now}`
     setReplyText('')
+    setReplyFor(null)
     save(
       threadsRef.current.map((t) =>
         t.id === id ? { ...t, replies: [...t.replies, { id: uid(), author: name, text, at: now }] } : t,
@@ -598,44 +600,59 @@ export function CommentLayer() {
                       )
                     })}
                   </div>
-                  {isActive && (
-                    <div className="ml-11">
-                      {t.replies.map((r) => (
-                        <p key={r.id} className="mt-2 border-l-2 pl-2 text-xs text-slate-600" style={{ borderColor: colorFor(r.author) }}>
-                          <b style={{ color: colorFor(r.author) }}>{r.author}</b> · {r.text}
-                        </p>
-                      ))}
-                      <div className="mt-2 flex gap-1">
-                        <input
-                          value={replyText}
-                          onChange={(e) => setReplyText(e.target.value)}
-                          onKeyDown={(e) => {
-                            if (e.key !== 'Enter' || e.nativeEvent.isComposing || e.repeat) return
-                            e.preventDefault()
-                            addReply(t.id)
-                          }}
-                          placeholder={name ? 'Reply…' : 'Add a comment first to set your name'}
-                          disabled={!name}
-                          className="h-8 min-w-0 flex-1 rounded-full border border-slate-200 bg-white px-3 text-xs outline-none focus:border-indigo-400"
-                        />
-                        <button
-                          onClick={() => save(threads.map((x) => (x.id === t.id ? { ...x, resolved: !x.resolved } : x)))}
-                          className="grid size-8 place-items-center rounded-full bg-emerald-50 text-emerald-600"
-                          aria-label="Resolve"
-                          title={t.resolved ? 'Reopen' : 'Resolve'}
-                        >
-                          <Check className="size-4" />
-                        </button>
-                        <button
-                          onClick={() => save(threads.filter((x) => x.id !== t.id))}
-                          className="grid size-8 place-items-center rounded-full bg-rose-50 text-rose-500"
-                          aria-label="Delete"
-                        >
-                          <Trash2 className="size-4" />
-                        </button>
-                      </div>
+                  <div className="ml-11">
+                    {t.replies.map((r) => (
+                      <p key={r.id} className="mt-2 border-l-2 pl-2 text-xs text-slate-600" style={{ borderColor: colorFor(r.author) }}>
+                        <b style={{ color: colorFor(r.author) }}>{r.author}</b> · {r.text}
+                      </p>
+                    ))}
+                    <div className="mt-2 flex items-center gap-1 text-xs font-semibold text-slate-500">
+                      <button
+                        type="button"
+                        onClick={() => setReplyFor(replyFor === t.id ? null : t.id)}
+                        className={`rounded-full px-2.5 py-1 hover:bg-white ${replyFor === t.id ? 'bg-white text-indigo-600' : ''}`}
+                      >
+                        Reply{t.replies.length ? ` (${t.replies.length})` : ''}
+                      </button>
+                      <button type="button" onClick={() => goTo(t)} className="rounded-full px-2.5 py-1 hover:bg-white" title="Scroll to where this comment was left">
+                        Show on page
+                      </button>
+                      <span className="flex-1" />
+                      <button
+                        type="button"
+                        onClick={() => save(threads.map((x) => (x.id === t.id ? { ...x, resolved: !x.resolved } : x)))}
+                        className="grid size-7 place-items-center rounded-full bg-emerald-50 text-emerald-600"
+                        aria-label={t.resolved ? 'Reopen' : 'Resolve'}
+                        title={t.resolved ? 'Reopen' : 'Resolve'}
+                      >
+                        <Check className="size-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => save(threads.filter((x) => x.id !== t.id))}
+                        className="grid size-7 place-items-center rounded-full bg-rose-50 text-rose-500"
+                        aria-label="Delete"
+                        title="Delete"
+                      >
+                        <Trash2 className="size-3.5" />
+                      </button>
                     </div>
-                  )}
+                    {replyFor === t.id && (
+                      <input
+                        autoFocus
+                        value={replyText}
+                        onChange={(e) => setReplyText(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key !== 'Enter' || e.nativeEvent.isComposing || e.repeat) return
+                          e.preventDefault()
+                          addReply(t.id)
+                        }}
+                        placeholder={name ? 'Write a reply, press Enter…' : 'Add a comment first to set your name'}
+                        disabled={!name}
+                        className="mt-2 h-8 w-full rounded-full border border-slate-200 bg-white px-3 text-xs outline-none focus:border-indigo-400"
+                      />
+                    )}
+                  </div>
                 </div>
               )
             })}

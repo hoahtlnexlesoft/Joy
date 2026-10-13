@@ -90,9 +90,21 @@ export function SiteHeader() {
       <div className={cn(
         'relative isolate z-10 mx-auto flex max-w-6xl items-center justify-between gap-2 rounded-full py-2 pl-3 pr-2 lg:gap-4 lg:pl-4 transition-all duration-300',
         hasScrolled
-          ? 'bg-[#fffaf6] shadow-[0_10px_30px_-18px_rgba(214,74,140,0.4)] ring-1 ring-[#f1d9d2]/80'
-          : 'bg-transparent',
+          ? 'shadow-[0_10px_30px_-18px_rgba(214,74,140,0.4)] ring-1 ring-[#f1d9d2]/80'
+          : '',
       )}>
+        <span
+          aria-hidden="true"
+          data-no-reveal
+          className={cn(
+            'pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-full bg-[#fff4ee] transition-opacity duration-300',
+            hasScrolled ? 'opacity-100' : 'opacity-0',
+          )}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/footer-clouds.jpg" alt="" className="size-full object-cover object-bottom" />
+          <span className="absolute inset-0 bg-[#fffaf6]/25" />
+        </span>
         <Link href="/" aria-label="Joy home" className="shrink-0">
           <Image src="/images/joy-logo.webp" alt="Joy" width={110} height={50} priority className="h-10 w-auto" />
         </Link>

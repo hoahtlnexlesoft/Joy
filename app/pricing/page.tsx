@@ -342,7 +342,8 @@ export default function PricingPage() {
               <li className="flex items-center gap-2"><CellMark value="none" /> Not included</li>
             </ul>
 
-            <div className="relative mt-10 overflow-x-auto rounded-[2rem] bg-white ring-1 ring-border shadow-[0_20px_50px_-30px_rgba(42,34,64,0.25)]">
+            <p className="mt-8 text-center text-xs font-medium text-muted-foreground md:hidden">Swipe sideways to compare all plans →</p>
+            <div className="relative mt-3 overflow-x-auto rounded-[2rem] bg-white ring-1 ring-border shadow-[0_20px_50px_-30px_rgba(42,34,64,0.25)]">
               <table className="w-full min-w-[760px] border-collapse text-left">
                 <caption className="sr-only">Features included in each plan type</caption>
                 <thead>
@@ -383,7 +384,7 @@ export default function PricingPage() {
                     <th scope="row" className="p-5 text-sm font-semibold">Get started</th>
                     {columns.map((c) => (
                       <td key={c.name} className={cn('p-5 text-center', c.highlight && 'bg-lavender/40')}>
-                        <JoyButton href={c.cta.href} variant={c.highlight ? 'primary' : 'ghost'} className="h-10 px-4 text-xs">
+                        <JoyButton href={c.cta.href} variant={c.highlight ? 'primary' : 'ghost'} className="h-10 whitespace-nowrap px-4 text-xs">
                           {c.cta.label}
                         </JoyButton>
                       </td>

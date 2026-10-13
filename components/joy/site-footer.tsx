@@ -16,7 +16,7 @@ function StoreBadge({ store, light = false }: { store: 'apple' | 'google'; light
       href="#download"
       className={
         light
-          ? 'inline-flex h-16 w-52 items-center gap-3 rounded-full bg-white px-7 text-foreground shadow-[0_12px_30px_-18px_rgba(248,96,143,0.6)] transition-transform hover:-translate-y-0.5'
+          ? 'inline-flex h-16 w-56 items-center gap-3 rounded-full bg-white px-6 text-foreground shadow-[0_12px_30px_-18px_rgba(248,96,143,0.6)] transition-transform hover:-translate-y-0.5'
           : 'inline-flex h-14 items-center gap-3 rounded-2xl bg-foreground px-5 text-background transition-transform hover:-translate-y-0.5'
       }
     >
@@ -30,7 +30,7 @@ function StoreBadge({ store, light = false }: { store: 'apple' | 'google'; light
         </svg>
       )}
       <span className="flex flex-col leading-tight">
-        <span className="text-[10px] uppercase tracking-wider opacity-70">
+        <span className="whitespace-nowrap text-[10px] uppercase tracking-wider opacity-70">
           {store === 'apple' ? 'Download on the' : 'Get it on'}
         </span>
         <span className="text-base font-semibold">{store === 'apple' ? 'App Store' : 'Google Play'}</span>

@@ -51,12 +51,13 @@ export function SiteHeader() {
   // mobile menu: lock page scroll, close on Escape and when the page changes
   useEffect(() => {
     if (!open) return
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    const root = document.documentElement
+    const prev = root.style.overflowY
+    root.style.overflowY = 'hidden'
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
     window.addEventListener('keydown', onKey)
     return () => {
-      document.body.style.overflow = prev
+      root.style.overflowY = prev
       window.removeEventListener('keydown', onKey)
     }
   }, [open])
@@ -160,7 +161,7 @@ export function SiteHeader() {
       </div>
 
       {open ? (
-        <div id="mobile-menu" className="joy-sheet fixed inset-0 z-0 flex flex-col overflow-y-auto bg-[linear-gradient(180deg,#fff7f1_0%,#fdeef5_55%,#f3eefc_100%)] px-6 pb-28 pt-[5.5rem] md:hidden" role="dialog" aria-label="Menu">
+        <div id="mobile-menu" className="joy-sheet fixed inset-0 z-0 flex flex-col overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden bg-[linear-gradient(180deg,#fff7f1_0%,#fdeef5_55%,#f3eefc_100%)] px-6 pb-28 pt-[5.5rem] md:hidden" role="dialog" aria-label="Menu">
           <nav aria-label="Main">
             <ul className="flex flex-col gap-2.5">
               {links.map((link, i) => {

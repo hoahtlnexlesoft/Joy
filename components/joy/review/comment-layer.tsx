@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Check, ClipboardCopy, MessageCircle, MousePointerClick, Trash2, X } from '@/components/joy/cute-icons'
-import { ChevronsLeft, ChevronsRight, CircleCheck, Ellipsis, Copy as CopyIcon, SmilePlus, ArrowUp, Heart as HeartIcon, ListFilter, Search as SearchIcon, Smile as SmileIcon, ThumbsUp } from 'lucide-react'
+import { Eye, EyeOff, ChevronsLeft, ChevronsRight, CircleCheck, Ellipsis, Copy as CopyIcon, SmilePlus, ArrowUp, Heart as HeartIcon, ListFilter, Search as SearchIcon, Smile as SmileIcon, ThumbsUp } from 'lucide-react'
 
 /**
  * Customer review layer (Lovable-style): click "Comment", click any element,
@@ -161,6 +161,7 @@ export function CommentLayer() {
   const [filter, setFilter] = useState<'all' | 'open' | 'resolved'>('all')
   const [query, setQuery] = useState('')
   const [menu, setMenu] = useState<string | null>(null) // 'filter' | 'more' | thread id
+  const [hidden, setHidden] = useState(false)
   const [card, setCard] = useState<{ id: string; x: number; y: number } | null>(null)
   const [cardName, setCardName] = useState('')
   const [replyText, setReplyText] = useState('')
@@ -299,7 +300,7 @@ export function CommentLayer() {
   // push the website aside while the comments dock is showing (wide screens only)
   useEffect(() => {
     const apply = () => {
-      const w = window.innerWidth >= 640 ? (open ? PANEL_W : RAIL_W) : 0
+      const w = hidden || window.innerWidth < 640 ? 0 : open ? PANEL_W : RAIL_W
       const el = document.documentElement
       el.style.setProperty('--joy-dock', `${w}px`)
       el.setAttribute('data-joy-dock', w ? '1' : '')
@@ -311,7 +312,7 @@ export function CommentLayer() {
       document.documentElement.style.removeProperty('--joy-dock')
       document.documentElement.removeAttribute('data-joy-dock')
     }
-  }, [open])
+  }, [open, hidden])
 
   const openCard = useCallback(
     (id: string) => {
@@ -512,6 +513,31 @@ export function CommentLayer() {
   const draftPos = draft ? pos(draft) : null
   void tick
 
+  const hideAll = () => {
+    setMode(false)
+    setDraft(null)
+    setCard(null)
+    setMenu(null)
+    setHidden(true)
+  }
+
+  if (hidden) {
+    return (
+      <button
+        data-review-ui
+        onClick={() => setHidden(false)}
+        className="fixed right-0 top-1/2 z-[85] flex -translate-y-1/2 items-center gap-1.5 rounded-l-full bg-[#fafafa] py-2.5 pl-3 pr-2.5 text-slate-700 shadow-[0_4px_18px_-4px_rgba(30,20,60,0.4)] ring-1 ring-black/10 transition hover:pl-4"
+        aria-label="Show comments"
+        title="Show comments"
+      >
+        <Eye className="size-4" />
+        {threads.filter((t) => !t.resolved).length > 0 && (
+          <span className="grid min-w-5 place-items-center rounded-full bg-rose-500 px-1 text-[10px] font-bold leading-5 text-white">{threads.filter((t) => !t.resolved).length}</span>
+        )}
+      </button>
+    )
+  }
+
   return (
     <div data-review-ui>
       {/* pins */}
@@ -670,6 +696,9 @@ export function CommentLayer() {
           <button onClick={() => setOpen(true)} className="grid size-8 place-items-center rounded-full text-slate-600 hover:bg-black/5" aria-label="Open comments" title="Open comments">
             <ChevronsLeft className="size-[1.1rem]" />
           </button>
+          <button onClick={hideAll} className="grid size-8 place-items-center rounded-full text-slate-500 hover:bg-black/5" aria-label="Hide comments" title="Hide comments (view full site)">
+            <EyeOff className="size-4" />
+          </button>
           {threads.slice(0, 8).map((t) => (
             <button
               key={t.id}
@@ -702,9 +731,14 @@ export function CommentLayer() {
           {menu && <div className="fixed inset-0 z-[1]" onClick={() => setMenu(null)} />}
           <header className="flex items-center justify-between gap-2 px-4 pb-2.5 pt-4">
             <h2 className="text-sm font-bold text-slate-900">Comments</h2>
-            <button onClick={() => setOpen(false)} className="grid size-7 place-items-center rounded-full text-slate-600 hover:bg-black/5" aria-label="Collapse comments" title="Collapse">
-              <ChevronsRight className="size-4" />
-            </button>
+            <div className="flex items-center gap-0.5">
+              <button onClick={hideAll} className="grid size-7 place-items-center rounded-full text-slate-500 hover:bg-black/5" aria-label="Hide comments" title="Hide comments (view full site)">
+                <EyeOff className="size-4" />
+              </button>
+              <button onClick={() => setOpen(false)} className="grid size-7 place-items-center rounded-full text-slate-600 hover:bg-black/5" aria-label="Collapse comments" title="Collapse">
+                <ChevronsRight className="size-4" />
+              </button>
+            </div>
           </header>
           <div className="relative z-[2] flex items-center gap-1 px-4 pb-2.5">
             <label className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-full bg-white px-3 text-slate-400 ring-1 ring-slate-200 focus-within:ring-indigo-300">

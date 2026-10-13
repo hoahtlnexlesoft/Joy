@@ -42,18 +42,11 @@ const moods = [
 const maxMood = Math.max(...moods.map((m) => m.value))
 
 const weekdays = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
-const aprilOffset = 2
-const today = 10
-const feelingDays: Record<number, string> = {
-  1: '😊',
-  2: '😁',
-  3: '🔥',
-  4: '😌',
-  6: '😥',
-  7: '😊',
-  8: '💧',
-  9: '😁',
-  10: '😊',
+// Sample data: the calendar always shows the current month, with a feeling logged on most days up to today.
+const sampleFeelings = ['😊', '😁', '🔥', '😌', '😥', '😊', '💧', '😁', '😊']
+function feelingFor(day: number, today: number) {
+  if (day > today || day % 5 === 0) return undefined
+  return sampleFeelings[(day - 1) % sampleFeelings.length]
 }
 
 const tagCounts = [
@@ -158,7 +151,14 @@ function MostMoodCard() {
 }
 
 function FeelingCalendarCard() {
-  const cells = [...Array(aprilOffset).fill(null), ...Array.from({ length: 30 }, (_, i) => i + 1)]
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = now.getMonth()
+  const today = now.getDate()
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
+  const offset = (new Date(year, month, 1).getDay() + 6) % 7 // Monday-first
+  const monthName = now.toLocaleString('en-US', { month: 'long' })
+  const cells = [...Array(offset).fill(null), ...Array.from({ length: daysInMonth }, (_, i) => i + 1)]
   return (
     <div className="relative overflow-hidden rounded-2xl bg-white p-4 ring-1 ring-border">
       <span aria-hidden="true" className="pointer-events-none absolute -bottom-6 -right-4 text-6xl opacity-20">
@@ -168,7 +168,7 @@ function FeelingCalendarCard() {
         <p className="font-display text-base font-medium">Feeling Log</p>
         <div className="flex items-center gap-1 text-xs font-medium text-muted-foreground">
           <ChevronLeft className="size-3.5" aria-hidden="true" />
-          April 2026
+          {monthName} {year}
           <ChevronRight className="size-3.5" aria-hidden="true" />
         </div>
       </div>
@@ -180,7 +180,7 @@ function FeelingCalendarCard() {
         ))}
         {cells.map((day, i) => {
           if (day === null) return <span key={`empty-${i}`} />
-          const feeling = feelingDays[day]
+          const feeling = feelingFor(day, today)
           const isToday = day === today
           return (
             <span
@@ -194,7 +194,7 @@ function FeelingCalendarCard() {
                   <span aria-hidden="true" className="text-xs leading-none">
                     {feeling}
                   </span>
-                  <span className="sr-only">{`April ${day}, logged`}</span>
+                  <span className="sr-only">{`${monthName} ${day}, logged`}</span>
                 </>
               ) : (
                 day

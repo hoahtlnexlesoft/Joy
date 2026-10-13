@@ -65,7 +65,7 @@ export function Hero() {
           </p>
         </div>
 
-        <div className="relative">
+        <div className="relative max-md:pt-14">
           <div
             className="pointer-events-none absolute inset-[-10%] rounded-full bg-[radial-gradient(closest-side,#fde3ee_0%,#fdf0f5_55%,transparent_100%)]"
             aria-hidden="true"
@@ -79,13 +79,13 @@ export function Hero() {
             className="relative mx-auto h-auto w-full max-w-[22rem] md:max-w-[19rem] lg:max-w-[28rem] animate-bounce-gentle drop-shadow-[0_20px_30px_rgba(244,150,120,0.18)]"
           />
           <div className="pointer-events-none absolute inset-0 z-20" aria-hidden="true">
-            <span className="joy-giggle absolute left-[30%] top-[6%] rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-semibold text-joy-pink shadow ring-1 ring-border">Hehe!</span>
-            <span className="joy-giggle absolute right-[24%] top-[10%] rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-semibold text-joy-pink shadow ring-1 ring-border" style={{ animationDelay: '-1.1s' }}>Haha!</span>
-            <ButterflyPic src="/images/butterfly-purple.webp" w={76} className="joy-fly absolute left-[0%] top-[22%]" />
+            <span className="joy-giggle absolute left-[30%] top-[6%] max-md:hidden rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-semibold text-joy-pink shadow ring-1 ring-border">Hehe!</span>
+            <span className="joy-giggle absolute right-[24%] top-[10%] max-md:hidden rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-semibold text-joy-pink shadow ring-1 ring-border" style={{ animationDelay: '-1.1s' }}>Haha!</span>
+            <ButterflyPic src="/images/butterfly-purple.webp" w={76} className="joy-fly absolute left-[0%] top-[22%] max-md:hidden" />
             <ButterflyPic src="/images/butterfly-blue.webp" w={60} className="joy-fly absolute right-[4%] top-[40%]" style={{ animationDelay: '-4s', animationDuration: '9s' }} />
-            <ButterflyPic src="/images/butterfly-purple.webp" w={52} flip className="joy-fly absolute left-[10%] top-[62%]" style={{ animationDelay: '-2s', animationDuration: '11s' }} />
+            <ButterflyPic src="/images/butterfly-purple.webp" w={52} flip className="joy-fly absolute left-[10%] top-[62%] max-md:hidden" style={{ animationDelay: '-2s', animationDuration: '11s' }} />
           </div>
-          <div className="animate-float absolute left-0 top-2 flex md:origin-top-left md:scale-[0.7] lg:top-8 lg:scale-100 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:px-4 md:py-3 lg:-left-10">
+          <div className="animate-float absolute left-0 top-0 flex md:origin-top-left md:scale-[0.7] lg:top-8 lg:scale-100 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:px-4 md:py-3 lg:-left-10">
             <span className="text-2xl" aria-hidden="true">🦁</span>
             <div>
               <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Child nature</p>

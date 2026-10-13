@@ -89,8 +89,9 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 bg-transparent px-4 pt-4">
       <div className={cn(
         'relative isolate z-10 mx-auto flex max-w-6xl items-center justify-between gap-2 rounded-full py-2 pl-3 pr-2 lg:gap-4 lg:pl-4 transition-all duration-300',
-        'bg-[#fffaf6]/90 shadow-[0_10px_30px_-18px_rgba(214,74,140,0.4)] ring-1 ring-[#f1d9d2]/80 backdrop-blur-xl',
-        hasScrolled && 'bg-[#fffaf6]',
+        hasScrolled
+          ? 'bg-[#fffaf6] shadow-[0_10px_30px_-18px_rgba(214,74,140,0.4)] ring-1 ring-[#f1d9d2]/80'
+          : 'bg-transparent',
       )}>
         <Link href="/" aria-label="Joy home" className="shrink-0">
           <Image src="/images/joy-logo.webp" alt="Joy" width={110} height={50} priority className="h-10 w-auto" />
@@ -107,7 +108,7 @@ export function SiteHeader() {
                     onClick={() => { if (!link.href.includes('#') && pathname === link.href) window.scrollTo({ top: 0, behavior: 'smooth' }) }}
                     aria-current={active ? 'page' : undefined}
                     className={cn(
-                      'joy-navlink whitespace-nowrap rounded-full px-2.5 py-2 font-display text-[13px] font-medium text-[#3b3354] lg:px-4 lg:text-[15px]',
+                      'joy-navlink whitespace-nowrap rounded-full px-2.5 py-2 font-display text-[13px] font-semibold text-[#2a2240] lg:px-4 lg:text-[15px]',
                       active && 'is-active text-[#c2307a]',
                     )}
                   >

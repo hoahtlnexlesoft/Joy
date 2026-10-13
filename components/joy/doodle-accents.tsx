@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 const shapes = {
@@ -120,38 +120,24 @@ type Accent = {
   delay?: number
 }
 
+// A few quiet accents along the page (kept few and still so they don't compete with the content)
 const accents: Accent[] = [
-  { shape: 'rainbow', className: 'top-[6%] left-[1.5%] size-24 -rotate-6', duration: 7 },
-  { shape: 'catPaw', className: 'top-[9%] right-[2%] size-16 rotate-12', delay: 1 },
-  { shape: 'star', className: 'top-[15%] left-[6%] size-12 rotate-12', delay: 2 },
-  { shape: 'dogPaw', className: 'top-[19%] right-[6%] size-20 -rotate-12', duration: 8 },
-  { shape: 'heart', className: 'top-[26%] left-[2%] size-16 -rotate-12', delay: 0.5 },
-  { shape: 'sparkle', className: 'top-[30%] right-[1.5%] size-12', delay: 1.5 },
-  { shape: 'fish', className: 'top-[36%] left-[5%] size-16 rotate-6', duration: 7 },
-  { shape: 'rainbow', className: 'top-[41%] right-[3%] size-24 rotate-6', delay: 2.5 },
-  { shape: 'catPaw', className: 'top-[47%] left-[1.5%] size-14 -rotate-[20deg]', delay: 1 },
-  { shape: 'flower', className: 'top-[52%] right-[6%] size-14', duration: 8 },
-  { shape: 'bone', className: 'top-[57%] left-[5.5%] size-16 rotate-12', delay: 2 },
-  { shape: 'cloud', className: 'top-[62%] right-[1.5%] size-20', duration: 9 },
-  { shape: 'dogPaw', className: 'top-[67%] left-[2%] size-16 rotate-[20deg]', delay: 0.5 },
-  { shape: 'moon', className: 'top-[72%] right-[5.5%] size-14 -rotate-12', delay: 3 },
-  { shape: 'dots', className: 'top-[77%] left-[6%] size-16', duration: 7 },
-  { shape: 'catPaw', className: 'top-[81%] right-[2%] size-16 rotate-[30deg]', delay: 1.5 },
-  { shape: 'rainbow', className: 'top-[86%] left-[1.5%] size-20 rotate-3', delay: 2 },
-  { shape: 'heart', className: 'top-[90%] right-[6%] size-12 rotate-12', delay: 0.8 },
-  { shape: 'dogPaw', className: 'top-[94%] left-[6%] size-14 -rotate-6', duration: 8 },
-  { shape: 'star', className: 'top-[96%] right-[2.5%] size-12 -rotate-12', delay: 2.2 },
+  { shape: 'heart', className: 'top-[26%] left-[2%] size-14 -rotate-12' },
+  { shape: 'sparkle', className: 'top-[30%] right-[1.5%] size-10' },
+  { shape: 'catPaw', className: 'top-[47%] left-[1.5%] size-12 -rotate-[20deg]' },
+  { shape: 'flower', className: 'top-[52%] right-[5%] size-12' },
+  { shape: 'dogPaw', className: 'top-[67%] left-[2%] size-14 rotate-[20deg]' },
+  { shape: 'moon', className: 'top-[72%] right-[5.5%] size-12 -rotate-12' },
 ]
 
 export function DoodleAccents() {
   return (
     <div className="pointer-events-none absolute inset-0 z-[1] hidden overflow-hidden md:block" aria-hidden="true">
-      {accents.map(({ shape, className, duration = 6, delay = 0 }, index) => (
+      {accents.map(({ shape, className }, index) => (
         <svg
           key={`${shape}-${index}`}
           viewBox="0 0 64 64"
-          className={cn('absolute opacity-80 drop-shadow-sm motion-safe:animate-[float-soft_6s_ease-in-out_infinite]', className)}
-          style={{ animationDuration: `${duration}s`, animationDelay: `${delay}s` } as CSSProperties}
+          className={cn('absolute opacity-70 drop-shadow-sm', className)}
         >
           {shapes[shape]}
         </svg>

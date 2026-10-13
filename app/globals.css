@@ -156,7 +156,7 @@
 }
 
 .reveal-in {
-  animation: card-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) backwards;
+  animation: card-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) backwards;
 }
 
 .reveal-header {
@@ -407,10 +407,10 @@ html, body { overflow-x: clip; max-width: 100%; }
 /* Menu hover / click effects */
 .joy-navlink{position:relative;transition:background-color .25s ease,color .25s ease,transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s ease}
 .joy-navlink::after{content:"";position:absolute;left:50%;bottom:4px;height:1.5px;width:0;border-radius:99px;background:linear-gradient(90deg,#ff9a3c,#f0449a,#4aa8ff);transform:translateX(-50%);transition:width .3s cubic-bezier(.22,1,.36,1)}
-.joy-navlink:hover{background:#fff0f6;color:#c2307a;transform:translateY(-2px);box-shadow:0 6px 14px -8px rgba(240,68,154,.55)}
+.joy-navlink:hover{background:#fff0f6;color:#b82a73}
 .joy-navlink:hover::after,.joy-navlink.is-active::after{width:14px}
-.joy-navlink.is-active{background:#fff0f6}
-.joy-navlink:active{transform:translateY(0) scale(.93);background:#ffd9ea;transition-duration:.08s}
+.joy-navlink.is-active{background:#ffe3ee}
+.joy-navlink:active{background:#ffd9ea;transition-duration:.08s}
 .joy-toclink{transition:background-color .25s ease,color .25s ease,border-color .25s ease,transform .25s cubic-bezier(.34,1.56,.64,1),padding .25s ease}
 .joy-toclink:hover{transform:translateX(5px)}
 .joy-toclink:active{transform:translateX(2px) scale(.96);background:#ffd9ea;transition-duration:.08s}
@@ -418,12 +418,12 @@ html, body { overflow-x: clip; max-width: 100%; }
 @media (prefers-reduced-motion: reduce){.joy-navlink,.joy-toclink{transition:none}.joy-navlink:hover,.joy-toclink:hover{transform:none}}
 
 @keyframes card-in {
-  from { opacity: 0; transform: translate3d(-48px, 0, 0) scale(0.92); }
+  from { opacity: 0; transform: translate3d(0, 16px, 0); }
   to { opacity: 1; transform: none; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .joy-rv :is(main, footer) .rv-card.rv-in:not(.rv-now) { animation: card-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+  .joy-rv :is(main, footer) .rv-card.rv-in:not(.rv-now) { animation: card-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
 }
 
 /* mobile menu sheet */

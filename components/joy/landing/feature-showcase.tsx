@@ -113,7 +113,7 @@ export function FeatureShowcase() {
           return (
             <li
               key={feature.id}
-              style={{ '--reveal-delay': `${index * 450}ms` } as React.CSSProperties}
+              style={{ '--reveal-delay': `${index * 120}ms` } as React.CSSProperties}
               className={cn(
                 'flex w-72 shrink-0 snap-start flex-col gap-3 transition-[flex-grow] duration-500 ease-out md:w-auto md:min-w-0 md:shrink',
                 isActive ? 'md:flex-[2.6]' : 'md:flex-1',

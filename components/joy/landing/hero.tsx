@@ -5,21 +5,6 @@ import { JoyButton } from '../ui'
 import { VideoButton } from './video-button'
 import { FeatureShowcase } from './feature-showcase'
 
-function ButterflyPic({ src, w, className, style, flip }: { src: string; w: number; className?: string; style?: React.CSSProperties; flip?: boolean }) {
-  return (
-    <span className={className} style={style}>
-      <Image
-        src={src}
-        alt=""
-        width={w}
-        height={Math.round(w * 0.82)}
-        className={`joy-flutter h-auto drop-shadow-[0_8px_14px_rgba(120,90,200,0.25)] ${flip ? '-scale-x-100' : ''}`}
-        style={{ width: w }}
-      />
-    </span>
-  )
-}
-
 export function Hero() {
   return (
     <section className="relative -mt-20 overflow-hidden px-4 pb-8 pt-24 md:pb-9 lg:pb-16 md:pt-18 lg:pt-32">
@@ -76,16 +61,9 @@ export function Hero() {
             width={749}
             height={594}
             priority
-            className="relative mx-auto h-auto w-full max-w-[22rem] md:max-w-[19rem] lg:max-w-[28rem] animate-bounce-gentle drop-shadow-[0_20px_30px_rgba(244,150,120,0.18)]"
+            className="relative mx-auto h-auto w-full max-w-[22rem] md:max-w-[19rem] lg:max-w-[28rem] drop-shadow-[0_20px_30px_rgba(244,150,120,0.18)]"
           />
-          <div className="pointer-events-none absolute inset-0 z-20" aria-hidden="true">
-            <span className="joy-giggle absolute left-[30%] top-[6%] max-md:hidden rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-semibold text-joy-pink shadow ring-1 ring-border">Hehe!</span>
-            <span className="joy-giggle absolute right-[24%] top-[10%] hidden rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-semibold text-joy-pink shadow ring-1 ring-border" style={{ animationDelay: '-1.1s' }}>Haha!</span>
-            <ButterflyPic src="/images/butterfly-purple.webp" w={76} className="joy-fly absolute left-[2%] top-[60%] max-md:hidden" />
-            <ButterflyPic src="/images/butterfly-blue.webp" w={60} className="joy-fly absolute right-[4%] top-[40%]" style={{ animationDelay: '-4s', animationDuration: '9s' }} />
-            <ButterflyPic src="/images/butterfly-purple.webp" w={52} flip className="joy-fly absolute left-[10%] top-[62%] hidden" style={{ animationDelay: '-2s', animationDuration: '11s' }} />
-          </div>
-          <div className="animate-float absolute left-0 top-0 flex md:origin-top-left md:scale-[0.7] lg:top-8 lg:scale-100 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:px-4 md:py-3 lg:-left-10">
+          <div className="absolute left-0 top-0 flex md:origin-top-left md:scale-[0.7] lg:top-8 lg:scale-100 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:px-4 md:py-3 lg:-left-10">
             <span className="text-2xl" aria-hidden="true">🦁</span>
             <div>
               <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Child nature</p>
@@ -93,8 +71,7 @@ export function Hero() {
             </div>
           </div>
           <div
-            className="animate-float absolute bottom-6 right-0 flex md:origin-bottom-right md:scale-[0.7] lg:bottom-10 lg:scale-100 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:px-4 md:py-3 lg:-right-8"
-            style={{ animationDelay: '-3s' }}
+            className="absolute bottom-6 right-0 flex md:origin-bottom-right md:scale-[0.7] lg:bottom-10 lg:scale-100 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:px-4 md:py-3 lg:-right-8"
           >
             <span className="text-2xl" aria-hidden="true">😊</span>
             <div>

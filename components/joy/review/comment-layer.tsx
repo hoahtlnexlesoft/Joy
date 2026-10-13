@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Check, ClipboardCopy, MessageCircle, MousePointerClick, Trash2, X } from '@/components/joy/cute-icons'
+import { Heart as HeartIcon, Smile as SmileIcon, ThumbsUp } from 'lucide-react'
 
 /**
  * Customer review layer (Lovable-style): click "Comment", click any element,
@@ -9,6 +10,12 @@ import { Check, ClipboardCopy, MessageCircle, MousePointerClick, Trash2, X } fro
  */
 
 type Reply = { id: string; author: string; text: string; at: number }
+type ReactionKey = 'like' | 'heart' | 'smile'
+const REACTIONS: { key: ReactionKey; label: string; Icon: typeof ThumbsUp; on: string }[] = [
+  { key: 'like', label: 'Like', Icon: ThumbsUp, on: 'bg-sky-100 text-sky-700 ring-sky-300' },
+  { key: 'heart', label: 'Love', Icon: HeartIcon, on: 'bg-rose-100 text-rose-600 ring-rose-300' },
+  { key: 'smile', label: 'Smile', Icon: SmileIcon, on: 'bg-amber-100 text-amber-600 ring-amber-300' },
+]
 type Thread = {
   id: string
   page: string
@@ -22,6 +29,7 @@ type Thread = {
   at: number
   resolved: boolean
   replies: Reply[]
+  reactions?: Partial<Record<ReactionKey, string[]>>
 }
 
 const KEY = 'joy-review-comments'
@@ -317,6 +325,19 @@ export function CommentLayer() {
     return () => clearTimeout(tm)
   }, [threads, focusThread])
 
+  const toggleReaction = (id: string, key: ReactionKey) => {
+    if (!name) return
+    const me = authorKey(name)
+    save(
+      threads.map((t) => {
+        if (t.id !== id) return t
+        const cur = t.reactions?.[key] ?? []
+        const next = cur.some((n) => authorKey(n) === me) ? cur.filter((n) => authorKey(n) !== me) : [...cur, name]
+        return { ...t, reactions: { ...t.reactions, [key]: next } }
+      }),
+    )
+  }
+
   const copyOne = (t: Thread) => {
     const text = t.text
     const done = () => {
@@ -541,6 +562,27 @@ export function CommentLayer() {
                       </span>
                     </span>
                   </button>
+                  <div className="ml-11 mt-1.5 flex gap-1.5">
+                    {REACTIONS.map(({ key, label, Icon, on }) => {
+                      const who = t.reactions?.[key] ?? []
+                      const mine = !!name && who.some((n) => authorKey(n) === authorKey(name))
+                      return (
+                        <button
+                          key={key}
+                          type="button"
+                          onClick={() => toggleReaction(t.id, key)}
+                          disabled={!name}
+                          aria-pressed={mine}
+                          aria-label={label}
+                          title={name ? (who.length ? `${label}: ${who.join(', ')}` : label) : 'Add a comment first to set your name'}
+                          className={`inline-flex h-7 items-center gap-1 rounded-full px-2 text-xs font-semibold ring-1 transition disabled:cursor-not-allowed disabled:opacity-60 ${mine ? on : 'bg-white text-slate-500 ring-slate-200 hover:bg-slate-50'}`}
+                        >
+                          <Icon className="size-3.5" aria-hidden="true" />
+                          {who.length > 0 && <span>{who.length}</span>}
+                        </button>
+                      )
+                    })}
+                  </div>
                   {isActive && (
                     <div className="ml-11">
                       {t.replies.map((r) => (

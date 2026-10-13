@@ -271,7 +271,6 @@ const footerNav = [
       { label: 'How it works', href: '/how-it-works' },
       { label: 'Pricing', href: '/pricing' },
       { label: 'Parent Portal', href: '/parent' },
-      { label: 'Download', href: '/#download' },
     ],
   },
   {

@@ -68,7 +68,7 @@ export function DeviceSwitcher() {
   return (
     <div data-review-ui data-no-reveal>
       {mode === 'desktop' ? (
-        <div className="fixed bottom-3 left-3 z-[75] flex gap-1.5 rounded-full bg-white/85 p-1.5 shadow-[0_4px_16px_rgba(0,0,0,.18)] backdrop-blur">
+        <div className="fixed bottom-3 left-3 z-[75] flex max-md:hidden gap-1.5 rounded-full bg-white/85 p-1.5 shadow-[0_4px_16px_rgba(0,0,0,.18)] backdrop-blur">
           {TABS.map((t) => btn(t.key, t.label))}
         </div>
       ) : (

@@ -113,7 +113,7 @@ function StepCard({ step, index }: { step: FlowStep; index: number }) {
       <h4 className="text-balance font-display text-xl font-semibold leading-tight text-[#2a2240] xl:text-2xl">
         {step.title}
       </h4>
-      <p className="text-pretty text-sm leading-relaxed text-[#6b6480] xl:text-base">{step.description}</p>
+      <p className="text-pretty text-[15px] leading-relaxed text-[#4f4766] xl:text-base">{step.description}</p>
       <p className={cn('mt-auto w-full rounded-full px-4 py-2.5 text-sm font-semibold leading-snug', step.soft, step.text)}>
         {step.outputs.join(' · ')}
       </p>

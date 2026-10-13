@@ -57,7 +57,7 @@ export function HowSteps() {
                 </span>
               </div>
               <h3 className="text-xl font-medium leading-snug">{step.title}</h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">{step.body}</p>
+              <p className="text-[15px] leading-relaxed text-[#4f4766]">{step.body}</p>
               {step.link ? (
                 <Link
                   href={step.link.href}

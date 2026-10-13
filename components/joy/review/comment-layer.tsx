@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Check, ClipboardCopy, MessageCircle, MousePointerClick, Trash2, X } from '@/components/joy/cute-icons'
-import { CircleCheck, Ellipsis, Heart as HeartIcon, ListFilter, Search as SearchIcon, Smile as SmileIcon, ThumbsUp } from 'lucide-react'
+import { CircleCheck, Ellipsis, SendHorizontal, SmilePlus, ArrowUp, Heart as HeartIcon, ListFilter, Search as SearchIcon, Smile as SmileIcon, ThumbsUp } from 'lucide-react'
 
 /**
  * Customer review layer (Lovable-style): click "Comment", click any element,
@@ -11,6 +11,7 @@ import { CircleCheck, Ellipsis, Heart as HeartIcon, ListFilter, Search as Search
 
 type Reply = { id: string; author: string; text: string; at: number }
 const MAX_IMAGES = 3
+const EMOJIS = ['😀','😂','😍','🤔','😅','😊','🥰','😎','🙏','👍','👎','❤️','🔥','✅','⭐','💡','🎉','🚀','💯','🤝','👏','💪','🙌','😭','🤣','😬','🫡','🤩','😤','😩','😮','🥳']
 
 /** Shrink a picked image to a small JPEG data URL so it can live inside the comment itself (no storage bucket needed). */
 function compressImage(file: File): Promise<string> {
@@ -158,6 +159,11 @@ export function CommentLayer() {
   const [filter, setFilter] = useState<'all' | 'open' | 'resolved'>('all')
   const [query, setQuery] = useState('')
   const [menu, setMenu] = useState<string | null>(null) // 'filter' | 'more' | thread id
+  const [card, setCard] = useState<{ id: string; x: number; y: number } | null>(null)
+  const [cardName, setCardName] = useState('')
+  const [replyText, setReplyText] = useState('')
+  const [emojiOpen, setEmojiOpen] = useState(false)
+  const [linkCopied, setLinkCopied] = useState(false)
   const hoverRef = useRef<HTMLElement | null>(null)
   const page = typeof window === 'undefined' ? '' : pagePath()
 
@@ -288,6 +294,25 @@ export function CommentLayer() {
     return { x: t.ax, y: t.ay }
   }, [])
 
+  const openCard = useCallback(
+    (id: string) => {
+      const t = threadsRef.current.find((x) => x.id === id)
+      if (!t) return
+      const p = pos(t)
+      setReplyText('')
+      setEmojiOpen(false)
+      setCard({ id, x: p.x - window.scrollX, y: p.y - window.scrollY })
+    },
+    [pos],
+  )
+
+  useEffect(() => {
+    if (!card) return
+    const k = (e: KeyboardEvent) => e.key === 'Escape' && setCard(null)
+    document.addEventListener('keydown', k)
+    return () => document.removeEventListener('keydown', k)
+  }, [card])
+
   const pageThreads = useMemo(() => threads.filter((t) => t.page === page), [threads, page])
   const shown = threads.filter((t) => {
     if (filter === 'open' && t.resolved) return false
@@ -358,6 +383,13 @@ export function CommentLayer() {
         el.style.outline = `3px solid ${colorFor(t.author)}`
         el.style.outlineOffset = '3px'
       }
+      setTimeout(() => {
+        const q = threadsRef.current.find((x) => x.id === id)
+        if (q) {
+          const pp = pos(q)
+          setCard({ id, x: pp.x - window.scrollX, y: pp.y - window.scrollY })
+        }
+      }, 750)
       setTimeout(() => {
         if (el) {
           el.style.outline = ''
@@ -433,12 +465,18 @@ export function CommentLayer() {
     })
   }
 
-  const [replyText, setReplyText] = useState('')
   const addReply = (id: string) => {
     const text = replyText.trim()
-    if (!text || !name) return
+    const who = name || cardName.trim()
+    if (!text || !who) return
+    if (!name) {
+      setName(who)
+      try {
+        localStorage.setItem(NAME_KEY, who)
+      } catch {}
+    }
     // ignore a double submit (key repeat / double event) of the same reply
-    const sig = `${id}|${authorKey(name)}|${text}`
+    const sig = `${id}|${authorKey(who)}|${text}`
     const now = Date.now()
     const [lastSig, lastAt] = lastSend.current.split('@@')
     if (lastSig === sig && now - Number(lastAt) < 1500) return
@@ -447,7 +485,7 @@ export function CommentLayer() {
     setReplyFor(null)
     save(
       threadsRef.current.map((t) =>
-        t.id === id ? { ...t, replies: [...t.replies, { id: uid(), author: name, text, at: now }] } : t,
+        t.id === id ? { ...t, replies: [...t.replies, { id: uid(), author: who, text, at: now }] } : t,
       ),
     )
   }
@@ -469,6 +507,7 @@ export function CommentLayer() {
               onClick={() => {
                 setActive(t.id)
                 setOpen(true)
+                openCard(t.id)
               }}
               className={`pointer-events-auto absolute grid size-8 -translate-x-1/2 -translate-y-full place-items-center rounded-full rounded-bl-none text-xs font-bold text-white shadow-lg ring-2 ring-white transition hover:scale-110 ${
                 t.resolved ? 'bg-emerald-500' : ''
@@ -707,7 +746,7 @@ export function CommentLayer() {
                   return (
                     <div
                       key={t.id}
-                      className={`group relative mx-2 rounded-2xl px-3 py-3 text-sm transition ${isActive ? 'bg-white shadow-sm' : 'hover:bg-white/70'} ${t.resolved && !isActive ? 'opacity-60' : ''}`}
+                      className={`group relative mx-2 rounded-2xl px-3 py-3 text-sm transition ${isActive ? 'bg-white shadow-sm ring-2 ring-indigo-300' : 'hover:bg-white/70'} ${t.resolved && !isActive ? 'opacity-60' : ''}`}
                     >
                       <div className="flex items-start gap-3">
                         <span style={{ backgroundColor: colorFor(t.author) }} className="grid size-9 shrink-0 place-items-center rounded-full text-sm font-bold uppercase text-white">
@@ -860,6 +899,149 @@ export function CommentLayer() {
           </div>
         </aside>
       )}
+
+      {card && (() => {
+        const t = threads.find((x) => x.id === card.id)
+        if (!t) return null
+        const W = 304
+        const rightEdge = window.innerWidth - (open && window.innerWidth >= 640 ? 360 : 0) - 12
+        const left = Math.min(Math.max(12, card.x - 24), Math.max(12, rightEdge - W))
+        const below = card.y < window.innerHeight * 0.5
+        const style: React.CSSProperties = below
+          ? { left, top: Math.max(12, card.y + 14), maxHeight: window.innerHeight - card.y - 28 }
+          : { left, bottom: Math.max(12, window.innerHeight - card.y + 44), maxHeight: card.y - 60 }
+        const who = name || cardName.trim()
+        const canSend = !!replyText.trim() && !!who
+        return (
+          <section
+            data-review-ui
+            role="dialog"
+            aria-label="Comment"
+            className="fixed z-[88] flex w-[19rem] max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-[1.6rem] bg-white text-left shadow-[0_20px_60px_-12px_rgba(30,20,60,0.4)] ring-1 ring-black/10"
+            style={style}
+          >
+            <header className="flex items-center gap-1 px-4 pb-2 pt-3.5">
+              <h3 className="flex-1 text-[0.95rem] font-bold text-slate-900">Comment</h3>
+              <button
+                onClick={() => {
+                  copyOne(t)
+                  setLinkCopied(true)
+                  setTimeout(() => setLinkCopied(false), 1500)
+                }}
+                className="grid size-8 place-items-center rounded-full text-slate-700 hover:bg-black/5"
+                aria-label="Copy comment"
+                title="Copy comment"
+              >
+                {linkCopied ? <Check className="size-4 text-emerald-600" /> : <SendHorizontal className="size-4" />}
+              </button>
+              <button
+                onClick={() => save(threads.map((x) => (x.id === t.id ? { ...x, resolved: !x.resolved } : x)))}
+                className="grid size-8 place-items-center rounded-full text-slate-700 hover:bg-black/5"
+                aria-label={t.resolved ? 'Reopen' : 'Resolve'}
+                title={t.resolved ? 'Reopen' : 'Resolve'}
+              >
+                <CircleCheck className={`size-[1.1rem] ${t.resolved ? 'text-emerald-600' : ''}`} />
+              </button>
+              <button
+                onClick={() => {
+                  save(threads.filter((x) => x.id !== t.id))
+                  setCard(null)
+                }}
+                className="grid size-8 place-items-center rounded-full text-rose-600 hover:bg-rose-50"
+                aria-label="Delete thread"
+                title="Delete thread"
+              >
+                <Trash2 className="size-4" />
+              </button>
+              <button onClick={() => setCard(null)} className="grid size-8 place-items-center rounded-full text-slate-700 hover:bg-black/5" aria-label="Close">
+                <X className="size-4" />
+              </button>
+            </header>
+            <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-3">
+              {!!t.images?.length && (
+                <div className="mb-3 grid gap-1.5">
+                  {t.images.map((src, i) => (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img key={i} src={src} alt="Attached" onClick={() => setLightbox(src)} className="max-h-44 w-full cursor-zoom-in rounded-xl bg-slate-100 object-contain ring-1 ring-black/5" />
+                  ))}
+                </div>
+              )}
+              {[{ id: t.id, author: t.author, text: t.text, at: t.at }, ...t.replies].map((m) => (
+                <div key={m.id} className="mb-3 flex items-start gap-2.5">
+                  <span style={{ backgroundColor: colorFor(m.author) }} className="grid size-8 shrink-0 place-items-center rounded-full text-xs font-bold uppercase text-white">
+                    {(m.author.trim()[0] || '?').toUpperCase()}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="flex items-baseline gap-2">
+                      <b className="truncate text-sm text-slate-900">{m.author}</b>
+                      <span className="shrink-0 text-xs text-slate-400">{ago(m.at ?? t.at)}</span>
+                    </p>
+                    <p className="whitespace-pre-line break-words text-sm leading-snug text-slate-700">{m.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="relative flex items-start gap-2.5 px-4 pb-4 pt-1">
+              <span style={{ backgroundColor: colorFor(who || '?') }} className="mt-1 grid size-8 shrink-0 place-items-center rounded-full text-xs font-bold uppercase text-white">
+                {(who.trim()[0] || '?').toUpperCase()}
+              </span>
+              <div className="min-w-0 flex-1 rounded-2xl bg-slate-50 ring-1 ring-slate-200 focus-within:ring-indigo-300">
+                {!name && (
+                  <input
+                    value={cardName}
+                    onChange={(e) => setCardName(e.target.value)}
+                    placeholder="Your name"
+                    className="h-9 w-full rounded-t-2xl border-b border-slate-200 bg-transparent px-3 text-sm outline-none"
+                  />
+                )}
+                <textarea
+                  value={replyText}
+                  onChange={(e) => setReplyText(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key !== 'Enter' || e.shiftKey || e.nativeEvent.isComposing || e.repeat) return
+                    e.preventDefault()
+                    addReply(t.id)
+                  }}
+                  placeholder="Reply"
+                  rows={1}
+                  className="block max-h-28 min-h-9 w-full resize-none bg-transparent px-3 py-2 text-sm outline-none"
+                />
+                <div className="flex items-center justify-between px-2 pb-1.5">
+                  <button type="button" onClick={() => setEmojiOpen((o) => !o)} className="grid size-8 place-items-center rounded-full text-slate-600 hover:bg-black/5" aria-label="Add emoji">
+                    <SmilePlus className="size-[1.15rem]" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => addReply(t.id)}
+                    disabled={!canSend}
+                    className={`grid size-8 place-items-center rounded-full text-white transition ${canSend ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-slate-400/70'}`}
+                    aria-label="Send reply"
+                  >
+                    <ArrowUp className="size-4" />
+                  </button>
+                </div>
+              </div>
+              {emojiOpen && (
+                <div className="absolute bottom-[3.4rem] left-12 z-10 grid grid-cols-8 gap-0.5 rounded-2xl bg-white p-2 shadow-xl ring-1 ring-black/10">
+                  {EMOJIS.map((em) => (
+                    <button
+                      key={em}
+                      type="button"
+                      onClick={() => {
+                        setReplyText((v) => v + em)
+                        setEmojiOpen(false)
+                      }}
+                      className="grid size-7 place-items-center rounded-lg text-lg hover:bg-slate-100"
+                    >
+                      {em}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
+        )
+      })()}
 
       {lightbox && (
         <div data-review-ui onClick={() => setLightbox(null)} className="fixed inset-0 z-[100] grid cursor-zoom-out place-items-center bg-black/80 p-4">

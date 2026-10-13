@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Check, ClipboardCopy, MessageCircle, MousePointerClick, Trash2, X } from '@/components/joy/cute-icons'
-import { Heart as HeartIcon, Smile as SmileIcon, ThumbsUp } from 'lucide-react'
+import { CircleCheck, Ellipsis, Heart as HeartIcon, ListFilter, Search as SearchIcon, Smile as SmileIcon, ThumbsUp } from 'lucide-react'
 
 /**
  * Customer review layer (Lovable-style): click "Comment", click any element,
@@ -156,6 +156,8 @@ export function CommentLayer() {
   const [replyFor, setReplyFor] = useState<string | null>(null)
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [filter, setFilter] = useState<'all' | 'open' | 'resolved'>('all')
+  const [query, setQuery] = useState('')
+  const [menu, setMenu] = useState<string | null>(null) // 'filter' | 'more' | thread id
   const hoverRef = useRef<HTMLElement | null>(null)
   const page = typeof window === 'undefined' ? '' : pagePath()
 
@@ -287,7 +289,22 @@ export function CommentLayer() {
   }, [])
 
   const pageThreads = useMemo(() => threads.filter((t) => t.page === page), [threads, page])
-  const shown = threads.filter((t) => (filter === 'all' ? true : filter === 'open' ? !t.resolved : t.resolved))
+  const shown = threads.filter((t) => {
+    if (filter === 'open' && t.resolved) return false
+    if (filter === 'resolved' && !t.resolved) return false
+    const q = query.trim().toLowerCase()
+    return !q || `${t.text} ${t.author} ${t.page} ${t.replies.map((r) => r.text).join(' ')}`.toLowerCase().includes(q)
+  })
+  const groups = shown.reduce<{ page: string; items: Thread[] }[]>((acc, t) => {
+    const g = acc.find((x) => x.page === t.page)
+    if (g) g.items.push(t)
+    else acc.push({ page: t.page, items: [t] })
+    return acc
+  }, [])
+  const pageLabel = (pg: string) => {
+    const n = pg.replace(/\.html$/, '')
+    return n === 'home' || n === 'index' ? 'Home' : `/${n}`
+  }
 
   const addImages = async (files: FileList | File[] | null) => {
     if (!files) return
@@ -609,163 +626,237 @@ export function CommentLayer() {
           data-review-ui
           className="fixed bottom-0 right-0 top-0 z-[85] flex w-[22rem] max-w-full flex-col bg-[#f3f4f6] text-left shadow-2xl ring-1 ring-black/5"
         >
-          <header className="flex items-center justify-between gap-2 px-5 pb-2 pt-5">
-            <h2 className="text-sm font-bold text-slate-900">Comments</h2>
-            <div className="flex items-center gap-1">
-              <button onClick={exportText} className="flex h-8 items-center gap-1 rounded-full px-3 text-xs font-semibold text-slate-600 hover:bg-black/5">
-                {copied ? <Check className="size-3.5" /> : <ClipboardCopy className="size-3.5" />}
-                {copied ? 'Copied' : 'Copy all'}
-              </button>
-              <button onClick={() => setOpen(false)} className="grid size-8 place-items-center rounded-full text-slate-600 hover:bg-black/5" aria-label="Close">
-                <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="3" /><path d="M15 4v16" /></svg>
-              </button>
-            </div>
+          {menu && <div className="fixed inset-0 z-[1]" onClick={() => setMenu(null)} />}
+          <header className="flex items-center justify-between gap-2 px-5 pb-3 pt-5">
+            <h2 className="text-base font-bold text-slate-900">Comments</h2>
+            <button onClick={() => setOpen(false)} className="grid size-8 place-items-center rounded-full text-slate-600 hover:bg-black/5" aria-label="Close">
+              <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="3" /><path d="M15 4v16" /></svg>
+            </button>
           </header>
-          <div className="px-5 pb-2">
-            <div className="inline-flex gap-1 rounded-full bg-black/5 p-1 text-xs font-bold">
-              {(['all', 'open', 'resolved'] as const).map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setFilter(f)}
-                  className={`rounded-full px-3 py-1 capitalize ${filter === f ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500'}`}
-                >
-                  {f}
-                </button>
-              ))}
+          <div className="relative z-[2] flex items-center gap-1.5 px-5 pb-3">
+            <label className="flex h-10 min-w-0 flex-1 items-center gap-2 rounded-full bg-white px-3.5 text-slate-400 ring-1 ring-slate-200 focus-within:ring-indigo-300">
+              <SearchIcon className="size-4 shrink-0" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search"
+                className="min-w-0 flex-1 bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400"
+              />
+            </label>
+            <div className="relative">
+              <button
+                onClick={() => setMenu(menu === 'filter' ? null : 'filter')}
+                className={`grid size-10 place-items-center rounded-full hover:bg-black/5 ${filter !== 'all' ? 'text-indigo-600' : 'text-slate-700'}`}
+                aria-label="Filter"
+                title="Filter"
+              >
+                <ListFilter className="size-[1.1rem]" />
+              </button>
+              {menu === 'filter' && (
+                <div className="absolute right-0 top-11 z-10 w-36 rounded-2xl bg-white p-1.5 text-sm font-semibold shadow-xl ring-1 ring-black/10">
+                  {(['all', 'open', 'resolved'] as const).map((f) => (
+                    <button
+                      key={f}
+                      onClick={() => {
+                        setFilter(f)
+                        setMenu(null)
+                      }}
+                      className="flex w-full items-center justify-between rounded-xl px-3 py-2 capitalize text-slate-700 hover:bg-slate-50"
+                    >
+                      {f}
+                      {filter === f && <Check className="size-3.5 text-indigo-600" />}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="relative">
+              <button onClick={() => setMenu(menu === 'more' ? null : 'more')} className="grid size-10 place-items-center rounded-full text-slate-700 hover:bg-black/5" aria-label="More">
+                <Ellipsis className="size-[1.1rem]" />
+              </button>
+              {menu === 'more' && (
+                <div className="absolute right-0 top-11 z-10 w-40 rounded-2xl bg-white p-1.5 text-sm font-semibold shadow-xl ring-1 ring-black/10">
+                  <button
+                    onClick={() => {
+                      exportText()
+                      setMenu(null)
+                    }}
+                    className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-slate-700 hover:bg-slate-50"
+                  >
+                    <ClipboardCopy className="size-4" /> {copied ? 'Copied' : 'Copy all'}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           <div className="flex-1 overflow-y-auto pb-24">
-            {shown.length === 0 && (
+            {groups.length === 0 && (
               <p className="px-5 py-10 text-center text-sm text-slate-400">
-                {filter === 'resolved' ? 'Nothing resolved yet.' : 'No comments yet. Switch to “Comment” and click anything on the page.'}
+                {query || filter !== 'all' ? 'No comments match.' : 'No comments yet. Switch to “Comment” and click anything on the page.'}
               </p>
             )}
-            {shown.map((t) => {
-              const isActive = active === t.id
-              return (
-                <div key={t.id} className={`group relative px-5 py-3 text-sm transition ${isActive ? 'bg-white' : 'hover:bg-white/60'} ${t.resolved && !isActive ? 'opacity-60' : ''}`}>
-                  <button
-                    onClick={() => copyOne(t)}
-                    className="absolute right-3 top-3 z-10 grid size-7 place-items-center rounded-full bg-white/80 text-slate-500 shadow-sm ring-1 ring-black/5 hover:bg-white hover:text-indigo-600"
-                    aria-label="Copy comment"
-                    title="Copy comment"
-                  >
-                    {copiedId === t.id ? <Check className="size-3.5 text-emerald-600" /> : <ClipboardCopy className="size-3.5" />}
-                  </button>
-                  <button onClick={() => goTo(t)} className="flex w-full items-start gap-3 pr-8 text-left">
-                    <span style={{ backgroundColor: colorFor(t.author) }} className="grid size-8 shrink-0 place-items-center rounded-full text-xs font-bold uppercase text-white">
-                      {(t.author.trim()[0] || '?').toUpperCase()}
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="flex items-baseline gap-1.5">
-                        <b className="truncate" style={{ color: colorFor(t.author) }}>{t.author}</b>
-                        <span className="shrink-0 text-xs text-slate-400">· {ago(t.at)}</span>
-                        {t.resolved && (
-                          <span className="inline-flex shrink-0 items-center gap-0.5 self-center rounded-full bg-emerald-50 px-1.5 text-[10px] font-bold text-emerald-600">
-                            <Check className="size-3" /> Resolved
-                          </span>
-                        )}
-                      </span>
-                      <span className={`mt-0.5 block text-slate-700 ${isActive ? '' : 'line-clamp-2'}`}>{t.text}</span>
-                      {!!t.images?.length && (
-                        <span className="mt-1.5 flex gap-1.5">
-                          {t.images.map((src, i) => (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              key={i}
-                              src={src}
-                              alt="Attached"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                setLightbox(src)
-                              }}
-                              className={`rounded-lg object-cover ring-1 ring-black/10 ${isActive ? 'h-24 w-24' : 'size-12'} cursor-zoom-in`}
-                            />
-                          ))}
+            {groups.map((g) => (
+              <section key={g.page} className="mb-2">
+                <h3 className="flex items-center gap-3 px-5 pb-1.5 pt-3 text-sm font-bold text-slate-500">
+                  {pageLabel(g.page)}
+                  <span className="h-px flex-1 bg-slate-200" />
+                </h3>
+                {g.items.map((t) => {
+                  const isActive = active === t.id
+                  const long = t.text.length > 90 || t.text.includes('\n')
+                  return (
+                    <div
+                      key={t.id}
+                      className={`group relative mx-2 rounded-2xl px-3 py-3 text-sm transition ${isActive ? 'bg-white shadow-sm' : 'hover:bg-white/70'} ${t.resolved && !isActive ? 'opacity-60' : ''}`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <span style={{ backgroundColor: colorFor(t.author) }} className="grid size-9 shrink-0 place-items-center rounded-full text-sm font-bold uppercase text-white">
+                          {(t.author.trim()[0] || '?').toUpperCase()}
                         </span>
-                      )}
-                      <span className="mt-0.5 block text-[11px] text-slate-400">
-                        #{threads.indexOf(t) + 1} · {t.page}
-                      </span>
-                    </span>
-                  </button>
-                  <div className="ml-11 mt-1.5 flex gap-1.5">
-                    {REACTIONS.map(({ key, label, Icon, on }) => {
-                      const who = t.reactions?.[key] ?? []
-                      const mine = !!name && who.some((n) => authorKey(n) === authorKey(name))
-                      return (
-                        <button
-                          key={key}
-                          type="button"
-                          onClick={() => toggleReaction(t.id, key)}
-                          disabled={!name}
-                          aria-pressed={mine}
-                          aria-label={label}
-                          title={name ? (who.length ? `${label}: ${who.join(', ')}` : label) : 'Add a comment first to set your name'}
-                          className={`inline-flex h-7 items-center gap-1 rounded-full px-2 text-xs font-semibold ring-1 transition disabled:cursor-not-allowed disabled:opacity-60 ${mine ? on : 'bg-white text-slate-500 ring-slate-200 hover:bg-slate-50'}`}
-                        >
-                          <Icon className="size-3.5" aria-hidden="true" />
-                          {who.length > 0 && <span>{who.length}</span>}
-                        </button>
-                      )
-                    })}
-                  </div>
-                  <div className="ml-11">
-                    {t.replies.map((r) => (
-                      <p key={r.id} className="mt-2 border-l-2 pl-2 text-xs text-slate-600" style={{ borderColor: colorFor(r.author) }}>
-                        <b style={{ color: colorFor(r.author) }}>{r.author}</b> · {r.text}
-                      </p>
-                    ))}
-                    <div className="mt-2 flex items-center gap-1 text-xs font-semibold text-slate-500">
-                      <button
-                        type="button"
-                        onClick={() => setReplyFor(replyFor === t.id ? null : t.id)}
-                        className={`rounded-full px-2.5 py-1 hover:bg-white ${replyFor === t.id ? 'bg-white text-indigo-600' : ''}`}
-                      >
-                        Reply{t.replies.length ? ` (${t.replies.length})` : ''}
-                      </button>
-                      <button type="button" onClick={() => goTo(t)} className="rounded-full px-2.5 py-1 hover:bg-white" title="Scroll to where this comment was left">
-                        Show on page
-                      </button>
-                      <span className="flex-1" />
-                      <button
-                        type="button"
-                        onClick={() => save(threads.map((x) => (x.id === t.id ? { ...x, resolved: !x.resolved } : x)))}
-                        className="grid size-7 place-items-center rounded-full bg-emerald-50 text-emerald-600"
-                        aria-label={t.resolved ? 'Reopen' : 'Resolve'}
-                        title={t.resolved ? 'Reopen' : 'Resolve'}
-                      >
-                        <Check className="size-3.5" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => save(threads.filter((x) => x.id !== t.id))}
-                        className="grid size-7 place-items-center rounded-full bg-rose-50 text-rose-500"
-                        aria-label="Delete"
-                        title="Delete"
-                      >
-                        <Trash2 className="size-3.5" />
-                      </button>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-1.5">
+                            <button onClick={() => goTo(t)} className="flex min-w-0 flex-1 items-center gap-1.5 text-left">
+                              <b className="truncate text-[0.95rem] text-slate-900">{t.author}</b>
+                              <span className="shrink-0 text-xs text-slate-400">· {ago(t.at)}</span>
+                              <span className={`size-1.5 shrink-0 rounded-full ${t.resolved ? 'bg-emerald-500' : 'bg-rose-500'}`} title={t.resolved ? 'Resolved' : 'Open'} />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => save(threads.map((x) => (x.id === t.id ? { ...x, resolved: !x.resolved } : x)))}
+                              className={`grid size-7 shrink-0 place-items-center rounded-full text-slate-700 transition hover:bg-black/5 ${t.resolved ? '' : 'opacity-0 focus-visible:opacity-100 group-hover:opacity-100'}`}
+                              aria-label={t.resolved ? 'Reopen' : 'Resolve'}
+                              title={t.resolved ? 'Reopen' : 'Resolve'}
+                            >
+                              <CircleCheck className={`size-[1.1rem] ${t.resolved ? 'text-emerald-600' : ''}`} />
+                            </button>
+                            <div className="relative">
+                              <button
+                                type="button"
+                                onClick={() => setMenu(menu === t.id ? null : t.id)}
+                                className={`grid size-7 shrink-0 place-items-center rounded-full text-slate-700 transition hover:bg-black/5 ${menu === t.id ? 'bg-black/5 opacity-100' : 'opacity-0 focus-visible:opacity-100 group-hover:opacity-100'}`}
+                                aria-label="More"
+                              >
+                                <Ellipsis className="size-[1.1rem]" />
+                              </button>
+                              {menu === t.id && (
+                                <div className="absolute right-0 top-8 z-10 w-44 rounded-2xl bg-white p-1.5 text-sm font-semibold shadow-xl ring-1 ring-black/10">
+                                  <button
+                                    onClick={() => {
+                                      copyOne(t)
+                                      setMenu(null)
+                                    }}
+                                    className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-slate-700 hover:bg-slate-50"
+                                  >
+                                    <ClipboardCopy className="size-4" /> Copy comment
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      save(threads.filter((x) => x.id !== t.id))
+                                      setMenu(null)
+                                    }}
+                                    className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-rose-600 hover:bg-rose-50"
+                                  >
+                                    <Trash2 className="size-4" /> Delete thread
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <button onClick={() => goTo(t)} className="mt-0.5 block w-full text-left">
+                            <span className={`block whitespace-pre-line break-words text-[0.95rem] leading-snug text-slate-700 ${isActive ? '' : 'line-clamp-3'}`}>{t.text}</span>
+                          </button>
+                          {long && !isActive && (
+                            <button onClick={() => setActive(t.id)} className="mt-1.5 text-sm text-slate-500 hover:text-slate-800">
+                              Show more
+                            </button>
+                          )}
+                          {!!t.images?.length && (
+                            <div className="mt-2 flex flex-wrap gap-1.5">
+                              {t.images.map((src, i) => (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img
+                                  key={i}
+                                  src={src}
+                                  alt="Attached"
+                                  onClick={() => setLightbox(src)}
+                                  className={`cursor-zoom-in rounded-lg object-cover ring-1 ring-black/10 ${isActive ? 'h-24 w-24' : 'size-14'}`}
+                                />
+                              ))}
+                            </div>
+                          )}
+                          {!isActive && t.replies.length > 0 && (
+                            <button onClick={() => setActive(t.id)} className="mt-1.5 block text-sm text-slate-400 hover:text-slate-600">
+                              {t.replies.length} {t.replies.length === 1 ? 'reply' : 'replies'}
+                            </button>
+                          )}
+                          {isActive && (
+                            <div className="mt-2">
+                              <div className="flex gap-1.5">
+                                {REACTIONS.map(({ key, label, Icon, on }) => {
+                                  const who = t.reactions?.[key] ?? []
+                                  const mine = !!name && who.some((n) => authorKey(n) === authorKey(name))
+                                  return (
+                                    <button
+                                      key={key}
+                                      type="button"
+                                      onClick={() => toggleReaction(t.id, key)}
+                                      disabled={!name}
+                                      aria-pressed={mine}
+                                      aria-label={label}
+                                      title={name ? (who.length ? `${label}: ${who.join(', ')}` : label) : 'Add a comment first to set your name'}
+                                      className={`inline-flex h-7 items-center gap-1 rounded-full px-2 text-xs font-semibold ring-1 transition disabled:cursor-not-allowed disabled:opacity-60 ${mine ? on : 'bg-white text-slate-500 ring-slate-200 hover:bg-slate-50'}`}
+                                    >
+                                      <Icon className="size-3.5" aria-hidden="true" />
+                                      {who.length > 0 && <span>{who.length}</span>}
+                                    </button>
+                                  )
+                                })}
+                              </div>
+                              {t.replies.map((r) => (
+                                <p key={r.id} className="mt-2 border-l-2 pl-2 text-xs text-slate-600" style={{ borderColor: colorFor(r.author) }}>
+                                  <b style={{ color: colorFor(r.author) }}>{r.author}</b> · {r.text}
+                                </p>
+                              ))}
+                              <div className="mt-2 flex items-center gap-1 text-xs font-semibold text-slate-500">
+                                <button
+                                  type="button"
+                                  onClick={() => setReplyFor(replyFor === t.id ? null : t.id)}
+                                  className={`rounded-full px-2.5 py-1 hover:bg-slate-100 ${replyFor === t.id ? 'bg-slate-100 text-indigo-600' : ''}`}
+                                >
+                                  Reply
+                                </button>
+                                <button type="button" onClick={() => goTo(t)} className="rounded-full px-2.5 py-1 hover:bg-slate-100" title="Scroll to where this comment was left">
+                                  Show on page
+                                </button>
+                                <span className="flex-1" />
+                                <button type="button" onClick={() => setActive(null)} className="rounded-full px-2.5 py-1 hover:bg-slate-100">
+                                  Show less
+                                </button>
+                              </div>
+                              {replyFor === t.id && (
+                                <input
+                                  autoFocus
+                                  value={replyText}
+                                  onChange={(e) => setReplyText(e.target.value)}
+                                  onKeyDown={(e) => {
+                                    if (e.key !== 'Enter' || e.nativeEvent.isComposing || e.repeat) return
+                                    e.preventDefault()
+                                    addReply(t.id)
+                                  }}
+                                  placeholder={name ? 'Write a reply, press Enter…' : 'Add a comment first to set your name'}
+                                  disabled={!name}
+                                  className="mt-2 h-8 w-full rounded-full border border-slate-200 bg-white px-3 text-xs outline-none focus:border-indigo-400"
+                                />
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                    {replyFor === t.id && (
-                      <input
-                        autoFocus
-                        value={replyText}
-                        onChange={(e) => setReplyText(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key !== 'Enter' || e.nativeEvent.isComposing || e.repeat) return
-                          e.preventDefault()
-                          addReply(t.id)
-                        }}
-                        placeholder={name ? 'Write a reply, press Enter…' : 'Add a comment first to set your name'}
-                        disabled={!name}
-                        className="mt-2 h-8 w-full rounded-full border border-slate-200 bg-white px-3 text-xs outline-none focus:border-indigo-400"
-                      />
-                    )}
-                  </div>
-                </div>
-              )
-            })}
+                  )
+                })}
+              </section>
+            ))}
           </div>
         </aside>
       )}

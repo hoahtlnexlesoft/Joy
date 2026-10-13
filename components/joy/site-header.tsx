@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ChevronDown, Globe, LogOut, Menu, X } from '@/components/joy/cute-icons'
+import { ArrowRight, ChevronDown, Globe, LogOut, Menu, X } from '@/components/joy/cute-icons'
 import { cn } from '@/lib/utils'
 import { JoyButton } from './ui'
 import { LoginModal } from './login-modal'
@@ -42,6 +42,22 @@ export function SiteHeader() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // mobile menu: lock page scroll, close on Escape and when the page changes
+  useEffect(() => {
+    if (!open) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = prev
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
   if (pathname && /(^|\/)parent(\.html)?(\/|$)/.test(pathname)) {
     return (
       <header className="sticky top-0 z-50 border-y border-[#efe6d3] bg-[#fffaf0]/95 backdrop-blur-xl">
@@ -66,7 +82,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 bg-transparent px-4 pt-4">
       <div className={cn(
-        'relative isolate mx-auto flex max-w-6xl items-center justify-between gap-2 rounded-full py-2 pl-3 pr-2 lg:gap-4 lg:pl-4 transition-all duration-300',
+        'relative isolate z-10 mx-auto flex max-w-6xl items-center justify-between gap-2 rounded-full py-2 pl-3 pr-2 lg:gap-4 lg:pl-4 transition-all duration-300',
         hasScrolled
           ? 'bg-[#fff4ec] shadow-[0_8px_30px_-12px_rgba(240,68,154,0.28)] ring-1 ring-white/80'
           : 'bg-transparent'
@@ -130,36 +146,46 @@ export function SiteHeader() {
       </div>
 
       {open ? (
-        <div
-          id="mobile-menu"
-          className="mx-auto mt-2 max-w-6xl rounded-3xl bg-white p-3 shadow-xl ring-1 ring-border md:hidden"
-        >
-          <ul className="flex flex-col">
-            {links.map((link) => (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  onClick={() => { setOpen(false); if (!link.href.includes('#') && pathname === link.href) window.scrollTo({ top: 0, behavior: 'smooth' }) }}
-                  className="joy-navlink block rounded-2xl px-4 py-3 text-base font-medium"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          {session ? (
-            <div className="mt-2 grid grid-cols-2 gap-2">
-              <Link href="/parent" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-full bg-gradient-joy px-4 text-sm font-semibold text-white shadow-sm">Hi, {session.name.split(' ')[0]}</Link>
-              <button type="button" onClick={logOut} className="inline-flex min-h-11 items-center justify-center rounded-full px-4 text-sm font-semibold text-foreground hover:bg-muted">Log out</button>
-            </div>
-          ) : (
-            <div className="mt-2 grid grid-cols-2 gap-2">
-              <button type="button" onClick={showLogin} className="inline-flex min-h-11 items-center justify-center rounded-full px-4 text-sm font-semibold text-foreground hover:bg-muted">
-                Log in
-              </button>
-              <Link href="/#download" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-full bg-gradient-joy px-4 text-sm font-semibold text-white shadow-sm">Try for free</Link>
-            </div>
-          )}
+        <div id="mobile-menu" className="joy-sheet fixed inset-0 z-0 flex flex-col overflow-y-auto bg-[linear-gradient(180deg,#fff7f1_0%,#fdeef5_55%,#f3eefc_100%)] px-6 pb-28 pt-[5.75rem] md:hidden" role="dialog" aria-label="Menu">
+          <nav aria-label="Main">
+            <ul className="flex flex-col">
+              {links.map((link, i) => {
+                const active = link.href === '/#about' ? pathname === '/' : pathname === link.href
+                return (
+                  <li key={link.label} className="joy-sheet-item border-b border-[#2a2240]/10" style={{ animationDelay: `${60 + i * 60}ms` }}>
+                    <Link
+                      href={link.href}
+                      onClick={() => { setOpen(false); if (!link.href.includes('#') && pathname === link.href) window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+                      aria-current={active ? 'page' : undefined}
+                      className="group flex items-center justify-between py-5 font-display text-[1.75rem] font-semibold leading-none text-[#2a2240] active:text-joy-pink"
+                    >
+                      <span className={active ? 'bg-gradient-to-r from-[#ff7a45] to-[#d64a8c] bg-clip-text text-transparent' : ''}>{link.label}</span>
+                      <span className="grid size-9 place-items-center rounded-full bg-white text-[#2a2240] shadow-sm ring-1 ring-black/5 transition group-active:translate-x-0.5">
+                        <ArrowRight className="size-4" aria-hidden="true" />
+                      </span>
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
+
+          <div className="joy-sheet-item mt-auto flex flex-col gap-3 pt-8" style={{ animationDelay: `${60 + links.length * 60}ms` }}>
+            {session ? (
+              <>
+                <Link href="/parent" onClick={() => setOpen(false)} className="inline-flex h-14 items-center justify-center rounded-full bg-gradient-joy px-6 text-base font-semibold text-white shadow-[0_14px_26px_-12px_rgba(238,90,138,0.85)]">Hi, {session.name.split(' ')[0]} · Parent Portal</Link>
+                <button type="button" onClick={logOut} className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-base font-semibold text-[#2a2240] ring-1 ring-black/10">
+                  <LogOut className="size-4" aria-hidden="true" /> Log out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/#download" onClick={() => setOpen(false)} className="inline-flex h-14 items-center justify-center rounded-full bg-gradient-joy px-6 text-base font-semibold text-white shadow-[0_14px_26px_-12px_rgba(238,90,138,0.85)]">Try for free</Link>
+                <button type="button" onClick={showLogin} className="inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-base font-semibold text-[#2a2240] ring-1 ring-black/10">Log in</button>
+              </>
+            )}
+            <p className="pt-2 text-center text-xs text-[#6b6480]">Made with love for curious little minds</p>
+          </div>
         </div>
       ) : null}
       <LoginModal open={loginOpen} onClose={closeLogin} />

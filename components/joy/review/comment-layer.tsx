@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Check, ClipboardCopy, MessageCircle, MousePointerClick, Trash2, X } from '@/components/joy/cute-icons'
-import { CircleCheck, Ellipsis, Copy as CopyIcon, SmilePlus, ArrowUp, Heart as HeartIcon, ListFilter, Search as SearchIcon, Smile as SmileIcon, ThumbsUp } from 'lucide-react'
+import { ChevronsLeft, ChevronsRight, CircleCheck, Ellipsis, Copy as CopyIcon, SmilePlus, ArrowUp, Heart as HeartIcon, ListFilter, Search as SearchIcon, Smile as SmileIcon, ThumbsUp } from 'lucide-react'
 
 /**
  * Customer review layer (Lovable-style): click "Comment", click any element,
@@ -11,6 +11,8 @@ import { CircleCheck, Ellipsis, Copy as CopyIcon, SmilePlus, ArrowUp, Heart as H
 
 type Reply = { id: string; author: string; text: string; at: number }
 const MAX_IMAGES = 3
+const PANEL_W = 304
+const RAIL_W = 56
 const EMOJIS = ['😀','😂','😍','🤔','😅','😊','🥰','😎','🙏','👍','👎','❤️','🔥','✅','⭐','💡','🎉','🚀','💯','🤝','👏','💪','🙌','😭','🤣','😬','🫡','🤩','😤','😩','😮','🥳']
 
 /** Shrink a picked image to a small JPEG data URL so it can live inside the comment itself (no storage bucket needed). */
@@ -293,6 +295,23 @@ export function CommentLayer() {
     } catch {}
     return { x: t.ax, y: t.ay }
   }, [])
+
+  // push the website aside while the comments dock is showing (wide screens only)
+  useEffect(() => {
+    const apply = () => {
+      const w = window.innerWidth >= 640 ? (open ? PANEL_W : RAIL_W) : 0
+      const el = document.documentElement
+      el.style.setProperty('--joy-dock', `${w}px`)
+      el.setAttribute('data-joy-dock', w ? '1' : '')
+    }
+    apply()
+    window.addEventListener('resize', apply)
+    return () => {
+      window.removeEventListener('resize', apply)
+      document.documentElement.style.removeProperty('--joy-dock')
+      document.documentElement.removeAttribute('data-joy-dock')
+    }
+  }, [open])
 
   const openCard = useCallback(
     (id: string) => {
@@ -612,7 +631,7 @@ export function CommentLayer() {
       )}
 
       {/* bottom-center mode pill (Browse / Comment) */}
-      <div data-review-ui className="fixed bottom-4 left-1/2 z-[80] flex -translate-x-1/2 flex-col items-center gap-2">
+      <div data-review-ui style={{ left: 'calc(50% - var(--joy-dock, 0px) / 2)' }} className="fixed bottom-4 z-[80] flex -translate-x-1/2 flex-col items-center gap-2">
         {mode && (
           <span className="whitespace-nowrap rounded-full bg-slate-900/90 px-3 py-1.5 text-xs font-semibold text-white">
             Click anything to comment · Esc to cancel
@@ -642,50 +661,65 @@ export function CommentLayer() {
         </div>
       </div>
 
-      {/* slim open/close tab on the panel edge */}
-      <button
-        data-review-ui
-        onClick={() => setOpen((o) => !o)}
-        className={`fixed top-1/2 z-[86] grid h-20 w-5 -translate-y-1/2 place-items-center rounded-l-xl bg-indigo-600 text-white shadow-lg transition-all hover:w-6 ${
-          open ? 'right-0 max-sm:hidden sm:right-[22rem]' : 'right-0'
-        }`}
-        aria-label={open ? 'Collapse comments' : 'Open comments'}
-      >
-        {threads.filter((t) => !t.resolved).length > 0 && (
-          <span className="absolute -left-2.5 -top-2.5 grid min-w-5 place-items-center rounded-full bg-white px-1 text-[10px] font-bold leading-5 text-indigo-600 shadow ring-1 ring-indigo-200">
-            {threads.filter((t) => !t.resolved).length}
-          </span>
-        )}
-        <svg viewBox="0 0 24 24" className={`size-3.5 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M15 6l-6 6 6 6" /></svg>
-      </button>
+      {/* collapsed rail: avatars of the comments, click to expand */}
+      {!open && (
+        <div
+          data-review-ui
+          className="fixed bottom-0 right-0 top-0 z-[85] flex w-14 flex-col items-center gap-2.5 overflow-y-auto rounded-l-[1.4rem] bg-[#fafafa] pb-4 pt-4 shadow-[0_0_30px_-8px_rgba(30,20,60,0.35)] ring-1 ring-black/10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-sm:w-11"
+        >
+          <button onClick={() => setOpen(true)} className="grid size-8 place-items-center rounded-full text-slate-600 hover:bg-black/5" aria-label="Open comments" title="Open comments">
+            <ChevronsLeft className="size-[1.1rem]" />
+          </button>
+          {threads.slice(0, 8).map((t) => (
+            <button
+              key={t.id}
+              onClick={() => {
+                setOpen(true)
+                setActive(t.id)
+              }}
+              style={{ backgroundColor: t.resolved ? '#10b981' : colorFor(t.author) }}
+              className="grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold uppercase text-white ring-2 ring-transparent transition hover:ring-indigo-200"
+              title={`${t.author}: ${t.text.slice(0, 60)}`}
+              aria-label={`Comment by ${t.author}`}
+            >
+              {t.resolved ? <Check className="size-4" /> : (t.author.trim()[0] || '?').toUpperCase()}
+            </button>
+          ))}
+          {threads.length > 8 && (
+            <button onClick={() => setOpen(true)} className="grid size-8 place-items-center rounded-full bg-slate-200 text-xs font-bold text-slate-700 ring-1 ring-black/10 hover:bg-slate-300" aria-label="More comments">
+              +{threads.length - 8}
+            </button>
+          )}
+        </div>
+      )}
 
       {/* docked comments panel (right side) */}
       {open && (
         <aside
           data-review-ui
-          className="fixed bottom-0 right-0 top-0 z-[85] flex w-[22rem] max-w-full flex-col bg-[#f3f4f6] text-left shadow-2xl ring-1 ring-black/5"
+          className="fixed bottom-0 right-0 top-0 z-[85] flex w-[19rem] max-w-full flex-col rounded-l-[1.4rem] bg-[#fafafa] text-left shadow-[0_0_30px_-8px_rgba(30,20,60,0.35)] ring-1 ring-black/10"
         >
           {menu && <div className="fixed inset-0 z-[1]" onClick={() => setMenu(null)} />}
-          <header className="flex items-center justify-between gap-2 px-5 pb-3 pt-5">
-            <h2 className="text-base font-bold text-slate-900">Comments</h2>
-            <button onClick={() => setOpen(false)} className="grid size-8 place-items-center rounded-full text-slate-600 hover:bg-black/5" aria-label="Close">
-              <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="3" /><path d="M15 4v16" /></svg>
+          <header className="flex items-center justify-between gap-2 px-4 pb-2.5 pt-4">
+            <h2 className="text-sm font-bold text-slate-900">Comments</h2>
+            <button onClick={() => setOpen(false)} className="grid size-7 place-items-center rounded-full text-slate-600 hover:bg-black/5" aria-label="Collapse comments" title="Collapse">
+              <ChevronsRight className="size-4" />
             </button>
           </header>
-          <div className="relative z-[2] flex items-center gap-1.5 px-5 pb-3">
-            <label className="flex h-10 min-w-0 flex-1 items-center gap-2 rounded-full bg-white px-3.5 text-slate-400 ring-1 ring-slate-200 focus-within:ring-indigo-300">
+          <div className="relative z-[2] flex items-center gap-1 px-4 pb-2.5">
+            <label className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-full bg-white px-3 text-slate-400 ring-1 ring-slate-200 focus-within:ring-indigo-300">
               <SearchIcon className="size-4 shrink-0" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search"
-                className="min-w-0 flex-1 bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400"
+                className="min-w-0 flex-1 bg-transparent text-[13px] text-slate-800 outline-none placeholder:text-slate-400"
               />
             </label>
             <div className="relative">
               <button
                 onClick={() => setMenu(menu === 'filter' ? null : 'filter')}
-                className={`grid size-10 place-items-center rounded-full hover:bg-black/5 ${filter !== 'all' ? 'text-indigo-600' : 'text-slate-700'}`}
+                className={`grid size-9 place-items-center rounded-full hover:bg-black/5 ${filter !== 'all' ? 'text-indigo-600' : 'text-slate-700'}`}
                 aria-label="Filter"
                 title="Filter"
               >
@@ -710,7 +744,7 @@ export function CommentLayer() {
               )}
             </div>
             <div className="relative">
-              <button onClick={() => setMenu(menu === 'more' ? null : 'more')} className="grid size-10 place-items-center rounded-full text-slate-700 hover:bg-black/5" aria-label="More">
+              <button onClick={() => setMenu(menu === 'more' ? null : 'more')} className="grid size-9 place-items-center rounded-full text-slate-700 hover:bg-black/5" aria-label="More">
                 <Ellipsis className="size-[1.1rem]" />
               </button>
               {menu === 'more' && (
@@ -736,7 +770,7 @@ export function CommentLayer() {
             )}
             {groups.map((g) => (
               <section key={g.page} className="mb-2">
-                <h3 className="flex items-center gap-3 px-5 pb-1.5 pt-3 text-sm font-bold text-slate-500">
+                <h3 className="flex items-center gap-2.5 px-4 pb-1 pt-2.5 text-xs font-bold text-slate-500">
                   {pageLabel(g.page)}
                   <span className="h-px flex-1 bg-slate-200" />
                 </h3>
@@ -746,36 +780,36 @@ export function CommentLayer() {
                   return (
                     <div
                       key={t.id}
-                      className={`group relative mx-2 rounded-2xl px-3 py-3 text-sm transition ${isActive ? 'bg-white shadow-sm ring-2 ring-indigo-300' : 'hover:bg-white/70'} ${t.resolved && !isActive ? 'opacity-60' : ''}`}
+                      className={`group relative mx-1.5 rounded-xl px-2.5 py-2 text-[13px] transition ${isActive ? 'bg-white shadow-sm ring-2 ring-indigo-300' : 'hover:bg-white/70'} ${t.resolved && !isActive ? 'opacity-60' : ''}`}
                     >
-                      <div className="flex items-start gap-3">
-                        <span style={{ backgroundColor: colorFor(t.author) }} className="grid size-9 shrink-0 place-items-center rounded-full text-sm font-bold uppercase text-white">
+                      <div className="flex items-start gap-2.5">
+                        <span style={{ backgroundColor: colorFor(t.author) }} className="grid size-7 shrink-0 place-items-center rounded-full text-xs font-bold uppercase text-white">
                           {(t.author.trim()[0] || '?').toUpperCase()}
                         </span>
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-1.5">
                             <button onClick={() => goTo(t)} className="flex min-w-0 flex-1 items-center gap-1.5 text-left">
-                              <b className="truncate text-[0.95rem] text-slate-900">{t.author}</b>
-                              <span className="shrink-0 text-xs text-slate-400">· {ago(t.at)}</span>
+                              <b className="truncate text-[13px] text-slate-900">{t.author}</b>
+                              <span className="shrink-0 text-[11px] text-slate-400">· {ago(t.at)}</span>
                               <span className={`size-1.5 shrink-0 rounded-full ${t.resolved ? 'bg-emerald-500' : 'bg-rose-500'}`} title={t.resolved ? 'Resolved' : 'Open'} />
                             </button>
                             <button
                               type="button"
                               onClick={() => save(threads.map((x) => (x.id === t.id ? { ...x, resolved: !x.resolved } : x)))}
-                              className={`grid size-7 shrink-0 place-items-center rounded-full text-slate-700 transition hover:bg-black/5 ${t.resolved ? '' : 'opacity-0 focus-visible:opacity-100 group-hover:opacity-100'}`}
+                              className={`grid size-6 shrink-0 place-items-center rounded-full text-slate-700 transition hover:bg-black/5 ${t.resolved ? '' : 'opacity-0 focus-visible:opacity-100 group-hover:opacity-100'}`}
                               aria-label={t.resolved ? 'Reopen' : 'Resolve'}
                               title={t.resolved ? 'Reopen' : 'Resolve'}
                             >
-                              <CircleCheck className={`size-[1.1rem] ${t.resolved ? 'text-emerald-600' : ''}`} />
+                              <CircleCheck className={`size-4 ${t.resolved ? 'text-emerald-600' : ''}`} />
                             </button>
                             <div className="relative">
                               <button
                                 type="button"
                                 onClick={() => setMenu(menu === t.id ? null : t.id)}
-                                className={`grid size-7 shrink-0 place-items-center rounded-full text-slate-700 transition hover:bg-black/5 ${menu === t.id ? 'bg-black/5 opacity-100' : 'opacity-0 focus-visible:opacity-100 group-hover:opacity-100'}`}
+                                className={`grid size-6 shrink-0 place-items-center rounded-full text-slate-700 transition hover:bg-black/5 ${menu === t.id ? 'bg-black/5 opacity-100' : 'opacity-0 focus-visible:opacity-100 group-hover:opacity-100'}`}
                                 aria-label="More"
                               >
-                                <Ellipsis className="size-[1.1rem]" />
+                                <Ellipsis className="size-4" />
                               </button>
                               {menu === t.id && (
                                 <div className="absolute right-0 top-8 z-10 w-44 rounded-2xl bg-white p-1.5 text-sm font-semibold shadow-xl ring-1 ring-black/10">
@@ -802,10 +836,10 @@ export function CommentLayer() {
                             </div>
                           </div>
                           <button onClick={() => goTo(t)} className="mt-0.5 block w-full text-left">
-                            <span className={`block whitespace-pre-line break-words text-[0.95rem] leading-snug text-slate-700 ${isActive ? '' : 'line-clamp-3'}`}>{t.text}</span>
+                            <span className={`block whitespace-pre-line break-words text-[13px] leading-snug text-slate-700 ${isActive ? '' : 'line-clamp-3'}`}>{t.text}</span>
                           </button>
                           {long && !isActive && (
-                            <button onClick={() => setActive(t.id)} className="mt-1.5 text-sm text-slate-500 hover:text-slate-800">
+                            <button onClick={() => setActive(t.id)} className="mt-1 text-xs text-slate-500 hover:text-slate-800">
                               Show more
                             </button>
                           )}
@@ -818,13 +852,13 @@ export function CommentLayer() {
                                   src={src}
                                   alt="Attached"
                                   onClick={() => setLightbox(src)}
-                                  className={`cursor-zoom-in rounded-lg object-cover ring-1 ring-black/10 ${isActive ? 'h-24 w-24' : 'size-14'}`}
+                                  className={`cursor-zoom-in rounded-lg object-cover ring-1 ring-black/10 ${isActive ? 'h-20 w-20' : 'size-11'}`}
                                 />
                               ))}
                             </div>
                           )}
                           {!isActive && t.replies.length > 0 && (
-                            <button onClick={() => setActive(t.id)} className="mt-1.5 block text-sm text-slate-400 hover:text-slate-600">
+                            <button onClick={() => setActive(t.id)} className="mt-1 block text-xs text-slate-400 hover:text-slate-600">
                               {t.replies.length} {t.replies.length === 1 ? 'reply' : 'replies'}
                             </button>
                           )}
@@ -904,7 +938,7 @@ export function CommentLayer() {
         const t = threads.find((x) => x.id === card.id)
         if (!t) return null
         const W = 304
-        const rightEdge = window.innerWidth - (open && window.innerWidth >= 640 ? 360 : 0) - 12
+        const rightEdge = window.innerWidth - (window.innerWidth >= 640 ? (open ? PANEL_W : RAIL_W) : 0) - 12
         const left = Math.min(Math.max(12, card.x - 24), Math.max(12, rightEdge - W))
         const below = card.y < window.innerHeight * 0.5
         const style: React.CSSProperties = below

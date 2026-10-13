@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { TelegramIcon } from '@/components/joy/telegram-icon'
+import { WhatsAppIcon } from '@/components/joy/whatsapp-icon'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Heart, Mail, Phone, ShieldCheck, Sparkles } from '@/components/joy/cute-icons'
+import { ArrowRight, Heart, Mail, ShieldCheck, Sparkles } from '@/components/joy/cute-icons'
 import { GrowthCycleIllustration } from '@/components/joy/landing/growth-cycle-slider'
 import { ContactLink } from '@/components/joy/contact-link'
 import { BlinkingAnimals } from '@/components/joy/blinking-animals'
@@ -503,13 +504,13 @@ export default function HowItWorksPage() {
                 <ul className="grid gap-3 md:grid-cols-3">
                   {[
                     { icon: Mail, label: 'Email', value: 'support@joykids.app', href: 'mailto:support@joykids.app', tint: 'bg-peach text-joy-orange' },
-                    { icon: TelegramIcon, label: 'Telegram', value: '@JoyKidsSupport', href: 'https://t.me/JoyKidsSupport', appHref: 'tg://resolve?domain=JoyKidsSupport', tint: 'bg-sky text-joy-sky' },
-                    { icon: Phone, label: 'WhatsApp', value: '+95 9 123 456 789', href: 'https://wa.me/959123456789', appHref: 'whatsapp://send?phone=959123456789', tint: 'bg-mint text-joy-mint' },
+                    { icon: TelegramIcon, big: true, label: 'Telegram', value: '@JoyKidsSupport', href: 'https://t.me/JoyKidsSupport', appHref: 'tg://resolve?domain=JoyKidsSupport', tint: 'bg-sky text-joy-sky' },
+                    { icon: WhatsAppIcon, big: true, label: 'WhatsApp', value: '+95 9 123 456 789', href: 'https://wa.me/959123456789', appHref: 'whatsapp://send?phone=959123456789', tint: 'bg-mint text-joy-mint' },
                   ].map((c) => (
                     <li key={c.label}>
                       <ContactLink href={c.href} appHref={(c as { appHref?: string }).appHref} className="flex items-center gap-4 rounded-3xl bg-white p-5 ring-1 ring-border transition-all hover:-translate-y-0.5 hover:shadow-lg">
                         <span className={cn('inline-flex size-12 shrink-0 items-center justify-center rounded-2xl', c.tint)}>
-                          <c.icon className="size-5" aria-hidden="true" />
+                          <c.icon className={cn('size-5', (c as { big?: boolean }).big && 'size-7')} aria-hidden="true" />
                         </span>
                         <span className="min-w-0 flex-1"><span className="block text-xs text-muted-foreground">{c.label}</span><span className="block truncate font-semibold" title={c.value}>{c.value}</span></span>
                       </ContactLink>

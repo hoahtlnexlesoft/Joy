@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { ContactLink } from '@/components/joy/contact-link'
 import { TelegramIcon } from '@/components/joy/telegram-icon'
-import { Mail, MessageCircleHeart, Phone, X } from '@/components/joy/cute-icons'
+import { WhatsAppIcon } from '@/components/joy/whatsapp-icon'
+import { Mail, MessageCircleHeart, X } from '@/components/joy/cute-icons'
 
 const CHANNELS = [
   { icon: Mail, label: 'Email', value: 'support@joykids.app', note: 'Reply within 24 hours', href: 'mailto:support@joykids.app' },
   { icon: TelegramIcon, label: 'Telegram', value: '@JoyKidsSupport', note: 'Chat with the Joy team', href: 'https://t.me/JoyKidsSupport', appHref: 'tg://resolve?domain=JoyKidsSupport' },
-  { icon: Phone, label: 'WhatsApp', value: '+95 9 123 456 789', note: 'Quick answers, any time', href: 'https://wa.me/959123456789', appHref: 'whatsapp://send?phone=959123456789' },
+  { icon: WhatsAppIcon, label: 'WhatsApp', value: '+95 9 123 456 789', note: 'Quick answers, any time', href: 'https://wa.me/959123456789', appHref: 'whatsapp://send?phone=959123456789' },
 ]
 
 export function ContactBubble() {
@@ -56,7 +57,7 @@ export function ContactBubble() {
                   className="flex items-center gap-3 rounded-2xl px-2 py-2 transition hover:bg-pink-50"
                 >
                   <span className="grid size-11 shrink-0 place-items-center rounded-full bg-pink-50 text-pink-600 ring-1 ring-pink-100">
-                    <Icon className="size-5" />
+                    <Icon className={label === 'Email' ? 'size-5' : 'size-7'} />
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[11px] font-extrabold uppercase tracking-[0.14em] text-pink-600">{label}</span>

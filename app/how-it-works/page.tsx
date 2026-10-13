@@ -257,14 +257,15 @@ export default function HowItWorksPage() {
                     controls
                     playsInline
                     preload="none"
-                    poster="/images/joy-guide-friends.webp"
+                    poster="/videos/joy-daily-activities-poster.webp"
                     className="aspect-video w-full bg-[#f3efff] object-cover"
-                    aria-label="A short, calming sample video about noticing a flower"
+                    aria-label="A short video of a child's day with Joy: morning, afternoon and evening activities"
                   >
-                    <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4" />
+                    <source src="/videos/joy-daily-activities.webm" type="video/webm" />
+                    <source src="/videos/joy-daily-activities.mp4" type="video/mp4" />
                     Your browser does not support inline video playback.
                   </video>
-                  <figcaption className="px-5 py-3 text-sm text-muted-foreground">A little pause to notice nature. This sample demonstrates inline playback.</figcaption>
+                  <figcaption className="px-5 py-3 text-sm text-muted-foreground">A day with Joy: morning, afternoon and evening activities for your child.</figcaption>
                 </figure>
                 <ul className="mt-6 flex flex-wrap gap-2">
                   {movementTags.map((t) => (

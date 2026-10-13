@@ -4,6 +4,7 @@ import { Caveat, Fredoka, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 import { ContactBubble } from '@/components/joy/contact-bubble'
 import { CommentLayer } from '@/components/joy/review/comment-layer'
+import { DeviceSwitcher } from '@/components/joy/review/device-switcher'
 
 const caveat = Caveat({
   subsets: ['latin'],
@@ -59,6 +60,7 @@ export default function RootLayout({
         <ContactBubble />
         {process.env.NODE_ENV === 'production' && <Analytics />}
         {process.env.NEXT_PUBLIC_JOY_REVIEW === '1' && <CommentLayer />}
+        {process.env.NEXT_PUBLIC_JOY_REVIEW === '1' && process.env.NEXT_PUBLIC_JOY_PREVIEW !== '1' && <DeviceSwitcher />}
       </body>
     </html>
   )

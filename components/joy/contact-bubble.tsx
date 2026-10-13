@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation'
 import { ContactLink } from '@/components/joy/contact-link'
 import { TelegramIcon } from '@/components/joy/telegram-icon'
 import { WhatsAppIcon } from '@/components/joy/whatsapp-icon'
-import { Mail, MessageCircleHeart, X } from '@/components/joy/cute-icons'
+import { ChatHeartIcon } from '@/components/joy/chat-heart-icon'
+import { Mail, X } from '@/components/joy/cute-icons'
 
 const CHANNELS = [
   { icon: Mail, label: 'Email', value: 'support@joykids.app', note: 'Reply within 24 hours', href: 'mailto:support@joykids.app' },
@@ -76,7 +77,7 @@ export function ContactBubble() {
         aria-label={open ? 'Close contact' : 'Contact customer service'}
         aria-expanded={open}
       >
-        {open ? <X className="size-6" /> : <MessageCircleHeart className="size-7" />}
+        {open ? <X className="size-6" /> : <ChatHeartIcon className="size-8 drop-shadow-[0_2px_3px_rgba(150,20,70,0.35)]" />}
       </button>
     </div>
   )

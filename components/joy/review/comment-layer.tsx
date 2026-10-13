@@ -10,6 +10,33 @@ import { Heart as HeartIcon, Smile as SmileIcon, ThumbsUp } from 'lucide-react'
  */
 
 type Reply = { id: string; author: string; text: string; at: number }
+const MAX_IMAGES = 3
+
+/** Shrink a picked image to a small JPEG data URL so it can live inside the comment itself (no storage bucket needed). */
+function compressImage(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file)
+    const img = new Image()
+    img.onload = () => {
+      const k = Math.min(1, 1280 / Math.max(img.width, img.height))
+      const c = document.createElement('canvas')
+      c.width = Math.max(1, Math.round(img.width * k))
+      c.height = Math.max(1, Math.round(img.height * k))
+      const g = c.getContext('2d')
+      if (!g) return reject(new Error('canvas'))
+      g.fillStyle = '#fff'
+      g.fillRect(0, 0, c.width, c.height)
+      g.drawImage(img, 0, 0, c.width, c.height)
+      URL.revokeObjectURL(url)
+      resolve(c.toDataURL('image/jpeg', 0.78))
+    }
+    img.onerror = () => {
+      URL.revokeObjectURL(url)
+      reject(new Error('image'))
+    }
+    img.src = url
+  })
+}
 type ReactionKey = 'like' | 'heart' | 'smile'
 const REACTIONS: { key: ReactionKey; label: string; Icon: typeof ThumbsUp; on: string }[] = [
   { key: 'like', label: 'Like', Icon: ThumbsUp, on: 'bg-sky-100 text-sky-700 ring-sky-300' },
@@ -30,6 +57,7 @@ type Thread = {
   resolved: boolean
   replies: Reply[]
   reactions?: Partial<Record<ReactionKey, string[]>>
+  images?: string[]
 }
 
 const KEY = 'joy-review-comments'
@@ -117,6 +145,9 @@ export function CommentLayer() {
   const [open, setOpen] = useState(false)
   const [draft, setDraft] = useState<{ selector: string; rx: number; ry: number; ax: number; ay: number } | null>(null)
   const [draftText, setDraftText] = useState('')
+  const [draftImages, setDraftImages] = useState<string[]>([])
+  const [lightbox, setLightbox] = useState<string | null>(null)
+  const fileRef = useRef<HTMLInputElement | null>(null)
   const [nameInput, setNameInput] = useState('')
   const [active, setActive] = useState<string | null>(null)
   const [flash, setFlash] = useState<string | null>(null)
@@ -227,6 +258,7 @@ export function CommentLayer() {
         ay: e.clientY + window.scrollY,
       })
       setDraftText('')
+      setDraftImages([])
       setMode(false)
     }
     const key = (e: KeyboardEvent) => e.key === 'Escape' && (clear(), setMode(false))
@@ -257,8 +289,21 @@ export function CommentLayer() {
   const pageThreads = useMemo(() => threads.filter((t) => t.page === page), [threads, page])
   const shown = threads.filter((t) => (filter === 'all' ? true : filter === 'open' ? !t.resolved : t.resolved))
 
+  const addImages = async (files: FileList | File[] | null) => {
+    if (!files) return
+    const room = MAX_IMAGES - draftImages.length
+    const list = Array.from(files).filter((f) => f.type.startsWith('image/')).slice(0, Math.max(0, room))
+    const out: string[] = []
+    for (const f of list) {
+      try {
+        out.push(await compressImage(f))
+      } catch {}
+    }
+    if (out.length) setDraftImages((cur) => [...cur, ...out].slice(0, MAX_IMAGES))
+  }
+
   const submitDraft = () => {
-    if (!draft || !draftText.trim()) return
+    if (!draft || (!draftText.trim() && !draftImages.length)) return
     let n = name
     if (!n) {
       n = nameInput.trim()
@@ -268,13 +313,14 @@ export function CommentLayer() {
         localStorage.setItem(NAME_KEY, n)
       } catch {}
     }
-    const sig = `new|${page}|${authorKey(n)}|${draftText.trim()}`
+    const sig = `new|${page}|${authorKey(n)}|${draftText.trim()}|${draftImages.length}`
     const [lastSig, lastAt] = lastSend.current.split('@@')
     if (lastSig === sig && Date.now() - Number(lastAt) < 1500) return
     lastSend.current = `${sig}@@${Date.now()}`
-    const t: Thread = { id: uid(), page, ...draft, author: n, text: draftText.trim(), at: Date.now(), resolved: false, replies: [] }
+    const t: Thread = { id: uid(), page, ...draft, author: n, text: draftText.trim(), at: Date.now(), resolved: false, replies: [], ...(draftImages.length ? { images: draftImages } : {}) }
     save([...threadsRef.current, t])
     setDraft(null)
+    setDraftImages([])
     setActive(t.id)
     setOpen(true)
   }
@@ -361,6 +407,7 @@ export function CommentLayer() {
     const lines = threads.map(
       (t, i) =>
         `#${i + 1} [${t.resolved ? 'resolved' : 'open'}] page: ${t.page} | element: ${t.selector}\n  ${t.author}: ${t.text}` +
+        (t.images?.length ? `\n  (${t.images.length} image${t.images.length > 1 ? 's' : ''} attached — see the comments panel)` : '') +
         t.replies.map((r) => `\n    ↳ ${r.author}: ${r.text}`).join(''),
     )
     navigator.clipboard?.writeText(lines.join('\n\n')).then(() => {
@@ -438,15 +485,61 @@ export function CommentLayer() {
               onChange={(e) => setDraftText(e.target.value)}
               placeholder="Leave a comment…"
               rows={3}
+              onPaste={(e) => {
+                const imgs = Array.from(e.clipboardData.files).filter((f) => f.type.startsWith('image/'))
+                if (imgs.length) {
+                  e.preventDefault()
+                  addImages(imgs)
+                }
+              }}
               className="w-full resize-none rounded-xl border border-indigo-200 p-2 text-sm outline-none focus:border-indigo-400"
             />
-            <div className="mt-2 flex justify-end gap-2">
+            {draftImages.length > 0 && (
+              <div className="mt-2 flex gap-2">
+                {draftImages.map((src, i) => (
+                  <div key={i} className="relative size-16 overflow-hidden rounded-lg ring-1 ring-indigo-200">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={src} alt="" className="size-full object-cover" />
+                    <button
+                      type="button"
+                      onClick={() => setDraftImages((cur) => cur.filter((_, j) => j !== i))}
+                      className="absolute right-0.5 top-0.5 grid size-5 place-items-center rounded-full bg-slate-900/70 text-white"
+                      aria-label="Remove image"
+                    >
+                      <X className="size-3" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              multiple
+              hidden
+              onChange={(e) => {
+                addImages(e.target.files)
+                e.target.value = ''
+              }}
+            />
+            <div className="mt-2 flex items-center justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => fileRef.current?.click()}
+                disabled={draftImages.length >= MAX_IMAGES}
+                className="mr-auto inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-semibold text-indigo-600 hover:bg-indigo-50 disabled:opacity-40"
+                title="Attach images (or paste with Ctrl+V)"
+              >
+                <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="3" /><circle cx="9" cy="9" r="1.8" /><path d="m21 15-4.5-4.5L6 21" /></svg>
+                Image{draftImages.length ? ` (${draftImages.length}/${MAX_IMAGES})` : ''}
+              </button>
               <button onClick={() => setDraft(null)} className="h-8 rounded-full px-3 text-xs font-semibold text-slate-500 hover:bg-slate-100">
                 Cancel
               </button>
               <button
                 onClick={submitDraft}
-                disabled={!draftText.trim() || (!name && !nameInput.trim())}
+                disabled={(!draftText.trim() && !draftImages.length) || (!name && !nameInput.trim())}
                 className="h-8 rounded-full bg-indigo-600 px-4 text-xs font-bold text-white disabled:opacity-40"
               >
                 Send
@@ -574,6 +667,23 @@ export function CommentLayer() {
                         )}
                       </span>
                       <span className={`mt-0.5 block text-slate-700 ${isActive ? '' : 'line-clamp-2'}`}>{t.text}</span>
+                      {!!t.images?.length && (
+                        <span className="mt-1.5 flex gap-1.5">
+                          {t.images.map((src, i) => (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              key={i}
+                              src={src}
+                              alt="Attached"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                setLightbox(src)
+                              }}
+                              className={`rounded-lg object-cover ring-1 ring-black/10 ${isActive ? 'h-24 w-24' : 'size-12'} cursor-zoom-in`}
+                            />
+                          ))}
+                        </span>
+                      )}
                       <span className="mt-0.5 block text-[11px] text-slate-400">
                         #{threads.indexOf(t) + 1} · {t.page}
                       </span>
@@ -658,6 +768,13 @@ export function CommentLayer() {
             })}
           </div>
         </aside>
+      )}
+
+      {lightbox && (
+        <div data-review-ui onClick={() => setLightbox(null)} className="fixed inset-0 z-[100] grid cursor-zoom-out place-items-center bg-black/80 p-4">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={lightbox} alt="Attached" className="max-h-full max-w-full rounded-xl shadow-2xl" />
+        </div>
       )}
     </div>
   )

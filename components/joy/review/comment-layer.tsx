@@ -128,6 +128,8 @@ export function CommentLayer() {
   const page = typeof window === 'undefined' ? '' : pagePath()
 
   const pending = useRef(0)
+  const writes = useRef(0)
+  const lastSend = useRef('')
   const threadsRef = useRef<Thread[]>([])
   threadsRef.current = threads
 
@@ -140,9 +142,10 @@ export function CommentLayer() {
     let stop = false
     const pull = async () => {
       if (pending.current > 0 || document.hidden) return
+      const w = writes.current
       try {
         const rows = await remoteLoad()
-        if (!stop && pending.current === 0) setThreads(rows)
+        if (!stop && pending.current === 0 && writes.current === w) setThreads(rows)
       } catch {}
     }
     pull()
@@ -155,6 +158,7 @@ export function CommentLayer() {
 
   const save = useCallback((next: Thread[]) => {
     const prev = threadsRef.current
+    writes.current++
     setThreads(next)
     threadsRef.current = next
     if (!REMOTE) {
@@ -263,8 +267,12 @@ export function CommentLayer() {
         localStorage.setItem(NAME_KEY, n)
       } catch {}
     }
+    const sig = `new|${page}|${authorKey(n)}|${draftText.trim()}`
+    const [lastSig, lastAt] = lastSend.current.split('@@')
+    if (lastSig === sig && Date.now() - Number(lastAt) < 1500) return
+    lastSend.current = `${sig}@@${Date.now()}`
     const t: Thread = { id: uid(), page, ...draft, author: n, text: draftText.trim(), at: Date.now(), resolved: false, replies: [] }
-    save([...threads, t])
+    save([...threadsRef.current, t])
     setDraft(null)
     setActive(t.id)
     setOpen(true)
@@ -362,13 +370,20 @@ export function CommentLayer() {
 
   const [replyText, setReplyText] = useState('')
   const addReply = (id: string) => {
-    if (!replyText.trim() || !name) return
+    const text = replyText.trim()
+    if (!text || !name) return
+    // ignore a double submit (key repeat / double event) of the same reply
+    const sig = `${id}|${authorKey(name)}|${text}`
+    const now = Date.now()
+    const [lastSig, lastAt] = lastSend.current.split('@@')
+    if (lastSig === sig && now - Number(lastAt) < 1500) return
+    lastSend.current = `${sig}@@${now}`
+    setReplyText('')
     save(
-      threads.map((t) =>
-        t.id === id ? { ...t, replies: [...t.replies, { id: uid(), author: name, text: replyText.trim(), at: Date.now() }] } : t,
+      threadsRef.current.map((t) =>
+        t.id === id ? { ...t, replies: [...t.replies, { id: uid(), author: name, text, at: now }] } : t,
       ),
     )
-    setReplyText('')
   }
 
   const draftPos = draft ? pos(draft) : null
@@ -594,7 +609,11 @@ export function CommentLayer() {
                         <input
                           value={replyText}
                           onChange={(e) => setReplyText(e.target.value)}
-                          onKeyDown={(e) => e.key === 'Enter' && addReply(t.id)}
+                          onKeyDown={(e) => {
+                            if (e.key !== 'Enter' || e.nativeEvent.isComposing || e.repeat) return
+                            e.preventDefault()
+                            addReply(t.id)
+                          }}
                           placeholder={name ? 'Reply…' : 'Add a comment first to set your name'}
                           disabled={!name}
                           className="h-8 min-w-0 flex-1 rounded-full border border-slate-200 bg-white px-3 text-xs outline-none focus:border-indigo-400"

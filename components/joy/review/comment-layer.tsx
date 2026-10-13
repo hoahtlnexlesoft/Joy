@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Check, ClipboardCopy, MessageCircle, MousePointerClick, Trash2, X } from '@/components/joy/cute-icons'
-import { CircleCheck, Ellipsis, SendHorizontal, SmilePlus, ArrowUp, Heart as HeartIcon, ListFilter, Search as SearchIcon, Smile as SmileIcon, ThumbsUp } from 'lucide-react'
+import { CircleCheck, Ellipsis, Copy as CopyIcon, SmilePlus, ArrowUp, Heart as HeartIcon, ListFilter, Search as SearchIcon, Smile as SmileIcon, ThumbsUp } from 'lucide-react'
 
 /**
  * Customer review layer (Lovable-style): click "Comment", click any element,
@@ -932,7 +932,7 @@ export function CommentLayer() {
                 aria-label="Copy comment"
                 title="Copy comment"
               >
-                {linkCopied ? <Check className="size-4 text-emerald-600" /> : <SendHorizontal className="size-4" />}
+                {linkCopied ? <Check className="size-4 text-emerald-600" /> : <CopyIcon className="size-4" />}
               </button>
               <button
                 onClick={() => save(threads.map((x) => (x.id === t.id ? { ...x, resolved: !x.resolved } : x)))}

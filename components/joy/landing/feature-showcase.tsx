@@ -38,8 +38,8 @@ const features: Feature[] = [
     image: '/images/child-nature-animals.jpg',
     alt: 'A group of cute animal friends on a fluffy pastel cloud with a rainbow',
     icon: SproutIcon,
-    badgeBg: 'bg-gradient-to-br from-[#FFC857] to-[#FF8A3D]',
-    badgeFg: 'text-[#E2661F]',
+    badgeBg: '[--ic-main:#FF9F5A]',
+    badgeFg: '',
     overlay: 'from-[#5a2a12]/95 via-[#5a2a12]/60',
     imageScale: 'scale-100',
   },
@@ -51,8 +51,8 @@ const features: Feature[] = [
     image: '/images/growth-path-cycle.jpg',
     alt: 'Growth path cycle of cute characters: Alpha, Omega, Crystal and Rainbow',
     icon: StepsIcon,
-    badgeBg: 'bg-gradient-to-br from-[#D59BFF] to-[#9A63F0]',
-    badgeFg: 'text-[#8348E0]',
+    badgeBg: '[--ic-main:#A97BF2]',
+    badgeFg: '',
     overlay: 'from-[#5b1f4d]/95 via-[#5b1f4d]/60',
   },
   {
@@ -63,8 +63,8 @@ const features: Feature[] = [
     image: '/images/daily-adventure.jpg',
     alt: 'Four happy kids and a puppy on a mountain trail with a map, binoculars and a tent by the lake',
     icon: DayIcon,
-    badgeBg: 'bg-gradient-to-br from-[#5EE0B5] to-[#1FB59A]',
-    badgeFg: 'text-[#E8487D]',
+    badgeBg: '[--ic-main:#3CC9A5]',
+    badgeFg: '',
     overlay: 'from-[#163d33]/95 via-[#163d33]/60',
   },
   {
@@ -75,8 +75,8 @@ const features: Feature[] = [
     image: '/images/joy-collection-yoga.jpg',
     alt: 'A group of cute animal friends on a fluffy pastel cloud with a rainbow',
     icon: BooksIcon,
-    badgeBg: 'bg-gradient-to-br from-[#9D8CFF] to-[#6262EE]',
-    badgeFg: 'text-[#6A4FE0]',
+    badgeBg: '[--ic-main:#7A78F0]',
+    badgeFg: '',
     overlay: 'from-[#2e1f63]/95 via-[#2e1f63]/60',
   },
   {
@@ -87,8 +87,8 @@ const features: Feature[] = [
     image: '/images/feeling-log-heart.jpg',
     alt: 'A cheerful child surrounded by floating emotion bubbles',
     icon: SmileyIcon,
-    badgeBg: 'bg-gradient-to-br from-[#FF9DBE] to-[#F2558F]',
-    badgeFg: 'text-[#C23A6E]',
+    badgeBg: '[--ic-main:#FF7FA8]',
+    badgeFg: '',
     overlay: 'from-[#1b3a63]/95 via-[#1b3a63]/60',
   },
 ]
@@ -184,13 +184,11 @@ export function FeatureShowcase() {
                   <div className="flex items-start justify-between gap-3">
                     <span
                       className={cn(
-                        'relative inline-flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-[1.1rem] shadow-[0_8px_18px_-6px_rgba(40,20,60,0.55)] ring-2 ring-white/90 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110 md:size-14',
+                        'inline-flex size-11 shrink-0 items-center justify-center rounded-2xl bg-white/85 shadow-[0_4px_12px_-6px_rgba(40,20,60,0.35)] ring-1 ring-white transition-transform duration-300 group-hover:scale-105 md:size-12',
                         feature.badgeBg,
-                        feature.badgeFg,
                       )}
                     >
-                      <span aria-hidden="true" className="absolute -left-1 -top-2 h-1/2 w-[85%] rotate-[-18deg] rounded-full bg-white/35" />
-                      <Icon className="relative size-8 drop-shadow-[0_1px_1px_rgba(0,0,0,0.15)] md:size-9" />
+                      <Icon className="size-6 md:size-7" />
                     </span>
                     <span
                       className={cn(

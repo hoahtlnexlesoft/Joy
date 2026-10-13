@@ -67,8 +67,13 @@ function selectorFor(el: Element): string {
   return parts.join(' > ')
 }
 
-const USER_COLORS = ['#4f46e5', '#0d9488', '#d97706', '#0284c7', '#7c3aed', '#16a34a', '#dc2626', '#0891b2', '#c026d3', '#65a30d']
+const USER_COLORS = ['#4f46e5', '#0d9488', '#d97706', '#0284c7', '#c026d3', '#16a34a', '#dc2626', '#7c3aed', '#0891b2', '#65a30d', '#db2777', '#ca8a04', '#2563eb', '#059669', '#ea580c', '#9333ea']
+// authors in order of first appearance: each gets its own colour (no two share one until the palette runs out)
+let AUTHOR_ORDER: string[] = []
+const authorKey = (n: string) => n.trim().toLowerCase()
 function colorFor(name: string) {
+  const idx = AUTHOR_ORDER.indexOf(authorKey(name))
+  if (idx >= 0) return USER_COLORS[idx % USER_COLORS.length]
   let h = 0
   for (const ch of name.trim().toLowerCase()) h = (h * 31 + ch.charCodeAt(0)) >>> 0
   return USER_COLORS[h % USER_COLORS.length]
@@ -90,6 +95,15 @@ function pagePath() {
 
 export function CommentLayer() {
   const [threads, setThreads] = useState<Thread[]>([])
+  {
+    const seen: { at: number; k: string }[] = []
+    for (const t of threads) {
+      seen.push({ at: t.at, k: authorKey(t.author) })
+      for (const r of t.replies) seen.push({ at: r.at ?? t.at, k: authorKey(r.author) })
+    }
+    seen.sort((a, b) => a.at - b.at)
+    AUTHOR_ORDER = Array.from(new Set(seen.map((x) => x.k)))
+  }
   const [name, setName] = useState('')
   const [mode, setMode] = useState(false)
   const [open, setOpen] = useState(false)
@@ -304,9 +318,7 @@ export function CommentLayer() {
   }, [threads, focusThread])
 
   const copyOne = (t: Thread) => {
-    const text =
-      `#${threads.indexOf(t) + 1} [${t.resolved ? 'resolved' : 'open'}] page: ${t.page} | element: ${t.selector}\n  ${t.author}: ${t.text}` +
-      t.replies.map((r) => `\n    ↳ ${r.author}: ${r.text}`).join('')
+    const text = t.text
     const done = () => {
       setCopiedId(t.id)
       setTimeout(() => setCopiedId((c) => (c === t.id ? null : c)), 1600)

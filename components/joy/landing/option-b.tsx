@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Check } from '@/components/joy/cute-icons'
 import { StoreBadge } from '@/components/joy/site-footer'
 
 /** Option B is switched on at build time with NEXT_PUBLIC_JOY_OPTION=b. Option A stays the default. */
@@ -22,29 +21,6 @@ export function FreePlanNote() {
         Log in
       </Link>
     </p>
-  )
-}
-
-const points = [
-  'One parent account for all your children',
-  '1,000+ activities, with new ones every week',
-  'Only parents set up and manage a child profile',
-]
-
-export function TrustStrip() {
-  return (
-    <section aria-label="Why parents choose Joy" className="px-4 pb-6 pt-2 md:pb-8">
-      <ul className="mx-auto grid max-w-6xl gap-2 rounded-[1.75rem] bg-white/80 p-3 ring-1 ring-border md:grid-cols-3 md:gap-0 md:p-4">
-        {points.map((p) => (
-          <li key={p} className="flex items-center gap-3 px-3 py-2 text-sm font-semibold md:justify-center">
-            <span className="inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-[#dcf5e8] text-[#1f9d6b]">
-              <Check className="size-3.5" aria-hidden="true" />
-            </span>
-            {p}
-          </li>
-        ))}
-      </ul>
-    </section>
   )
 }
 

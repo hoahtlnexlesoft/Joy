@@ -132,7 +132,7 @@ export default function HowItWorksPage() {
       <GuideDecorations />
       <SiteHeader />
       <main className="relative overflow-clip">
-        <section className="relative z-10 overflow-hidden px-3 sm:px-4 pb-8 pt-8 md:min-h-[460px] md:pb-6 lg:pb-10 md:pt-6 lg:pt-10">
+        <section className="relative z-10 overflow-hidden px-3 sm:px-4 pb-3 pt-5 md:pb-4 md:pt-3 lg:pt-4">
           <div className="relative mx-auto grid max-w-6xl items-center gap-3 md:grid-cols-[.95fr_1.05fr] md:gap-4 lg:gap-8">
             <div className="flex flex-col items-center gap-4 text-center md:items-start md:text-left">
               <Eyebrow>Parent guide</Eyebrow>
@@ -147,7 +147,7 @@ export default function HowItWorksPage() {
                 <JoyButton href="/parent" variant="ghost">Visit parent portal</JoyButton>
               </div>
             </div>
-            <div className="relative mx-auto flex w-full max-w-[520px] items-center justify-center md:-my-8 md:max-w-[600px]">
+            <div className="relative mx-auto flex w-full max-w-[520px] items-center justify-center md:-mt-8 md:-mb-2 md:max-w-[600px]">
               <BlinkingAnimals
                 src="/images/joy-guide-animals-cutout.webp"
                 alt="A group of cute animal friends sitting together on a fluffy cloud"
@@ -158,7 +158,7 @@ export default function HowItWorksPage() {
           </div>
         </section>
 
-        <section aria-label="Browse guide topics" className="relative z-10 px-3 sm:px-4 pb-8 pt-2 md:pb-8 lg:pb-14">
+        <section aria-label="Browse guide topics" className="relative z-10 px-3 sm:px-4 pb-6 pt-0 md:pb-6 lg:pb-10">
           <div className="mx-auto max-w-6xl">
             <TopicGrid topics={topics} />
           </div>

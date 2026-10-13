@@ -269,7 +269,7 @@ const footerNav = [
     links: [
       { label: 'About Joy', href: '/#about' },
       { label: 'Parent Guide', href: '/how-it-works' },
-      { label: 'Parent Portal', href: '/parent' },
+      { label: 'Pricing', href: '/pricing' },
     ],
   },
   {

@@ -268,8 +268,7 @@ const footerNav = [
     title: 'Joy',
     links: [
       { label: 'About Joy', href: '/#about' },
-      { label: 'How it works', href: '/how-it-works' },
-      { label: 'Pricing', href: '/pricing' },
+      { label: 'Parent Guide', href: '/how-it-works' },
       { label: 'Parent Portal', href: '/parent' },
     ],
   },

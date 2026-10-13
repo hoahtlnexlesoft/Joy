@@ -4,7 +4,7 @@ import { Play, Sparkles } from '@/components/joy/cute-icons'
 import { JoyButton } from '../ui'
 import { VideoButton } from './video-button'
 import { FeatureShowcase } from './feature-showcase'
-import { FreePlanNote, StoreRow, isOptionB } from './option-b'
+import { FreePlanNote, isOptionB } from './option-b'
 
 export function Hero() {
   return (
@@ -45,7 +45,6 @@ export function Hero() {
           </div>
           {isOptionB ? (
             <>
-              <StoreRow />
               <FreePlanNote />
             </>
           ) : (

@@ -1,17 +1,7 @@
 import Link from 'next/link'
-import { StoreBadge } from '@/components/joy/site-footer'
 
 /** Option B is switched on at build time with NEXT_PUBLIC_JOY_OPTION=b. Option A stays the default. */
 export const isOptionB = process.env.NEXT_PUBLIC_JOY_OPTION === 'b'
-
-export function StoreRow() {
-  return (
-    <div className="flex flex-wrap items-center gap-3">
-      <StoreBadge store="apple" compact />
-      <StoreBadge store="google" compact />
-    </div>
-  )
-}
 
 export function FreePlanNote() {
   return (

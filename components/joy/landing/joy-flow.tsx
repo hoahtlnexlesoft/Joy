@@ -78,7 +78,7 @@ function StepCard({ step, index }: { step: FlowStep; index: number }) {
   return (
     <article
       id={`flow-${step.id}`}
-      className="relative flex w-full max-w-none sm:max-w-md flex-col items-center gap-4 rounded-[2rem] bg-white px-5 pb-6 pt-9 text-center shadow-[0_30px_60px_-30px_rgba(42,34,64,0.35)] ring-1 ring-black/5 transition-transform duration-300 hover:-translate-y-1.5 lg:max-w-none"
+      className="relative flex w-full max-w-none sm:max-w-md flex-col items-center gap-4 rounded-[2rem] bg-white px-5 pb-6 pt-9 text-center shadow-[0_30px_60px_-30px_rgba(42,34,64,0.35)] ring-1 ring-black/5 transition-transform duration-300 hover:-translate-y-1.5 md:max-w-none"
     >
       <span
         className={cn(
@@ -137,7 +137,7 @@ function DesktopConnector({ index }: { index: number }) {
   const node = goesDown ? { cx: 40, cy: 92 } : { cx: 40, cy: 38 }
 
   return (
-    <div className="relative hidden w-20 shrink-0 self-stretch lg:block xl:w-24" aria-hidden="true">
+    <div className="relative hidden w-8 shrink-0 self-stretch md:block lg:w-20 xl:w-24" aria-hidden="true">
       <svg viewBox="0 0 80 130" className="absolute left-0 top-28 h-32 w-full overflow-visible" fill="none">
         <defs>
           <marker id={markerId} viewBox="0 0 10 10" refX="2" refY="5" markerWidth="5" markerHeight="5" orient="auto">
@@ -159,6 +159,7 @@ function DesktopConnector({ index }: { index: number }) {
       <div
         className={cn(
           'absolute left-1/2 -translate-x-1/2',
+          'hidden lg:block',
           goesDown ? 'top-[17.5rem]' : 'top-[4.5rem]',
         )}
       >
@@ -171,7 +172,7 @@ function DesktopConnector({ index }: { index: number }) {
 function MobileConnector({ index }: { index: number }) {
   const color = steps[index + 1].color
   return (
-    <div className="flex flex-col items-center gap-2 py-3 lg:hidden" aria-hidden="true">
+    <div className="flex flex-col items-center gap-2 py-3 md:hidden" aria-hidden="true">
       <span className="h-6 w-0 border-l-[3px] border-dotted" style={{ borderColor: color }} />
       <VerbPill verb={verbs[index]} />
       <span className="h-6 w-0 border-l-[3px] border-dotted" style={{ borderColor: color }} />
@@ -199,10 +200,10 @@ export function JoyFlow() {
           </p>
         </div>
 
-        <ol className="relative mx-auto flex flex-col items-center lg:w-auto lg:flex-row lg:items-stretch">
+        <ol className="relative mx-auto flex flex-col items-center md:w-auto md:flex-row md:items-stretch">
           {steps.map((step, index) => (
             <li key={step.id} className="contents">
-              <div className={cn('flex w-full items-start justify-center lg:flex-1', index % 2 === 1 && 'lg:pt-32')}>
+              <div className={cn('flex w-full items-start justify-center md:flex-1', index % 2 === 1 && 'md:pt-32')}>
                 <StepCard step={step} index={index} />
               </div>
               {index < steps.length - 1 && (

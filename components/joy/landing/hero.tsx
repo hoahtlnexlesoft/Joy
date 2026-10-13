@@ -4,7 +4,7 @@ import { Play, Sparkles } from '@/components/joy/cute-icons'
 import { JoyButton } from '../ui'
 import { VideoButton } from './video-button'
 import { FeatureShowcase } from './feature-showcase'
-import { FreePlanNote, PhoneToday, StoreRow, isOptionB } from './option-b'
+import { FreePlanNote, StoreRow, isOptionB } from './option-b'
 
 export function Hero() {
   return (
@@ -58,24 +58,11 @@ export function Hero() {
           )}
         </div>
 
-        <div className={isOptionB ? "relative max-md:pt-14 max-md:pb-24 md:pb-20 lg:pb-28" : "relative max-md:pt-14"}>
+        <div className="relative max-md:pt-14">
           <div
             className="pointer-events-none absolute inset-[-10%] rounded-full bg-[radial-gradient(closest-side,#fde3ee_0%,#fdf0f5_55%,transparent_100%)]"
             aria-hidden="true"
           />
-          {isOptionB ? (
-            <div className="relative mx-auto w-full max-w-[22rem] md:max-w-[19rem] lg:max-w-[28rem]">
-          <Image
-            src="/images/hero-kids.webp"
-            alt="A happy girl and boy waving while sitting together on a fluffy peach cloud"
-            width={749}
-            height={594}
-            priority
-            className="relative h-auto w-full drop-shadow-[0_20px_30px_rgba(244,150,120,0.18)]"
-          />
-              <PhoneToday className="absolute -bottom-24 -right-1 w-[9rem] md:-bottom-20 md:w-[9rem] lg:-bottom-32 lg:-right-4 lg:w-[10.5rem]" />
-            </div>
-          ) : (
           <Image
             src="/images/hero-kids.webp"
             alt="A happy girl and boy waving while sitting together on a fluffy peach cloud"
@@ -84,7 +71,6 @@ export function Hero() {
             priority
             className="relative mx-auto h-auto w-full max-w-[22rem] md:max-w-[19rem] lg:max-w-[28rem] drop-shadow-[0_20px_30px_rgba(244,150,120,0.18)]"
           />
-          )}
           <div className={isOptionB ? 'hidden' : 'absolute left-0 top-0 flex md:origin-top-left md:scale-[0.7] lg:top-8 lg:scale-100 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:px-4 md:py-3 lg:-left-10'}>
             <span className="text-2xl" aria-hidden="true">🦁</span>
             <div>

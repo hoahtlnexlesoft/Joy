@@ -25,44 +25,6 @@ export function FreePlanNote() {
   )
 }
 
-const slots = [
-  { icon: '☀️', label: 'Morning', rest: ' Mindfulness', tint: 'bg-[#fff3d6]' },
-  { icon: '🎒', label: 'Afternoon', rest: ' Adventures', tint: 'bg-[#ffe9dc]' },
-  { icon: '🌙', label: 'Evening', rest: ' Enchantment', tint: 'bg-[#efe6ff]' },
-]
-
-/** A phone frame showing the Today screen, built from the same pieces the Daily Routine section uses. */
-export function PhoneToday({ className = '' }: { className?: string }) {
-  return (
-    <div
-      className={`rounded-[2rem] bg-[#2a2240] p-1.5 shadow-[0_24px_50px_-18px_rgba(42,34,64,0.55)] ${className}`}
-      role="img"
-      aria-label="The Joy app Today screen with Morning, Afternoon and Evening activities"
-    >
-      <div className="overflow-hidden rounded-[1.6rem] bg-[#fffaf6]">
-        <div className="mx-auto mt-1.5 h-1 w-10 rounded-full bg-[#2a2240]/15" />
-        <div className="space-y-1.5 px-2.5 pb-2.5 pt-2">
-          <div className="flex items-center justify-between">
-            <span className="whitespace-nowrap rounded-full bg-gradient-joy px-2 py-0.5 text-[8px] font-semibold text-white">Premium Plus</span>
-            <span className="text-[9px] font-medium text-muted-foreground">Today</span>
-          </div>
-          <div className="flex items-center justify-between rounded-xl bg-[#fde3ee] px-2 py-1 text-[9px] text-muted-foreground">
-            <span><span className="lg:hidden">Feeling?</span><span className="hidden lg:inline">Feeling okay?</span></span>
-            <span className="whitespace-nowrap text-[11px]">😊 😌 😁</span>
-          </div>
-          {slots.map((s) => (
-            <div key={s.label} className={`whitespace-nowrap rounded-xl px-2 py-1.5 text-[10px] font-semibold ${s.tint}`}>
-              <span aria-hidden="true">{s.icon}</span> {s.label}
-              <span className="hidden lg:inline">{s.rest}</span>
-            </div>
-          ))}
-          <div className="rounded-full bg-gradient-joy py-1.5 text-center text-[10px] font-semibold text-white">▶ Start Journey</div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 const points = [
   'One parent account for all your children',
   '1,000+ activities, with new ones every week',

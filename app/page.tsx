@@ -6,6 +6,7 @@ import { FeelingLog } from '@/components/joy/landing/feeling-log'
 import { HowSteps } from '@/components/joy/landing/how-steps'
 import { ScrollReveal } from '@/components/joy/scroll-reveal'
 import { DoodleAccents } from '@/components/joy/doodle-accents'
+import { ParentTrust, TrustStrip, isOptionB } from '@/components/joy/landing/option-b'
 
 export default function HomePage() {
   return (
@@ -14,8 +15,10 @@ export default function HomePage() {
       <main className="relative">
         <DoodleAccents />
         <Hero />
+        {isOptionB ? <TrustStrip /> : null}
         <Features />
         <FeelingLog />
+        {isOptionB ? <ParentTrust /> : null}
         <HowSteps />
         <TryJoyCta />
       </main>

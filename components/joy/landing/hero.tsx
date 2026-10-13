@@ -4,6 +4,7 @@ import { Play, Sparkles } from '@/components/joy/cute-icons'
 import { JoyButton } from '../ui'
 import { VideoButton } from './video-button'
 import { FeatureShowcase } from './feature-showcase'
+import { FreePlanNote, PhoneToday, StoreRow, isOptionB } from './option-b'
 
 export function Hero() {
   return (
@@ -42,19 +43,39 @@ export function Hero() {
               See how it works
             </VideoButton>
           </div>
+          {isOptionB ? (
+            <>
+              <StoreRow />
+              <FreePlanNote />
+            </>
+          ) : (
           <p className="text-sm text-muted-foreground">
             Create your parent account in a few minutes. Already have one?{' '}
             <Link href="#download" className="font-semibold text-foreground underline underline-offset-4">
               Log in
             </Link>
           </p>
+          )}
         </div>
 
-        <div className="relative max-md:pt-14">
+        <div className={isOptionB ? "relative max-md:pt-14 max-md:pb-24 md:pb-20 lg:pb-28" : "relative max-md:pt-14"}>
           <div
             className="pointer-events-none absolute inset-[-10%] rounded-full bg-[radial-gradient(closest-side,#fde3ee_0%,#fdf0f5_55%,transparent_100%)]"
             aria-hidden="true"
           />
+          {isOptionB ? (
+            <div className="relative mx-auto w-full max-w-[22rem] md:max-w-[19rem] lg:max-w-[28rem]">
+          <Image
+            src="/images/hero-kids.webp"
+            alt="A happy girl and boy waving while sitting together on a fluffy peach cloud"
+            width={749}
+            height={594}
+            priority
+            className="relative h-auto w-full drop-shadow-[0_20px_30px_rgba(244,150,120,0.18)]"
+          />
+              <PhoneToday className="absolute -bottom-24 -right-1 w-[9rem] md:-bottom-20 md:w-[9rem] lg:-bottom-32 lg:-right-4 lg:w-[10.5rem]" />
+            </div>
+          ) : (
           <Image
             src="/images/hero-kids.webp"
             alt="A happy girl and boy waving while sitting together on a fluffy peach cloud"
@@ -63,7 +84,8 @@ export function Hero() {
             priority
             className="relative mx-auto h-auto w-full max-w-[22rem] md:max-w-[19rem] lg:max-w-[28rem] drop-shadow-[0_20px_30px_rgba(244,150,120,0.18)]"
           />
-          <div className="absolute left-0 top-0 flex md:origin-top-left md:scale-[0.7] lg:top-8 lg:scale-100 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:px-4 md:py-3 lg:-left-10">
+          )}
+          <div className={isOptionB ? 'hidden' : 'absolute left-0 top-0 flex md:origin-top-left md:scale-[0.7] lg:top-8 lg:scale-100 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:px-4 md:py-3 lg:-left-10'}>
             <span className="text-2xl" aria-hidden="true">🦁</span>
             <div>
               <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Child nature</p>
@@ -71,7 +93,7 @@ export function Hero() {
             </div>
           </div>
           <div
-            className="absolute bottom-6 right-0 flex md:origin-bottom-right md:scale-[0.7] lg:bottom-10 lg:scale-100 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:px-4 md:py-3 lg:-right-8"
+            className={isOptionB ? 'hidden' : 'absolute bottom-6 right-0 flex md:origin-bottom-right md:scale-[0.7] lg:bottom-10 lg:scale-100 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:px-4 md:py-3 lg:-right-8'}
           >
             <span className="text-2xl" aria-hidden="true">😊</span>
             <div>

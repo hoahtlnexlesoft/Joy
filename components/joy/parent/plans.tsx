@@ -488,9 +488,9 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
 
   return (
     <>
-<div className="relative min-h-[5.5rem] pr-14 sm:pr-16">
+<div className="relative min-h-[3.25rem] pr-12 sm:pr-14">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/butterfly-purple.webp" alt="" className="pointer-events-none absolute -top-3 right-6 size-[5.25rem] object-contain drop-shadow-[0_8px_12px_rgba(150,100,220,0.25)] sm:right-10 sm:size-24" />
+        <img src="/images/butterfly-purple.webp" alt="" className="pointer-events-none absolute -top-2 right-6 size-14 object-contain drop-shadow-[0_6px_10px_rgba(150,100,220,0.25)] sm:right-8 sm:size-16" />
         <DlgHead title={many ? 'Your plans are ready' : (() => { const c0 = assign[bought[0]?.id] ? app.s.children.find((x) => x.id === assign[bought[0].id]) : null; return c0 ? `${bought[0].name} is ready for ${c0.name}` : 'Your plan is ready' })()} />
       </div>
       <div className="mb-4 rounded-3xl bg-gradient-to-br from-[#e6f8ef] via-[#eefaf6] to-[#e6f3ff] p-4 ring-1 ring-[#c9ecdb]">

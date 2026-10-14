@@ -8,7 +8,7 @@ function Badge({ store }: { store: 'apple' | 'google' }) {
       href={apple ? 'https://apps.apple.com' : 'https://play.google.com/store'}
       target="_blank"
       rel="noopener noreferrer"
-      className={`flex h-10 min-w-0 flex-1 items-center justify-center gap-2 rounded-full py-1 pl-1 pr-3.5 ring-2 transition hover:-translate-y-0.5 hover:scale-[1.03] ${
+      className={`flex h-10 min-w-0 flex-1 items-center justify-center gap-2 rounded-full py-1 pl-1.5 pr-3 ring-2 transition hover:-translate-y-0.5 hover:scale-[1.03] ${
         apple
           ? 'bg-gradient-to-r from-[#d9efff] to-[#e8e2ff] text-[#3d4fa0] ring-white shadow-[0_6px_16px_-6px_rgba(99,102,241,0.55)]'
           : 'bg-gradient-to-r from-[#d9f6e6] to-[#fff1c9] text-[#1f7a4d] ring-white shadow-[0_6px_16px_-6px_rgba(34,160,100,0.55)]'
@@ -61,7 +61,7 @@ export function AppActivationGuide() {
       <ol className="flex flex-col items-stretch gap-1 sm:flex-row sm:gap-2">
         {steps.map((s, i) => (
           <li key={s.title} className="contents">
-            <div className={`flex flex-1 items-center gap-3 rounded-3xl bg-white/90 p-3 shadow-[0_8px_20px_-14px_rgba(214,74,140,0.5)] ring-1 ring-white sm:flex-col sm:gap-2 sm:px-2.5 sm:py-3 sm:text-center ${i === 0 ? 'sm:flex-[2.2]' : ''}`}>
+            <div className={`flex flex-1 items-center gap-3 rounded-3xl bg-white/90 p-3 shadow-[0_8px_20px_-14px_rgba(214,74,140,0.5)] ring-1 ring-white sm:flex-col sm:gap-2 sm:px-2.5 sm:py-3 sm:text-center ${i === 0 ? 'sm:flex-[2.2] sm:px-5 sm:py-4' : ''}`}>
               <span className={`relative grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br text-2xl ring-2 ${s.tint}`} aria-hidden="true">
                 {s.emoji}
               </span>
@@ -70,7 +70,7 @@ export function AppActivationGuide() {
                 <b className="block text-sm leading-tight">{s.title}</b>
                 <p className="mt-1 text-xs leading-snug text-muted-foreground">{s.body}</p>
                 {s.stores ? (
-                  <div className="mt-3 flex w-full flex-row gap-2.5 text-left">
+                  <div className="mt-3.5 flex w-full flex-row gap-2.5 px-1 pb-0.5 text-left">
                     <Badge store="apple" />
                     <Badge store="google" />
                   </div>

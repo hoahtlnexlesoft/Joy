@@ -62,6 +62,7 @@ type Thread = {
   reactions?: Partial<Record<ReactionKey, string[]>>
   images?: string[]
   inModal?: boolean
+  ctx?: string
 }
 
 const KEY = 'joy-review-comments'
@@ -129,6 +130,26 @@ function ago(t: number) {
   return `${Math.round(s / 86400)}d ago`
 }
 
+function threadOnScreen(t: { inModal?: boolean; selector: string }) {
+  if (!t.inModal) return true
+  try {
+    return !!document.querySelector(t.selector)
+  } catch {
+    return false
+  }
+}
+
+const MODAL_SEL = '[class*="z-[100]"][class*="inset-0"], [role="dialog"]'
+
+/** Short label for the popup a comment was left in (its heading), so it can be explained later. */
+function modalContext(el: Element): string {
+  const root = el.closest(MODAL_SEL)
+  if (!root) return ''
+  const h = root.querySelector('h1,h2,h3,[class*="font-display"]')
+  const txt = (h?.textContent || root.textContent || '').replace(/\s+/g, ' ').trim()
+  return txt.slice(0, 60)
+}
+
 function pagePath() {
   return location.pathname.replace(/\/$/, '').split('/').pop() || 'home'
 }
@@ -147,7 +168,7 @@ export function CommentLayer() {
   const [name, setName] = useState('')
   const [mode, setMode] = useState(false)
   const [open, setOpen] = useState(false)
-  const [draft, setDraft] = useState<{ selector: string; rx: number; ry: number; ax: number; ay: number; inModal?: boolean } | null>(null)
+  const [draft, setDraft] = useState<{ selector: string; rx: number; ry: number; ax: number; ay: number; inModal?: boolean; ctx?: string } | null>(null)
   const [draftText, setDraftText] = useState('')
   const [draftImages, setDraftImages] = useState<string[]>([])
   const [lightbox, setLightbox] = useState<string | null>(null)
@@ -163,7 +184,7 @@ export function CommentLayer() {
   const [query, setQuery] = useState('')
   const [menu, setMenu] = useState<string | null>(null) // 'filter' | 'more' | thread id
   const [hidden, setHidden] = useState(false)
-  const [card, setCard] = useState<{ id: string; x: number; y: number } | null>(null)
+  const [card, setCard] = useState<{ id: string; x: number; y: number; center?: boolean } | null>(null)
   const [cardName, setCardName] = useState('')
   const [replyText, setReplyText] = useState('')
   const [emojiOpen, setEmojiOpen] = useState(false)
@@ -264,7 +285,8 @@ export function CommentLayer() {
       const r = t.getBoundingClientRect()
       setDraft({
         selector: selectorFor(t),
-        inModal: !!t.closest('[class*="z-[100]"][class*="inset-0"], [role="dialog"]'),
+        inModal: !!t.closest(MODAL_SEL),
+        ctx: modalContext(t),
         rx: r.width ? (e.clientX - r.left) / r.width : 0.5,
         ry: r.height ? (e.clientY - r.top) / r.height : 0.5,
         ax: e.clientX + window.scrollX,
@@ -343,15 +365,7 @@ export function CommentLayer() {
   }, [card])
 
   // comments made inside a popup only show while that popup element is on screen
-  const onScreen = (t: Thread) => {
-    if (!t.inModal) return true
-    try {
-      return !!document.querySelector(t.selector)
-    } catch {
-      return false
-    }
-  }
-  const pageThreads = threads.filter((t) => t.page === page && onScreen(t))
+  const pageThreads = threads.filter((t) => t.page === page && threadOnScreen(t))
   const shown = threads.filter((t) => {
     if (filter === 'open' && t.resolved) return false
     if (filter === 'resolved' && !t.resolved) return false
@@ -410,6 +424,11 @@ export function CommentLayer() {
       const t = threadsRef.current.find((x) => x.id === id)
       if (!t) return
       setActive(id)
+      if (!threadOnScreen(t)) {
+        // left inside a popup that is not open now: show the thread in the middle of the screen instead of at a random spot
+        setCard({ id, x: 0, y: 0, center: true })
+        return
+      }
       setFlash(id)
       const p = pos(t)
       window.scrollTo({ top: Math.max(0, p.y - window.innerHeight / 2), behavior: 'smooth' })
@@ -893,6 +912,9 @@ export function CommentLayer() {
                           <button onClick={() => goTo(t)} className="mt-0.5 block w-full text-left">
                             <span className={`block whitespace-pre-line break-words text-[13px] leading-snug text-slate-700 ${isActive ? '' : 'line-clamp-3'}`}>{t.text}</span>
                           </button>
+                          {t.inModal && (
+                            <span className="mt-0.5 block truncate text-[11px] text-slate-400">In popup{t.ctx ? ` · ${t.ctx}` : ''}</span>
+                          )}
                           {long && !isActive && (
                             <button onClick={() => setActive(t.id)} className="mt-1 text-xs text-slate-500 hover:text-slate-800">
                               Show more
@@ -996,7 +1018,10 @@ export function CommentLayer() {
         const rightEdge = window.innerWidth - (window.innerWidth >= 640 ? (open ? PANEL_W : RAIL_W) : 0) - 12
         const left = Math.min(Math.max(12, card.x - 24), Math.max(12, rightEdge - W))
         const below = card.y < window.innerHeight * 0.5
-        const style: React.CSSProperties = below
+        const dockW = window.innerWidth >= 640 ? (open ? PANEL_W : RAIL_W) : 0
+        const style: React.CSSProperties = card.center
+          ? { left: Math.max(12, (window.innerWidth - dockW - W) / 2), top: '50%', transform: 'translateY(-50%)', maxHeight: window.innerHeight - 40 }
+          : below
           ? { left, top: Math.max(12, card.y + 14), maxHeight: window.innerHeight - card.y - 28 }
           : { left, bottom: Math.max(12, window.innerHeight - card.y + 44), maxHeight: card.y - 60 }
         const who = name || cardName.trim()
@@ -1047,6 +1072,11 @@ export function CommentLayer() {
               </button>
             </header>
             <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-3">
+              {t.inModal && !threadOnScreen(t) && (
+                <p className="mb-3 rounded-xl bg-amber-50 px-3 py-2 text-xs leading-snug text-amber-800 ring-1 ring-amber-200">
+                  Left inside a popup{t.ctx ? <>: <b>{t.ctx}</b></> : ''}. Open that popup again to see exactly where.
+                </p>
+              )}
               {!!t.images?.length && (
                 <div className="mb-3 grid gap-1.5">
                   {t.images.map((src, i) => (

@@ -273,12 +273,19 @@ export function CommentLayer() {
       setMode(false)
     }
     const key = (e: KeyboardEvent) => e.key === 'Escape' && (clear(), setMode(false))
+    const swallow = (e: Event) => {
+      if (inUi(e.target)) return
+      e.stopPropagation()
+      e.stopImmediatePropagation()
+    }
+    for (const ev of ['mousedown', 'mouseup', 'pointerdown', 'pointerup']) document.addEventListener(ev, swallow, true)
     document.addEventListener('mousemove', move, true)
     document.addEventListener('click', click, true)
     document.addEventListener('keydown', key)
     document.documentElement.style.cursor = 'crosshair'
     return () => {
       clear()
+      for (const ev of ['mousedown', 'mouseup', 'pointerdown', 'pointerup']) document.removeEventListener(ev, swallow, true)
       document.removeEventListener('mousemove', move, true)
       document.removeEventListener('click', click, true)
       document.removeEventListener('keydown', key)
@@ -529,7 +536,7 @@ export function CommentLayer() {
           setHidden(false)
           setOpen(true)
         }}
-        className="fixed right-0 top-1/2 z-[85] flex -translate-y-1/2 items-center gap-1.5 rounded-l-full bg-[#fafafa] py-2.5 pl-3 pr-2.5 text-slate-700 shadow-[0_4px_18px_-4px_rgba(30,20,60,0.4)] ring-1 ring-black/10 transition hover:pl-4"
+        className="fixed right-0 top-1/2 z-[110] flex -translate-y-1/2 items-center gap-1.5 rounded-l-full bg-[#fafafa] py-2.5 pl-3 pr-2.5 text-slate-700 shadow-[0_4px_18px_-4px_rgba(30,20,60,0.4)] ring-1 ring-black/10 transition hover:pl-4"
         aria-label="Show comments"
         title="Show comments"
       >
@@ -544,7 +551,7 @@ export function CommentLayer() {
   return (
     <div data-review-ui>
       {/* pins */}
-      <div className="pointer-events-none absolute left-0 top-0 z-[60]" style={{ width: 0, height: 0 }}>
+      <div className="pointer-events-none absolute left-0 top-0 z-[110]" style={{ width: 0, height: 0 }}>
         {pageThreads.map((t) => {
           const p = pos(t)
           const idx = threads.indexOf(t) + 1
@@ -660,7 +667,7 @@ export function CommentLayer() {
       )}
 
       {/* bottom-center mode pill (Browse / Comment) */}
-      <div data-review-ui style={{ left: 'calc(50% - var(--joy-dock, 0px) / 2)' }} className="fixed bottom-4 z-[80] flex -translate-x-1/2 flex-col items-center gap-2">
+      <div data-review-ui style={{ left: 'calc(50% - var(--joy-dock, 0px) / 2)' }} className="fixed bottom-4 z-[110] flex -translate-x-1/2 flex-col items-center gap-2">
         {mode && (
           <span className="whitespace-nowrap rounded-full bg-slate-900/90 px-3 py-1.5 text-xs font-semibold text-white">
             Click anything to comment · Esc to cancel
@@ -694,7 +701,7 @@ export function CommentLayer() {
       {!open && (
         <div
           data-review-ui
-          className="fixed bottom-0 right-0 top-0 z-[85] flex w-14 flex-col items-center gap-2.5 overflow-y-auto rounded-l-[1.4rem] bg-[#fafafa] pb-4 pt-4 shadow-[0_0_30px_-8px_rgba(30,20,60,0.35)] ring-1 ring-black/10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-sm:w-11"
+          className="fixed bottom-0 right-0 top-0 z-[110] flex w-14 flex-col items-center gap-2.5 overflow-y-auto rounded-l-[1.4rem] bg-[#fafafa] pb-4 pt-4 shadow-[0_0_30px_-8px_rgba(30,20,60,0.35)] ring-1 ring-black/10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-sm:w-11"
         >
           <button onClick={() => setOpen(true)} className="grid size-8 place-items-center rounded-full text-slate-600 hover:bg-black/5" aria-label="Open comments" title="Open comments">
             <ChevronsLeft className="size-[1.1rem]" />
@@ -729,7 +736,7 @@ export function CommentLayer() {
       {open && (
         <aside
           data-review-ui
-          className="fixed bottom-0 right-0 top-0 z-[85] flex w-[19rem] max-w-full flex-col rounded-l-[1.4rem] bg-[#fafafa] text-left shadow-[0_0_30px_-8px_rgba(30,20,60,0.35)] ring-1 ring-black/10"
+          className="fixed bottom-0 right-0 top-0 z-[110] flex w-[19rem] max-w-full flex-col rounded-l-[1.4rem] bg-[#fafafa] text-left shadow-[0_0_30px_-8px_rgba(30,20,60,0.35)] ring-1 ring-black/10"
         >
           {menu && <div className="fixed inset-0 z-[1]" onClick={() => setMenu(null)} />}
           <header className="flex items-center justify-between gap-2 px-4 pb-2.5 pt-4">
@@ -988,7 +995,7 @@ export function CommentLayer() {
             data-review-ui
             role="dialog"
             aria-label="Comment"
-            className="fixed z-[88] flex w-[19rem] max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-[1.6rem] bg-white text-left shadow-[0_20px_60px_-12px_rgba(30,20,60,0.4)] ring-1 ring-black/10"
+            className="fixed z-[115] flex w-[19rem] max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-[1.6rem] bg-white text-left shadow-[0_20px_60px_-12px_rgba(30,20,60,0.4)] ring-1 ring-black/10"
             style={style}
           >
             <header className="flex items-center gap-1 px-4 pb-2 pt-3.5">
@@ -1115,7 +1122,7 @@ export function CommentLayer() {
       })()}
 
       {lightbox && (
-        <div data-review-ui onClick={() => setLightbox(null)} className="fixed inset-0 z-[100] grid cursor-zoom-out place-items-center bg-black/80 p-4">
+        <div data-review-ui onClick={() => setLightbox(null)} className="fixed inset-0 z-[130] grid cursor-zoom-out place-items-center bg-black/80 p-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={lightbox} alt="Attached" className="max-h-full max-w-full rounded-xl shadow-2xl" />
         </div>

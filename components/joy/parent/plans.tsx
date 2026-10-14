@@ -1,5 +1,6 @@
 'use client'
 
+import { AppActivationGuide } from './app-guide'
 import { Fragment, useEffect, useState } from 'react'
 import { CalendarHeart, Check, ChevronRight, Gift, Plus, Timer, Zap } from '@/components/joy/cute-icons'
 import { Btn, Card, DlgHead, Empty, Field, Note, Seg, UnlockChip, inputCls } from './ui'
@@ -493,6 +494,7 @@ export function BuyFlow({ app, pre }: { app: App; pre: { plan?: string; child?: 
         </li>
       </ul>
       <p className="mb-5 text-sm text-muted-foreground">{bought.some((b) => assign[b.id]) ? 'New activities are unlocked.' : 'Assign it to a child anytime from Plans.'}</p>
+      <AppActivationGuide />
       <div className="flex justify-end gap-3">
         <Btn variant="ghost" onClick={() => app.open(null)}>Close</Btn>
         <Btn onClick={() => { app.open(null); app.go({ name: 'plans' }) }}>Go to Plans</Btn>

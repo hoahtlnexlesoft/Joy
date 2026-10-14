@@ -145,10 +145,10 @@ export function PlansView({ app }: { app: App }) {
 /* ---------------- pickers ---------------- */
 function PickRow({ type, name, value, checked, disabled, onChange, art, title, sub }: { type: 'radio' | 'checkbox'; name: string; value: string; checked: boolean; disabled?: boolean; onChange: () => void; art?: React.ReactNode; title: React.ReactNode; sub: string }) {
   return (
-    <label className={cn('flex cursor-pointer items-center gap-2.5 rounded-2xl p-2.5 ring-1 transition', checked ? 'bg-[#fff5f8] ring-joy-pink' : 'bg-white ring-border hover:ring-foreground/25', disabled && 'pointer-events-none opacity-50')}>
-      <input type={type} name={name} value={value} checked={checked} disabled={disabled} onChange={onChange} className="size-4 accent-[#f0449a]" />
+    <label className={cn('flex cursor-pointer items-center gap-2 rounded-xl px-2.5 py-1.5 ring-1 transition', checked ? 'bg-[#fff5f8] ring-joy-pink' : 'bg-white ring-border hover:ring-foreground/25', disabled && 'pointer-events-none opacity-50')}>
+      <input type={type} name={name} value={value} checked={checked} disabled={disabled} onChange={onChange} className="size-3.5 shrink-0 accent-[#f0449a]" />
       {art}
-      <span className="min-w-0"><b className="block text-sm">{title}</b><small className="text-xs text-muted-foreground">{sub}</small></span>
+      <span className="min-w-0 leading-tight"><b className="block truncate text-[13px]">{title}</b><small className="block truncate text-[11px] text-muted-foreground">{sub}</small></span>
     </label>
   )
 }
@@ -173,7 +173,7 @@ export function AssignDialog({ app, plan, pre }: { app: App; plan: Plan; pre?: s
           <legend className="sr-only">Children</legend>
           {app.s.children.map((c) => {
             const blocked = plan.children.includes(c.id)
-            return <PickRow key={c.id} type={multi ? 'checkbox' : 'radio'} name="as" value={c.id} checked={sel.includes(c.id)} disabled={blocked} onChange={() => { setErr(false); toggle(c.id) }} art={<ChildThumb c={c} className="size-9" />} title={c.name} sub={blocked ? 'Already on this plan' : `Now: ${unlockOf(app.s, c)}`} />
+            return <PickRow key={c.id} type={multi ? 'checkbox' : 'radio'} name="as" value={c.id} checked={sel.includes(c.id)} disabled={blocked} onChange={() => { setErr(false); toggle(c.id) }} art={<ChildThumb c={c} className="size-7" />} title={c.name} sub={blocked ? 'Already on this plan' : `Now: ${unlockOf(app.s, c)}`} />
           })}
         </fieldset>
         {err ? <p className="mb-3 text-xs font-medium text-[#e5484d]">Choose a child to continue.</p> : null}
@@ -455,14 +455,14 @@ export function BuyFlow({ app, pre }: { app: App; pre: { plan?: string; child?: 
         {stepper}
         <div className="mb-5 flex items-center gap-3 rounded-2xl bg-[#e4f7e6] p-4 text-sm"><span aria-hidden="true">✅</span><div><b className="block">Payment complete</b><span className="text-xs text-[#3b7a43]">{bought.map((b) => b.name).join(' + ')} · {money(total)} · AYA Pay · {ref}</span></div></div>
         <DlgHead title={many ? 'Who are these plans for?' : `Who is ${bought[0]?.name} for?`} sub="Pick a child, add a new one, or assign it later from Plans." />
-        <div className="mb-5 flex flex-col gap-4">
+        <div className="mb-4 flex flex-col gap-3">
           {bought.map((b) => (
-            <fieldset key={b.id} className="rounded-2xl p-3 ring-1 ring-border">
+            <fieldset key={b.id} className="rounded-xl p-2.5 ring-1 ring-border">
               <legend className="px-1 text-sm font-bold">{b.name}</legend>
               <div className="grid gap-2 sm:grid-cols-3">
-                {app.s.children.map((c) => <PickRow key={c.id} type="radio" name={`bc-${b.id}`} value={c.id} checked={assign[b.id] === c.id} onChange={() => setAssign((a) => ({ ...a, [b.id]: c.id }))} art={<ChildThumb c={c} className="size-9" />} title={c.name} sub={`Now: ${unlockOf(app.s, c)}`} />)}
+                {app.s.children.map((c) => <PickRow key={c.id} type="radio" name={`bc-${b.id}`} value={c.id} checked={assign[b.id] === c.id} onChange={() => setAssign((a) => ({ ...a, [b.id]: c.id }))} art={<ChildThumb c={c} className="size-7" />} title={c.name} sub={`Now: ${unlockOf(app.s, c)}`} />)}
                 <PickRow type="radio" name={`bc-${b.id}`} value="" checked={!assign[b.id]} onChange={() => setAssign((a) => ({ ...a, [b.id]: null }))} title="Assign later" sub="Pick later in Plans" />
-                <button type="button" onClick={() => setAddingFor(b.id)} className="flex min-h-[3.5rem] w-full items-center justify-center gap-2 rounded-2xl text-sm font-semibold ring-1 ring-dashed ring-foreground/30 hover:bg-[#faf8fc]"><span aria-hidden="true">+</span>Add a new child</button>
+                <button type="button" onClick={() => setAddingFor(b.id)} className="flex min-h-[2.5rem] w-full items-center justify-center gap-1.5 rounded-xl text-[13px] font-semibold ring-1 ring-dashed ring-foreground/30 hover:bg-[#faf8fc]"><span aria-hidden="true">+</span>Add a new child</button>
               </div>
             </fieldset>
           ))}

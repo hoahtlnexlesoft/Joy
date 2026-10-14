@@ -525,7 +525,10 @@ export function CommentLayer() {
     return (
       <button
         data-review-ui
-        onClick={() => setHidden(false)}
+        onClick={() => {
+          setHidden(false)
+          setOpen(true)
+        }}
         className="fixed right-0 top-1/2 z-[85] flex -translate-y-1/2 items-center gap-1.5 rounded-l-full bg-[#fafafa] py-2.5 pl-3 pr-2.5 text-slate-700 shadow-[0_4px_18px_-4px_rgba(30,20,60,0.4)] ring-1 ring-black/10 transition hover:pl-4"
         aria-label="Show comments"
         title="Show comments"

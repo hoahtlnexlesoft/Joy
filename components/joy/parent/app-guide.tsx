@@ -8,19 +8,19 @@ function Badge({ store }: { store: 'apple' | 'google' }) {
       href={apple ? 'https://apps.apple.com' : 'https://play.google.com/store'}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex h-11 items-center gap-2.5 rounded-full py-1 pl-1 pr-4 ring-2 transition hover:-translate-y-0.5 hover:scale-[1.03] ${
+      className={`flex h-9 w-full items-center gap-2 rounded-full py-0.5 pl-0.5 pr-3 ring-2 transition hover:-translate-y-0.5 hover:scale-[1.03] ${
         apple
           ? 'bg-gradient-to-r from-[#d9efff] to-[#e8e2ff] text-[#3d4fa0] ring-white shadow-[0_6px_16px_-6px_rgba(99,102,241,0.55)]'
           : 'bg-gradient-to-r from-[#d9f6e6] to-[#fff1c9] text-[#1f7a4d] ring-white shadow-[0_6px_16px_-6px_rgba(34,160,100,0.55)]'
       }`}
     >
-      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white shadow-[inset_0_-2px_0_rgba(0,0,0,0.05)]">
+      <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white shadow-[inset_0_-2px_0_rgba(0,0,0,0.05)]">
         {apple ? (
-          <svg viewBox="0 0 24 24" className="size-5 fill-[#5b6cf0]" aria-hidden="true">
+          <svg viewBox="0 0 24 24" className="size-4 fill-[#5b6cf0]" aria-hidden="true">
             <path d={APPLE_PATH} />
           </svg>
         ) : (
-          <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true">
+          <svg viewBox="0 0 24 24" className="size-4" aria-hidden="true">
             <path d="M3.6 2.2 13.3 12l-9.7 9.8c-.2-.2-.3-.6-.3-1V3.2c0-.4.1-.8.3-1Z" fill="#34a853" />
             <path d="m16.9 8.4-3.6 3.6-9.7-9.8c.3-.3.8-.3 1.3 0l12 6.2Z" fill="#4285f4" />
             <path d="M16.9 15.6 4.9 21.8c-.5.3-1 .3-1.3 0l9.7-9.8 3.6 3.6Z" fill="#ea4335" />
@@ -29,8 +29,8 @@ function Badge({ store }: { store: 'apple' | 'google' }) {
         )}
       </span>
       <span className="flex flex-col leading-none">
-        <span className="whitespace-nowrap text-[9px] font-semibold uppercase tracking-wide opacity-70">{apple ? 'Download on the' : 'Get it on'}</span>
-        <span className="mt-0.5 whitespace-nowrap text-[15px] font-bold">{apple ? 'App Store' : 'Google Play'}</span>
+        <span className="whitespace-nowrap text-[8px] font-semibold uppercase tracking-wide opacity-70">{apple ? 'Download on the' : 'Get it on'}</span>
+        <span className="mt-0.5 whitespace-nowrap text-[13px] font-bold">{apple ? 'App Store' : 'Google Play'}</span>
       </span>
     </a>
   )
@@ -50,7 +50,7 @@ function DashArrow() {
 /** Shown after a successful payment: how to activate the Joy app on the child's device. */
 export function AppActivationGuide() {
   const steps = [
-    { emoji: '📲', tint: 'from-[#e3f2ff] to-[#f4faff] ring-[#c9e3fb]', title: 'Download the app', body: "Install it on your child's device." },
+    { emoji: '📲', tint: 'from-[#e3f2ff] to-[#f4faff] ring-[#c9e3fb]', title: 'Download the app', body: "Install it on your child's device.", stores: true },
     { emoji: '🧒', tint: 'from-[#ffeedd] to-[#fff8f0] ring-[#ffd9b8]', title: 'Switch to Child view', body: <>Tap <b>Play</b> on the Home screen.</> },
     { emoji: '🔗', tint: 'from-[#efe7ff] to-[#f9f5ff] ring-[#d9c9fb]', title: 'Link parent account', body: <><b>My profile</b> › <b>Link Parent Account</b>.</> },
   ]
@@ -66,20 +66,22 @@ export function AppActivationGuide() {
               <span className={`relative grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br text-2xl ring-2 ${s.tint}`} aria-hidden="true">
                 {s.emoji}
               </span>
-              <div className="min-w-0">
+              <div className="min-w-0 sm:w-full">
                 <span className="mb-1 inline-block rounded-full bg-[#ffe9d9] px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wide text-[#e4631f]">Step {i + 1}</span>
                 <b className="block text-sm leading-tight">{s.title}</b>
                 <p className="mt-1 text-xs leading-snug text-muted-foreground">{s.body}</p>
+                {s.stores ? (
+                  <div className="mt-2.5 flex w-full flex-col gap-1.5 text-left">
+                    <Badge store="apple" />
+                    <Badge store="google" />
+                  </div>
+                ) : null}
               </div>
             </div>
             {i < steps.length - 1 && <DashArrow />}
           </li>
         ))}
       </ol>
-      <div className="mt-3 flex flex-wrap justify-center gap-2">
-        <Badge store="apple" />
-        <Badge store="google" />
-      </div>
     </section>
   )
 }

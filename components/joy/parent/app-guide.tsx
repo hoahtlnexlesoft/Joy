@@ -8,19 +8,19 @@ function Badge({ store }: { store: 'apple' | 'google' }) {
       href={apple ? 'https://apps.apple.com' : 'https://play.google.com/store'}
       target="_blank"
       rel="noopener noreferrer"
-      className={`flex h-10 min-w-0 flex-1 items-center justify-center gap-2 rounded-full py-1 pl-1.5 pr-3 ring-2 transition hover:-translate-y-0.5 hover:scale-[1.03] ${
+      className={`flex h-10 min-w-0 flex-1 items-center justify-center gap-2 rounded-full px-3 ring-2 transition hover:-translate-y-0.5 hover:scale-[1.03] ${
         apple
           ? 'bg-gradient-to-r from-[#d9efff] to-[#e8e2ff] text-[#3d4fa0] ring-white shadow-[0_6px_16px_-6px_rgba(99,102,241,0.55)]'
           : 'bg-gradient-to-r from-[#d9f6e6] to-[#fff1c9] text-[#1f7a4d] ring-white shadow-[0_6px_16px_-6px_rgba(34,160,100,0.55)]'
       }`}
     >
-      <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white shadow-[inset_0_-2px_0_rgba(0,0,0,0.05)]">
+      <span className="flex size-5 shrink-0 items-center justify-center">
         {apple ? (
-          <svg viewBox="0 0 24 24" className="size-4 fill-[#5b6cf0]" aria-hidden="true">
+          <svg viewBox="0 0 24 24" className="size-5 fill-[#5b6cf0]" aria-hidden="true">
             <path d={APPLE_PATH} />
           </svg>
         ) : (
-          <svg viewBox="0 0 24 24" className="size-4" aria-hidden="true">
+          <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true">
             <path d="M3.6 2.2 13.3 12l-9.7 9.8c-.2-.2-.3-.6-.3-1V3.2c0-.4.1-.8.3-1Z" fill="#34a853" />
             <path d="m16.9 8.4-3.6 3.6-9.7-9.8c.3-.3.8-.3 1.3 0l12 6.2Z" fill="#4285f4" />
             <path d="M16.9 15.6 4.9 21.8c-.5.3-1 .3-1.3 0l9.7-9.8 3.6 3.6Z" fill="#ea4335" />

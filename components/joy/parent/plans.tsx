@@ -333,8 +333,8 @@ export function BuyFlow({ app, pre }: { app: App; pre: { plan?: string; child?: 
         return (
           <Fragment key={s}>
             <li aria-current={on ? 'step' : undefined} className="flex shrink-0 items-center gap-2">
-              <span className={cn('grid size-9 place-items-center rounded-full text-sm font-bold transition', done ? 'bg-[#e4f7e6] text-[#2f8f3a]' : on ? 'bg-gradient-joy text-white shadow-[0_8px_18px_-6px_rgba(238,90,138,0.7)] ring-4 ring-[#ffe3ec]' : 'bg-[#f1edf7] text-[#9a8fb0]')}>
-                {done ? <Check className="size-4" strokeWidth={3.5} /> : n}
+              <span className={cn('grid size-9 place-items-center rounded-full text-sm font-bold transition', done ? 'bg-gradient-to-br from-[#8fe9ab] to-[#37c677] text-white shadow-[0_6px_14px_-6px_rgba(55,198,119,0.8)] ring-4 ring-[#dcf7e5]' : on ? 'bg-gradient-joy text-white shadow-[0_8px_18px_-6px_rgba(238,90,138,0.7)] ring-4 ring-[#ffe3ec]' : 'bg-[#f1edf7] text-[#9a8fb0]')}>
+                {done ? <svg viewBox="0 0 20 20" className="size-5 drop-shadow-[0_1px_1px_rgba(20,110,60,0.35)]" fill="none" stroke="currentColor" strokeWidth="3.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m4.5 10.5 3.7 3.7 7.3-8" /></svg> : n}
               </span>
               <span className={cn('text-sm', on ? 'font-bold text-foreground' : done ? 'font-semibold text-foreground/70' : 'font-medium text-muted-foreground')}>{s}</span>
             </li>

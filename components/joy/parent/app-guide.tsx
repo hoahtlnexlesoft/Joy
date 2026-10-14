@@ -59,9 +59,9 @@ export function AppActivationGuide() {
             <div className="flex flex-1 items-center gap-3 rounded-3xl bg-white/90 p-3.5 shadow-[0_8px_20px_-14px_rgba(214,74,140,0.5)] ring-1 ring-white sm:flex-col sm:gap-2 sm:px-3 sm:py-4 sm:text-center">
               <span className={`relative grid size-16 shrink-0 place-items-center rounded-[1.4rem] bg-gradient-to-br text-[2rem] ring-2 ${s.tint}`} aria-hidden="true">
                 {s.emoji}
-                <span className="absolute -left-2 -top-2 grid size-6 place-items-center rounded-full bg-[#ff7a3d] text-xs font-bold text-white ring-2 ring-white">{i + 1}</span>
               </span>
               <div className="min-w-0">
+                <span className="mb-1 inline-block rounded-full bg-[#ffe9d9] px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wide text-[#e4631f]">Step {i + 1}</span>
                 <b className="block text-sm leading-tight">{s.title}</b>
                 <p className="mt-1 text-xs leading-snug text-muted-foreground">{s.body}</p>
               </div>

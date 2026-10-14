@@ -459,7 +459,7 @@ export function BuyFlow({ app, pre }: { app: App; pre: { plan?: string; child?: 
           {bought.map((b) => (
             <fieldset key={b.id} className="rounded-xl p-2.5 ring-1 ring-border">
               <legend className="px-1 text-sm font-bold">{b.name}</legend>
-              <div className="grid gap-2 sm:grid-cols-3">
+              <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4">
                 {app.s.children.map((c) => <PickRow key={c.id} type="radio" name={`bc-${b.id}`} value={c.id} checked={assign[b.id] === c.id} onChange={() => setAssign((a) => ({ ...a, [b.id]: c.id }))} art={<ChildThumb c={c} className="size-7" />} title={c.name} sub={`Now: ${unlockOf(app.s, c)}`} />)}
                 <PickRow type="radio" name={`bc-${b.id}`} value="" checked={!assign[b.id]} onChange={() => setAssign((a) => ({ ...a, [b.id]: null }))} title="Assign later" sub="Pick later in Plans" />
                 <button type="button" onClick={() => setAddingFor(b.id)} className="flex min-h-[2.5rem] w-full items-center justify-center gap-1.5 rounded-xl text-[13px] font-semibold ring-1 ring-dashed ring-foreground/30 hover:bg-[#faf8fc]"><span aria-hidden="true">+</span>Add a new child</button>

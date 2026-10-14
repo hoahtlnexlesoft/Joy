@@ -70,14 +70,8 @@ const KEY = 'joy-review-comments'
 const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
 const SB_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const REMOTE = !!(SB_URL && SB_KEY)
-// Preview builds (hosted where the page cannot reach Supabase) ship a read-only copy of the customers' comments.
-const SNAP: Thread[] = (() => {
-  try {
-    return JSON.parse(process.env.NEXT_PUBLIC_JOY_REVIEW_SNAPSHOT || '[]')
-  } catch {
-    return []
-  }
-})()
+// Hosted previews cannot reach Supabase, so a published file next to the page (review-comments.json) carries a read-only copy of the customers' comments.
+let SNAP: Thread[] = []
 function mergeSnap(local: Thread[]): Thread[] {
   const byId = new Map(local.map((t) => [t.id, t]))
   const out: Thread[] = SNAP.map((s) => {
@@ -223,7 +217,24 @@ export function CommentLayer() {
       setName(localStorage.getItem(NAME_KEY) || '')
       if (!REMOTE) setThreads(mergeSnap(JSON.parse(localStorage.getItem(KEY) || '[]')))
     } catch {}
-    if (!REMOTE) return
+    if (!REMOTE) {
+      let off = false
+      const loadSnap = () =>
+        fetch(`./review-comments.json?c=${Date.now()}`, { cache: 'no-store' })
+          .then((r) => (r.ok ? r.json() : null))
+          .then((rows) => {
+            if (off || !Array.isArray(rows)) return
+            SNAP = rows as Thread[]
+            setThreads((cur) => mergeSnap(cur))
+          })
+          .catch(() => {})
+      loadSnap()
+      const iv2 = setInterval(loadSnap, 20000)
+      return () => {
+        off = true
+        clearInterval(iv2)
+      }
+    }
     let stop = false
     const pull = async () => {
       if (pending.current > 0 || document.hidden) return

@@ -63,6 +63,7 @@ type Thread = {
   images?: string[]
   inModal?: boolean
   ctx?: string
+  view?: unknown
 }
 
 const KEY = 'joy-review-comments'
@@ -168,7 +169,7 @@ export function CommentLayer() {
   const [name, setName] = useState('')
   const [mode, setMode] = useState(false)
   const [open, setOpen] = useState(false)
-  const [draft, setDraft] = useState<{ selector: string; rx: number; ry: number; ax: number; ay: number; inModal?: boolean; ctx?: string } | null>(null)
+  const [draft, setDraft] = useState<{ selector: string; rx: number; ry: number; ax: number; ay: number; inModal?: boolean; ctx?: string; view?: unknown } | null>(null)
   const [draftText, setDraftText] = useState('')
   const [draftImages, setDraftImages] = useState<string[]>([])
   const [lightbox, setLightbox] = useState<string | null>(null)
@@ -287,6 +288,7 @@ export function CommentLayer() {
         selector: selectorFor(t),
         inModal: !!t.closest(MODAL_SEL),
         ctx: modalContext(t),
+        ...(t.closest(MODAL_SEL) && (window as any).__joyView ? { view: JSON.parse(JSON.stringify((window as any).__joyView)) } : {}),
         rx: r.width ? (e.clientX - r.left) / r.width : 0.5,
         ry: r.height ? (e.clientY - r.top) / r.height : 0.5,
         ax: e.clientX + window.scrollX,
@@ -419,13 +421,19 @@ export function CommentLayer() {
     setOpen(true)
   }
 
+  const focusRef = useRef<(id: string, tries?: number) => void>(() => {})
   const focusThread = useCallback(
-    (id: string) => {
+    (id: string, tries = 0) => {
       const t = threadsRef.current.find((x) => x.id === id)
       if (!t) return
       setActive(id)
       if (!threadOnScreen(t)) {
-        // left inside a popup that is not open now: show the thread in the middle of the screen instead of at a random spot
+        // left inside a popup that is not open now: reopen it at the same step when we know how, otherwise show a centred card
+        if (t.view && tries < 14) {
+          window.dispatchEvent(new CustomEvent('joy:restore-view', { detail: t.view }))
+          setTimeout(() => focusRef.current(id, tries + 1), 150)
+          return
+        }
         setCard({ id, x: 0, y: 0, center: true })
         return
       }
@@ -457,6 +465,8 @@ export function CommentLayer() {
     },
     [pos],
   )
+
+  focusRef.current = focusThread
 
   const goTo = (t: Thread) => {
     if (t.page !== page) {

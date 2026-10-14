@@ -6,7 +6,7 @@ import { CalendarHeart, Check, ChevronRight, Gift, Plus, Timer, Zap } from '@/co
 import { Btn, Card, DlgHead, Empty, Field, Note, Seg, UnlockChip, inputCls } from './ui'
 import { BENEFITS, CATALOG, VOUCHERS, addDays, daysLeft, fmt, fmtDate, isExpired, isUpcoming, money, unlockOf } from './data'
 import type { Channel, Child, Plan, PlanType } from './data'
-import type { App } from './types'
+import type { App, BuyRestore } from './types'
 import { ChildForm, QrCanvas } from './dialogs'
 import { cn } from '@/lib/utils'
 import { ANIMAL_IMG } from './data'
@@ -273,17 +273,23 @@ function CuteBulb() {
 }
 
 type Step = 1 | 2 | 3 | 4 | 5
-export function BuyFlow({ app, pre }: { app: App; pre: { plan?: string; child?: string } }) {
-  const [step, setStep] = useState<Step>(1)
-  const [sel, setSel] = useState<string[]>(pre.plan ? [pre.plan] : [])
-  const [ref, setRef] = useState('')
-  const [bought, setBought] = useState<{ id: string; name: string }[]>([])
-  const [assign, setAssign] = useState<Record<string, string | null>>({})
+export function BuyFlow({ app, pre }: { app: App; pre: { plan?: string; child?: string; restore?: BuyRestore } }) {
+  const rs = pre.restore
+  const [step, setStep] = useState<Step>((rs?.step as Step) ?? 1)
+  const [sel, setSel] = useState<string[]>(rs?.sel ?? (pre.plan ? [pre.plan] : []))
+  const [ref, setRef] = useState(rs?.ref ?? '')
+  const [bought, setBought] = useState<{ id: string; name: string }[]>(rs?.bought ?? [])
+  const [assign, setAssign] = useState<Record<string, string | null>>(rs?.assign ?? {})
   const [ayaTab, setAyaTab] = useState<'qr' | 'phone'>('qr')
   const [phone, setPhone] = useState('')
   const [phoneErr, setPhoneErr] = useState(false)
   const [waiting, setWaiting] = useState(false)
   const [addingFor, setAddingFor] = useState<string | null>(null)
+  // publish the current step so a review comment can reopen this popup exactly here
+  useEffect(() => {
+    ;(window as unknown as { __joyView?: unknown }).__joyView = { k: 'buy', plan: pre.plan, child: pre.child, restore: { step, sel, ref, bought, assign } }
+  }, [step, sel, ref, bought, assign, pre.plan, pre.child])
+  useEffect(() => () => { (window as unknown as { __joyView?: unknown }).__joyView = null }, [])
   const chosen = CATALOG.filter((c) => sel.includes(c.name))
   const total = chosen.reduce((n, c) => n + c.price, 0)
   const many = chosen.length > 1

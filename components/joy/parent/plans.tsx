@@ -453,7 +453,7 @@ export function BuyFlow({ app, pre }: { app: App; pre: { plan?: string; child?: 
     return (
       <>
         {stepper}
-        <div className="mb-5 flex items-center gap-3 rounded-2xl bg-[#e4f7e6] p-4 text-sm"><span aria-hidden="true">✅</span><div><b className="block">Payment complete</b><span className="text-xs text-[#3b7a43]">{bought.map((b) => b.name).join(' + ')} · {money(total)} · AYA Pay · {ref}</span></div></div>
+        <div className="mb-5 flex items-center gap-3 rounded-2xl bg-gradient-to-r from-[#e3f8ea] to-[#eaf6ff] p-3.5 text-sm ring-1 ring-[#c9ecdb]"><span aria-hidden="true" className="grid size-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#8fe9ab] to-[#37c677] text-white shadow-[0_6px_14px_-6px_rgba(55,198,119,0.8)] ring-4 ring-white/80"><svg viewBox="0 0 20 20" className="size-5 drop-shadow-[0_1px_1px_rgba(20,110,60,0.35)]" fill="none" stroke="currentColor" strokeWidth="3.6" strokeLinecap="round" strokeLinejoin="round"><path d="m4.5 10.5 3.7 3.7 7.3-8" /></svg></span><div className="min-w-0"><b className="block">Payment complete</b><span className="block break-words text-xs text-[#2f7d52]">{bought.map((b) => b.name).join(' + ')} · {money(total)} · AYA Pay · {ref}</span></div></div>
         <DlgHead title={many ? 'Who are these plans for?' : `Who is ${bought[0]?.name} for?`} sub="Pick a child, add a new one, or assign it later from Plans." />
         <div className="mb-4 flex flex-col gap-3">
           {bought.map((b) => (

@@ -30,31 +30,47 @@ function Badge({ store }: { store: 'apple' | 'google' }) {
   )
 }
 
+function DashArrow() {
+  return (
+    <span className="flex shrink-0 items-center justify-center rotate-90 sm:rotate-0" aria-hidden="true">
+      <svg viewBox="0 0 40 16" className="h-4 w-10 text-[#f59ac0]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 8h26" strokeDasharray="1 5" />
+        <path d="m27 3 8 5-8 5" />
+      </svg>
+    </span>
+  )
+}
+
 /** Shown after a successful payment: how to activate the Joy app on the child's device. */
 export function AppActivationGuide() {
   const steps = [
-    { emoji: '📲', tint: 'bg-[#e8f4ff] ring-[#cfe6fb]', title: 'Download the app', body: "Install it on your child's device." },
-    { emoji: '🧒', tint: 'bg-[#fff0e3] ring-[#ffdcbf]', title: 'Switch to Child view', body: <>Tap <b>Play</b> on the Home screen.</> },
-    { emoji: '🔗', tint: 'bg-[#f1ebff] ring-[#dccdfb]', title: 'Link parent account', body: <><b>My profile</b> › <b>Link Parent Account</b>.</> },
+    { emoji: '📲', tint: 'from-[#e3f2ff] to-[#f4faff] ring-[#c9e3fb]', title: 'Download the app', body: "Install it on your child's device." },
+    { emoji: '🧒', tint: 'from-[#ffeedd] to-[#fff8f0] ring-[#ffd9b8]', title: 'Switch to Child view', body: <>Tap <b>Play</b> on the Home screen.</> },
+    { emoji: '🔗', tint: 'from-[#efe7ff] to-[#f9f5ff] ring-[#d9c9fb]', title: 'Link parent account', body: <><b>My profile</b> › <b>Link Parent Account</b>.</> },
   ]
   return (
-    <section aria-label="Activate the Joy app" className="mb-5">
-      <p className="mb-2.5 text-center text-sm font-bold">Activate the Joy app in 3 easy steps</p>
-      <ol className="grid gap-2 sm:grid-cols-3">
+    <section aria-label="Activate the Joy app" className="relative mb-5 overflow-hidden rounded-3xl bg-gradient-to-br from-[#fff6fa] via-[#fffaf2] to-[#f6f1ff] px-4 py-5 ring-1 ring-[#ffe3ee] sm:px-5">
+      <span className="pointer-events-none absolute left-4 top-3 text-lg opacity-60" aria-hidden="true">✨</span>
+      <span className="pointer-events-none absolute right-4 top-3 text-lg opacity-60" aria-hidden="true">🌈</span>
+      <p className="mb-4 text-center font-display text-base font-extrabold">Activate the Joy app in 3 easy steps</p>
+      <ol className="flex flex-col items-stretch gap-1 sm:flex-row sm:gap-2">
         {steps.map((s, i) => (
-          <li key={s.title} className="flex items-center gap-3 rounded-2xl bg-white p-3 ring-1 ring-border sm:flex-col sm:gap-1.5 sm:text-center">
-            <span className={`relative grid size-11 shrink-0 place-items-center rounded-2xl text-xl ring-1 ${s.tint}`} aria-hidden="true">
-              {s.emoji}
-              <span className="absolute -left-1.5 -top-1.5 grid size-5 place-items-center rounded-full bg-[#ff7a3d] text-[11px] font-bold text-white ring-2 ring-white">{i + 1}</span>
-            </span>
-            <div className="min-w-0">
-              <b className="block text-[13px] leading-tight">{s.title}</b>
-              <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground">{s.body}</p>
+          <li key={s.title} className="contents">
+            <div className="flex flex-1 items-center gap-3 rounded-3xl bg-white/90 p-3.5 shadow-[0_8px_20px_-14px_rgba(214,74,140,0.5)] ring-1 ring-white sm:flex-col sm:gap-2 sm:px-3 sm:py-4 sm:text-center">
+              <span className={`relative grid size-16 shrink-0 place-items-center rounded-[1.4rem] bg-gradient-to-br text-[2rem] ring-2 ${s.tint}`} aria-hidden="true">
+                {s.emoji}
+                <span className="absolute -left-2 -top-2 grid size-6 place-items-center rounded-full bg-[#ff7a3d] text-xs font-bold text-white ring-2 ring-white">{i + 1}</span>
+              </span>
+              <div className="min-w-0">
+                <b className="block text-sm leading-tight">{s.title}</b>
+                <p className="mt-1 text-xs leading-snug text-muted-foreground">{s.body}</p>
+              </div>
             </div>
+            {i < steps.length - 1 && <DashArrow />}
           </li>
         ))}
       </ol>
-      <div className="mt-3 flex flex-wrap justify-center gap-2">
+      <div className="mt-4 flex flex-wrap justify-center gap-2">
         <Badge store="apple" />
         <Badge store="google" />
       </div>

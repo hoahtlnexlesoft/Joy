@@ -41,6 +41,7 @@ export function ParentPortal() {
   const [s, setS0] = useState<State | null>(null)
   const [view, setView] = useState<View>({ name: 'children' })
   const [dlg, setDlg] = useState<Dlg | null>(null)
+  const [buyDone, setBuyDone] = useState(false)
   const [toastMsg, setToastMsg] = useState('')
   const seq = useRef(10)
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
@@ -133,7 +134,7 @@ export function ParentPortal() {
       router.push('/')
     },
   }
-  const close = () => setDlg(null)
+  const close = () => { setDlg(null); setBuyDone(false) }
   const nav = view.name === 'child' ? 'children' : view.name
   const sec = view.name === 'profile' ? view.sec : null
   const kidOf = (id: string) => s.children.find((c) => c.id === id)
@@ -193,10 +194,10 @@ export function ParentPortal() {
       ) : null}
 
       {dlg ? (
-        <Modal onClose={close} size={dlg.k === 'buy' ? 'xl' : 'md'} title="Dialog">
+        <Modal onClose={close} size={dlg.k === 'buy' ? (buyDone ? 'lg' : 'xl') : 'md'} title="Dialog">
           {dlg.k === 'child' ? <ChildForm app={app} child={dlg.child} />
             : dlg.k === 'delChild' ? <DeleteChild app={app} child={dlg.child} />
-            : dlg.k === 'buy' ? <BuyFlow key={dlg.restore?.nonce ?? 'b'} app={app} pre={{ plan: dlg.plan, child: dlg.child, restore: dlg.restore }} />
+            : dlg.k === 'buy' ? <BuyFlow key={dlg.restore?.nonce ?? 'b'} app={app} onDone={setBuyDone} pre={{ plan: dlg.plan, child: dlg.child, restore: dlg.restore }} />
             : dlg.k === 'assign' ? <AssignDialog app={app} plan={dlg.plan} />
             : dlg.k === 'assignTo' ? <AssignToChildDialog app={app} child={dlg.child} />
             : dlg.k === 'redeem' ? <RedeemDialog app={app} />

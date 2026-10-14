@@ -273,9 +273,10 @@ function CuteBulb() {
 }
 
 type Step = 1 | 2 | 3 | 4 | 5
-export function BuyFlow({ app, pre }: { app: App; pre: { plan?: string; child?: string; restore?: BuyRestore } }) {
+export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolean) => void; pre: { plan?: string; child?: string; restore?: BuyRestore } }) {
   const rs = pre.restore
   const [step, setStep] = useState<Step>((rs?.step as Step) ?? 1)
+  useEffect(() => { onDone?.(step === 5) }, [step, onDone])
   const [sel, setSel] = useState<string[]>(rs?.sel ?? (pre.plan ? [pre.plan] : []))
   const [ref, setRef] = useState(rs?.ref ?? '')
   const [bought, setBought] = useState<{ id: string; name: string }[]>(rs?.bought ?? [])

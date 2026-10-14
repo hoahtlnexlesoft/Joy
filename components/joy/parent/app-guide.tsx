@@ -39,7 +39,7 @@ function Badge({ store }: { store: 'apple' | 'google' }) {
 function DashArrow() {
   return (
     <span className="flex shrink-0 items-center justify-center rotate-90 sm:rotate-0" aria-hidden="true">
-      <svg viewBox="0 0 40 16" className="h-4 w-10 text-[#f59ac0]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <svg viewBox="0 0 40 16" className="h-3.5 w-7 text-[#f59ac0]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 8h26" strokeDasharray="1 5" />
         <path d="m27 3 8 5-8 5" />
       </svg>
@@ -55,15 +55,15 @@ export function AppActivationGuide() {
     { emoji: '🔗', tint: 'from-[#efe7ff] to-[#f9f5ff] ring-[#d9c9fb]', title: 'Link parent account', body: <><b>My profile</b> › <b>Link Parent Account</b>.</> },
   ]
   return (
-    <section aria-label="Activate the Joy app" className="relative mb-5 overflow-hidden rounded-3xl bg-gradient-to-br from-[#fff6fa] via-[#fffaf2] to-[#f6f1ff] px-4 py-5 ring-1 ring-[#ffe3ee] sm:px-5">
+    <section aria-label="Activate the Joy app" className="relative mb-5 overflow-hidden rounded-3xl bg-gradient-to-br from-[#fff6fa] via-[#fffaf2] to-[#f6f1ff] px-3 py-4 ring-1 ring-[#ffe3ee] sm:px-4">
       <span className="pointer-events-none absolute left-4 top-3 text-lg opacity-60" aria-hidden="true">✨</span>
       <span className="pointer-events-none absolute right-4 top-3 text-lg opacity-60" aria-hidden="true">🌈</span>
-      <p className="mb-4 text-center font-display text-base font-extrabold">Activate the Joy app in 3 easy steps</p>
+      <p className="mb-3 text-center font-display text-sm font-extrabold">Activate the Joy app in 3 easy steps</p>
       <ol className="flex flex-col items-stretch gap-1 sm:flex-row sm:gap-2">
         {steps.map((s, i) => (
           <li key={s.title} className="contents">
-            <div className="flex flex-1 items-center gap-3 rounded-3xl bg-white/90 p-3.5 shadow-[0_8px_20px_-14px_rgba(214,74,140,0.5)] ring-1 ring-white sm:flex-col sm:gap-2 sm:px-3 sm:py-4 sm:text-center">
-              <span className={`relative grid size-16 shrink-0 place-items-center rounded-[1.4rem] bg-gradient-to-br text-[2rem] ring-2 ${s.tint}`} aria-hidden="true">
+            <div className="flex flex-1 items-center gap-3 rounded-3xl bg-white/90 p-3 shadow-[0_8px_20px_-14px_rgba(214,74,140,0.5)] ring-1 ring-white sm:flex-col sm:gap-2 sm:px-2.5 sm:py-3 sm:text-center">
+              <span className={`relative grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br text-2xl ring-2 ${s.tint}`} aria-hidden="true">
                 {s.emoji}
               </span>
               <div className="min-w-0">
@@ -76,7 +76,7 @@ export function AppActivationGuide() {
           </li>
         ))}
       </ol>
-      <div className="mt-4 flex flex-wrap justify-center gap-2">
+      <div className="mt-3 flex flex-wrap justify-center gap-2">
         <Badge store="apple" />
         <Badge store="google" />
       </div>

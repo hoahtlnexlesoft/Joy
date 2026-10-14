@@ -70,6 +70,25 @@ const KEY = 'joy-review-comments'
 const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
 const SB_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const REMOTE = !!(SB_URL && SB_KEY)
+// Preview builds (hosted where the page cannot reach Supabase) ship a read-only copy of the customers' comments.
+const SNAP: Thread[] = (() => {
+  try {
+    return JSON.parse(process.env.NEXT_PUBLIC_JOY_REVIEW_SNAPSHOT || '[]')
+  } catch {
+    return []
+  }
+})()
+function mergeSnap(local: Thread[]): Thread[] {
+  const byId = new Map(local.map((t) => [t.id, t]))
+  const out: Thread[] = SNAP.map((s) => {
+    const l = byId.get(s.id)
+    byId.delete(s.id)
+    if (!l) return s
+    const seen = new Set(l.replies.map((r) => `${r.at}|${r.author}|${r.text}`))
+    return { ...l, replies: [...l.replies, ...s.replies.filter((r) => !seen.has(`${r.at}|${r.author}|${r.text}`))] }
+  })
+  return [...out, ...byId.values()]
+}
 const sbHeaders = { apikey: SB_KEY || '', Authorization: `Bearer ${SB_KEY}`, 'Content-Type': 'application/json' }
 
 async function remoteLoad(): Promise<Thread[]> {
@@ -202,7 +221,7 @@ export function CommentLayer() {
   useEffect(() => {
     try {
       setName(localStorage.getItem(NAME_KEY) || '')
-      if (!REMOTE) setThreads(JSON.parse(localStorage.getItem(KEY) || '[]'))
+      if (!REMOTE) setThreads(mergeSnap(JSON.parse(localStorage.getItem(KEY) || '[]')))
     } catch {}
     if (!REMOTE) return
     let stop = false

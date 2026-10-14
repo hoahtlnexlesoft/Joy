@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Check, ClipboardCopy, MessageCircle, MousePointerClick, Trash2, X } from '@/components/joy/cute-icons'
 import { Eye, EyeOff, ChevronsLeft, ChevronsRight, CircleCheck, Ellipsis, Copy as CopyIcon, SmilePlus, ArrowUp, Heart as HeartIcon, ListFilter, Search as SearchIcon, Smile as SmileIcon, ThumbsUp } from 'lucide-react'
 
@@ -61,6 +61,7 @@ type Thread = {
   replies: Reply[]
   reactions?: Partial<Record<ReactionKey, string[]>>
   images?: string[]
+  inModal?: boolean
 }
 
 const KEY = 'joy-review-comments'
@@ -146,7 +147,7 @@ export function CommentLayer() {
   const [name, setName] = useState('')
   const [mode, setMode] = useState(false)
   const [open, setOpen] = useState(false)
-  const [draft, setDraft] = useState<{ selector: string; rx: number; ry: number; ax: number; ay: number } | null>(null)
+  const [draft, setDraft] = useState<{ selector: string; rx: number; ry: number; ax: number; ay: number; inModal?: boolean } | null>(null)
   const [draftText, setDraftText] = useState('')
   const [draftImages, setDraftImages] = useState<string[]>([])
   const [lightbox, setLightbox] = useState<string | null>(null)
@@ -263,6 +264,7 @@ export function CommentLayer() {
       const r = t.getBoundingClientRect()
       setDraft({
         selector: selectorFor(t),
+        inModal: !!t.closest('[class*="z-[100]"][class*="inset-0"], [role="dialog"]'),
         rx: r.width ? (e.clientX - r.left) / r.width : 0.5,
         ry: r.height ? (e.clientY - r.top) / r.height : 0.5,
         ax: e.clientX + window.scrollX,
@@ -340,7 +342,16 @@ export function CommentLayer() {
     return () => document.removeEventListener('keydown', k)
   }, [card])
 
-  const pageThreads = useMemo(() => threads.filter((t) => t.page === page), [threads, page])
+  // comments made inside a popup only show while that popup element is on screen
+  const onScreen = (t: Thread) => {
+    if (!t.inModal) return true
+    try {
+      return !!document.querySelector(t.selector)
+    } catch {
+      return false
+    }
+  }
+  const pageThreads = threads.filter((t) => t.page === page && onScreen(t))
   const shown = threads.filter((t) => {
     if (filter === 'open' && t.resolved) return false
     if (filter === 'resolved' && !t.resolved) return false

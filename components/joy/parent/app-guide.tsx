@@ -8,7 +8,7 @@ function Badge({ store }: { store: 'apple' | 'google' }) {
       href={apple ? 'https://apps.apple.com' : 'https://play.google.com/store'}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#111] px-3 text-white ring-1 ring-black/40 transition hover:-translate-y-0.5"
+      className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#111] px-3 text-white ring-1 ring-black/40 transition hover:-translate-y-0.5"
     >
       {apple ? (
         <svg viewBox="0 0 24 24" className="size-6 fill-current" aria-hidden="true">
@@ -33,33 +33,31 @@ function Badge({ store }: { store: 'apple' | 'google' }) {
 /** Shown after a successful payment: how to activate the Joy app on the child's device. */
 export function AppActivationGuide() {
   const steps = [
-    { title: 'Download the app', body: "Install and launch the app on your child's device.", badges: true },
-    { title: 'Switch to Child view', body: <>Tap <b>Play</b> on the Home screen to open kid-safe mode.</> },
-    { title: 'Link parent account', body: <>Go to <b>My profile</b> › <b>Link Parent Account</b> to activate all benefits.</> },
+    { emoji: '📲', tint: 'bg-[#e8f4ff] ring-[#cfe6fb]', title: 'Download the app', body: "Install it on your child's device." },
+    { emoji: '🧒', tint: 'bg-[#fff0e3] ring-[#ffdcbf]', title: 'Switch to Child view', body: <>Tap <b>Play</b> on the Home screen.</> },
+    { emoji: '🔗', tint: 'bg-[#f1ebff] ring-[#dccdfb]', title: 'Link parent account', body: <><b>My profile</b> › <b>Link Parent Account</b>.</> },
   ]
   return (
-    <section aria-label="Activate the Joy app" className="mb-5 rounded-2xl bg-[#faf8fc] p-4 sm:p-5">
-      <div className="mb-3 flex items-center gap-3">
-        <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[#ffe9d9] text-base" aria-hidden="true">📱</span>
-        <p className="text-sm font-bold leading-snug">Follow these steps to activate the Joy app on your child’s device.</p>
-      </div>
-      <ol className="divide-y divide-border">
+    <section aria-label="Activate the Joy app" className="mb-5">
+      <p className="mb-2.5 text-center text-sm font-bold">Activate the Joy app in 3 easy steps</p>
+      <ol className="grid gap-2 sm:grid-cols-3">
         {steps.map((s, i) => (
-          <li key={s.title} className="flex items-start gap-3 py-3 first:pt-1 last:pb-0">
-            <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-white text-xs font-bold text-[#ff7a3d] ring-1 ring-[#ffd9bf]">{i + 1}</span>
+          <li key={s.title} className="flex items-center gap-3 rounded-2xl bg-white p-3 ring-1 ring-border sm:flex-col sm:gap-1.5 sm:text-center">
+            <span className={`relative grid size-11 shrink-0 place-items-center rounded-2xl text-xl ring-1 ${s.tint}`} aria-hidden="true">
+              {s.emoji}
+              <span className="absolute -left-1.5 -top-1.5 grid size-5 place-items-center rounded-full bg-[#ff7a3d] text-[11px] font-bold text-white ring-2 ring-white">{i + 1}</span>
+            </span>
             <div className="min-w-0">
-              <b className="block text-sm">{s.title}</b>
-              <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">{s.body}</p>
-              {s.badges && (
-                <div className="mt-2.5 flex flex-wrap gap-2">
-                  <Badge store="apple" />
-                  <Badge store="google" />
-                </div>
-              )}
+              <b className="block text-[13px] leading-tight">{s.title}</b>
+              <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground">{s.body}</p>
             </div>
           </li>
         ))}
       </ol>
+      <div className="mt-3 flex flex-wrap justify-center gap-2">
+        <Badge store="apple" />
+        <Badge store="google" />
+      </div>
     </section>
   )
 }

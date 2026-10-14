@@ -488,20 +488,27 @@ export function BuyFlow({ app, pre }: { app: App; pre: { plan?: string; child?: 
   return (
     <>
       <DlgHead icon="🎉" title={many ? 'Your plans are ready' : (() => { const c0 = assign[bought[0]?.id] ? app.s.children.find((x) => x.id === assign[bought[0].id]) : null; return c0 ? `${bought[0].name} is ready for ${c0.name}` : 'Your plan is ready' })()} />
-      <ul className="mb-3 divide-y divide-border rounded-2xl bg-[#faf8fc] px-4 text-sm">
-        {bought.map((b) => {
-          const c = assign[b.id] ? app.s.children.find((x) => x.id === assign[b.id]) : null
-          return <li key={b.id} className="flex items-center justify-between gap-3 py-3"><b>{b.name}</b><span className="text-muted-foreground">{c ? `For ${c.name}` : 'Not assigned yet'}</span></li>
-        })}
-        <li className="grid grid-cols-2 gap-3 py-3">
-          <div><small className="block text-xs text-muted-foreground">Paid via</small><ChannelBadge ch="AYA" /></div>
-          <div><small className="block text-xs text-muted-foreground">Transaction ID</small><b>{ref}</b></div>
-          <div className="col-span-2 border-t pt-3"><small className="block text-xs text-muted-foreground">Total paid</small><b className="font-display text-xl">{money(total)}</b></div>
-        </li>
-      </ul>
-      <p className="mb-5 text-sm text-muted-foreground">{bought.some((b) => assign[b.id]) ? 'New activities are unlocked.' : 'Assign it to a child anytime from Plans.'}</p>
+      <div className="mb-4 rounded-3xl bg-gradient-to-br from-[#fff3f8] to-[#fff8ec] p-4 ring-1 ring-[#ffe1ec]">
+        <ul className="space-y-2">
+          {bought.map((b) => {
+            const c = assign[b.id] ? app.s.children.find((x) => x.id === assign[b.id]) : null
+            return (
+              <li key={b.id} className="flex items-center justify-between gap-3 text-sm">
+                <b className="font-display text-base">{b.name}</b>
+                <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#c2417d] ring-1 ring-[#ffd3e4]">{c ? `For ${c.name}` : 'Not assigned yet'}</span>
+              </li>
+            )
+          })}
+        </ul>
+        <dl className="mt-3 grid grid-cols-3 gap-2 border-t border-dashed border-[#f6c6dd] pt-3 text-center">
+          <div><dt className="text-[11px] text-muted-foreground">Paid via</dt><dd className="mt-1 flex justify-center"><ChannelBadge ch="AYA" /></dd></div>
+          <div className="min-w-0"><dt className="text-[11px] text-muted-foreground">Transaction</dt><dd className="mt-1 truncate text-xs font-bold">{ref}</dd></div>
+          <div><dt className="text-[11px] text-muted-foreground">Total paid</dt><dd className="mt-0.5 font-display text-lg font-extrabold text-[#c2417d]">{money(total)}</dd></div>
+        </dl>
+      </div>
+      <p className="mb-4 text-center text-sm text-muted-foreground">{bought.some((b) => assign[b.id]) ? 'New activities are unlocked. ✨' : 'Assign it to a child anytime from Plans.'}</p>
       <AppActivationGuide />
-      <div className="flex justify-end gap-3">
+      <div className="flex items-center justify-end gap-2">
         <Btn variant="ghost" onClick={() => app.open(null)}>Close</Btn>
         <Btn onClick={() => { app.open(null); app.go({ name: 'plans' }) }}>Go to Plans</Btn>
       </div>

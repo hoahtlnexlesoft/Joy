@@ -488,22 +488,22 @@ export function BuyFlow({ app, pre }: { app: App; pre: { plan?: string; child?: 
   return (
     <>
       <DlgHead icon="🎉" title={many ? 'Your plans are ready' : (() => { const c0 = assign[bought[0]?.id] ? app.s.children.find((x) => x.id === assign[bought[0].id]) : null; return c0 ? `${bought[0].name} is ready for ${c0.name}` : 'Your plan is ready' })()} />
-      <div className="mb-4 rounded-3xl bg-gradient-to-br from-[#fff3f8] to-[#fff8ec] p-4 ring-1 ring-[#ffe1ec]">
+      <div className="mb-4 rounded-3xl bg-gradient-to-br from-[#e6f8ef] via-[#eefaf6] to-[#e6f3ff] p-4 ring-1 ring-[#c9ecdb]">
         <ul className="space-y-2">
           {bought.map((b) => {
             const c = assign[b.id] ? app.s.children.find((x) => x.id === assign[b.id]) : null
             return (
               <li key={b.id} className="flex items-center justify-between gap-3 text-sm">
                 <b className="font-display text-base">{b.name}</b>
-                <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#c2417d] ring-1 ring-[#ffd3e4]">{c ? `For ${c.name}` : 'Not assigned yet'}</span>
+                <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#23915a] ring-1 ring-[#bfe8d3]">{c ? `For ${c.name}` : 'Not assigned yet'}</span>
               </li>
             )
           })}
         </ul>
-        <dl className="mt-3 grid grid-cols-3 gap-2 border-t border-dashed border-[#f6c6dd] pt-3 text-center">
+        <dl className="mt-3 grid grid-cols-3 gap-2 border-t border-dashed border-[#b5e2cc] pt-3 text-center">
           <div><dt className="text-[11px] text-muted-foreground">Paid via</dt><dd className="mt-1 flex justify-center"><ChannelBadge ch="AYA" /></dd></div>
           <div className="min-w-0"><dt className="text-[11px] text-muted-foreground">Transaction</dt><dd className="mt-1 truncate text-xs font-bold">{ref}</dd></div>
-          <div><dt className="text-[11px] text-muted-foreground">Total paid</dt><dd className="mt-0.5 font-display text-lg font-extrabold text-[#c2417d]">{money(total)}</dd></div>
+          <div><dt className="text-[11px] text-muted-foreground">Total paid</dt><dd className="mt-0.5 font-display text-lg font-extrabold text-[#23915a]">{money(total)}</dd></div>
         </dl>
       </div>
       <p className="mb-4 text-center text-sm text-muted-foreground">{bought.some((b) => assign[b.id]) ? 'New activities are unlocked. ✨' : 'Assign it to a child anytime from Plans.'}</p>

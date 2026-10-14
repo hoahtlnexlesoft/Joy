@@ -8,14 +8,14 @@ function Badge({ store }: { store: 'apple' | 'google' }) {
       href={apple ? 'https://apps.apple.com' : 'https://play.google.com/store'}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#111] px-3 text-white ring-1 ring-black/40 transition hover:-translate-y-0.5"
+      className="inline-flex h-9 items-center gap-2 rounded-full bg-white/80 px-3.5 text-[#52428a] ring-1 ring-[#e6dcf5] transition hover:-translate-y-0.5 hover:bg-white"
     >
       {apple ? (
-        <svg viewBox="0 0 24 24" className="size-6 fill-current" aria-hidden="true">
+        <svg viewBox="0 0 24 24" className="size-5 fill-current" aria-hidden="true">
           <path d={APPLE_PATH} />
         </svg>
       ) : (
-        <svg viewBox="0 0 24 24" className="size-6" aria-hidden="true">
+        <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true">
           <path d="M3.6 2.2 13.3 12l-9.7 9.8c-.2-.2-.3-.6-.3-1V3.2c0-.4.1-.8.3-1Z" fill="#34a853" />
           <path d="m16.9 8.4-3.6 3.6-9.7-9.8c.3-.3.8-.3 1.3 0l12 6.2Z" fill="#4285f4" />
           <path d="M16.9 15.6 4.9 21.8c-.5.3-1 .3-1.3 0l9.7-9.8 3.6 3.6Z" fill="#ea4335" />
@@ -23,8 +23,8 @@ function Badge({ store }: { store: 'apple' | 'google' }) {
         </svg>
       )}
       <span className="flex flex-col leading-none">
-        <span className="whitespace-nowrap text-[9px] uppercase tracking-wide opacity-75">{apple ? 'Download on the' : 'Get it on'}</span>
-        <span className="mt-0.5 whitespace-nowrap text-[15px] font-semibold">{apple ? 'App Store' : 'Google Play'}</span>
+        <span className="whitespace-nowrap text-[8px] uppercase tracking-wide opacity-60">{apple ? 'Download on the' : 'Get it on'}</span>
+        <span className="mt-0.5 whitespace-nowrap text-sm font-semibold">{apple ? 'App Store' : 'Google Play'}</span>
       </span>
     </a>
   )

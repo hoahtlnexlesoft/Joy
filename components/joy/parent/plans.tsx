@@ -462,7 +462,7 @@ export function BuyFlow({ app, pre }: { app: App; pre: { plan?: string; child?: 
               <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4">
                 {app.s.children.map((c) => <PickRow key={c.id} type="radio" name={`bc-${b.id}`} value={c.id} checked={assign[b.id] === c.id} onChange={() => setAssign((a) => ({ ...a, [b.id]: c.id }))} art={<ChildThumb c={c} className="size-7" />} title={c.name} sub={`Now: ${unlockOf(app.s, c)}`} />)}
                 <PickRow type="radio" name={`bc-${b.id}`} value="" checked={!assign[b.id]} onChange={() => setAssign((a) => ({ ...a, [b.id]: null }))} title="Assign later" sub="Pick later in Plans" />
-                <button type="button" onClick={() => setAddingFor(b.id)} className="flex min-h-[2.5rem] w-full items-center justify-center gap-1.5 rounded-xl text-[13px] font-semibold ring-1 ring-dashed ring-foreground/30 hover:bg-[#faf8fc]"><span aria-hidden="true">+</span>Add a new child</button>
+                <button type="button" onClick={() => setAddingFor(b.id)} className="group flex min-h-[2.5rem] w-full items-center justify-center gap-2 rounded-xl bg-[#fff5f8] text-[13px] font-bold text-[#c2417d] ring-1 ring-dashed ring-[#f29bc0] transition hover:bg-[#ffe9f1] hover:ring-joy-pink"><span aria-hidden="true" className="grid size-7 place-items-center rounded-full bg-gradient-to-br from-[#ff8db8] to-[#ff7a3d] text-white shadow-[0_4px_10px_-4px_rgba(240,68,154,0.7)] transition group-hover:scale-110"><svg viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d="M8 2.5v11M2.5 8h11" /></svg></span>Add a new child</button>
               </div>
             </fieldset>
           ))}

@@ -189,27 +189,27 @@ export function QrCanvas({ seed, size = 232, cute = false, canvasRef }: { seed: 
         let h = 0
         for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) >>> 0
         const rnd = () => ((h = (h * 1103515245 + 12345) >>> 0) / 4294967296)
-        const ink = cute ? '#5b4a8a' : '#27253F'
+        const ink = cute ? '#52428a' : '#27253F'
         g.fillStyle = '#fff'; g.fillRect(0, 0, 232, 232); g.fillStyle = ink
         const rr = (x: number, y: number, w: number, hh: number, r: number) => { g.beginPath(); g.roundRect(x, y, w, hh, r); g.fill() }
         const finder = (x: number, y: number) => {
           if (!cute) { g.fillRect(x * s, y * s, 7 * s, 7 * s); g.fillStyle = '#fff'; g.fillRect((x + 1) * s, (y + 1) * s, 5 * s, 5 * s); g.fillStyle = ink; g.fillRect((x + 2) * s, (y + 2) * s, 3 * s, 3 * s); return }
           g.fillStyle = ink; rr(x * s, y * s, 7 * s, 7 * s, 2.6 * s)
           g.fillStyle = '#fff'; rr((x + 1) * s, (y + 1) * s, 5 * s, 5 * s, 1.8 * s)
-          g.fillStyle = '#f0568b'; rr((x + 2) * s, (y + 2) * s, 3 * s, 3 * s, 1.2 * s)
+          g.fillStyle = '#e0608a'; rr((x + 2) * s, (y + 2) * s, 3 * s, 3 * s, 1.2 * s)
           g.fillStyle = ink
         }
         for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
           const inF = (x < 8 && y < 8) || (x > N - 9 && y < 8) || (x < 8 && y > N - 9)
           const mid = x > 11 && x < 17 && y > 11 && y < 17
-          if (!inF && !mid && rnd() > 0.52) { if (cute) rr(x * s + 0.6, y * s + 0.6, s - 1.2, s - 1.2, 2.4); else g.fillRect(x * s, y * s, s, s) }
+          if (!inF && !mid && rnd() > 0.52) { if (cute) { g.beginPath(); g.arc(x * s + s / 2, y * s + s / 2, s * 0.38, 0, Math.PI * 2); g.fill() } else g.fillRect(x * s, y * s, s, s) }
         }
         finder(0, 0); finder(N - 7, 0); finder(0, N - 7)
         if (cute) {
           const cx = 116, cy = 116
           g.fillStyle = '#fff'; g.beginPath(); g.arc(cx, cy, 25, 0, Math.PI * 2); g.fill()
-          g.fillStyle = '#ffe3ec'; g.beginPath(); g.arc(cx, cy, 21, 0, Math.PI * 2); g.fill()
-          g.fillStyle = '#f0568b'; g.beginPath(); g.moveTo(cx, cy + 12)
+          g.fillStyle = '#fbe0ea'; g.beginPath(); g.arc(cx, cy, 21, 0, Math.PI * 2); g.fill()
+          g.fillStyle = '#e0608a'; g.beginPath(); g.moveTo(cx, cy + 12)
           g.bezierCurveTo(cx - 20, cy - 2, cx - 9, cy - 17, cx, cy - 6); g.bezierCurveTo(cx + 9, cy - 17, cx + 20, cy - 2, cx, cy + 12); g.fill()
         }
       }}

@@ -438,7 +438,7 @@ export function BuyFlow({ app, pre }: { app: App; pre: { plan?: string; child?: 
         {waiting ? (
           <div className="flex flex-col items-center gap-2 py-10 text-center"><span className="size-8 animate-spin rounded-full border-4 border-[#eee] border-t-[#e8332a]" aria-hidden="true" /><b>Waiting for AYA Pay…</b><p className="text-sm text-muted-foreground">Approve the payment in your AYA Pay app.</p></div>
         ) : ayaTab === 'qr' ? (
-          <div className="flex flex-col items-center gap-3 py-2"><QrCanvas seed={ref} size={200} /><p className="text-center text-sm text-muted-foreground">Open the AYA Pay app, scan this code, then approve the payment.</p></div>
+          <div className="flex flex-col items-center gap-3 py-2"><div className="rounded-[1.75rem] bg-white p-3 shadow-[0_14px_30px_-14px_rgba(224,96,138,0.55)] ring-[6px] ring-[#fbe3ec]"><QrCanvas seed={ref} size={200} cute /></div><p className="text-center text-sm text-muted-foreground">Open the AYA Pay app, scan this code, then approve the payment.</p></div>
         ) : (
           <><Field label="AYA Pay phone number" prefix="+95" error={phoneErr ? 'Enter the phone number linked to your AYA Pay account.' : null}>{(id) => <input id={id} type="tel" inputMode="tel" placeholder="9 123 456 789" value={phone} onChange={(e) => { setPhone(e.target.value); setPhoneErr(false) }} className={inputCls} />}</Field><p className="mb-2 text-sm text-muted-foreground">We’ll send a payment request to your AYA Pay app.</p></>
         )}

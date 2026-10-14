@@ -257,8 +257,8 @@ export function ChannelBadge({ ch }: { ch: Channel }) {
 
 function CuteBulb() {
   return (
-    <span aria-hidden="true" className="relative grid size-16 shrink-0 place-items-center rounded-[1.4rem] bg-gradient-to-br from-[#fff3c4] to-[#ffd9ea] shadow-[inset_0_0_0_1.5px_rgba(255,255,255,0.9),0_6px_12px_-6px_rgba(238,90,138,0.45)]">
-      <svg viewBox="0 0 48 48" className="size-12">
+    <span aria-hidden="true" className="relative grid size-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#fff3c4] to-[#ffd9ea]">
+      <svg viewBox="0 0 48 48" className="size-7">
         <g stroke="#ffb703" strokeWidth="2.6" strokeLinecap="round"><path d="M24 3v4" /><path d="M7 11l3 3" /><path d="M41 11l-3 3" /><path d="M3 26h4" /><path d="M45 26h-4" /></g>
         <path d="M24 9c-8 0-13.5 6-13.5 13 0 4.6 2.4 7.4 4.6 9.6 1.4 1.4 2 2.7 2 4.4h14.8c0-1.7.6-3 2-4.4 2.2-2.2 4.6-5 4.6-9.6C37.5 15 32 9 24 9z" fill="#ffe27a" stroke="#ffb703" strokeWidth="2.4" strokeLinejoin="round" />
         <path d="M16 15c1.8-2 4-3 6.5-3.3" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" fill="none" opacity=".9" />
@@ -384,9 +384,9 @@ export function BuyFlow({ app, pre }: { app: App; pre: { plan?: string; child?: 
             <Btn disabled={!chosen.length} onClick={() => setStep(2)}>Continue</Btn>
           </div>
         </div>
-        <p className="mt-3 flex flex-wrap items-center justify-between gap-x-6 gap-y-1 rounded-2xl bg-[#f1ecfb] sm:flex-nowrap px-4 py-3 text-sm text-[#4b3f68]">
-          <span className="flex items-center gap-3"><CuteBulb /><span>Put a Premium plan and Mastery on the same child to get <b>Premium Plus</b>, which unlocks everything.</span></span>
-          <a href="/pricing#compare" onClick={() => app.open(null)} className="shrink-0 whitespace-nowrap font-semibold text-[#e2457a] underline underline-offset-4">Compare all plans</a>
+        <p className="mt-2.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 rounded-xl bg-[#f6f2fc] px-3 py-2 text-xs text-[#6a5f85] sm:flex-nowrap">
+          <span className="flex items-center gap-2.5"><CuteBulb /><span>Put a Premium plan and Mastery on the same child to get <b>Premium Plus</b>, which unlocks everything.</span></span>
+          <a href="/pricing#compare" onClick={() => app.open(null)} className="shrink-0 whitespace-nowrap text-xs font-semibold text-[#e2457a] underline underline-offset-4">Compare all plans</a>
         </p>
       </>
     )

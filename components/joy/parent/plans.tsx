@@ -52,7 +52,7 @@ export function PlanCard({ app, p }: { app: App; p: Plan }) {
         </div>
         <div>
           <h3 className="text-2xl font-medium text-[#2f2a5c]"><span aria-hidden="true" className="mr-1.5">{t.emoji}</span>{p.name}</h3>
-          <p className="mt-1 text-sm text-muted-foreground">{p.label} · {fmt(p.start)} – {fmt(p.end)}</p>
+          <p className="mt-1 text-xs text-muted-foreground">{p.label} · {fmt(p.start)} – {fmt(p.end)}</p>
         </div>
         <div>
           {p.price ? <p className="font-display text-4xl font-medium tracking-tight text-[#2f2a5c]"><span className="align-top text-xl">$</span>{p.price.toFixed(2)}</p> : <p className="font-display text-4xl font-medium tracking-tight text-[#2f8f3a]">Free</p>}

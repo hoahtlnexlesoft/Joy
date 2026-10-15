@@ -40,7 +40,7 @@ export function ElementMascot({ name, className, delay = 0 }: { name: ElementKey
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={`/images/elements/${name.toLowerCase()}.webp`}
+      src={`/images/elements/${name.toLowerCase()}.webp?v=2`}
       alt={name}
       width={192}
       height={192}

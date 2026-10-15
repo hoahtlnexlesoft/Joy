@@ -459,5 +459,7 @@ html[lang='my'] #download h2 img { height: 1.75rem; }
 @media (min-width: 768px) { html[lang='my'] #download h2 img { height: 2rem; } }
 html[lang='my'] #download p.max-w-md { font-size: 1rem; line-height: 1.8; }
 html[lang='my'] #download li { font-size: 0.9rem; line-height: 1.7; }
-html[lang='my'] #download .font-hand.text-4xl { font-size: 1.75rem; line-height: 1.5; }
-@media (min-width: 768px) { html[lang='my'] #download .font-hand.text-4xl { font-size: 2rem; } }
+html[lang='my'] #download .font-hand.text-4xl { font-size: 1.15rem; line-height: 1.6; }
+@media (min-width: 768px) { html[lang='my'] #download .font-hand.text-4xl { font-size: 1.3rem; } }
+html[lang='my'] #download .font-hand.text-2xl { font-size: 0.95rem; line-height: 1.6; white-space: nowrap; }
+html[lang='my'] #download .font-hand.text-2xl + * , html[lang='my'] #download .bg-\[\#fde79a\] { gap: 0.4rem; padding: 0.5rem 1rem; }

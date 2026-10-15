@@ -93,9 +93,8 @@ export function ElementCard({ name, energies, index = 0 }: { name: ElementKey; e
     <li
       style={vars}
       className={cn(
-        'group relative flex items-center gap-4 overflow-hidden rounded-[2rem] bg-[linear-gradient(150deg,#ffffff_0%,color-mix(in_srgb,var(--bg)_55%,white)_80%)] px-4 py-4 ring-1 ring-[var(--chip)]/60',
+        'group relative flex items-center gap-3 overflow-hidden rounded-[1.5rem] bg-[linear-gradient(150deg,#ffffff_0%,color-mix(in_srgb,var(--bg)_55%,white)_80%)] px-3.5 py-3.5 ring-1 ring-[var(--chip)]/60',
         'transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1',
-        name === 'Ocean' && '@md:col-span-2 @5xl:col-span-1',
       )}
     >
       {/* soft pastel clouds + sparkles */}
@@ -103,14 +102,12 @@ export function ElementCard({ name, energies, index = 0 }: { name: ElementKey; e
       <span aria-hidden="true" className="pointer-events-none absolute -bottom-10 right-4 h-14 w-28 rounded-[50%] bg-[var(--blob)] opacity-15 blur-xl" />
       <span aria-hidden="true" className="pointer-events-none absolute right-5 top-3 text-[0.8rem] text-[var(--d)] opacity-20 transition-transform duration-500 group-hover:rotate-45 group-hover:scale-125">✦</span>
       <span aria-hidden="true" className="pointer-events-none absolute bottom-3 right-14 text-[0.6rem] text-[var(--d)] opacity-15 transition-transform duration-500 group-hover:-rotate-45 group-hover:scale-125">✦</span>
-      <span className="relative grid size-[5.5rem] shrink-0 place-items-center rounded-full bg-white/90 ring-[3px] ring-[var(--chip)]/70">
-        <ElementMascot name={name} delay={(index % 5) * 0.7} className="size-[4.5rem]" />
-      </span>
+      <ElementMascot name={name} delay={(index % 5) * 0.7} className="relative size-[3.75rem] shrink-0" />
       <div className="relative min-w-0">
-        <p className="font-display text-[1.5rem] font-semibold leading-none text-[#2a2240]">{name}</p>
-        <ul className="mt-2.5 flex flex-wrap gap-1.5">
+        <p className="font-display text-xl font-semibold leading-none text-[#2a2240]">{name}</p>
+        <ul className="mt-2 flex flex-wrap gap-1">
           {energies.map((e) => (
-            <li key={e} className="inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-[0.75rem] font-semibold leading-none text-[var(--d)] ring-1 ring-[var(--chip)]">
+            <li key={e} className="inline-flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-[0.7rem] font-semibold leading-none text-[var(--d)] ring-1 ring-[var(--chip)]">
               <EnergyIcon energy={e} />
               {e}
             </li>

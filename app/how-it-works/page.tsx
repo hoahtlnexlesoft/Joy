@@ -412,7 +412,7 @@ export default function HowItWorksPage() {
                 intro="Your child's core element describes their energy. Some elements are pure, like Flame or Stream, and some blend two or three energies, like Garden or Mountain. You'll find your child's core element in their Information tab."
               >
                 <div className="@container">
-                  <ul className="grid grid-cols-1 gap-4 @md:grid-cols-2 @5xl:grid-cols-3">
+                  <ul className="grid grid-cols-1 gap-3 @md:grid-cols-2 @2xl:grid-cols-3">
                     {elements.map(([, name, energies], i) => (
                       <ElementCard key={name} name={name as ElementKey} energies={energies} index={i} />
                     ))}

@@ -1,8 +1,9 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Caveat, Fredoka, Plus_Jakarta_Sans } from 'next/font/google'
+import { Caveat, Fredoka, Noto_Sans_Myanmar, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 import { ContactBubble } from '@/components/joy/contact-bubble'
+import { LangHtmlSync } from '@/components/joy/lang-switch'
 import { CommentLayer } from '@/components/joy/review/comment-layer'
 import { DeviceSwitcher } from '@/components/joy/review/device-switcher'
 
@@ -22,6 +23,12 @@ const fredoka = Fredoka({
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-jakarta',
+  display: 'swap',
+})
+
+const myanmar = Noto_Sans_Myanmar({
+  subsets: ['myanmar'],
+  variable: '--font-myanmar',
   display: 'swap',
 })
 
@@ -53,9 +60,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${fredoka.variable} ${jakarta.variable} ${caveat.variable}`}>
+    <html lang="en" className={`${fredoka.variable} ${jakarta.variable} ${caveat.variable} ${myanmar.variable}`}>
       <body className="antialiased">
         {children}
+        <LangHtmlSync />
         <ContactBubble />
         {process.env.NODE_ENV === 'production' && <Analytics />}
         {process.env.NEXT_PUBLIC_JOY_REVIEW === '1' && <CommentLayer />}

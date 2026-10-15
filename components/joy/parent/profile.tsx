@@ -9,6 +9,7 @@ import { AvatarBubble, QrPanel } from './dialogs'
 import { ChildThumb } from './plans'
 import { CHANNELS, ChannelBadge } from './plans'
 import { cn } from '@/lib/utils'
+import { setLang, useLang, useT } from '@/lib/i18n'
 import { CalendarHeart, Crown, FileText, Heart, Pencil, TriangleAlert, UserRound, Users } from '@/components/joy/cute-icons'
 import { isExpired } from './data'
 
@@ -67,6 +68,7 @@ function InfoRow({ app, k, label, value, prefix, login, type, ph, required }: { 
 }
 
 function Payments({ app }: { app: App }) {
+  const t = useT()
   const [f, setF] = useState<'all' | Channel>('all')
   const { payments } = app.s
   const list = payments.filter((p) => f === 'all' || p.channel === f)
@@ -75,37 +77,39 @@ function Payments({ app }: { app: App }) {
   return (
     <Card>
       <div className="mb-5 grid gap-4 sm:grid-cols-[auto_auto_1fr] sm:items-center">
-        <div><small className="block text-xs text-muted-foreground">Total paid</small><b className="font-display text-2xl">{money(total)}</b></div>
-        <div><small className="block text-xs text-muted-foreground">Payments</small><b className="font-display text-2xl">{payments.length}</b></div>
-        <p className="rounded-2xl bg-[#faf8fc] p-3 text-xs leading-relaxed text-muted-foreground">Buy on the website with AYA Pay. Payments made in the Joy app or in person show here too.</p>
+        <div><small className="block text-xs text-muted-foreground">{t('Total paid')}</small><b className="font-display text-2xl">{money(total)}</b></div>
+        <div><small className="block text-xs text-muted-foreground">{t('Payments')}</small><b className="font-display text-2xl">{payments.length}</b></div>
+        <p className="rounded-2xl bg-[#faf8fc] p-3 text-xs leading-relaxed text-muted-foreground">{t('Buy on the website with AYA Pay. Payments made in the Joy app or in person show here too.')}</p>
       </div>
-      <div role="group" aria-label="Filter by payment channel" className="mb-4 flex flex-wrap gap-2">
-        {([['all', 'All', payments.length], ...(Object.keys(CHANNELS) as Channel[]).map((k) => [k, CHANNELS[k].label, counts(k)])] as [string, string, number][]).map(([k, l, n]) => (
+      <div role="group" aria-label={t('Filter by payment channel')} className="mb-4 flex flex-wrap gap-2">
+        {([['all', t('All'), payments.length], ...(Object.keys(CHANNELS) as Channel[]).map((k) => [k, CHANNELS[k].label, counts(k)])] as [string, string, number][]).map(([k, l, n]) => (
           <button key={k} type="button" aria-pressed={f === k} onClick={() => setF(k as 'all' | Channel)} className={cn('rounded-full px-3.5 py-1.5 text-sm font-semibold ring-1 transition', f === k ? 'bg-foreground text-background ring-foreground' : 'bg-white ring-border hover:ring-foreground/30')}>{l} <span className="opacity-60">{n}</span></button>
         ))}
       </div>
       {list.length ? (
         <div role="table" aria-label="Payments" className="overflow-hidden rounded-2xl ring-1 ring-border">
           <div role="row" className="hidden grid-cols-[1fr_1.6fr_1fr_1.2fr_auto_5.5rem] gap-3 bg-[#faf8fc] px-4 py-2.5 text-xs font-semibold text-muted-foreground md:grid">
-            <span role="columnheader">Date</span><span role="columnheader">Plan</span><span role="columnheader">Child</span><span role="columnheader">Paid via</span><span role="columnheader" className="text-right">Amount</span><span role="columnheader" className="text-right">Invoice</span>
+            <span role="columnheader">{t('Date')}</span><span role="columnheader">{t('Plan')}</span><span role="columnheader">{t('Child')}</span><span role="columnheader">{t('Paid via')}</span><span role="columnheader" className="text-right">{t('Amount')}</span><span role="columnheader" className="text-right">{t('Invoice')}</span>
           </div>
           {list.map((p) => (
             <div key={`${p.ref}-${p.item}`} role="row" onClick={() => app.open({ k: 'invoice', pay: p })} className="grid cursor-pointer gap-1 border-t border-border/70 px-4 py-3 text-sm transition hover:bg-[#fff8fb] first:border-0 md:grid-cols-[1fr_1.6fr_1fr_1.2fr_auto_5.5rem] md:items-center md:gap-3">
               <span role="cell">{fmtDate(p.date)}</span>
               <span role="cell"><b className="block">{p.item}</b><small className="text-xs text-muted-foreground">{p.ref}</small></span>
-              <span role="cell">{p.child}</span>
+              <span role="cell">{t(p.child)}</span>
               <span role="cell" className="flex flex-col items-start gap-0.5"><ChannelBadge ch={p.channel} /></span>
-              <span role="cell" className="flex items-center gap-2 md:flex-col md:items-end md:gap-0.5"><b>{money(p.amount)}</b><span className="rounded-full bg-[#e4f7e6] px-2 py-0.5 text-[10px] font-bold text-[#2f8f3a]">{p.status}</span></span>
-              <span role="cell" className="md:text-right"><button type="button" aria-label={`View invoice for ${p.item}`} onClick={(e) => { e.stopPropagation(); app.open({ k: 'invoice', pay: p }) }} className="inline-flex h-8 items-center gap-1.5 rounded-full bg-gradient-to-r from-[#ffe9f0] to-[#fff0d2] px-3 text-xs font-bold text-[#d6336c] ring-1 ring-[#ffd3e2] transition hover:-translate-y-0.5"><FileText className="size-3.5" />Invoice</button></span>
+              <span role="cell" className="flex items-center gap-2 md:flex-col md:items-end md:gap-0.5"><b>{money(p.amount)}</b><span className="rounded-full bg-[#e4f7e6] px-2 py-0.5 text-[10px] font-bold text-[#2f8f3a]">{t(p.status)}</span></span>
+              <span role="cell" className="md:text-right"><button type="button" aria-label={`View invoice for ${p.item}`} onClick={(e) => { e.stopPropagation(); app.open({ k: 'invoice', pay: p }) }} className="inline-flex h-8 items-center gap-1.5 rounded-full bg-gradient-to-r from-[#ffe9f0] to-[#fff0d2] px-3 text-xs font-bold text-[#d6336c] ring-1 ring-[#ffd3e2] transition hover:-translate-y-0.5"><FileText className="size-3.5" />{t('Invoice')}</button></span>
             </div>
           ))}
         </div>
-      ) : <p className="py-3 text-sm text-muted-foreground">No {CHANNELS[f as Channel]?.label ?? ''} payments yet.</p>}
+      ) : <p className="py-3 text-sm text-muted-foreground">{t('No payments yet.')}</p>}
     </Card>
   )
 }
 
 export function ProfileView({ app, sec }: { app: App; sec: Section }) {
+  const t = useT()
+  const lang = useLang()
   const { parent, settings } = app.s
   const meta = SECTIONS.find((x) => x.id === sec)!
   const activePlans = app.s.plans.filter((p) => !isExpired(p)).length
@@ -118,14 +122,14 @@ export function ProfileView({ app, sec }: { app: App; sec: Section }) {
           <div className="relative flex flex-wrap items-center gap-5 sm:gap-6">
             <div className="relative">
               <AvatarBubble avatar={parent.avatar} name={parent.name} className="relative size-28 text-3xl shadow-[0_10px_24px_-10px_rgba(110,90,200,0.6)] ring-[3px] ring-white sm:size-32" />
-              <button type="button" onClick={() => app.open({ k: 'avatar' })} aria-label="Change profile photo" className="absolute -bottom-1 -right-1 grid size-9 place-items-center rounded-full bg-white text-[#8e5cf0] shadow-md ring-1 ring-[#eadcff] transition hover:scale-110"><Pencil className="size-4" /></button>
+              <button type="button" onClick={() => app.open({ k: 'avatar' })} aria-label={t('Change profile photo')} className="absolute -bottom-1 -right-1 grid size-9 place-items-center rounded-full bg-white text-[#8e5cf0] shadow-md ring-1 ring-[#eadcff] transition hover:scale-110"><Pencil className="size-4" /></button>
             </div>
             <div className="min-w-0 flex-1">
-              <p className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em] text-[#8e6bd8]">Hello, parent<Crown className="size-4 fill-[#ffc94d] text-[#f0a92b]" aria-hidden="true" /></p>
+              <p className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em] text-[#8e6bd8]">{t('Hello, parent')}<Crown className="size-4 fill-[#ffc94d] text-[#f0a92b]" aria-hidden="true" /></p>
               <h1 className="mt-1 flex items-center gap-3 font-display text-3xl font-bold tracking-tight text-[#2f2a5c] sm:text-4xl"><span className="truncate">{parent.name}</span><Heart className="size-6 shrink-0 text-[#f58aac]" aria-hidden="true" /></h1>
               <div className="mt-2.5 flex flex-wrap items-center gap-2 text-xs font-bold">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/85 px-3.5 py-1.5 text-[#7a52d6] shadow-sm ring-1 ring-white"><UserRound className="size-3.5" />Parent account</span>
-                <span className="rounded-full bg-white/85 px-3.5 py-1.5 text-[#4a4670] shadow-sm ring-1 ring-white">Signed up with {parent.method}</span>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/85 px-3.5 py-1.5 text-[#7a52d6] shadow-sm ring-1 ring-white"><UserRound className="size-3.5" />{t('Parent account')}</span>
+                <span className="rounded-full bg-white/85 px-3.5 py-1.5 text-[#4a4670] shadow-sm ring-1 ring-white">{t('Signed up with')} {parent.method}</span>
               </div>
               {app.s.children.length ? (
                 <div className="mt-3 flex items-center gap-2">
@@ -146,14 +150,14 @@ export function ProfileView({ app, sec }: { app: App; sec: Section }) {
         </section>
       ) : (
         <div>
-          <h1 className="font-display text-3xl font-medium sm:text-4xl">{meta.title}</h1>
-          <p className="mt-1.5 text-sm text-muted-foreground">{meta.sub}</p>
+          <h1 className="font-display text-3xl font-medium sm:text-4xl">{t(meta.title)}</h1>
+          <p className="mt-1.5 text-sm text-muted-foreground">{t(meta.sub)}</p>
         </div>
       )}
 
       {sec === 'account' ? (
         <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
-          <Card title="Personal information">
+          <Card title={t('Personal information')}>
             <ul className="divide-y divide-border/70">
               <InfoRow app={app} k="name" label="Full name" value={parent.name} type="text" ph="Your full name" required />
               <InfoRow app={app} k="phone" label="Phone" value={parent.phone} prefix="+95" login={parent.method === 'Phone'} type="tel" ph="9 123 456 789" />
@@ -166,26 +170,26 @@ export function ProfileView({ app, sec }: { app: App; sec: Section }) {
         <Payments app={app} />
       ) : sec === 'prefs' ? (
         <Card>
-          <PrefRow title="Notifications" sub="Plan reminders 3 days before a plan ends, and updates about your children.">
-            <Switch label="Notifications" on={settings.notif} onChange={(v) => { app.setS((s) => ({ ...s, settings: { ...s.settings, notif: v } })); app.toast(v ? 'Notifications on. We’ll remind you 3 days before a plan ends.' : 'Notifications off.') }} />
+          <PrefRow title={t('Notifications')} sub={t('Plan reminders 3 days before a plan ends, and updates about your children.')}>
+            <Switch label="Notifications" on={settings.notif} onChange={(v) => { app.setS((s) => ({ ...s, settings: { ...s.settings, notif: v } })); app.toast(v ? t('Notifications on. We’ll remind you 3 days before a plan ends.') : t('Notifications off.')) }} />
           </PrefRow>
-          <PrefRow title="Language" sub="The language for your parent account.">
-            <Seg label="Language" value={settings.lang} onChange={(l) => { app.setS((s) => ({ ...s, settings: { ...s.settings, lang: l } })); app.toast(`Language set to ${l}.`) }} options={['English', 'မြန်မာ', 'Tiếng Việt'].map((l) => [l, l] as [string, string])} />
+          <PrefRow title={t('Language')} sub={t('The language for your parent account.')}>
+            <Seg label={t('Language')} value={lang === 'mm' ? 'မြန်မာ' : 'English'} onChange={(l) => { const next = l === 'မြန်မာ' ? 'mm' : 'en'; setLang(next); app.setS((s) => ({ ...s, settings: { ...s.settings, lang: l } })); app.toast(next === 'mm' ? 'ဘာသာစကားကို မြန်မာသို့ ပြောင်းလိုက်ပါပြီ။' : 'Language set to English.') }} options={['English', 'မြန်မာ'].map((l) => [l, l] as [string, string])} />
           </PrefRow>
         </Card>
       ) : (
         <>
           <Card>
-            <PrefRow title="Sign-up method" sub="You log in with this method."><span className="rounded-full bg-[#f4f1f8] px-3.5 py-1.5 text-sm font-bold">{parent.method}</span></PrefRow>
-            <PrefRow title="Password" sub="Change the password for your parent account."><Btn small variant="blueSoft" onClick={() => app.open({ k: 'pw' })}>Change password</Btn></PrefRow>
-            <PrefRow title="Sign out" sub="Log out of Joy on this browser."><Btn small variant="orangeSoft" onClick={() => app.logout()}>↪ Sign out</Btn></PrefRow>
+            <PrefRow title={t('Sign-up method')} sub={t('You log in with this method.')}><span className="rounded-full bg-[#f4f1f8] px-3.5 py-1.5 text-sm font-bold">{parent.method}</span></PrefRow>
+            <PrefRow title={t('Password')} sub={t('Change the password for your parent account.')}><Btn small variant="blueSoft" onClick={() => app.open({ k: 'pw' })}>{t('Change password')}</Btn></PrefRow>
+            <PrefRow title={t('Sign out')} sub={t('Log out of Joy on this browser.')}><Btn small variant="orangeSoft" onClick={() => app.logout()}>↪ {t('Sign out')}</Btn></PrefRow>
           </Card>
-          <Card title={<span className="inline-flex items-center gap-2.5"><span className="grid size-9 place-items-center rounded-2xl bg-gradient-to-br from-[#ffe3e8] to-[#ffd0dc] text-[#e5446d] shadow-[0_6px_14px_-8px_rgba(229,68,109,0.8)]"><TriangleAlert className="size-5" aria-hidden="true" /></span>Danger zone</span>} className="ring-1 ring-[#f5c6c8]">
-            <PrefRow title="Delete account" sub="Permanently delete your account and all associated data."><Btn small variant="danger" onClick={() => app.open({ k: 'delAcc' })}>Delete account</Btn></PrefRow>
+          <Card title={<span className="inline-flex items-center gap-2.5"><span className="grid size-9 place-items-center rounded-2xl bg-gradient-to-br from-[#ffe3e8] to-[#ffd0dc] text-[#e5446d] shadow-[0_6px_14px_-8px_rgba(229,68,109,0.8)]"><TriangleAlert className="size-5" aria-hidden="true" /></span>{t('Danger zone')}</span>} className="ring-1 ring-[#f5c6c8]">
+            <PrefRow title={t('Delete account')} sub={t('Permanently delete your account and all associated data.')}><Btn small variant="danger" onClick={() => app.open({ k: 'delAcc' })}>{t('Delete account')}</Btn></PrefRow>
           </Card>
         </>
       )}
-      <p className="text-center text-xs text-muted-foreground">Version 1.1.0 · © 2026 Joy. All rights reserved.</p>
+      <p className="text-center text-xs text-muted-foreground">Version 1.1.0 · © 2026 Joy. {t('All rights reserved.')}</p>
     </div>
   )
 }

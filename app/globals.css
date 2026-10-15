@@ -440,3 +440,12 @@ html[data-joy-dock]{padding-right:var(--joy-dock,0px);transition:padding-right .
 html[data-joy-dock] .joy-dock-right{right:calc(var(--joy-dock,0px) + 1rem)}
 /* modals stay centred in the visible area when the comments dock is showing */
 html[data-joy-dock] [class*="inset-0"][class*="z-[100]"]{right:var(--joy-dock,0px)}
+
+/* Myanmar: use a Myanmar font everywhere and give the script room to breathe */
+html[lang='my'] {
+  --font-sans: var(--font-myanmar), var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-myanmar), var(--font-fredoka), ui-rounded, system-ui, sans-serif;
+  --font-hand: var(--font-myanmar), var(--font-caveat), cursive;
+}
+html[lang='my'] body { line-height: 1.75; }
+html[lang='my'] :where(h1, h2, h3, h4) { line-height: 1.5; }

@@ -1,7 +1,10 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Heart, Leaf } from '@/components/joy/cute-icons'
 import { LoginTrigger } from './login-modal'
+import { useT } from '@/lib/i18n'
 
 const tryPoints = [
   "Daily activities picked for your child's growth path",
@@ -11,6 +14,7 @@ const tryPoints = [
 ]
 
 function StoreBadge({ store, light = false }: { store: 'apple' | 'google'; light?: boolean }) {
+  const t = useT()
   return (
     <Link
       href="#download"
@@ -31,7 +35,7 @@ function StoreBadge({ store, light = false }: { store: 'apple' | 'google'; light
       )}
       <span className="flex flex-col leading-tight">
         <span className="whitespace-nowrap text-[10px] uppercase tracking-wider opacity-70">
-          {store === 'apple' ? 'Download on the' : 'Get it on'}
+          {store === 'apple' ? t('Download on the') : t('Get it on')}
         </span>
         <span className="text-base font-semibold">{store === 'apple' ? 'App Store' : 'Google Play'}</span>
       </span>
@@ -86,6 +90,7 @@ function BottomLeftDecor() {
 const BLOB_RADIUS = '58% 42% 46% 54% / 44% 52% 48% 56%'
 
 function CtaStoreButton({ store }: { store: 'apple' | 'google' }) {
+  const t = useT()
   const isApple = store === 'apple'
   return (
     <Link
@@ -110,7 +115,7 @@ function CtaStoreButton({ store }: { store: 'apple' | 'google' }) {
       )}
       <span className="flex flex-col leading-tight">
         <span className="text-[10px] font-medium uppercase tracking-wider opacity-80">
-          {isApple ? 'Download on the' : 'Get it on'}
+          {isApple ? t('Download on the') : t('Get it on')}
         </span>
         <span className="font-display text-xl font-medium">{isApple ? 'App Store' : 'Google Play'}</span>
       </span>
@@ -123,6 +128,7 @@ function CtaStoreButton({ store }: { store: 'apple' | 'google' }) {
 }
 
 export function TryJoyCta() {
+  const t = useT()
   return (
     <section id="download" aria-labelledby="try-title" className="scroll-mt-28 px-4 pb-8 pt-10 md:pb-7 lg:pb-12 md:pt-11 lg:pt-20">
       <div className="relative mx-auto max-w-7xl">
@@ -147,7 +153,7 @@ export function TryJoyCta() {
         <div className="relative grid items-center gap-8 px-6 py-10 md:px-8 md:py-7 lg:px-14 lg:py-12 md:grid-cols-[1fr_0.9fr]">
           <div className="relative flex flex-col gap-4">
             <div className="relative -rotate-6 self-start">
-              <p className="font-hand text-3xl font-bold text-[#f8607a]">Happy Childhood</p>
+              <p className="font-hand text-3xl font-bold text-[#f8607a]">{t('Happy Childhood')}</p>
               <svg className="absolute -bottom-2 left-0 w-full text-[#f8607a]" viewBox="0 0 200 14" fill="none" aria-hidden="true">
                 <path d="M2 12C50 2 130 0 198 6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               </svg>
@@ -158,20 +164,20 @@ export function TryJoyCta() {
               id="try-title"
               className="flex flex-wrap items-center gap-x-3 text-3xl font-semibold leading-[1.05] tracking-tight text-[#2a2240] md:text-4xl xl:text-5xl"
             >
-              <span>Try</span>
+              <span>{t('Try')}</span>
               <Image src="/images/joy-logo.webp" alt="Joy" width={200} height={92} className="h-9 w-auto md:h-11 xl:h-12" />
-              <span>for free</span>
+              <span>{t('for free')}</span>
             </h2>
 
             <p className="max-w-md text-lg leading-relaxed text-foreground/75 md:text-xl">
-              A safe and loving space where parents support their children&apos;s growth every day.
+              {t("A safe and loving space where parents support their children's growth every day.")}
             </p>
 
             <ul className="flex flex-col gap-2.5">
               {tryPoints.map((point, i) => (
                 <li key={point} className="flex items-center gap-4 text-base text-foreground/80 md:text-lg">
                   <FlowerCheck color={checkColors[i]} />
-                  {point}
+                  {t(point)}
                 </li>
               ))}
             </ul>
@@ -182,9 +188,9 @@ export function TryJoyCta() {
             </div>
 
             <p className="text-base text-foreground/70">
-              Already have a parent account?{' '}
+              {t('Already have a parent account?')}{' '}
               <LoginTrigger className="font-semibold text-[#2a2240] underline underline-offset-4">
-                Log in
+                {t('Log in')}
               </LoginTrigger>
             </p>
           </div>
@@ -207,9 +213,9 @@ export function TryJoyCta() {
             </div>
 
             <p className="pointer-events-none absolute left-[10%] bottom-[15%] -rotate-6 font-hand text-4xl leading-none text-white drop-shadow-lg md:text-5xl" style={{ textShadow: '0 4px 12px rgba(0,0,0,0.4)' }}>
-              <span className="font-light opacity-80">Better</span>
+              <span className="font-light opacity-80">{t('Better')}</span>
               <br />
-              <span className="font-semibold">Together</span>
+              <span className="font-semibold">{t('Together')}</span>
             </p>
 
             <svg className="pointer-events-none absolute -right-4 -top-12 size-20 md:-right-8" viewBox="0 0 80 80" aria-hidden="true">
@@ -237,9 +243,9 @@ export function TryJoyCta() {
             >
               <Heart className="size-7 fill-[#f8607a] text-[#f8607a]" aria-hidden="true" />
               <span className="font-hand text-2xl font-bold leading-none text-[#2a2240]">
-                Growing
+                {t('Growing')}
                 <br />
-                with you
+                {t('with you')}
               </span>
             </div>
 
@@ -292,6 +298,7 @@ const footerNav = [
 ]
 
 export function SiteFooter({ surface = 'default' }: { surface?: 'default' | 'guide' }) {
+  const t = useT()
   const isGuideSurface = surface === 'guide'
 
   return (
@@ -331,8 +338,8 @@ export function SiteFooter({ surface = 'default' }: { surface?: 'default' | 'gui
 
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:gap-6 lg:gap-10">
             {footerNav.map((group) => (
-              <nav key={group.title} aria-label={group.title} className="flex flex-col gap-5">
-                <h3 className="font-display text-lg font-semibold text-joy-pink">{group.title}</h3>
+              <nav key={group.title} aria-label={t(group.title)} className="flex flex-col gap-5">
+                <h3 className="font-display text-lg font-semibold text-joy-pink">{t(group.title)}</h3>
                 <ul className="flex flex-col gap-3.5">
                   {group.links.map((link) => (
                     <li key={link.label}>
@@ -340,7 +347,7 @@ export function SiteFooter({ surface = 'default' }: { surface?: 'default' | 'gui
                         href={link.href}
                         className="font-display text-base font-medium text-foreground/80 transition-colors hover:text-joy-pink"
                       >
-                        {link.label}
+                        {t(link.label)}
                       </Link>
                     </li>
                   ))}
@@ -355,14 +362,14 @@ export function SiteFooter({ surface = 'default' }: { surface?: 'default' | 'gui
             <span>© 2026 Joy</span>
             <span aria-hidden="true">·</span>
             <Link href="#" className="transition-colors hover:text-joy-pink">
-              Terms
+              {t('Terms')}
             </Link>
             <span aria-hidden="true">·</span>
             <Link href="#" className="transition-colors hover:text-joy-pink">
-              Privacy
+              {t('Privacy')}
             </Link>
           </p>
-          <p className="font-display text-foreground/60">Made with love for curious little minds</p>
+          <p className="font-display text-foreground/60">{t('Made with love for curious little minds')}</p>
         </div>
       </div>
     </footer>

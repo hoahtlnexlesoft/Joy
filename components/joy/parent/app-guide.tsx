@@ -1,3 +1,7 @@
+'use client'
+
+import { useT } from '@/lib/i18n'
+
 const APPLE_PATH =
   'M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.76 2.27-1.6 2.78-.41 6.9 1.15 9.16.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.78.74 2.99.72 1.24-.02 2.02-1.12 2.77-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.66ZM14.1 5.84c.63-.77 1.06-1.83.94-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.28Z'
 
@@ -48,16 +52,17 @@ function DashArrow() {
 
 /** Shown after a successful payment: how to activate the Joy app on the child's device. */
 export function AppActivationGuide() {
+  const t = useT()
   const steps = [
-    { emoji: '📲', tint: 'from-[#e3f2ff] to-[#f4faff] ring-[#c9e3fb]', title: 'Download the app', body: "Install it on your child's device.", stores: true },
-    { emoji: '🧒', tint: 'from-[#ffeedd] to-[#fff8f0] ring-[#ffd9b8]', title: 'Switch to Child view', body: <>Tap <b>Play</b> on the Home screen.</> },
-    { emoji: '🔗', tint: 'from-[#efe7ff] to-[#f9f5ff] ring-[#d9c9fb]', title: 'Link parent account', body: <><b>My profile</b> › <b>Link Parent Account</b>.</> },
+    { emoji: '📲', tint: 'from-[#e3f2ff] to-[#f4faff] ring-[#c9e3fb]', title: t('Download the app'), body: t("Install it on your child's device."), stores: true },
+    { emoji: '🧒', tint: 'from-[#ffeedd] to-[#fff8f0] ring-[#ffd9b8]', title: t('Switch to Child view'), body: <>{t('Tap Play on the Home screen.')}</> },
+    { emoji: '🔗', tint: 'from-[#efe7ff] to-[#f9f5ff] ring-[#d9c9fb]', title: t('Link parent account'), body: <>{t('My profile › Link Parent Account.')}</> },
   ]
   return (
-    <section aria-label="Activate the Joy app" className="relative mb-5 overflow-hidden rounded-3xl bg-gradient-to-br from-[#fff6fa] via-[#fffaf2] to-[#f6f1ff] px-3 py-4 ring-1 ring-[#ffe3ee] sm:px-4">
+    <section aria-label={t('Activate the Joy app in 3 easy steps')} className="relative mb-5 overflow-hidden rounded-3xl bg-gradient-to-br from-[#fff6fa] via-[#fffaf2] to-[#f6f1ff] px-3 py-4 ring-1 ring-[#ffe3ee] sm:px-4">
       <span className="pointer-events-none absolute left-4 top-3 text-lg opacity-60" aria-hidden="true">✨</span>
       <span className="pointer-events-none absolute right-4 top-3 text-lg opacity-60" aria-hidden="true">🌈</span>
-      <p className="mb-3 text-center font-display text-sm font-extrabold">Activate the Joy app in 3 easy steps</p>
+      <p className="mb-3 text-center font-display text-sm font-extrabold">{t('Activate the Joy app in 3 easy steps')}</p>
       <ol className="flex flex-col items-stretch gap-1 sm:flex-row sm:gap-2">
         {steps.map((s, i) => (
           <li key={s.title} className="contents">
@@ -66,7 +71,7 @@ export function AppActivationGuide() {
                 {s.emoji}
               </span>
               <div className="min-w-0 sm:w-full">
-                <span className="mb-1 inline-block rounded-full bg-[#ffe9d9] px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wide text-[#e4631f]">Step {i + 1}</span>
+                <span className="mb-1 inline-block rounded-full bg-[#ffe9d9] px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wide text-[#e4631f]">{t('Step')} {i + 1}</span>
                 <b className="block text-sm leading-tight">{s.title}</b>
                 <p className="mt-1 text-xs leading-snug text-muted-foreground">{s.body}</p>
                 {s.stores ? (

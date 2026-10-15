@@ -9,6 +9,8 @@ import { cn } from '@/lib/utils'
 import { JoyButton } from './ui'
 import { LoginModal } from './login-modal'
 import { joyLogout, useJoySession } from '@/lib/joy-session'
+import { useT } from '@/lib/i18n'
+import { LangSwitch } from './lang-switch'
 import { CuteIcon, type CuteName } from './parent/icons'
 
 const links = [
@@ -24,6 +26,7 @@ const mobileLinkStyle: Record<string, { Icon: LucideIcon; tile: string }> = {
 }
 
 export function SiteHeader() {
+  const t = useT()
   const [open, setOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
@@ -73,13 +76,16 @@ export function SiteHeader() {
             <Link href="/" aria-label="Joy home" className="shrink-0">
               <Image src="/images/joy-logo.webp" alt="Joy" width={110} height={50} priority className="h-9 w-auto" />
             </Link>
-            <span className="inline-flex h-8 items-center whitespace-nowrap rounded-full px-4 font-display text-sm font-semibold bg-gradient-joy text-white shadow-sm">Parent Portal</span>
+            <span className="inline-flex h-8 items-center whitespace-nowrap rounded-full px-4 font-display text-sm font-semibold bg-gradient-joy text-white shadow-sm">{t('Parent Portal')}</span>
           </div>
-          {session ? (
-            <AccountMenu name={session.name} onLogout={logOut} portal />
-          ) : (
-            <button type="button" onClick={showLogin} className="rounded-full bg-white px-5 py-2 text-sm font-semibold ring-1 ring-border hover:bg-muted">Log in</button>
-          )}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <LangSwitch />
+            {session ? (
+              <AccountMenu name={session.name} onLogout={logOut} portal />
+            ) : (
+              <button type="button" onClick={showLogin} className="rounded-full bg-white px-5 py-2 text-sm font-semibold ring-1 ring-border hover:bg-muted">{t('Log in')}</button>
+            )}
+          </div>
         </div>
         <LoginModal open={loginOpen} onClose={closeLogin} />
       </header>
@@ -125,7 +131,7 @@ export function SiteHeader() {
                       active && 'is-active text-[#c2307a]',
                     )}
                   >
-                    {link.label}
+                    {t(link.label)}
                   </Link>
                 </li>
               )
@@ -134,34 +140,39 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
+          <LangSwitch compact className="lg:hidden" />
+          <LangSwitch className="hidden lg:inline-flex" />
           {session ? (
             <AccountMenu name={session.name} onLogout={logOut} portal />
           ) : (
             <>
               <button type="button" onClick={showLogin} className="whitespace-nowrap rounded-full px-2 py-2 text-[13px] font-semibold text-foreground hover:bg-muted lg:px-4 lg:text-sm">
-                Log in
+                {t('Log in')}
               </button>
               <JoyButton href="/#download" className="h-9 whitespace-nowrap px-3 text-[13px] lg:h-10 lg:px-5 lg:text-sm">
-                Try for free
+                {t('Try for free')}
               </JoyButton>
             </>
           )}
         </div>
 
+        <div className="flex items-center gap-2 md:hidden">
+        <LangSwitch compact />
         <button
           type="button"
-          className="inline-flex size-10 items-center justify-center rounded-full bg-[#fff0f6] text-[#c2307a] transition active:scale-95 md:hidden"
-          aria-label={open ? 'Close menu' : 'Open menu'}
+          className="inline-flex size-10 items-center justify-center rounded-full bg-[#fff0f6] text-[#c2307a] transition active:scale-95"
+          aria-label={open ? t('Close menu') : t('Open menu')}
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
+        </div>
       </div>
 
       {open ? (
-        <div id="mobile-menu" className="joy-sheet fixed inset-0 z-0 flex flex-col overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden bg-[linear-gradient(180deg,#fff7f1_0%,#fdeef5_55%,#f3eefc_100%)] px-6 pb-28 pt-[5.5rem] md:hidden" role="dialog" aria-label="Menu">
+        <div id="mobile-menu" className="joy-sheet fixed inset-0 z-0 flex flex-col overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden bg-[linear-gradient(180deg,#fff7f1_0%,#fdeef5_55%,#f3eefc_100%)] px-6 pb-28 pt-[5.5rem] md:hidden" role="dialog" aria-label={t('Menu')}>
           <nav aria-label="Main">
             <ul className="flex flex-col gap-2.5">
               {links.map((link, i) => {
@@ -181,7 +192,7 @@ export function SiteHeader() {
                       <span className={cn('grid size-11 shrink-0 place-items-center rounded-xl', tile)}>
                         <Icon className="size-5" aria-hidden="true" />
                       </span>
-                      <span className={cn('flex-1 font-display text-[17px] font-medium', active ? 'text-[#c2307a]' : 'text-[#2a2240]')}>{link.label}</span>
+                      <span className={cn('flex-1 font-display text-[17px] font-medium', active ? 'text-[#c2307a]' : 'text-[#2a2240]')}>{t(link.label)}</span>
                       <ChevronRight className="size-4 shrink-0 text-[#2a2240]/35" aria-hidden="true" />
                     </Link>
                   </li>
@@ -193,18 +204,18 @@ export function SiteHeader() {
           <div className="joy-sheet-item mt-auto flex flex-col gap-3 pt-8" style={{ animationDelay: `${60 + links.length * 60}ms` }}>
             {session ? (
               <>
-                <Link href="/parent" onClick={() => setOpen(false)} className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-joy px-6 text-[15px] font-semibold text-white shadow-[0_12px_22px_-12px_rgba(238,90,138,0.8)]">Hi, {session.name.split(' ')[0]} · Parent Portal</Link>
+                <Link href="/parent" onClick={() => setOpen(false)} className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-joy px-6 text-[15px] font-semibold text-white shadow-[0_12px_22px_-12px_rgba(238,90,138,0.8)]">{t('Hi,')} {session.name.split(' ')[0]} · {t('Parent Portal')}</Link>
                 <button type="button" onClick={logOut} className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-white/80 px-6 text-[15px] font-semibold text-[#2a2240] ring-1 ring-[#2a2240]/10">
-                  <LogOut className="size-4" aria-hidden="true" /> Log out
+                  <LogOut className="size-4" aria-hidden="true" /> {t('Log out')}
                 </button>
               </>
             ) : (
               <>
-                <Link href="/#download" onClick={() => setOpen(false)} className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-joy px-6 text-[15px] font-semibold text-white shadow-[0_12px_22px_-12px_rgba(238,90,138,0.8)]">Try for free</Link>
-                <button type="button" onClick={showLogin} className="inline-flex h-11 items-center justify-center rounded-full bg-white/80 px-6 text-[15px] font-semibold text-[#2a2240] ring-1 ring-[#2a2240]/10">Log in</button>
+                <Link href="/#download" onClick={() => setOpen(false)} className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-joy px-6 text-[15px] font-semibold text-white shadow-[0_12px_22px_-12px_rgba(238,90,138,0.8)]">{t('Try for free')}</Link>
+                <button type="button" onClick={showLogin} className="inline-flex h-11 items-center justify-center rounded-full bg-white/80 px-6 text-[15px] font-semibold text-[#2a2240] ring-1 ring-[#2a2240]/10">{t('Log in')}</button>
               </>
             )}
-            <p className="flex items-center justify-center gap-1 pt-1 text-xs text-[#6b6480]">Made with <Heart className="size-3 fill-[#f8607a] text-[#f8607a]" aria-hidden="true" /> for curious little minds</p>
+            <p className="flex items-center justify-center gap-1 pt-1 text-xs text-[#6b6480]">{t('Made with')} <Heart className="size-3 fill-[#f8607a] text-[#f8607a]" aria-hidden="true" /> {t('for curious little minds')}</p>
           </div>
         </div>
       ) : null}
@@ -223,6 +234,7 @@ const accountLinks: { href: string; icon: CuteName; label: string }[] = [
 ]
 
 function AccountMenu({ name, onLogout, portal }: { name: string; onLogout: () => void; portal?: boolean }) {
+  const t = useT()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const initials = name.split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase()
@@ -247,26 +259,26 @@ function AccountMenu({ name, onLogout, portal }: { name: string; onLogout: () =>
         <button type="button" aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen((o) => !o)} className="flex items-center gap-2 rounded-full bg-white py-1 pl-1 pr-3 text-left shadow-[0_2px_8px_-4px_rgba(39,37,63,0.2)] ring-1 ring-[#e8e0f0] transition hover:shadow-md">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/parent-avatar.webp" alt="" aria-hidden="true" className="size-10 rounded-full object-cover" />
-          <span className="hidden min-w-0 flex-col leading-tight sm:flex"><b className="truncate font-display text-[0.8rem] font-semibold text-[#27253f]">{name}</b><small className="text-[0.68rem] text-muted-foreground">Parent account</small></span>
+          <span className="hidden min-w-0 flex-col leading-tight sm:flex"><b className="truncate font-display text-[0.8rem] font-semibold text-[#27253f]">{name}</b><small className="text-[0.68rem] text-muted-foreground">{t('Parent account')}</small></span>
           <ChevronDown className={cn('size-3 text-muted-foreground transition-transform', open && 'rotate-180')} aria-hidden="true" />
         </button>
       ) : (
       <button type="button" aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen((o) => !o)} className="flex h-10 items-center gap-2 rounded-full bg-white/80 py-1 pl-1 pr-3 text-sm font-semibold ring-1 ring-border transition hover:bg-white">
         <span className="grid size-8 place-items-center rounded-full bg-gradient-joy text-xs font-bold text-white" aria-hidden="true">{initials}</span>
-        Hi, {name.split(' ')[0]}
+        {t('Hi,')} {name.split(' ')[0]}
         <ChevronDown className={cn('size-4 text-muted-foreground transition-transform', open && 'rotate-180')} aria-hidden="true" />
       </button>
       )}
       {open ? (
         <div role="menu" className="absolute right-0 top-[2.9rem] z-50 w-64 rounded-2xl bg-white p-2 shadow-[0_20px_50px_-20px_rgba(39,37,63,0.45)] ring-1 ring-border">
-          <div className="px-3 py-2.5"><b className="block truncate text-sm">{name}</b><small className="text-xs text-muted-foreground">Parent account</small></div>
+          <div className="px-3 py-2.5"><b className="block truncate text-sm">{name}</b><small className="text-xs text-muted-foreground">{t('Parent account')}</small></div>
           <hr className="my-1 border-border/70" />
           {accountLinks.map((l) => (
-            <Link key={l.href} role="menuitem" href={l.href} onClick={go} className={item}><CuteIcon name={l.icon} className="size-8" />{l.label}</Link>
+            <Link key={l.href} role="menuitem" href={l.href} onClick={go} className={item}><CuteIcon name={l.icon} className="size-8" />{t(l.label)}</Link>
           ))}
           <hr className="my-1 border-border/70" />
-          <Link role="menuitem" href="/" onClick={() => setOpen(false)} className={item}><Globe className="size-4" aria-hidden="true" />Joy website</Link>
-          <button role="menuitem" type="button" className={cn(item, 'text-[#e5484d]')} onClick={() => { setOpen(false); onLogout() }}><LogOut className="size-4" aria-hidden="true" />Log out</button>
+          <Link role="menuitem" href="/" onClick={() => setOpen(false)} className={item}><Globe className="size-4" aria-hidden="true" />{t('Joy website')}</Link>
+          <button role="menuitem" type="button" className={cn(item, 'text-[#e5484d]')} onClick={() => { setOpen(false); onLogout() }}><LogOut className="size-4" aria-hidden="true" />{t('Log out')}</button>
         </div>
       ) : null}
     </div>

@@ -36,251 +36,166 @@ export function Balloon({ id, strength = 1 }: { id: string; strength?: number })
   )
 }
 
-function Grad({ id, a, b, y1 = 0, y2 = 120 }: { id: string; a: string; b: string; y1?: number; y2?: number }) {
+/* The nine element icons: glossy 3D-style illustrations, redrawn as clean SVG. */
+function G({ id, a, b, x1 = 0, y1 = 0, x2 = 0, y2 = 1 }: { id: string; a: string; b: string; x1?: number; y1?: number; x2?: number; y2?: number }) {
   return (
-    <linearGradient id={id} gradientUnits="userSpaceOnUse" x1="0" y1={y1} x2="0" y2={y2}>
+    <linearGradient id={id} x1={x1} y1={y1} x2={x2} y2={y2}>
       <stop offset="0" stopColor={a} />
       <stop offset="1" stopColor={b} />
     </linearGradient>
   )
 }
-
-function Face({ cx, cy, s = 1 }: { cx: number; cy: number; s?: number }) {
-  return (
-    <g transform={`translate(${cx} ${cy}) scale(${s})`}>
-      <ellipse cx={-14} cy={0} rx={4.6} ry={5.6} fill="#3a2a4d" />
-      <ellipse cx={14} cy={0} rx={4.6} ry={5.6} fill="#3a2a4d" />
-      <circle cx={-15.6} cy={-2} r={1.9} fill="#fff" />
-      <circle cx={12.4} cy={-2} r={1.9} fill="#fff" />
-      <ellipse cx={-24} cy={8} rx={6.5} ry={4.2} fill="#ff7f9d" opacity={0.55} />
-      <ellipse cx={24} cy={8} rx={6.5} ry={4.2} fill="#ff7f9d" opacity={0.55} />
-      <path d="M-5.5 6.5q5.5 6 11 0" fill="none" stroke="#3a2a4d" strokeWidth={2.4} strokeLinecap="round" />
-    </g>
-  )
-}
-
-function Sparkle({ x, y, s, fill = '#ffd34d' }: { x: number; y: number; s: number; fill?: string }) {
-  return <path d="M0 -10C1 -4 4 -1 10 0C4 1 1 4 0 10C-1 4 -4 1 -10 0C-4 -1 -1 -4 0 -10Z" transform={`translate(${x} ${y}) scale(${s})`} fill={fill} />
-}
-
-function Leaf({ x, y, r, s, fill }: { x: number; y: number; r: number; s: number; fill: string }) {
-  return <path d="M0 0C5 -9 14 -9 18 -5C13 3 6 6 0 0Z" transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`} fill={fill} />
-}
-
-function Flower({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
-  return (
-    <g transform={`translate(${x} ${y}) scale(${s})`}>
-      {[0, 72, 144, 216, 288].map((a) => (
-        <circle key={a} cx={4.6 * Math.cos((a * Math.PI) / 180)} cy={4.6 * Math.sin((a * Math.PI) / 180)} r={3.4} fill="#fff" />
-      ))}
-      <circle r={2.6} fill="#ffd54a" />
-    </g>
-  )
-}
-
-function Tree({ x, y, s }: { x: number; y: number; s: number }) {
-  return (
-    <g transform={`translate(${x} ${y}) scale(${s})`}>
-      <rect x={-2} y={-2} width={4} height={6} rx={1.5} fill="#8a5a3a" />
-      <path d="M0-26L11-6H-11Z" fill="#3f9f5c" />
-      <path d="M0-16L13 2H-13Z" fill="#2f8a4c" />
-    </g>
-  )
+const star = (cx: number, cy: number, r: number) => {
+  const pts = Array.from({ length: 10 }, (_, i) => {
+    const a = (Math.PI / 5) * i - Math.PI / 2
+    const rr = i % 2 ? r * 0.45 : r
+    return `${(cx + rr * Math.cos(a)).toFixed(1)},${(cy + rr * Math.sin(a)).toFixed(1)}`
+  })
+  return pts.join(' ')
 }
 
 function shape(name: ElementKey, u: string): ReactNode {
+  const id = (k: string) => `${u}${k}`
+  const url = (k: string) => `url(#${id(k)})`
   switch (name) {
     case 'Flame':
       return (
         <>
           <defs>
-            <Grad id={`${u}o`} a="#ffb04a" b="#ff5233" y1={6} y2={112} />
-            <Grad id={`${u}i`} a="#ffe99a" b="#ffb347" y1={62} y2={110} />
+            <G id={id('o')} a="#ff9a45" b="#e9452b" />
+            <G id={id('y')} a="#fff0a0" b="#f4b52e" />
           </defs>
-          <g>
-          <path d="M30 56C18 46 24 30 30 20C32 32 40 38 38 52Z" fill="#ff8a3d" />
-          <path d="M62 6C64 24 92 38 94 70C96 96 78 112 58 112C36 112 22 96 24 74C22 58 34 48 40 36C44 44 48 46 50 40C54 30 58 18 62 6Z" fill={`url(#${u}o)`} />
-          <ellipse cx={58} cy={86} rx={27} ry={24} fill={`url(#${u}i)`} />
-          </g>
-          <Face cx={58} cy={88} s={0.95} />
-          <Sparkle x={14} y={82} s={0.6} />
-          <Sparkle x={106} y={66} s={0.5} />
-          <Sparkle x={20} y={26} s={0.5} />
+          <path d="M60 8C62 28 90 40 90 74c0 22-14 36-30 36S30 96 30 74c0-16 10-26 15-38 4 8 9 8 12 0 3-8 3-18 3-28Z" fill={url('o')} stroke="#d9452b" strokeWidth="2" strokeLinejoin="round" />
+          <path d="M60 60c10 9 15 19 15 28 0 11-7 17-15 17s-15-6-15-17c0-9 5-19 15-28Z" fill={url('y')} />
+          <path d="M42 70c-2-8 2-16 6-20" fill="none" stroke="#ffd1a0" strokeWidth="4" strokeLinecap="round" opacity=".8" />
+          <ellipse cx="54" cy="86" rx="4" ry="7" fill="#fff" opacity=".55" transform="rotate(12 54 86)" />
         </>
       )
     case 'Stream':
       return (
         <>
           <defs>
-            <Grad id={`${u}d`} a="#8ad8ff" b="#3d8fe8" y1={6} y2={110} />
+            <G id={id('w')} a="#b5f3f6" b="#46bfe6" x1={0.2} y1={0} x2={0.8} y2={1} />
           </defs>
-          <g>
-          <path d="M60 6C60 6 24 46 24 74C24 94 40 110 60 110C80 110 96 94 96 74C96 46 60 6 60 6Z" fill={`url(#${u}d)`} />
-          </g>
-          <ellipse cx={40} cy={62} rx={4.6} ry={10} transform="rotate(16 40 62)" fill="#fff" opacity={0.6} />
-          <Face cx={60} cy={82} s={0.95} />
-          <path d="M2 106q10-9 20 0t20 0" fill="none" stroke="#8fd2fb" strokeWidth={4.5} strokeLinecap="round" />
-          <path d="M78 110q10-9 20 0t20 0" fill="none" stroke="#8fd2fb" strokeWidth={4.5} strokeLinecap="round" />
-          <path d="M12 116q8-6 16 0t16 0" fill="none" stroke="#bfe5fc" strokeWidth={3.5} strokeLinecap="round" />
-          <circle cx={14} cy={46} r={4} fill="#6fbcf4" />
-          <circle cx={108} cy={40} r={3.4} fill="#6fbcf4" />
-          <circle cx={100} cy={20} r={2.6} fill="#6fbcf4" />
-        </>
-      )
-    case 'Spark':
-      return (
-        <>
-          <defs>
-            <Grad id={`${u}b`} a="#fff28d" b="#ffbf2e" y1={6} y2={114} />
-          </defs>
-          <g>
-          <path d="M72 6L26 66H52L40 114L94 44H66L86 6Z" fill={`url(#${u}b)`} stroke={`url(#${u}b)`} strokeWidth={9} strokeLinejoin="round" />
-          </g>
-          <path d="M72 14L40 58" stroke="#fffbd0" strokeWidth={3.5} strokeLinecap="round" opacity={0.7} />
-          <Face cx={60} cy={62} s={0.8} />
-          <Sparkle x={102} y={22} s={0.7} />
-          <Sparkle x={16} y={28} s={0.5} />
-          <Sparkle x={106} y={96} s={0.6} />
-          <Sparkle x={20} y={102} s={0.4} />
-        </>
-      )
-    case 'Stone':
-      return (
-        <>
-          <defs>
-            <Grad id={`${u}r`} a="#bcbcc7" b="#6c6c7b" y1={38} y2={108} />
-          </defs>
-          <g>
-          <path d="M16 88C14 66 28 44 52 40C68 36 88 44 98 62C108 80 104 96 90 102C70 108 36 108 22 100C18 98 16 94 16 88Z" fill={`url(#${u}r)`} />
-          <path d="M52 40C68 36 88 44 98 62C84 56 66 52 52 40Z" fill="#d2d2dc" opacity={0.8} />
-          <path d="M6 110q3-16 8-18q-1 9 5 18Z" fill="#6cc36a" />
-          <path d="M16 110q1-10 7-14q0 7 3 14Z" fill="#58b45a" />
-          <path d="M94 110q2-12 9-16q-1 9 3 16Z" fill="#6cc36a" />
-          <path d="M104 110q3-8 9-10q-2 6-1 10Z" fill="#58b45a" />
-          </g>
-          <Leaf x={12} y={52} r={-40} s={0.8} fill="#7ed08b" />
-          <Leaf x={96} y={36} r={20} s={0.6} fill="#62c27a" />
-          <Face cx={58} cy={76} s={1} />
-        </>
-      )
-    case 'Wind':
-      return (
-        <>
-          <defs>
-            <Grad id={`${u}c`} a="#ffffff" b="#d4e5fb" y1={30} y2={96} />
-            <filter id={`${u}f`} x="-20%" y="-20%" width="140%" height="150%">
-              <feDropShadow dx={0} dy={2} stdDeviation={2.2} floodColor="#8fb4e0" floodOpacity={0.45} />
-            </filter>
-          </defs>
-          <g filter={`url(#${u}f)`}><g fill={`url(#${u}c)`}>
-            <circle cx={36} cy={70} r={20} />
-            <circle cx={60} cy={54} r={27} />
-            <circle cx={84} cy={70} r={20} />
-            <rect x={36} y={62} width={48} height={28} rx={14} />
-          </g></g>
-          <path d="M64 100H96C108 100 112 91 106 85C101 80 94 85 98 89" fill="none" stroke="#82c8f2" strokeWidth={4.5} strokeLinecap="round" />
-          <path d="M80 110H102" fill="none" stroke="#a9dafa" strokeWidth={3.6} strokeLinecap="round" />
-          <Leaf x={8} y={34} r={-30} s={0.9} fill="#7ed08b" />
-          <Leaf x={100} y={26} r={25} s={0.8} fill="#62c27a" />
-          <Leaf x={26} y={108} r={200} s={0.7} fill="#7ed08b" />
-          <Face cx={60} cy={68} s={0.95} />
+          <path d="M54 16c12 20 34 36 34 62 0 18-14 30-32 30S22 96 22 78c0-24 22-42 32-62Z" fill={url('w')} stroke="#3fb5dc" strokeWidth="1.6" strokeLinejoin="round" />
+          <path d="M92 18c5 7 12 12 12 20a12 12 0 0 1-24 0c0-8 7-13 12-20Z" fill={url('w')} stroke="#3fb5dc" strokeWidth="1.6" />
+          <path d="M20 88c4 6 10 10 10 16a10 10 0 0 1-20 0c0-6 6-10 10-16Z" fill={url('w')} stroke="#3fb5dc" strokeWidth="1.6" />
+          <path d="M36 70c0-10 5-18 11-25" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" opacity=".7" />
+          <ellipse cx="92" cy="38" rx="2.6" ry="4.5" fill="#fff" opacity=".7" />
         </>
       )
     case 'Garden':
       return (
         <>
           <defs>
-            <Grad id={`${u}a`} a="#9be46f" b="#3fae4e" y1={16} y2={62} />
-            <Grad id={`${u}b`} a="#7fd868" b="#35a24a" y1={16} y2={62} />
-            <Grad id={`${u}s`} a="#b8845a" b="#7b5030" y1={82} y2={112} />
+            <G id={id('t')} a="#b8e86a" b="#86c640" />
+            <G id={id('s')} a="#8fcb4a" b="#5fa22e" />
+            <G id={id('c')} a="#ffffff" b="#cfe3f5" />
           </defs>
-          <g>
-          <path d="M22 102C22 90 44 84 60 84C76 84 98 90 98 102C98 110 80 114 60 114C40 114 22 110 22 102Z" fill={`url(#${u}s)`} />
-          <path d="M60 88C60 74 58 60 56 46" fill="none" stroke="#3a9d4a" strokeWidth={4} strokeLinecap="round" />
-          <path d="M57 62C40 64 24 52 22 34C40 32 56 42 57 62Z" fill={`url(#${u}a)`} />
-          <path d="M58 56C62 32 84 18 106 20C104 42 84 60 58 56Z" fill={`url(#${u}b)`} />
-          <path d="M57 48C52 38 56 28 64 24C68 34 64 44 57 48Z" fill={`url(#${u}a)`} />
-          </g>
-          <path d="M26 36C38 40 48 48 55 58M62 52C76 42 90 32 102 24" fill="none" stroke="#fff" strokeWidth={1.4} strokeLinecap="round" opacity={0.5} />
-          <Flower x={32} y={98} s={0.9} />
-          <Flower x={90} y={96} s={0.9} />
-          <Flower x={50} y={106} s={0.6} />
-          <Sparkle x={106} y={60} s={0.4} fill="#fff" />
+          <path d="M66 18c-6 0-8-8-1-9 3-8 15-7 15 0 7 0 8 9 0 9Z" fill={url('c')} />
+          <path d="M30 30c-4 0-5-5 0-6 2-5 10-4 10 1 5 0 5 5 0 5Z" fill={url('c')} opacity=".85" />
+          <g stroke="#4f9a2a" strokeWidth="3" strokeLinecap="round" fill="none"><path d="M50 78V54" /><path d="M72 78V60" /><path d="M92 78V58" /></g>
+          <path d="M18 80c4-14 8-20 12-22 0 8 2 14 6 18ZM40 82c-2-12 0-20 4-26 4 8 4 18 0 26ZM84 82c2-12 8-18 14-22 0 10-2 18-8 24Z" fill="#6db83a" />
+          <g transform="translate(50 52)"><g fill="#ffb347">{[0, 72, 144, 216, 288].map((r) => <circle key={r} cx="0" cy="-8" r="6.5" transform={`rotate(${r})`} />)}</g><circle r="5" fill="#ffd95a" /></g>
+          <g transform="translate(74 58)"><g fill="#f0653f">{[0, 72, 144, 216, 288].map((r) => <circle key={r} cx="0" cy="-9" r="7.5" transform={`rotate(${r})`} />)}</g><circle r="5.5" fill="#ffd95a" /></g>
+          <g transform="translate(94 56)"><g fill="#ffd45a">{[0, 72, 144, 216, 288].map((r) => <circle key={r} cx="0" cy="-6" r="4.6" transform={`rotate(${r})`} />)}</g><circle r="3.4" fill="#f59a2a" /></g>
+          <ellipse cx="96" cy="42" rx="5" ry="4" fill="#ffd34d" stroke="#6b4a1a" strokeWidth="1.4" /><path d="M94 40v4M98 40v4" stroke="#6b4a1a" strokeWidth="1.4" />
+          <path d="M16 88v10c0 7 20 14 44 14s44-7 44-14V88Z" fill={url('s')} />
+          <ellipse cx="60" cy="88" rx="44" ry="15" fill={url('t')} />
+          <g fill="#ffc4d6"><circle cx="34" cy="92" r="2.2" /><circle cx="84" cy="96" r="2.2" /><circle cx="62" cy="99" r="1.8" /></g>
         </>
       )
     case 'Sky':
       return (
         <>
           <defs>
-            <Grad id={`${u}s`} a="#ffe681" b="#ffb62e" y1={16} y2={50} />
-            <Grad id={`${u}c`} a="#ffffff" b="#e3dbff" y1={44} y2={104} />
-            <filter id={`${u}f`} x="-20%" y="-20%" width="140%" height="150%">
-              <feDropShadow dx={0} dy={2} stdDeviation={2.2} floodColor="#a893e6" floodOpacity={0.4} />
-            </filter>
+            <G id={id('k')} a="#c6ecfb" b="#63b9ea" />
           </defs>
-          {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
-            <line
-              key={a}
-              x1={92 + 19 * Math.cos((a * Math.PI) / 180)}
-              y1={32 + 19 * Math.sin((a * Math.PI) / 180)}
-              x2={92 + 25 * Math.cos((a * Math.PI) / 180)}
-              y2={32 + 25 * Math.sin((a * Math.PI) / 180)}
-              stroke="#ffc53d"
-              strokeWidth={3.4}
-              strokeLinecap="round"
-            />
-          ))}
-          <circle cx={92} cy={32} r={15} fill={`url(#${u}s)`} />
-          <g filter={`url(#${u}f)`}><g fill={`url(#${u}c)`}>
-            <circle cx={34} cy={82} r={20} />
-            <circle cx={60} cy={68} r={27} />
-            <circle cx={86} cy={84} r={18} />
-            <rect x={34} y={78} width={52} height={26} rx={13} />
-          </g></g>
-          <ellipse cx={14} cy={38} rx={10} ry={5} fill="#fff" opacity={0.9} />
-          <ellipse cx={20} cy={34} rx={6} ry={4.5} fill="#fff" opacity={0.9} />
-          <Face cx={60} cy={84} s={0.95} />
-        </>
-      )
-    case 'Mountain':
-      return (
-        <>
-          <defs>
-            <Grad id={`${u}m`} a="#a3c2f2" b="#5b88d2" y1={18} y2={108} />
-            <Grad id={`${u}s`} a="#ffe27a" b="#ffb62e" y1={14} y2={42} />
-          </defs>
-          <circle cx={94} cy={28} r={19} fill="#ffe9a8" opacity={0.5} />
-          <circle cx={94} cy={28} r={13} fill={`url(#${u}s)`} />
-          <ellipse cx={16} cy={32} rx={10} ry={5} fill="#fff" />
-          <ellipse cx={22} cy={28} rx={6} ry={4.5} fill="#fff" />
-          <g>
-          <path d="M6 108C16 84 34 52 50 28C57 17 67 17 73 27C88 50 106 82 114 108Z" fill={`url(#${u}m)`} />
-          <path d="M66 20C70 22 72 25 73 27C88 50 106 82 114 108H72C76 80 72 48 66 20Z" fill="#3f6fc0" opacity={0.3} />
-          <path d="M50 28C57 17 67 17 73 27L81 40C75 36 70 42 64 38C58 42 52 36 45 40Z" fill="#fff" />
-          <path d="M0 110C20 102 40 106 60 106C80 106 100 102 120 110V116H0Z" fill="#7fd08a" />
-          </g>
-          <Tree x={20} y={106} s={0.9} />
-          <Tree x={35} y={108} s={0.65} />
-          <Tree x={98} y={106} s={0.85} />
-          <Tree x={85} y={108} s={0.6} />
+          <path d="M30 94c-14 0-22-9-22-20s9-19 20-19c1-14 13-24 27-24 12 0 22 7 26 18 14-1 25 8 25 21 0 14-11 24-25 24Z" fill={url('k')} stroke="#58aee2" strokeWidth="1.6" strokeLinejoin="round" />
+          <path d="M20 72c0-6 5-10 10-10" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" opacity=".75" />
+          <path d="M50 44c4-5 10-7 16-6" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" opacity=".75" />
         </>
       )
     case 'Ocean':
       return (
         <>
           <defs>
-            <Grad id={`${u}w`} a="#72ceff" b="#2d7fe2" y1={14} y2={112} />
+            <G id={id('n')} a="#3f8fe8" b="#1c55c0" />
+            <G id={id('g')} a="#ffe37a" b="#f2b52a" />
           </defs>
-          <g>
-          <path d="M10 108C6 64 30 26 66 18C96 12 114 34 106 54C100 44 88 42 80 50C92 62 90 84 72 96C62 102 56 106 54 112Z" fill={`url(#${u}w)`} />
-          <path d="M66 18C98 12 114 34 106 54" fill="none" stroke="#e3f6ff" strokeWidth={6.5} strokeLinecap="round" />
+          <polygon points={star(60, 34, 20)} fill={url('g')} stroke="#e9a21c" strokeWidth="1.6" strokeLinejoin="round" />
+          <polygon points={star(36, 62, 10)} fill={url('g')} stroke="#e9a21c" strokeWidth="1.2" strokeLinejoin="round" />
+          <ellipse cx="28" cy="32" rx="9" ry="7" fill="#fbe14a" stroke="#e0b82a" strokeWidth="1.4" transform="rotate(-15 28 32)" />
+          <ellipse cx="94" cy="56" rx="8" ry="6" fill="#fbe14a" stroke="#e0b82a" strokeWidth="1.4" transform="rotate(20 94 56)" />
+          <circle cx="86" cy="24" r="6" fill="#9ec9f5" /><circle cx="84" cy="22" r="2" fill="#fff" opacity=".8" />
+          <g fill="#2f7ae0"><circle cx="20" cy="70" r="3" /><circle cx="28" cy="80" r="2" /><circle cx="102" cy="76" r="3" /><circle cx="94" cy="84" r="2" /></g>
+          <path d="M10 104c4-12 12-12 18-6 4-10 14-12 20-2 4-12 22-14 26-2 6-8 16-4 18 4 8-6 14 0 12 8-2 8-10 12-20 12H22c-10 0-14-6-12-14Z" fill={url('n')} stroke="#1a4fb4" strokeWidth="1.6" strokeLinejoin="round" />
+          <path d="M22 100c4-5 9-5 12-1M52 96c4-5 10-5 13-1" fill="none" stroke="#9cc9ff" strokeWidth="3" strokeLinecap="round" opacity=".8" />
+        </>
+      )
+    case 'Stone':
+      return (
+        <>
+          <defs>
+            <G id={id('m')} a="#9fd2e0" b="#5d9fba" x1={0} y1={0} x2={1} y2={1} />
+            <G id={id('f')} a="#4aa96a" b="#2f8a4e" />
+            <G id={id('b')} a="#a8dc62" b="#7ec043" />
+          </defs>
+          <path d="M14 92v6c0 8 20 14 46 14s46-6 46-14v-6Z" fill="#5fa532" />
+          <ellipse cx="60" cy="92" rx="46" ry="14" fill={url('b')} />
+          <path d="M34 90 62 32l30 58Z" fill={url('m')} />
+          <path d="m62 32 30 58-22-4-10-24Z" fill="#4f8fa8" opacity=".55" />
+          <path d="M62 32 51 54l6 3 5-6 5 6 7-3Z" fill="#fff" stroke="#bcd9e4" strokeWidth="1.4" strokeLinejoin="round" />
+          <path d="M44 92c6-14 14-22 26-24l22 24Z" fill="#f2b872" />
+          <path d="M60 92c0-8 4-12 8-12s8 4 8 12Z" fill="#d88f4c" />
+          <g fill={url('f')}>
+            <path d="M22 88 30 62 38 88Z" /><path d="M24 72l6-16 6 16Z" /><path d="M88 90l7-26 7 26Z" /><path d="M90 74l5-16 5 16Z" />
           </g>
-          <path d="M84 44C92 40 100 44 102 52" fill="none" stroke="#fff" strokeWidth={3} strokeLinecap="round" opacity={0.8} />
-          <circle cx={14} cy={40} r={4} fill="#9fdcff" />
-          <circle cx={26} cy={20} r={3} fill="#9fdcff" />
-          <circle cx={112} cy={80} r={3} fill="#9fdcff" />
-          <circle cx={100} cy={100} r={2.4} fill="#9fdcff" />
-          <Face cx={46} cy={80} s={0.9} />
+          <g fill="#7a5230"><rect x="29" y="88" width="2" height="5" /><rect x="94" y="90" width="2" height="5" /></g>
+        </>
+      )
+    case 'Wind':
+      return (
+        <>
+          <defs>
+            <G id={id('r')} a="#3a53c8" b="#2c46b0" />
+            <G id={id('l')} a="#74b7ff" b="#4a8ae6" x1={0} y1={0} x2={1} y2={1} />
+          </defs>
+          <path d="M12 62c-4-14 8-18 14-10" fill="none" stroke="#2c46b0" strokeWidth="9" strokeLinecap="round" />
+          <circle cx="66" cy="64" r="46" fill={url('r')} />
+          <circle cx="66" cy="64" r="42" fill={url('l')} />
+          <path d="M66 64c0-5 7-6 9-2 3 6-3 12-10 11-9-1-13-11-9-19 5-10 20-12 28-4 10 10 6 28-8 33-16 6-34-4-36-22" fill="none" stroke="#2c46b0" strokeWidth="8" strokeLinecap="round" />
+          <path d="M66 64c0-5 7-6 9-2 3 6-3 12-10 11-9-1-13-11-9-19 5-10 20-12 28-4 10 10 6 28-8 33-16 6-34-4-36-22" fill="none" stroke="#9fcbff" strokeWidth="3" strokeLinecap="round" transform="translate(-1 -2)" />
+          <path d="M46 36c8-8 20-10 30-6" fill="none" stroke="#fff" strokeWidth="4" strokeLinecap="round" opacity=".7" />
+        </>
+      )
+    case 'Mountain':
+      return (
+        <>
+          <defs>
+            <G id={id('h')} a="#ffd35a" b="#f2a91f" />
+            <G id={id('d')} a="#f6b445" b="#e0861c" />
+          </defs>
+          <path d="M58 86 80 38c4-8 10-8 14 0l20 48Z" fill={url('d')} />
+          <path d="M80 38c4-8 10-8 14 0l20 48H98Z" fill="#e0861c" opacity=".35" />
+          <path d="M8 98 38 44c3-6 9-6 12 0l30 54Z" fill={url('h')} />
+          <path d="M44 98V84a8 8 0 0 1 16 0v14Z" fill="#7b3f1c" />
+          <path d="M30 46V12" stroke="#d9a15a" strokeWidth="3" strokeLinecap="round" />
+          <path d="M31 13h18l-5 6 5 6H31Z" fill="#6fd0e2" />
+          <g fill="#fff" opacity=".6"><circle cx="28" cy="66" r="1.8" /><circle cx="70" cy="82" r="1.8" /><circle cx="94" cy="70" r="1.8" /></g>
+        </>
+      )
+    default: // Spark
+      return (
+        <>
+          <defs>
+            <G id={id('z')} a="#ffe86a" b="#f4b21a" x1={0.2} y1={0} x2={0.8} y2={1} />
+            <G id={id('q')} a="#ffe770" b="#f5b82a" />
+          </defs>
+          <path d="M70 8 28 66h26l-12 46 52-62H66Z" fill={url('z')} stroke="#f0a712" strokeWidth="2" strokeLinejoin="round" />
+          <path d="M66 14 38 62" stroke="#fff" strokeWidth="4" strokeLinecap="round" opacity=".6" />
+          <polygon points={star(98, 28, 12)} fill={url('q')} stroke="#f0a712" strokeWidth="1.4" strokeLinejoin="round" />
+          <polygon points={star(24, 100, 10)} fill={url('q')} stroke="#f0a712" strokeWidth="1.4" strokeLinejoin="round" />
         </>
       )
   }
@@ -289,9 +204,7 @@ function shape(name: ElementKey, u: string): ReactNode {
 export function ElementMascot({ name, className, delay = 0 }: { name: ElementKey; className?: string; delay?: number }) {
   const u = useId()
   return (
-    <svg viewBox="0 0 120 120" role="img" aria-label={`${name} character`} className={cn('joy-bob block overflow-visible', className)} style={{ animationDelay: `-${delay}s` }}>
-      <defs>
-      </defs>
+    <svg viewBox="0 0 120 120" role="img" aria-label={`${name} icon`} className={cn('joy-bob block overflow-visible', className)} style={{ animationDelay: `-${delay}s` }}>
       {shape(name, u)}
     </svg>
   )

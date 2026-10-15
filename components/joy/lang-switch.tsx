@@ -37,13 +37,13 @@ export function FlagMM({ className }: { className?: string }) {
   )
 }
 
-const OPTIONS: { lang: Lang; code: string; name: string; Flag: typeof FlagUK }[] = [
-  { lang: 'en', code: 'EN', name: 'English', Flag: FlagUK },
-  { lang: 'mm', code: 'MM', name: 'မြန်မာ', Flag: FlagMM },
+const OPTIONS: { lang: Lang; name: string; Flag: typeof FlagUK }[] = [
+  { lang: 'en', name: 'English', Flag: FlagUK },
+  { lang: 'mm', name: 'မြန်မာ', Flag: FlagMM },
 ]
 
-/** EN / MM switch: a soft track with a white thumb that slides under the active flag. */
-export function LangSwitch({ className, compact }: { className?: string; compact?: boolean }) {
+/** Language switch (flags only): a soft track with a white thumb that slides under the active flag. */
+export function LangSwitch({ className }: { className?: string; compact?: boolean }) {
   const lang = useLang()
   const mm = lang === 'mm'
   return (
@@ -59,7 +59,7 @@ export function LangSwitch({ className, compact }: { className?: string; compact
           mm && 'translate-x-full',
         )}
       />
-      {OPTIONS.map(({ lang: l, code, name, Flag }) => {
+      {OPTIONS.map(({ lang: l, name, Flag }) => {
         const on = lang === l
         return (
           <button
@@ -71,12 +71,11 @@ export function LangSwitch({ className, compact }: { className?: string; compact
             title={name}
             onClick={() => setLang(l)}
             className={cn(
-              'relative z-10 inline-flex h-7 items-center justify-center gap-1.5 rounded-full px-2 text-xs font-bold tracking-wide transition-colors',
+              'relative z-10 inline-flex h-7 items-center justify-center rounded-full px-2.5 transition-colors',
               on ? 'text-[#2a2240]' : 'text-[#8a82a0] hover:text-[#2a2240]',
             )}
           >
             <Flag className={cn('size-[18px] shrink-0 rounded-full shadow-[0_0_0_1.5px_#fff,0_1px_3px_rgba(0,0,0,0.2)] transition', !on && 'opacity-60 saturate-[0.7]')} />
-            {compact ? null : <span className="hidden sm:inline">{code}</span>}
           </button>
         )
       })}

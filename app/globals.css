@@ -449,3 +449,15 @@ html[lang='my'] {
 }
 html[lang='my'] body { line-height: 1.75; }
 html[lang='my'] :where(h1, h2, h3, h4) { line-height: 1.5; }
+
+/* Myanmar copy runs long: shrink the Try-Joy CTA text so the layout holds */
+html[lang='my'] #download .font-hand.text-3xl { font-size: 1.5rem; line-height: 1.6; }
+html[lang='my'] #download h2 { font-size: 1.5rem; line-height: 1.7; column-gap: 0.5rem; }
+@media (min-width: 768px) { html[lang='my'] #download h2 { font-size: 1.75rem; } }
+@media (min-width: 1280px) { html[lang='my'] #download h2 { font-size: 2rem; } }
+html[lang='my'] #download h2 img { height: 1.75rem; }
+@media (min-width: 768px) { html[lang='my'] #download h2 img { height: 2rem; } }
+html[lang='my'] #download p.max-w-md { font-size: 1rem; line-height: 1.8; }
+html[lang='my'] #download li { font-size: 0.9rem; line-height: 1.7; }
+html[lang='my'] #download .font-hand.text-4xl { font-size: 1.75rem; line-height: 1.5; }
+@media (min-width: 768px) { html[lang='my'] #download .font-hand.text-4xl { font-size: 2rem; } }

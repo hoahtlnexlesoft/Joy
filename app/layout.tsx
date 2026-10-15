@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Caveat, Fredoka, Noto_Sans_Myanmar, Plus_Jakarta_Sans } from 'next/font/google'
+import { Caveat, Fredoka, Noto_Sans, Noto_Sans_Myanmar, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 import { ContactBubble } from '@/components/joy/contact-bubble'
 import { LangHtmlSync } from '@/components/joy/lang-switch'
@@ -23,6 +23,12 @@ const fredoka = Fredoka({
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-jakarta',
+  display: 'swap',
+})
+
+const notoSans = Noto_Sans({
+  subsets: ['latin'],
+  variable: '--font-noto',
   display: 'swap',
 })
 
@@ -60,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${fredoka.variable} ${jakarta.variable} ${caveat.variable} ${myanmar.variable}`}>
+    <html lang="en" className={`${fredoka.variable} ${jakarta.variable} ${caveat.variable} ${myanmar.variable} ${notoSans.variable}`}>
       <body className="antialiased">
         {children}
         <LangHtmlSync />

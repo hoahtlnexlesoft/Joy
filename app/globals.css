@@ -443,9 +443,9 @@ html[data-joy-dock] [class*="inset-0"][class*="z-[100]"]{right:var(--joy-dock,0p
 
 /* Myanmar: use a Myanmar font everywhere and give the script room to breathe */
 html[lang='my'] {
-  --font-sans: var(--font-myanmar), var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-myanmar), var(--font-fredoka), ui-rounded, system-ui, sans-serif;
-  --font-hand: var(--font-myanmar), var(--font-caveat), cursive;
+  --font-sans: var(--font-noto), var(--font-myanmar), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-noto), var(--font-myanmar), ui-rounded, system-ui, sans-serif;
+  --font-hand: var(--font-noto), var(--font-myanmar), sans-serif;
 }
 html[lang='my'] body { line-height: 1.75; }
 html[lang='my'] :where(h1, h2, h3, h4) { line-height: 1.5; }

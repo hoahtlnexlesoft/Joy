@@ -93,17 +93,17 @@ export function ElementCard({ name, energies, index = 0 }: { name: ElementKey; e
     <li
       style={vars}
       className={cn(
-        'group relative flex items-center gap-4 overflow-hidden rounded-[2rem] bg-[linear-gradient(150deg,#ffffff_0%,var(--bg)_70%)] px-4 py-4 ring-1 ring-[var(--chip)]',
+        'group relative flex items-center gap-4 overflow-hidden rounded-[2rem] bg-[linear-gradient(150deg,#ffffff_0%,color-mix(in_srgb,var(--bg)_55%,white)_80%)] px-4 py-4 ring-1 ring-[var(--chip)]/60',
         'transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1',
         name === 'Ocean' && '@md:col-span-2 @5xl:col-span-1',
       )}
     >
       {/* soft pastel clouds + sparkles */}
-      <span aria-hidden="true" className="pointer-events-none absolute -right-6 -top-7 size-20 rounded-full bg-[var(--blob)] opacity-60 blur-[2px]" />
-      <span aria-hidden="true" className="pointer-events-none absolute -bottom-8 right-6 h-14 w-24 rounded-[50%] bg-[var(--blob)] opacity-40" />
-      <span aria-hidden="true" className="pointer-events-none absolute right-5 top-3 text-[0.8rem] text-[var(--d)] opacity-40 transition-transform duration-500 group-hover:rotate-45 group-hover:scale-125">✦</span>
-      <span aria-hidden="true" className="pointer-events-none absolute bottom-3 right-14 text-[0.6rem] text-[var(--d)] opacity-30 transition-transform duration-500 group-hover:-rotate-45 group-hover:scale-125">✦</span>
-      <span className="relative grid size-[5.5rem] shrink-0 place-items-center rounded-full bg-white/80 ring-4 ring-[var(--chip)]">
+      <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-9 size-24 rounded-full bg-[var(--blob)] opacity-25 blur-xl" />
+      <span aria-hidden="true" className="pointer-events-none absolute -bottom-10 right-4 h-14 w-28 rounded-[50%] bg-[var(--blob)] opacity-15 blur-xl" />
+      <span aria-hidden="true" className="pointer-events-none absolute right-5 top-3 text-[0.8rem] text-[var(--d)] opacity-20 transition-transform duration-500 group-hover:rotate-45 group-hover:scale-125">✦</span>
+      <span aria-hidden="true" className="pointer-events-none absolute bottom-3 right-14 text-[0.6rem] text-[var(--d)] opacity-15 transition-transform duration-500 group-hover:-rotate-45 group-hover:scale-125">✦</span>
+      <span className="relative grid size-[5.5rem] shrink-0 place-items-center rounded-full bg-white/90 ring-[3px] ring-[var(--chip)]/70">
         <ElementMascot name={name} delay={(index % 5) * 0.7} className="size-[4.5rem]" />
       </span>
       <div className="relative min-w-0">

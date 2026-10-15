@@ -236,8 +236,9 @@ export function FeelingLog() {
       aria-labelledby="feeling-title"
       className="scroll-mt-28 bg-foreground px-3 sm:px-4 py-10 text-background md:py-9 lg:py-28"
     >
-      <div className="mx-auto grid max-w-6xl items-center gap-8 lg:gap-14 lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="flex flex-col items-start gap-4 md:gap-6">
+      <div className="mx-auto grid max-w-6xl gap-8 lg:gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
+        <div className="flex flex-col items-start gap-4 md:gap-5 lg:justify-between">
+          <div className="flex flex-col items-start gap-4 md:gap-5">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-white/70">
             <span className="size-1.5 rounded-full bg-gradient-joy" aria-hidden="true" />
             Parent Portal
@@ -249,20 +250,21 @@ export function FeelingLog() {
             After each activity, your child picks how they feel. Your Parent Portal turns those check-ins into a clear
             picture, in one glance.
           </p>
-          <ul className="grid w-full gap-3 sm:grid-cols-3 lg:grid-cols-1">
+          <JoyButton href="#download">Try for free</JoyButton>
+          </div>
+          <ul className="grid w-full gap-2.5 sm:grid-cols-3 lg:grid-cols-1">
             {highlights.map(({ icon: Icon, title, body, tint }) => (
-              <li key={title} className="flex items-center gap-4 rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
-                <span className={`inline-flex size-11 shrink-0 items-center justify-center rounded-xl ${tint}`}>
-                  <Icon className="size-5" aria-hidden="true" />
+              <li key={title} className="flex items-center gap-3 rounded-xl bg-white/5 px-3 py-2.5 ring-1 ring-white/10">
+                <span className={`inline-flex size-9 shrink-0 items-center justify-center rounded-lg ${tint}`}>
+                  <Icon className="size-4" aria-hidden="true" />
                 </span>
                 <div>
-                  <p className="font-semibold">{title}</p>
-                  <p className="text-sm text-white/60">{body}</p>
+                  <p className="text-sm font-semibold">{title}</p>
+                  <p className="text-xs text-white/60">{body}</p>
                 </div>
               </li>
             ))}
           </ul>
-          <JoyButton href="#download">Try for free</JoyButton>
         </div>
 
         <figure className="relative">

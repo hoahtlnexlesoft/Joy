@@ -32,7 +32,6 @@ export const metadata: Metadata = {
   },
   description:
     "Joy learns your child's nature, maps a path for them to grow, and picks fun activities for every day. You see how they feel and what they learn.",
-  generator: 'v0.app',
   icons: {
     icon: [
       { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },

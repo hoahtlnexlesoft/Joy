@@ -1,12 +1,13 @@
 {
-  "name": "my-project",
+  "name": "joy-web",
   "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@12.3.4",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
@@ -29,5 +30,6 @@
     "postcss": "^8.5",
     "tailwindcss": "^4.3.3",
     "typescript": "5.7.3"
-  }
+  },
+  "description": "Joy \u2014 marketing site and parent portal (Next.js demo)"
 }

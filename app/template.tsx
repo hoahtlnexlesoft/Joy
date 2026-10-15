@@ -7,11 +7,8 @@ import { startReveal } from '@/components/joy/reveal'
 export default function Template({ children }: { children: React.ReactNode }) {
   // Re-mounts on every navigation, so the enter animation plays on each page change.
   const pathname = usePathname() || '/'
-  // The static review build serves pages as /home.html, /pricing.html ...
-  const norm = pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
-  // Hosted previews may add a path prefix, so only look at the last segment.
-  const last = norm.split('/').pop() || ''
-  const on = !['parent', 'device'].includes(last)
+  const last = pathname.replace(/\/$/, '').split('/').pop() || ''
+  const on = last !== 'parent'
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

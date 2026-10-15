@@ -10,8 +10,6 @@ import {
   Apple,
   ArrowRight,
   Check,
-  Eye,
-  EyeOff,
   Heart,
   LockKeyhole,
   Mail,
@@ -25,9 +23,6 @@ import {
   open: boolean
   onClose: () => void
 }
-
-const referenceImageUrl =
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/6a5b1715-b8c8-4243-ae7f-41668b87b996-F3YPLmZFZ8ODUrvrSbdgQTPDGtjmWO.png'
 
 export function LoginModal({ open, onClose }: LoginModalProps) {
   const router = useRouter()

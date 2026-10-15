@@ -51,11 +51,9 @@ components/
       profile.tsx           profile / settings
       data.ts, types.ts     demo data and shared types
       ui.tsx                portal-only UI kit (Modal, Field, Btn ...)
-    review/               Client-review tooling (see below), not part of the product
     site-header.tsx, site-footer.tsx, login-modal.tsx ...   shared site chrome
 lib/                      utils (cn) and the demo login session
 public/                   images, video, icons
-supabase/review.sql       Table used by the review layer only
 ```
 
 Styling is Tailwind utility classes; colours, radii and fonts are defined as
@@ -69,23 +67,7 @@ tokens in `app/globals.css`.
 | Parent data (`components/joy/parent/data.ts`) | Seeded demo children, plans, payments; changes live in memory only | API + database |
 | Payment (`parent/plans.tsx`, `parent/dialogs.tsx`) | AYA Pay flow is simulated, the QR code is decorative | AYA Pay integration |
 | App Store / Google Play buttons (`parent/app-guide.tsx`) | Point to `apps.apple.com` / `play.google.com/store` | Real store listing URLs |
-| Vouchers | Validated against a local list | Server-side validation |
-
-## Review layer (optional)
-
-`components/joy/review/` adds a **Comment** button so reviewers can pin notes on
-any element of the page (and a Desktop/Tablet/Mobile switcher). It is only used
-to collect feedback during design review and is **off by default**.
-
-- Enable with `NEXT_PUBLIC_JOY_REVIEW=1` (see `.env.example`).
-- Comments are stored in Supabase when `NEXT_PUBLIC_SUPABASE_URL` and
-  `NEXT_PUBLIC_SUPABASE_ANON_KEY` are set (create the table with
-  `supabase/review.sql`), otherwise in the reviewer's `localStorage`.
-- The table policies are open to anyone with the anon key. Fine for a short
-  review round, not for production data.
-- **To remove it for production:** delete `components/joy/review/` and the two
-  `<CommentLayer />` / `<DeviceSwitcher />` lines (and their imports) in
-  `app/layout.tsx`; `supabase/review.sql` can go too.
+| Vouchers | Validated against a local list (`VOUCHERS` in `parent/plans.tsx`) | Server-side validation |
 
 ## Deployment
 

@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Camera, Download, FileText, RefreshCw, Share2, TriangleAlert } from '@/components/joy/cute-icons'
-import { Btn, DlgHead, Field, Modal, Note, inputCls } from './ui'
-import { NEEDS, COLORS, initials, fmtDate, money } from './data'
+import { Camera, Download, RefreshCw, Share2, TriangleAlert } from '@/components/joy/cute-icons'
+import { Btn, DlgHead, Field, inputCls } from './ui'
+import { NEEDS, COLORS, fmtDate, money } from './data'
 import type { Child, Gender, Payment } from './data'
 import type { App } from './types'
 import { cn } from '@/lib/utils'

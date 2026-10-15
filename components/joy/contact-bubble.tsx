@@ -29,7 +29,7 @@ export function ContactBubble() {
   if (['parent', 'device'].includes(last)) return null
 
   return (
-    <div data-review-ui data-no-reveal className="joy-dock-right fixed bottom-4 right-4 z-[70] flex flex-col items-end gap-3 text-left">
+    <div data-no-reveal className="fixed bottom-4 right-4 z-[70] flex flex-col items-end gap-3 text-left">
       {open && (
         <section
           role="dialog"

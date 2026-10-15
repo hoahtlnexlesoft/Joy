@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Play, X } from '@/components/joy/cute-icons'
+import { X } from '@/components/joy/cute-icons'
 import { joyButtonClass } from '../ui'
 
 const VIDEO_MP4 = '/videos/joy-daily-activities.mp4'

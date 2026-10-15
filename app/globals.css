@@ -434,9 +434,3 @@ html, body { overflow-x: clip; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   .joy-sheet, .joy-sheet-item { animation: none; }
 }
-
-/* review comments dock: push the site aside instead of covering it */
-html[data-joy-dock]{padding-right:var(--joy-dock,0px);transition:padding-right .25s ease}
-html[data-joy-dock] .joy-dock-right{right:calc(var(--joy-dock,0px) + 1rem)}
-/* modals stay centred in the visible area when the comments dock is showing */
-html[data-joy-dock] [class*="inset-0"][class*="z-[100]"]{right:var(--joy-dock,0px)}

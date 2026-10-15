@@ -17,12 +17,6 @@ import { ProfileView, SECTIONS } from './profile'
 import { CuteIcon } from './icons'
 import { ElementMascot, type ElementKey } from '@/components/joy/guide/element-mascots'
 
-const UNLOCK_STYLE: Record<Unlock, string> = {
-  Free: 'bg-[#eeebf3] text-[#6d6585]',
-  Premium: 'bg-[#e6f4ff] text-[#1b7fc4]',
-  Special: 'bg-[#f1eaff] text-[#7a45d8]',
-  'Premium Plus': 'bg-[#fff1cf] text-[#a56a00]',
-}
 const UnlockBadge = ({ u }: { u: Unlock }) => <UnlockChip type={u} className="!text-xs" />
 
 function hashToView(h: string, s: State): View {
@@ -79,44 +73,8 @@ export function ParentPortal() {
   }, [])
   const go = useCallback((v: View) => {
     setView(v)
-    try { history.replaceState(null, '', viewToHash(v)) } catch { /* preview frames can block this */ }
+    try { history.replaceState(null, '', viewToHash(v)) } catch { /* history can be blocked in sandboxed frames */ }
     window.scrollTo({ top: 0 })
-  }, [])
-
-  const sRef = useRef<State | null>(null)
-  sRef.current = s
-  // let the review layer know which popup is open (so a comment left inside it can reopen it later)
-  useEffect(() => {
-    const w = window as any
-    if (!dlg) { w.__joyView = null; return }
-    if (dlg.k === 'buy') return // BuyFlow publishes its own step
-    const v: any = { k: dlg.k }
-    if (dlg.k === 'child' && dlg.child) v.cid = dlg.child.id
-    if (dlg.k === 'delChild' || dlg.k === 'assignTo') v.cid = dlg.child.id
-    if (dlg.k === 'assign') v.pid = dlg.plan.id
-    if (dlg.k === 'invoice') v.pref = dlg.pay.ref
-    w.__joyView = v
-  }, [dlg])
-  useEffect(() => {
-    const on = (e: Event) => {
-      const d: any = (e as CustomEvent).detail
-      const cur = sRef.current
-      if (!d || !cur) return
-      const kids: any[] = (cur as any).children ?? []
-      const child = (id?: string) => kids.find((c) => c.id === id)
-      if (d.k === 'buy') setDlg({ k: 'buy', plan: d.plan, child: d.child, restore: { ...d.restore, nonce: Date.now() } })
-      else if (d.k === 'child') setDlg({ k: 'child', child: child(d.cid) })
-      else if ((d.k === 'delChild' || d.k === 'assignTo') && child(d.cid)) setDlg({ k: d.k, child: child(d.cid) } as Dlg)
-      else if (['redeem', 'qr', 'pw', 'delAcc', 'avatar'].includes(d.k)) setDlg({ k: d.k } as Dlg)
-      else {
-        const plans: any[] = (cur as any).plans ?? []
-        const pays: any[] = (cur as any).payments ?? []
-        if (d.k === 'assign') { const pl = plans.find((x) => x.id === d.pid); if (pl) setDlg({ k: 'assign', plan: pl }) }
-        if (d.k === 'invoice') { const py = pays.find((x) => x.ref === d.pref); if (py) setDlg({ k: 'invoice', pay: py }) }
-      }
-    }
-    window.addEventListener('joy:restore-view', on)
-    return () => window.removeEventListener('joy:restore-view', on)
   }, [])
 
   if (!s) return <main className="min-h-[60vh]" aria-busy="true" />
@@ -197,7 +155,7 @@ export function ParentPortal() {
         <Modal onClose={close} size={dlg.k === 'buy' ? (buyDone ? 'lg' : 'xl') : 'md'} title="Dialog">
           {dlg.k === 'child' ? <ChildForm app={app} child={dlg.child} />
             : dlg.k === 'delChild' ? <DeleteChild app={app} child={dlg.child} />
-            : dlg.k === 'buy' ? <BuyFlow key={dlg.restore?.nonce ?? 'b'} app={app} onDone={setBuyDone} pre={{ plan: dlg.plan, child: dlg.child, restore: dlg.restore }} />
+            : dlg.k === 'buy' ? <BuyFlow app={app} onDone={setBuyDone} pre={{ plan: dlg.plan, child: dlg.child }} />
             : dlg.k === 'assign' ? <AssignDialog app={app} plan={dlg.plan} />
             : dlg.k === 'assignTo' ? <AssignToChildDialog app={app} child={dlg.child} />
             : dlg.k === 'redeem' ? <RedeemDialog app={app} />

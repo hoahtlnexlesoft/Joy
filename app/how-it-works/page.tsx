@@ -38,6 +38,19 @@ const topics: TopicItem[] = [
   { id: 'contact', icon: '💬', title: 'Contact customer service', desc: 'Get help from the Joy team', tint: 'bg-lavender' },
 ]
 
+/** soft card tint, icon tint, accent for each of the nine natures */
+const NATURE_TINTS = [
+  ['#fff0e2', '#ffd9b8', '#e2742a'],
+  ['#ffeaf2', '#ffcfe2', '#d6477f'],
+  ['#f3ebff', '#e0d0fb', '#8250d6'],
+  ['#e8f4ff', '#c8e3fb', '#2f82cc'],
+  ['#fff8da', '#ffeaa0', '#b98200'],
+  ['#eaf8ea', '#cdeccd', '#3a9a4e'],
+  ['#e6f7f8', '#c4ebee', '#23939c'],
+  ['#ffece8', '#ffd0c6', '#e0523a'],
+  ['#eeeafc', '#d6d0f6', '#5b4fc4'],
+]
+
 const natures = [
   ['🧭', 'Dream Explorer', 'Explorer'],
   ['🤝', 'Kind Helper', 'Helper'],
@@ -397,12 +410,15 @@ export default function HowItWorksPage() {
                 </div>
                 <h3 className="mb-4 text-xl font-medium">The nine child natures</h3>
                 <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
-                  {natures.map(([icon, name, grows]) => (
-                    <li key={name} className="flex items-center gap-3 rounded-2xl bg-white p-4 ring-1 ring-border">
-                      <span className="text-2xl" aria-hidden="true">{icon}</span>
-                      <div><p className="font-semibold">{name}</p><p className="text-xs text-muted-foreground">Grows toward {grows}</p></div>
-                    </li>
-                  ))}
+                  {natures.map(([icon, name, grows], i) => {
+                    const c = NATURE_TINTS[i % NATURE_TINTS.length]
+                    return (
+                      <li key={name} className="group flex items-center gap-3 rounded-[1.5rem] p-3.5 ring-1 transition duration-300 hover:-translate-y-0.5" style={{ background: `linear-gradient(135deg,#fff 35%,${c[0]})`, ['--tw-ring-color' as string]: c[1] }}>
+                        <span className="joy-bob grid size-12 shrink-0 place-items-center rounded-[1.1rem] text-2xl shadow-[0_8px_16px_-8px_rgba(80,50,120,0.35)] ring-[3px] ring-white" style={{ background: `linear-gradient(145deg,#fff,${c[1]})`, animationDelay: `-${((i * 0.6) % 3.6).toFixed(1)}s` }} aria-hidden="true">{icon}</span>
+                        <div className="min-w-0"><p className="font-display font-semibold text-[#2a2240]">{name}</p><p className="text-xs text-muted-foreground">Grows toward <span className="font-semibold" style={{ color: c[2] }}>{grows}</span></p></div>
+                      </li>
+                    )
+                  })}
                 </ul>
               </Topic>
 

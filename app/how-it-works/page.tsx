@@ -429,15 +429,17 @@ export default function HowItWorksPage() {
                 intro="Your child's animal nature reflects how they tend to behave: how they play, learn and connect with others. You'll find it in your child's Information tab. Tap it in the app to read more."
               >
                 <ul className="grid grid-cols-3 gap-x-3 gap-y-5 sm:grid-cols-4 md:grid-cols-6">
-                  {animals.map(({ name, image }) => (
+                  {animals.map(({ name, image }, i) => (
                     <li key={name} className="group flex min-w-0 flex-col items-center gap-2 py-2 text-center">
-                      <Image
-                        src={`/images/animals/${image}.webp`}
-                        alt={name}
-                        width={512}
-                        height={512}
-                        className="size-[4.5rem] object-contain transition-transform duration-300 group-hover:scale-110 sm:size-20"
-                      />
+                      <span className="joy-bob block" style={{ animationDelay: `-${((i * 0.7) % 3.6).toFixed(1)}s` }}>
+                        <Image
+                          src={`/images/animals/${image}.webp`}
+                          alt={name}
+                          width={512}
+                          height={512}
+                          className="size-[4.5rem] object-contain transition-transform duration-300 group-hover:scale-110 sm:size-20"
+                        />
+                      </span>
                       <span className="font-display text-sm font-semibold text-[#302b3d]">{name}</span>
                     </li>
                   ))}

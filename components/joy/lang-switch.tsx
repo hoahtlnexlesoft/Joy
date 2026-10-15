@@ -42,11 +42,23 @@ const OPTIONS: { lang: Lang; code: string; name: string; Flag: typeof FlagUK }[]
   { lang: 'mm', code: 'MM', name: 'မြန်မာ', Flag: FlagMM },
 ]
 
-/** EN / MM switch with flags. `compact` hides the language codes (header on small screens). */
+/** EN / MM switch: a soft track with a white thumb that slides under the active flag. */
 export function LangSwitch({ className, compact }: { className?: string; compact?: boolean }) {
   const lang = useLang()
+  const mm = lang === 'mm'
   return (
-    <div role="group" aria-label="Language" className={cn('inline-flex items-center gap-0.5 rounded-full bg-white/80 p-0.5 ring-1 ring-[#e8dff0]', className)}>
+    <div
+      role="group"
+      aria-label="Language"
+      className={cn('relative inline-grid h-9 grid-cols-2 items-center rounded-full bg-[#f1ecf8]/90 p-1 ring-1 ring-black/[0.04] backdrop-blur', className)}
+    >
+      <span
+        aria-hidden="true"
+        className={cn(
+          'pointer-events-none absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-white shadow-[0_3px_10px_-3px_rgba(76,52,140,0.35)] ring-1 ring-black/[0.03] transition-transform duration-300 ease-[cubic-bezier(0.34,1.35,0.64,1)]',
+          mm && 'translate-x-full',
+        )}
+      />
       {OPTIONS.map(({ lang: l, code, name, Flag }) => {
         const on = lang === l
         return (
@@ -59,12 +71,11 @@ export function LangSwitch({ className, compact }: { className?: string; compact
             title={name}
             onClick={() => setLang(l)}
             className={cn(
-              'inline-flex h-8 items-center gap-1.5 rounded-full px-1.5 text-xs font-bold transition',
-              compact ? '' : 'sm:pr-2.5',
-              on ? 'bg-gradient-joy text-white shadow-sm' : 'text-[#6b6480] hover:bg-[#f6f0fa]',
+              'relative z-10 inline-flex h-7 items-center justify-center gap-1.5 rounded-full px-2 text-xs font-bold tracking-wide transition-colors',
+              on ? 'text-[#2a2240]' : 'text-[#8a82a0] hover:text-[#2a2240]',
             )}
           >
-            <Flag className={cn('size-6 shrink-0 rounded-full', !on && 'opacity-80')} />
+            <Flag className={cn('size-[18px] shrink-0 rounded-full shadow-[0_0_0_1.5px_#fff,0_1px_3px_rgba(0,0,0,0.2)] transition', !on && 'opacity-60 saturate-[0.7]')} />
             {compact ? null : <span className="hidden sm:inline">{code}</span>}
           </button>
         )

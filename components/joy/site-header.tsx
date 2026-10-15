@@ -141,7 +141,7 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 md:flex">
           <LangSwitch compact className="lg:hidden" />
-          <LangSwitch className="hidden lg:inline-flex" />
+          <LangSwitch className="hidden lg:inline-grid" />
           {session ? (
             <AccountMenu name={session.name} onLogout={logOut} portal />
           ) : (

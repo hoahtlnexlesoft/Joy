@@ -1,7 +1,10 @@
 'use client'
 
 import { useCallback, useSyncExternalStore } from 'react'
-import { MM } from './mm'
+import { MM as MM_CORE } from './mm'
+import { MM_PAGES } from './mm-pages'
+
+export const MM: Record<string, string> = { ...MM_PAGES, ...MM_CORE }
 
 /**
  * Tiny client-side i18n: English text is the key, and `mm.ts` holds the Myanmar

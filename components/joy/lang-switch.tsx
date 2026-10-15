@@ -2,7 +2,7 @@
 
 import { useEffect, useId } from 'react'
 import { cn } from '@/lib/utils'
-import { setLang, useLang, type Lang } from '@/lib/i18n'
+import { MM, setLang, useLang, type Lang } from '@/lib/i18n'
 
 /** Round UK flag. Drawn as SVG because flag emoji do not render on Windows. */
 export function FlagUK({ className }: { className?: string }) {
@@ -84,9 +84,60 @@ export function LangSwitch({ className, compact }: { className?: string; compact
   )
 }
 
-/** Keeps <html lang> in step with the chosen language (screen readers, hyphenation, fonts). */
+/**
+ * Translates the static page copy in place. Components wrap their own strings with `useT()`;
+ * everything else (long copy on the landing page, the guide and pricing) is matched here, text
+ * node by text node, against the Myanmar dictionary. Strings without an entry stay English.
+ */
+function useDomTranslate(lang: Lang) {
+  useEffect(() => {
+    const done = new WeakMap<Text, { orig: string; written: string }>()
+    const touched = new Set<Text>()
+    const SKIP = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA', 'INPUT'])
+    const translate = (n: Text) => {
+      const rec = done.get(n)
+      const cur = n.nodeValue ?? ''
+      if (rec && cur === rec.written) return
+      const el = n.parentElement
+      if (!el || SKIP.has(el.tagName) || el.closest('[data-no-i18n]')) return
+      const m = /^(\s*)([\s\S]*?)(\s*)$/.exec(cur)
+      if (!m || !m[2]) return
+      const hit = MM[m[2].replace(/\s+/g, ' ')]
+      if (!hit) return
+      const next = m[1] + hit + m[3]
+      done.set(n, { orig: cur, written: next })
+      touched.add(n)
+      n.nodeValue = next
+    }
+    const walk = (root: Node) => {
+      if (root.nodeType === Node.TEXT_NODE) return translate(root as Text)
+      const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+      let n: Node | null
+      while ((n = tw.nextNode())) translate(n as Text)
+    }
+    if (lang !== 'mm') return
+    walk(document.body)
+    const mo = new MutationObserver((list) => {
+      for (const r of list) {
+        if (r.type === 'characterData') translate(r.target as Text)
+        else r.addedNodes.forEach((a) => walk(a))
+      }
+    })
+    mo.observe(document.body, { childList: true, subtree: true, characterData: true })
+    return () => {
+      mo.disconnect()
+      touched.forEach((n) => {
+        const rec = done.get(n)
+        if (rec && n.nodeValue === rec.written) n.nodeValue = rec.orig
+      })
+    }
+  }, [lang])
+}
+
+/** Keeps <html lang> in step with the chosen language (screen readers, hyphenation, fonts) and translates page copy. */
 export function LangHtmlSync() {
   const lang = useLang()
   useEffect(() => { document.documentElement.lang = lang === 'mm' ? 'my' : 'en' }, [lang])
+  useDomTranslate(lang)
   return null
 }

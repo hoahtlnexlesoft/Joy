@@ -6,7 +6,6 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { BookOpen, ChevronDown, ChevronRight, Download, Globe, Heart, LogOut, Menu, Sparkles, Ticket, X, type LucideIcon } from '@/components/joy/cute-icons'
 import { cn } from '@/lib/utils'
-import { DownloadButton } from './download-cta'
 import { LoginModal } from './login-modal'
 import { joyLogout, useJoySession } from '@/lib/joy-session'
 import { useT } from '@/lib/i18n'
@@ -149,7 +148,6 @@ export function SiteHeader() {
               <button type="button" onClick={showLogin} className="whitespace-nowrap rounded-full px-2 py-2 text-[13px] font-semibold text-foreground hover:bg-muted lg:px-4 lg:text-sm">
                 {t('Log in')}
               </button>
-              <DownloadButton href="/#download" className="h-9 whitespace-nowrap px-3 text-[13px] lg:h-10 lg:px-5 lg:text-sm" />
             </>
           )}
         </div>

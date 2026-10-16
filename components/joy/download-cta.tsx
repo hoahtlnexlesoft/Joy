@@ -90,8 +90,7 @@ export function DownloadStrip({ className, tone = 'light' }: { className?: strin
           <p className={cn('text-sm', dark ? 'text-white/65' : 'text-foreground/70')}>{t('Free on iOS and Android')}</p>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <DownloadButton className="h-11" />
-          <StoreBadges tone={dark ? 'light' : 'dark'} className="hidden lg:flex" />
+          <StoreBadges tone={dark ? 'light' : 'dark'} className="justify-center" />
         </div>
       </div>
     </section>

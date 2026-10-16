@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { ArrowRight, Baby, Gamepad2, Sparkles, Ticket, UserRound } from '@/components/joy/cute-icons'
 import { JoyButton, SectionHeading } from '../ui'
-import { DownloadButton } from '../download-cta'
 
 const steps = [
   {
@@ -72,7 +71,6 @@ export function HowSteps() {
           ))}
         </ol>
         <div className="mt-8 md:mt-7 lg:mt-12 flex flex-wrap justify-center gap-3">
-          <DownloadButton />
           <JoyButton href="/how-it-works" variant="ghost">
             Read the full guide
           </JoyButton>

@@ -2,8 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Heart, Leaf } from '@/components/joy/cute-icons'
+import { Heart, Leaf } from '@/components/joy/cute-icons'
 import { LoginTrigger } from './login-modal'
+import { StoreBadges } from './download-cta'
 import { useT } from '@/lib/i18n'
 
 const tryPoints = [
@@ -12,36 +13,6 @@ const tryPoints = [
   "A feeling log to follow how they're doing",
   'One parent account for all your children',
 ]
-
-function StoreBadge({ store, light = false }: { store: 'apple' | 'google'; light?: boolean }) {
-  const t = useT()
-  return (
-    <Link
-      href="#download"
-      className={
-        light
-          ? 'inline-flex h-16 w-56 items-center gap-3 rounded-full bg-white px-6 text-foreground shadow-[0_12px_30px_-18px_rgba(248,96,143,0.6)] transition-transform hover:-translate-y-0.5'
-          : 'inline-flex h-14 items-center gap-3 rounded-2xl bg-foreground px-5 text-background transition-transform hover:-translate-y-0.5'
-      }
-    >
-      {store === 'apple' ? (
-        <svg viewBox="0 0 24 24" className="size-6 fill-current" aria-hidden="true">
-          <path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.76 2.27-1.6 2.78-.41 6.9 1.15 9.16.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.78.74 2.99.72 1.24-.02 2.02-1.12 2.77-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.66ZM14.1 5.84c.63-.77 1.06-1.83.94-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.28Z" />
-        </svg>
-      ) : (
-        <svg viewBox="0 0 24 24" className="size-6 fill-current" aria-hidden="true">
-          <path d="M3.6 2.2c-.2.2-.3.6-.3 1v17.6c0 .4.1.8.3 1l9.7-9.8-9.7-9.8Zm10.7 10.8 2.6 2.6-11.3 6.4 8.7-9Zm0-2-8.7-9 11.3 6.4-2.6 2.6Zm3.6 3.6-2.9-2.6 2.9-2.6 3.3 1.9c.9.5.9 1.3 0 1.8l-3.3 1.5Z" />
-        </svg>
-      )}
-      <span className="flex flex-col leading-tight">
-        <span className="whitespace-nowrap text-[10px] uppercase tracking-wider opacity-70">
-          {store === 'apple' ? t('Download on the') : t('Get it on')}
-        </span>
-        <span className="text-base font-semibold">{store === 'apple' ? 'App Store' : 'Google Play'}</span>
-      </span>
-    </Link>
-  )
-}
 
 const checkColors = ['#f27b85', '#f9c95c', '#5fae6e', '#a97ff0']
 
@@ -88,44 +59,6 @@ function BottomLeftDecor() {
 }
 
 const BLOB_RADIUS = '58% 42% 46% 54% / 44% 52% 48% 56%'
-
-function CtaStoreButton({ store }: { store: 'apple' | 'google' }) {
-  const t = useT()
-  const isApple = store === 'apple'
-  return (
-    <Link
-      href="#download"
-      className={
-        isApple
-          ? 'group inline-flex h-12 items-center gap-2.5 rounded-full bg-[#1a1625] pl-5 pr-4 text-white shadow-[0_16px_30px_-14px_rgba(26,22,37,0.7)] transition-transform hover:-translate-y-0.5'
-          : 'group inline-flex h-12 items-center gap-2.5 rounded-full bg-white pl-5 pr-4 text-foreground shadow-[0_16px_30px_-18px_rgba(42,34,64,0.35)] ring-1 ring-black/5 transition-transform hover:-translate-y-0.5'
-      }
-    >
-      {isApple ? (
-        <svg viewBox="0 0 24 24" className="size-5 fill-current" aria-hidden="true">
-          <path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.76 2.27-1.6 2.78-.41 6.9 1.15 9.16.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.78.74 2.99.72 1.24-.02 2.02-1.12 2.77-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.66ZM14.1 5.84c.63-.77 1.06-1.83.94-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.28Z" />
-        </svg>
-      ) : (
-        <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true">
-          <path d="M3.6 2.2 13.3 12l-9.7 9.8c-.2-.2-.3-.6-.3-1V3.2c0-.4.1-.8.3-1Z" fill="#34a853" />
-          <path d="m16.9 8.4-3.6 3.6-9.7-9.8c.3-.3.8-.3 1.3 0l12 6.2Z" fill="#4285f4" />
-          <path d="M16.9 15.6 4.9 21.8c-.5.3-1 .3-1.3 0l9.7-9.8 3.6 3.6Z" fill="#ea4335" />
-          <path d="m20.6 13-3.7 2.6-3.6-3.6 3.6-3.6 3.7 2.6c.9.6.9 1.4 0 2Z" fill="#fbbc04" />
-        </svg>
-      )}
-      <span className="flex flex-col leading-tight">
-        <span className="text-[9px] font-medium uppercase tracking-wider opacity-80">
-          {isApple ? t('Download on the') : t('Get it on')}
-        </span>
-        <span className="font-display text-[15px] font-medium">{isApple ? 'App Store' : 'Google Play'}</span>
-      </span>
-      <ArrowRight
-        className={`ml-1 size-4 transition-transform group-hover:translate-x-1 ${isApple ? '' : 'text-joy-pink'}`}
-        aria-hidden="true"
-      />
-    </Link>
-  )
-}
 
 export function TryJoyCta() {
   const t = useT()
@@ -182,10 +115,7 @@ export function TryJoyCta() {
               ))}
             </ul>
 
-            <div className="flex flex-wrap gap-2.5 pt-2 [&>a]:pl-4 [&>a]:pr-3.5">
-              <CtaStoreButton store="apple" />
-              <CtaStoreButton store="google" />
-            </div>
+            <StoreBadges className="pt-2" />
 
             <p className="text-base text-foreground/70">
               {t('Already have a parent account?')}{' '}
@@ -330,10 +260,6 @@ export function SiteFooter({ surface = 'default' }: { surface?: 'default' | 'gui
         <div className="grid gap-8 md:gap-7 md:grid-cols-[auto_1fr] md:gap-8 lg:gap-20">
           <div className="flex flex-col gap-8 sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center lg:gap-10">
             <Image src="/images/joy-logo.webp" alt="Joy" width={140} height={64} className="h-16 w-auto self-start sm:self-center" />
-            <div className="flex flex-col gap-4">
-              <StoreBadge store="apple" light />
-              <StoreBadge store="google" light />
-            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:gap-6 lg:gap-10">

@@ -40,26 +40,32 @@ export function DownloadButton({ href = '#download', className, label }: { href?
   )
 }
 
-/** Compact App Store / Google Play pair, small enough to sit next to other buttons. */
+/** Cute App Store / Google Play pair. One size and style used everywhere on the site. */
 export function StoreBadges({ className, tone = 'dark', children }: { className?: string; tone?: 'dark' | 'light'; children?: React.ReactNode }) {
   const t = useT()
-  const base = 'inline-flex h-11 items-center gap-2 rounded-full px-4 transition-transform hover:-translate-y-0.5'
-  const apple = tone === 'dark' ? 'bg-[#1a1625] text-white' : 'bg-white/10 text-white ring-1 ring-white/25'
-  const play = tone === 'dark' ? 'bg-white text-foreground ring-1 ring-black/10' : 'bg-white text-foreground'
+  const base =
+    'group inline-flex h-11 items-center gap-2 rounded-full py-0 pl-1.5 pr-4 text-[#2a2240] shadow-[0_8px_18px_-8px_rgba(238,90,138,0.55)] transition-all duration-200 hover:-translate-y-0.5 hover:rotate-[-1.5deg] hover:shadow-[0_12px_22px_-8px_rgba(238,90,138,0.7)]'
+  const apple = 'bg-gradient-to-r from-[#ffe1ec] to-[#ffd0e0] ring-2 ring-white'
+  const play = 'bg-gradient-to-r from-[#fff1c4] to-[#ffe3a3] ring-2 ring-white'
+  const chip = 'grid size-8 shrink-0 place-items-center rounded-full bg-white shadow-sm transition-transform group-hover:scale-110'
   return (
-    <div className={cn('flex flex-wrap items-center gap-2.5', className)}>
+    <div className={cn('flex flex-wrap items-center gap-2.5', className)} data-tone={tone}>
       <Link href="#download" className={cn(base, apple)} aria-label="App Store">
-        <AppleMark className="size-5" />
+        <span className={chip}>
+          <AppleMark className="size-[18px] text-[#2a2240]" />
+        </span>
         <span className="flex flex-col leading-none">
-          <span className="text-[9px] font-medium uppercase tracking-wider opacity-75">{t('Download on the')}</span>
-          <span className="font-display text-[15px] font-medium">App Store</span>
+          <span className="text-[9px] font-semibold uppercase tracking-wider text-[#2a2240]/60">{t('Download on the')}</span>
+          <span className="font-display text-[15px] font-semibold">App Store</span>
         </span>
       </Link>
       <Link href="#download" className={cn(base, play)} aria-label="Google Play">
-        <PlayMark className="size-5" />
+        <span className={chip}>
+          <PlayMark className="size-[18px]" />
+        </span>
         <span className="flex flex-col leading-none">
-          <span className="text-[9px] font-medium uppercase tracking-wider opacity-75">{t('Get it on')}</span>
-          <span className="font-display text-[15px] font-medium">Google Play</span>
+          <span className="text-[9px] font-semibold uppercase tracking-wider text-[#2a2240]/60">{t('Get it on')}</span>
+          <span className="font-display text-[15px] font-semibold">Google Play</span>
         </span>
       </Link>
       {children}

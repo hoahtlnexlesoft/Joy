@@ -60,16 +60,26 @@ function LinkArt() {
   )
 }
 
+/** Thin dashed outline with wide gaps (CSS `border-dashed` can't tune dash length). */
+function DashedBorder({ radius, color }: { radius: number; color: string }) {
+  return (
+    <svg className="pointer-events-none absolute inset-0 size-full" aria-hidden="true">
+      <rect x="0.5" y="0.5" rx={radius} ry={radius} fill="none" stroke={color} strokeWidth="1" strokeDasharray="4 6" strokeLinecap="round" style={{ width: 'calc(100% - 1px)', height: 'calc(100% - 1px)' }} />
+    </svg>
+  )
+}
+
 /** Shown after a successful payment: how to activate the Joy app on the child's device. */
 export function AppActivationGuide() {
   const t = useT()
-  const steps: { n: number; badge: string; panel: string; art: ReactNode; title: string; body: string; stores?: boolean }[] = [
-    { n: 1, badge: 'bg-[#3d7bf0]', panel: 'from-[#e3eeff] to-[#f5f9ff] border-[#a9c4f5]', art: <PhoneArt />, title: t('Download the app'), body: t("Install it on your child's device."), stores: true },
-    { n: 2, badge: 'bg-[#f59a2e]', panel: 'from-[#fff0cf] to-[#fffaf0] border-[#f5c46f]', art: <ChildArt />, title: t('Switch to Child view'), body: t('Tap Play on the Home screen.') },
-    { n: 3, badge: 'bg-[#9a63e6]', panel: 'from-[#ece3ff] to-[#f8f4ff] border-[#c4aaf2]', art: <LinkArt />, title: t('Link parent account'), body: t('My profile › Link Parent Account.') },
+  const steps: { n: number; badge: string; panel: string; dash: string; art: ReactNode; title: string; body: string; stores?: boolean }[] = [
+    { n: 1, badge: 'bg-[#3d7bf0]', panel: 'from-[#e3eeff] to-[#f5f9ff]', dash: '#a9c4f5', art: <PhoneArt />, title: t('Download the app'), body: t("Install it on your child's device."), stores: true },
+    { n: 2, badge: 'bg-[#f59a2e]', panel: 'from-[#fff0cf] to-[#fffaf0]', dash: '#f5c46f', art: <ChildArt />, title: t('Switch to Child view'), body: t('Tap Play on the Home screen.') },
+    { n: 3, badge: 'bg-[#9a63e6]', panel: 'from-[#ece3ff] to-[#f8f4ff]', dash: '#c4aaf2', art: <LinkArt />, title: t('Link parent account'), body: t('My profile › Link Parent Account.') },
   ]
   return (
-    <section aria-label={t('Activate the Joy app in 3 easy steps')} className="relative mb-5 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#f6f1ff] via-[#fbf8ff] to-[#fff3f8] border-2 border-dashed border-[#b9a0ef] px-3 pb-4 pt-3.5 sm:px-4">
+    <section aria-label={t('Activate the Joy app in 3 easy steps')} className="relative mb-5 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#f6f1ff] via-[#fbf8ff] to-[#fff3f8] px-3 pb-4 pt-3.5 sm:px-4">
+      <DashedBorder radius={28} color="#b9a0ef" />
       <p className="mb-0.5 flex items-center justify-center gap-1.5 text-xs font-bold text-[#8a63d8]">
         <svg viewBox="0 0 24 24" className="size-4 fill-[#ffc83d]" aria-hidden="true"><path d="M12 1.5c.7 5.6 4.9 9.8 10.5 10.5-5.6.7-9.8 4.9-10.5 10.5C11.3 16.9 7.1 12.7 1.5 12 7.1 11.3 11.3 7.1 12 1.5Z" /></svg>
         {t('Next step')}
@@ -82,7 +92,8 @@ export function AppActivationGuide() {
       <ol className="flex flex-col items-stretch gap-1 sm:flex-row sm:gap-1">
         {steps.map((s, i) => (
           <li key={s.n} className="contents">
-            <div className={`relative flex flex-1 flex-col items-center gap-1.5 rounded-3xl bg-gradient-to-b border-2 border-dashed p-3 pt-4 text-center ${s.panel} ${s.stores ? 'sm:flex-[1.25]' : ''}`}>
+            <div className={`relative flex flex-1 flex-col items-center gap-1.5 rounded-3xl bg-gradient-to-b p-3 pt-4 text-center ${s.panel} ${s.stores ? 'sm:flex-[1.25]' : ''}`}>
+              <DashedBorder radius={24} color={s.dash} />
               <span className={`absolute left-2.5 top-2.5 grid size-7 place-items-center rounded-full text-sm font-extrabold text-white shadow-[0_4px_10px_-3px_rgba(60,60,120,0.5)] ${s.badge}`}>{s.n}</span>
               <span className="block size-20 sm:size-[5.5rem]">{s.art}</span>
               <b className="block font-display text-sm font-extrabold leading-tight text-[#2d205f]">{s.title}</b>

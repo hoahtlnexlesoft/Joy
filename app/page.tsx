@@ -5,7 +5,7 @@ import { Features } from '@/components/joy/landing/features'
 import { FeelingLog } from '@/components/joy/landing/feeling-log'
 import { HowSteps } from '@/components/joy/landing/how-steps'
 import { ScrollReveal } from '@/components/joy/scroll-reveal'
-import { DownloadStrip, MobileDownloadBar } from '@/components/joy/download-cta'
+import { MobileDownloadBar } from '@/components/joy/download-cta'
 import { DoodleAccents } from '@/components/joy/doodle-accents'
 
 export default function HomePage() {
@@ -16,7 +16,6 @@ export default function HomePage() {
         <DoodleAccents />
         <Hero />
         <Features />
-        <DownloadStrip />
         <FeelingLog />
         <HowSteps />
         <TryJoyCta />

@@ -63,7 +63,7 @@ const BLOB_RADIUS = '58% 42% 46% 54% / 44% 52% 48% 56%'
 export function TryJoyCta() {
   const t = useT()
   return (
-    <section id="download" aria-labelledby="try-title" className="scroll-mt-28 px-4 pb-8 pt-10 md:pb-7 lg:pb-12 md:pt-11 lg:pt-20">
+    <section id="download" aria-labelledby="try-title" className="scroll-mt-28 px-4 py-10 md:py-9 lg:py-16">
       <div className="relative mx-auto max-w-7xl">
         <div
           className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#fdebdc] via-[#fff4ea] to-[#fdeee4]"

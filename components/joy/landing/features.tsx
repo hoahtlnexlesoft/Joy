@@ -75,7 +75,7 @@ function TagList({ tags = movementTags }: { tags?: typeof movementTags }) {
 
 export function Features() {
   return (
-    <section id="about" aria-labelledby="about-title" className="scroll-mt-28 px-3 sm:px-4 py-8 md:py-9 lg:py-24">
+    <section id="about" aria-labelledby="about-title" className="scroll-mt-28 px-3 sm:px-4 py-10 md:py-9 lg:py-16">
       <div className="mx-auto mb-8 max-w-4xl text-center md:mb-9 lg:mb-28">
         <h2 id="about-title" className="text-3xl font-normal leading-snug tracking-tight md:text-4xl md:leading-[1.15] lg:text-5xl">
           Every child grows in their own way. Joy gets to know yours, then{' '}

@@ -32,7 +32,7 @@ const steps = [
 
 export function HowSteps() {
   return (
-    <section aria-labelledby="how-title" className="px-3 sm:px-4 py-8 md:py-9 lg:py-24">
+    <section aria-labelledby="how-title" className="px-3 sm:px-4 py-10 md:py-9 lg:py-16">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           id="how-title"

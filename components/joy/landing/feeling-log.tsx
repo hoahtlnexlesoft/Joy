@@ -233,7 +233,7 @@ export function FeelingLog() {
     <section
       id="feeling-log"
       aria-labelledby="feeling-title"
-      className="scroll-mt-28 bg-foreground px-3 sm:px-4 py-10 text-background md:py-9 lg:py-28"
+      className="scroll-mt-28 bg-foreground px-3 sm:px-4 text-background py-10 md:py-9 lg:py-16"
     >
       <div className="mx-auto grid max-w-6xl gap-8 lg:gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
         <div className="flex flex-col items-start gap-4 md:gap-5 lg:justify-center lg:gap-6">

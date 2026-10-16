@@ -5,7 +5,7 @@ import { Archive, ArrowRight, Baby, Check, ChevronDown, Crown, Eye, Gem, Lock, M
 import { ChoosePlanButton } from '@/components/joy/choose-plan-button'
 import { SiteHeader } from '@/components/joy/site-header'
 import { SiteFooter, TryJoyCta } from '@/components/joy/site-footer'
-import { DownloadStrip, MobileDownloadBar } from '@/components/joy/download-cta'
+import { MobileDownloadBar } from '@/components/joy/download-cta'
 import { Eyebrow, JoyButton, SectionHeading } from '@/components/joy/ui'
 import { cn } from '@/lib/utils'
 
@@ -239,8 +239,6 @@ export default function PricingPage() {
             </figure>
           </div>
         </section>
-
-        <DownloadStrip />
         <section aria-labelledby="how-plans" className="px-4 py-10 md:py-9 lg:py-16">
           <div className="mx-auto max-w-6xl">
             <SectionHeading id="how-plans" title="How" accent="plans work" />
@@ -258,7 +256,7 @@ export default function PricingPage() {
           </div>
         </section>
 
-        <section id="plans" aria-labelledby="plans-title" className="scroll-mt-28 px-4 py-10 md:py-9 lg:py-24">
+        <section id="plans" aria-labelledby="plans-title" className="scroll-mt-28 px-4 py-10 md:py-9 lg:py-16">
           <div className="mx-auto max-w-6xl">
             <SectionHeading
               id="plans-title"
@@ -329,7 +327,7 @@ export default function PricingPage() {
           </div>
         </section>
 
-        <section id="compare" aria-labelledby="compare-title" className="scroll-mt-28 px-4 py-10 md:py-9 lg:py-24">
+        <section id="compare" aria-labelledby="compare-title" className="scroll-mt-28 px-4 py-10 md:py-9 lg:py-16">
           <div className="mx-auto max-w-6xl">
             <SectionHeading
               id="compare-title"
@@ -398,7 +396,7 @@ export default function PricingPage() {
           </div>
         </section>
 
-        <section aria-labelledby="faq-title" className="px-4 py-10 md:py-9 lg:py-24">
+        <section aria-labelledby="faq-title" className="px-4 py-10 md:py-9 lg:py-16">
           <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[0.8fr_1.2fr]">
             <SectionHeading id="faq-title" align="left" eyebrow="FAQ" title="Questions" accent="parents ask" />
             <ul className="flex flex-col gap-3">

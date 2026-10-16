@@ -189,7 +189,7 @@ export function ProfileView({ app, sec }: { app: App; sec: Section }) {
             <PrefRow title={t('Password')} sub={t('Change the password for your parent account.')}><Btn small variant="blueSoft" onClick={() => app.open({ k: 'pw' })}>{t('Change password')}</Btn></PrefRow>
             <PrefRow title={t('Sign out')} sub={t('Log out of Joy on this browser.')}><Btn small variant="orangeSoft" onClick={() => app.logout()}>↪ {t('Sign out')}</Btn></PrefRow>
           </Card>
-          <Card title={<span className="inline-flex items-center gap-2.5"><span className="grid size-9 place-items-center rounded-2xl bg-gradient-to-br from-[#ffe3e8] to-[#ffd0dc] text-[#e5446d] shadow-[0_6px_14px_-8px_rgba(229,68,109,0.8)]"><TriangleAlert className="size-5" aria-hidden="true" /></span>{t('Danger zone')}</span>} className="ring-1 ring-[#f5c6c8]">
+          <Card title={<span className="inline-flex items-center gap-2.5"><span className="grid size-9 place-items-center rounded-2xl bg-gradient-to-br from-[#ffe3e8] to-[#ffd0dc] text-[#e5446d] shadow-[0_6px_14px_-8px_rgba(229,68,109,0.8)]"><TriangleAlert className="size-5" aria-hidden="true" /></span>{t('Danger zone')}</span>} className="bg-gradient-to-br from-[#fff3f4] via-[#ffe9ec] to-[#ffdde3] ring-1 ring-[#f5c6c8]">
             <PrefRow title={t('Delete account')} sub={t('Permanently delete your account and all associated data.')}><Btn small variant="danger" onClick={() => app.open({ k: 'delAcc' })}>{t('Delete account')}</Btn></PrefRow>
           </Card>
         </>

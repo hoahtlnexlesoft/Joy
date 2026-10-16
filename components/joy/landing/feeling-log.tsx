@@ -236,7 +236,7 @@ export function FeelingLog() {
       className="scroll-mt-28 bg-foreground px-3 sm:px-4 py-10 text-background md:py-9 lg:py-28"
     >
       <div className="mx-auto grid max-w-6xl gap-8 lg:gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
-        <div className="flex flex-col items-start gap-4 md:gap-5 lg:justify-between">
+        <div className="flex flex-col items-start gap-4 md:gap-5 lg:justify-center lg:gap-6">
           <div className="flex flex-col items-start gap-4 md:gap-5">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-white/70">
             <span className="size-1.5 rounded-full bg-gradient-joy" aria-hidden="true" />

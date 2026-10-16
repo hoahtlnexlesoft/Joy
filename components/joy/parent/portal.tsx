@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { DEMO_PARENT, joyLogin, joyLogout, useJoySession } from '@/lib/joy-session'
+import { DEMO_PARENT, joyGoHome, joyLogin, joyLogout, useJoySession } from '@/lib/joy-session'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, BookOpenCheck, Crown, Heart, Pencil, Plus, Trash2 } from '@/components/joy/cute-icons'
 import { cn } from '@/lib/utils'
@@ -133,7 +133,7 @@ export function ParentPortal() {
     logout: () => {
       leaving.current = true
       joyLogout()
-      router.push('/')
+      joyGoHome(router)
     },
   }
   const close = () => { setDlg(null); setBuyDone(false) }

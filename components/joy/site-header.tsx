@@ -7,7 +7,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { BookOpen, ChevronDown, ChevronRight, Globe, Heart, LogOut, Menu, Sparkles, Ticket, X, type LucideIcon } from '@/components/joy/cute-icons'
 import { cn } from '@/lib/utils'
 import { LoginModal } from './login-modal'
-import { joyLogout, useJoySession } from '@/lib/joy-session'
+import { joyGoHome, joyLogout, useJoySession } from '@/lib/joy-session'
 import { joyButtonClass } from './ui'
 import { useT } from '@/lib/i18n'
 import { LangSwitch } from './lang-switch'
@@ -34,7 +34,7 @@ export function SiteHeader() {
   const pathname = usePathname()
   const session = useJoySession()
   const router = useRouter()
-  const logOut = () => { setOpen(false); joyLogout(); router.push('/') }
+  const logOut = () => { setOpen(false); joyLogout(); joyGoHome(router) }
 
   const showLogin = () => {
     setOpen(false)

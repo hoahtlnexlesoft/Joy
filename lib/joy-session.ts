@@ -41,3 +41,11 @@ export function useJoySession(): JoySession | undefined {
     () => undefined, // undefined = not known yet (server render)
   )
 }
+
+/** Go to the home page after logging out. The static review preview has no server
+ *  route for "/", so it can register `window.__joyGo` to map it to a file. */
+export function joyGoHome(router: { push: (href: string) => void }) {
+  const go = (window as unknown as { __joyGo?: (p: string) => boolean }).__joyGo
+  if (go && go('/')) return
+  router.push('/')
+}

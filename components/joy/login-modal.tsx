@@ -611,7 +611,7 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
       ) : null}
 
       {step === 2 ? (
-        <form onSubmit={submitCode} className="flex min-h-0 flex-1 flex-col gap-4">
+        <form onSubmit={submitCode} className="flex min-h-0 flex-1 flex-col gap-5 pt-6 text-center md:pt-8">
           <header>
             <h2 id="joy-login-title" className="text-[clamp(1.5rem,2.8vw,1.875rem)] font-extrabold leading-[1.02] tracking-[-0.055em] text-[#30235f]">
               Verify your account
@@ -622,7 +622,7 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
           </header>
           <CodeBoxes value={code} onChange={(v) => { setCode(v); setError('') }} />
           {error ? <p role="alert" className="text-sm font-semibold text-[#e0386f]">{error}</p> : null}
-          <p className="text-sm text-[#8984ad]">This is a preview: any 6 digits will work.</p>
+          <p className="text-center text-sm text-[#8984ad]">This is a preview: any 6 digits will work.</p>
           <button type="submit" className={primaryBtn}>
             Verify <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden="true" />
           </button>
@@ -633,7 +633,7 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
       ) : null}
 
       {step === 3 ? (
-        <div className="relative flex min-h-0 flex-1 flex-col items-start gap-5 pt-6 md:gap-6">
+        <div className="relative flex min-h-0 flex-1 flex-col items-center gap-5 pt-6 text-center md:gap-6">
           <img src="/images/signup-check.webp" alt="" aria-hidden="true" className="h-24 w-auto drop-shadow-[0_10px_16px_rgba(248,96,143,0.28)] md:h-28" />
           <header>
             <h2 id="joy-login-title" className="text-[clamp(1.75rem,3.4vw,2.25rem)] font-extrabold leading-[1.02] tracking-[-0.05em]">
@@ -641,14 +641,14 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
               <span className="bg-gradient-to-r from-[#ff8a3d] to-[#ff5f7e] bg-clip-text text-transparent">all </span>
               <span className="bg-gradient-to-r from-[#8a45d6] to-[#6a35c9] bg-clip-text text-transparent">set!</span>
             </h2>
-            <p id="joy-login-description" className="mt-3 max-w-[19rem] text-[clamp(0.875rem,1.15vw,1rem)] leading-relaxed text-[#6b5f93]">
+            <p id="joy-login-description" className="mx-auto mt-3 max-w-[19rem] text-[clamp(0.875rem,1.15vw,1rem)] leading-relaxed text-[#6b5f93]">
               Your parent account is ready. Add your children in the Parent Portal.
             </p>
           </header>
           <button type="button" onClick={finish} className={`${primaryBtn} mt-3 w-full !from-[#ffa24f] !via-[#ff7d78] !to-[#a65be8] shadow-[0_12px_24px_rgba(190,100,200,0.28)]`}>
             Go to Parent Portal <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden="true" />
           </button>
-          <img src="/images/signup-butterfly.webp" alt="" aria-hidden="true" className="pointer-events-none mt-auto -mb-3 w-[62%] max-w-72 self-end object-contain drop-shadow-[0_10px_18px_rgba(150,100,220,0.25)]" />
+          <img src="/images/signup-butterfly.webp" alt="" aria-hidden="true" className="pointer-events-none mt-auto -mb-3 w-[62%] max-w-72 self-center object-contain drop-shadow-[0_10px_18px_rgba(150,100,220,0.25)]" />
         </div>
       ) : null}
     </div>

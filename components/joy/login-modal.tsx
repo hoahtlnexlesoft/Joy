@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
 import { createPortal } from 'react-dom'
 import { useRouter } from 'next/navigation'
 import { DEMO_PARENT, joyLogin } from '@/lib/joy-session'
@@ -24,13 +23,19 @@ import {
  type LoginModalProps = {
   open: boolean
   onClose: () => void
+  /** Which view opens first: the log in form or the "Try for free" sign-up flow. */
+  mode?: 'login' | 'signup'
 }
 
 const referenceImageUrl =
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/6a5b1715-b8c8-4243-ae7f-41668b87b996-F3YPLmZFZ8ODUrvrSbdgQTPDGtjmWO.png'
 
-export function LoginModal({ open, onClose }: LoginModalProps) {
+export function LoginModal({ open, onClose, mode: initialMode = 'login' }: LoginModalProps) {
   const router = useRouter()
+  const [mode, setMode] = useState<'login' | 'signup'>(initialMode)
+  useEffect(() => {
+    if (open) setMode(initialMode)
+  }, [open, initialMode])
   const [method, setMethod] = useState<'email' | 'phone'>('email')
   const [showPassword, setShowPassword] = useState(false)
   const [notice, setNotice] = useState('')
@@ -126,19 +131,22 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
             </div>
 
             <h1 className="whitespace-nowrap text-[clamp(1.8rem,3.35vw,3.1rem)] font-extrabold leading-[0.98] tracking-[-0.055em] text-[#2d205f]">
-              Welcome <span className="bg-gradient-to-r from-[#ff765f] via-[#f64f9b] to-[#a647e8] bg-clip-text text-transparent">back!</span>
+              {mode === 'login' ? (
+                <>Welcome <span className="bg-gradient-to-r from-[#ff765f] via-[#f64f9b] to-[#a647e8] bg-clip-text text-transparent">back!</span></>
+              ) : (
+                <>Try Joy <span className="bg-gradient-to-r from-[#ff765f] via-[#f64f9b] to-[#a647e8] bg-clip-text text-transparent">for free</span></>
+              )}
               <Sparkles className="mb-[0.55em] ml-1 inline size-[0.45em] fill-[#f64f9b] text-[#f64f9b]" aria-hidden="true" />
             </h1>
             <p className="mt-2 max-w-[27rem] text-[clamp(0.9rem,1.45vw,1.15rem)] leading-[1.35] text-[#81799f]">
-              Log in to see how your children are doing today.
+              {mode === 'login' ? 'Log in to see how your children are doing today.' : 'One parent account for all your children.'}
             </p>
 
             <ul className="mt-2.5 flex flex-col gap-2 text-[clamp(0.85rem,1.35vw,1.05rem)] font-medium text-[#716990]">
-              {[
-                "Today's activities for each child",
-                'Feeling log and activity history',
-                'Plans for each child',
-              ].map((item) => (
+              {(mode === 'login'
+                ? ["Today's activities for each child", 'Feeling log and activity history', 'Plans for each child']
+                : ['Daily activities picked for your child', 'A growth path that adapts as they grow', 'A feeling log you can follow']
+              ).map((item) => (
                 <li key={item} className="flex items-center gap-3">
                   <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#ff6a9d] to-[#ef3d83] text-white shadow-[0_5px_12px_rgba(239,61,131,0.2)]">
                     <Check className="size-4" strokeWidth={3} aria-hidden="true" />
@@ -160,14 +168,18 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close login dialog"
+            aria-label={mode === 'signup' ? 'Close sign-up dialog' : 'Close login dialog'}
             className="joy-login-close absolute right-[4.5%] top-[3.5%] z-10 flex size-10 items-center justify-center rounded-full bg-[#f8f7fb] text-[#625a83] shadow-sm ring-1 ring-[#efedf5] transition hover:bg-[#f1eef8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
           >
             <X className="size-5" aria-hidden="true" />
           </button>
 
           <div className="relative flex min-h-0 flex-1 flex-col px-[8.5%] pb-[4%] pt-[8.3%]">
-            <header className="mb-[4.2%] pr-12">
+            {mode === 'signup' ? (
+              <SignupFlow onClose={onClose} onSwitchToLogin={() => setMode('login')} />
+            ) : (
+              <>
+              <header className="mb-[4.2%] pr-12">
               <h2 id="joy-login-title" className="text-[clamp(1.5rem,2.8vw,1.875rem)] font-extrabold leading-[1.02] tracking-[-0.055em] text-[#30235f]">
                 Log in <Sparkles className="mb-[0.55em] ml-1 inline size-[0.62em] fill-[#fb6aa3] text-[#fb6aa3]" aria-hidden="true" />
               </h2>
@@ -281,9 +293,9 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
 
               <p className="mt-auto pt-[2%] text-center text-sm text-[#918bad]">
                 New to Joy?{' '}
-                <Link href="/pricing#plans" onClick={onClose} className="font-bold text-[#f34f94] underline decoration-[#f7a8c7] underline-offset-4 hover:text-[#d93477]">
+                <button type="button" onClick={() => { setMode('signup'); setNotice('') }} className="font-bold text-[#f34f94] underline decoration-[#f7a8c7] underline-offset-4 hover:text-[#d93477]">
                   Try for free
-                </Link>
+                </button>
               </p>
 
               {notice ? (
@@ -293,6 +305,8 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
                 </p>
               ) : null}
             </form>
+              </>
+            )}
           </div>
         </div>
 
@@ -383,7 +397,230 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
   , document.body)
 }
 
-export function LoginTrigger({ children, className }: { children: ReactNode; className: string }) {
+const COUNTRY_CODES = ['+95', '+84', '+66', '+65', '+60', '+62', '+63', '+44', '+1']
+const STEPS = ['Account', 'Verify', 'Ready'] as const
+
+const fieldWrap =
+  'flex h-11 items-center gap-3 rounded-full border border-[#e5e3f0] bg-white px-4 transition focus-within:border-[#f65b9d] focus-within:ring-4 focus-within:ring-[#f65b9d]/10'
+const inputCls = 'min-w-0 flex-1 bg-transparent text-sm text-[#352d57] outline-none placeholder:text-[#9994b4]'
+const labelCls = 'mb-1.5 block text-sm font-bold text-[#3a315f]'
+const primaryBtn =
+  'mt-2 flex h-12 shrink-0 items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#ff9e50] via-[#ff7c82] to-[#f64f9b] text-sm font-bold text-white shadow-[0_12px_24px_rgba(248,96,143,0.22)] transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#f8608f]/30'
+
+function PasswordField({ id, label, autoComplete, onChange }: { id: string; label: string; autoComplete: string; onChange: () => void }) {
+  const [show, setShow] = useState(false)
+  return (
+    <div>
+      <label htmlFor={id} className={labelCls}>
+        {label} <span className="text-[#ff527f]" aria-hidden="true">*</span>
+      </label>
+      <div className={fieldWrap}>
+        <LockKeyhole className="size-4 shrink-0 text-[#aaa6c8]" aria-hidden="true" />
+        <input id={id} name={id} type={show ? 'text' : 'password'} autoComplete={autoComplete} required minLength={6} onChange={onChange} className={inputCls} />
+        <button
+          type="button"
+          onClick={() => setShow((v) => !v)}
+          aria-pressed={show}
+          className="shrink-0 text-sm font-medium text-[#9290b4] hover:text-[#554b7f] focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
+        >
+          {show ? 'Hide' : 'Show'}
+          <span className="sr-only"> password</span>
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitchToLogin: () => void }) {
+  const router = useRouter()
+  const [step, setStep] = useState<1 | 2 | 3>(1)
+  const [method, setMethod] = useState<'phone' | 'email'>('phone')
+  const [name, setName] = useState('')
+  const [error, setError] = useState('')
+  const [code, setCode] = useState('')
+
+  const submitAccount = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    if (data.get('signup-password') !== data.get('signup-confirm')) {
+      setError("Passwords don't match.")
+      return
+    }
+    setName(String(data.get('signup-name') ?? '').trim())
+    setError('')
+    setStep(2)
+  }
+
+  const submitCode = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (code.length < 6) {
+      setError('Enter the 6-digit code.')
+      return
+    }
+    setError('')
+    setStep(3)
+  }
+
+  const finish = () => {
+    joyLogin({ name: name || DEMO_PARENT.name, method: method === 'phone' ? 'Phone' : 'Email' })
+    onClose()
+    router.push('/parent')
+  }
+
+  const tab = (value: 'phone' | 'email', label: string, icon: ReactNode) => (
+    <button
+      type="button"
+      role="tab"
+      aria-selected={method === value}
+      onClick={() => { setMethod(value); setError('') }}
+      className={`flex items-center justify-center gap-2 rounded-full text-sm font-bold transition ${method === value ? 'bg-white text-[#f24b91] shadow-[0_2px_12px_rgba(235,87,148,0.16)] ring-1 ring-[#ffc6dc]' : 'text-[#908bb2]'}`}
+    >
+      {icon} {label}
+    </button>
+  )
+
+  return (
+    <div className="flex min-h-0 flex-1 flex-col">
+      <ol className="mb-[3%] flex shrink-0 items-center gap-2 pr-14 text-sm font-semibold" aria-label="Sign-up progress">
+        {STEPS.map((label, i) => {
+          const n = i + 1
+          const active = step === n
+          const done = step > n
+          return (
+            <li key={label} className="flex items-center gap-2" aria-current={active ? 'step' : undefined}>
+              <span className={`flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ${active || done ? 'bg-gradient-to-br from-[#ff9e50] to-[#f64f9b] text-white' : 'bg-[#f1eff7] text-[#9a95b8]'}`}>
+                {done ? <Check className="size-4" strokeWidth={3} aria-hidden="true" /> : n}
+              </span>
+              <span className={active ? 'text-[#30235f]' : 'text-[#9a95b8]'}>{label}</span>
+              {n < STEPS.length ? <span className="hidden h-px w-6 bg-[#e1dfed] min-[1400px]:block" aria-hidden="true" /> : null}
+            </li>
+          )
+        })}
+      </ol>
+
+      {step === 1 ? (
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto pr-1">
+          <header className="mb-[3%]">
+            <h2 id="joy-login-title" className="text-[clamp(1.5rem,2.8vw,1.875rem)] font-extrabold leading-[1.02] tracking-[-0.055em] text-[#30235f]">
+              Create your parent account <Sparkles className="mb-[0.55em] ml-1 inline size-[0.62em] fill-[#fb6aa3] text-[#fb6aa3]" aria-hidden="true" />
+            </h2>
+            <p id="joy-login-description" className="mt-2 text-[clamp(0.875rem,1.15vw,1rem)] leading-snug text-[#8984ad]">
+              Try Joy for free. One account for all your children.
+            </p>
+          </header>
+
+          <div className="mb-[3%] grid h-11 shrink-0 grid-cols-2 rounded-full bg-[#f5f4f8] p-1" role="tablist" aria-label="Choose how to sign up">
+            {tab('phone', 'Phone', <Smartphone className="size-[1em]" strokeWidth={2.5} aria-hidden="true" />)}
+            {tab('email', 'Email', <Mail className="size-[1em]" strokeWidth={2.8} aria-hidden="true" />)}
+          </div>
+
+          <form onSubmit={submitAccount} className="flex min-h-0 flex-col gap-[clamp(0.5rem,1.4vh,0.9rem)]">
+            <div>
+              <label htmlFor="signup-identity" className={labelCls}>
+                {method === 'phone' ? 'Phone' : 'Email'} <span className="text-[#ff527f]" aria-hidden="true">*</span>
+              </label>
+              <div className={`${fieldWrap} border-[#ffc1d9]`}>
+                {method === 'phone' ? (
+                  <>
+                    <select aria-label="Country code" defaultValue="+95" className="shrink-0 cursor-pointer bg-transparent pr-1 text-sm text-[#352d57] outline-none">
+                      {COUNTRY_CODES.map((c) => <option key={c} value={c}>{c}</option>)}
+                    </select>
+                    <span className="h-6 w-px bg-[#e5e3f0]" aria-hidden="true" />
+                    <input id="signup-identity" name="signup-phone" type="tel" inputMode="tel" autoComplete="tel-national" required autoFocus placeholder="9 123 456 789" onChange={() => setError('')} className={inputCls} />
+                  </>
+                ) : (
+                  <>
+                    <Mail className="size-4 shrink-0 text-[#aaa6c8]" aria-hidden="true" />
+                    <input id="signup-identity" name="signup-email" type="email" inputMode="email" autoComplete="email" required autoFocus placeholder="you@example.com" onChange={() => setError('')} className={inputCls} />
+                  </>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="signup-name" className={labelCls}>
+                Full name <span className="text-[#ff527f]" aria-hidden="true">*</span>
+              </label>
+              <div className={fieldWrap}>
+                <input id="signup-name" name="signup-name" type="text" autoComplete="name" required onChange={() => setError('')} className={inputCls} />
+              </div>
+            </div>
+
+            <PasswordField id="signup-password" label="Password" autoComplete="new-password" onChange={() => setError('')} />
+            <PasswordField id="signup-confirm" label="Confirm password" autoComplete="new-password" onChange={() => setError('')} />
+
+            {error ? <p role="alert" className="text-sm font-semibold text-[#e0386f]">{error}</p> : null}
+
+            <p className="text-sm leading-snug text-[#8984ad]">
+              {method === 'phone'
+                ? "We'll send a verification code to the Telegram account linked to this phone number."
+                : "We'll send a verification code to this email address."}
+            </p>
+
+            <button type="submit" className={primaryBtn}>
+              Continue <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden="true" />
+            </button>
+
+            <p className="pb-1 text-center text-sm text-[#918bad]">
+              Already have an account?{' '}
+              <button type="button" onClick={onSwitchToLogin} className="font-bold text-[#f34f94] underline decoration-[#f7a8c7] underline-offset-4 hover:text-[#d93477]">
+                Log in
+              </button>
+            </p>
+          </form>
+        </div>
+      ) : null}
+
+      {step === 2 ? (
+        <form onSubmit={submitCode} className="flex min-h-0 flex-1 flex-col gap-4">
+          <header>
+            <h2 id="joy-login-title" className="text-[clamp(1.5rem,2.8vw,1.875rem)] font-extrabold leading-[1.02] tracking-[-0.055em] text-[#30235f]">
+              Verify your account
+            </h2>
+            <p id="joy-login-description" className="mt-2 text-[clamp(0.875rem,1.15vw,1rem)] leading-snug text-[#8984ad]">
+              {method === 'phone' ? 'Enter the 6-digit code we sent to your Telegram.' : 'Enter the 6-digit code we sent to your email.'}
+            </p>
+          </header>
+          <div>
+            <label htmlFor="signup-code" className={labelCls}>Verification code</label>
+            <div className={`${fieldWrap} border-[#ffc1d9]`}>
+              <input id="signup-code" inputMode="numeric" autoComplete="one-time-code" maxLength={6} autoFocus value={code} onChange={(e) => { setCode(e.target.value.replace(/\D/g, '')); setError('') }} placeholder="123456" className={`${inputCls} tracking-[0.4em]`} />
+            </div>
+          </div>
+          {error ? <p role="alert" className="text-sm font-semibold text-[#e0386f]">{error}</p> : null}
+          <p className="text-sm text-[#8984ad]">This is a preview: any 6 digits will work.</p>
+          <button type="submit" className={primaryBtn}>
+            Verify <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden="true" />
+          </button>
+          <button type="button" onClick={() => { setStep(1); setError('') }} className="self-center text-sm font-semibold text-[#9290b4] hover:text-[#554b7f]">
+            Back
+          </button>
+        </form>
+      ) : null}
+
+      {step === 3 ? (
+        <div className="flex min-h-0 flex-1 flex-col items-start gap-4">
+          <span className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-[#ff9e50] to-[#f64f9b] text-white shadow-[0_10px_22px_rgba(248,96,143,0.3)]">
+            <Check className="size-8" strokeWidth={3} aria-hidden="true" />
+          </span>
+          <header>
+            <h2 id="joy-login-title" className="text-[clamp(1.5rem,2.8vw,1.875rem)] font-extrabold leading-[1.02] tracking-[-0.055em] text-[#30235f]">
+              You're all set!
+            </h2>
+            <p id="joy-login-description" className="mt-2 text-[clamp(0.875rem,1.15vw,1rem)] leading-snug text-[#8984ad]">
+              Your parent account is ready. Add your children in the Parent Portal.
+            </p>
+          </header>
+          <button type="button" onClick={finish} className={`${primaryBtn} w-full`}>
+            Go to Parent Portal <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden="true" />
+          </button>
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
+export function LoginTrigger({ children, className, mode }: { children: ReactNode; className: string; mode?: 'login' | 'signup' }) {
   const [open, setOpen] = useState(false)
   const close = useCallback(() => setOpen(false), [])
 
@@ -392,7 +629,7 @@ export function LoginTrigger({ children, className }: { children: ReactNode; cla
       <button type="button" onClick={() => setOpen(true)} className={className}>
         {children}
       </button>
-      <LoginModal open={open} onClose={close} />
+      <LoginModal open={open} onClose={close} mode={mode} />
     </>
   )
 }

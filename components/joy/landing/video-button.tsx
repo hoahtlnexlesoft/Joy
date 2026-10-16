@@ -9,7 +9,7 @@ const VIDEO_MP4 = '/videos/joy-daily-activities.mp4'
 const VIDEO_WEBM = '/videos/joy-daily-activities.webm'
 const POSTER = '/videos/joy-daily-activities-poster.webp'
 
-export function VideoButton({ className, children }: { className?: string; children: React.ReactNode }) {
+export function VideoButton({ className, children, plain }: { className?: string; children: React.ReactNode; plain?: boolean }) {
   const [open, setOpen] = useState(false)
   const btnRef = useRef<HTMLButtonElement>(null)
 
@@ -28,7 +28,7 @@ export function VideoButton({ className, children }: { className?: string; child
 
   return (
     <>
-      <button ref={btnRef} type="button" onClick={(e) => { if (!e.defaultPrevented) setOpen(true) }} className={joyButtonClass('ghost', className)} aria-haspopup="dialog">
+      <button ref={btnRef} type="button" onClick={(e) => { if (!e.defaultPrevented) setOpen(true) }} className={plain ? className : joyButtonClass('ghost', className)} aria-haspopup="dialog">
         {children}
       </button>
       {open &&

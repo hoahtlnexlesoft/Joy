@@ -119,7 +119,18 @@ export function SiteHeader() {
           <img src="/images/footer-clouds.jpg" alt="" className="size-full object-cover object-bottom" />
           <span className="absolute inset-0 bg-[#fffaf6]/25" />
         </span>
-        <Link href="/" aria-label="Joy home" className="shrink-0">
+        <Link
+          href="/"
+          aria-label="Joy home"
+          className="shrink-0"
+          onClick={(e) => {
+            // Already on the home page: jump to the top instead of doing nothing.
+            if (pathname === '/' || pathname === '/home' || pathname === '/index') {
+              e.preventDefault()
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
+          }}
+        >
           <Image src="/images/joy-logo.webp" alt="Joy" width={110} height={50} priority className="h-10 w-auto" />
         </Link>
 

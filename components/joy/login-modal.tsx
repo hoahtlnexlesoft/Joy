@@ -520,7 +520,7 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <ol className="mb-[3%] flex shrink-0 items-center gap-2 pr-14 text-sm font-semibold" aria-label="Sign-up progress">
+      <ol className="mb-[3%] flex shrink-0 items-center gap-1.5 pr-14 text-sm font-semibold sm:gap-2" aria-label="Sign-up progress">
         {STEPS.map((label, i) => {
           const n = i + 1
           const active = step === n
@@ -530,8 +530,8 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
               <span className={`flex shrink-0 items-center justify-center rounded-full text-xs font-extrabold text-white shadow-[0_4px_10px_rgba(120,90,200,0.22)] ${active ? 'size-9 ring-4 ring-[#ffd9b8]/70' : 'size-8'} ${n > step ? 'bg-[#f1eff7] !text-[#9a95b8] shadow-none' : i === 0 ? 'bg-gradient-to-br from-[#8ea7ff] to-[#6f7cf0]' : i === 1 ? 'bg-gradient-to-br from-[#b78cf5] to-[#8e5fe0]' : 'bg-gradient-to-br from-[#ffa24f] to-[#f65a8a]'}}`}>
                 {i === 0 ? <UserRound className="size-4" strokeWidth={2.6} aria-hidden="true" /> : i === 1 ? <ShieldCheck className="size-4" strokeWidth={2.6} aria-hidden="true" /> : n}
               </span>
-              <span className={active ? 'font-bold text-[#30235f]' : done ? 'text-[#5b4d8f]' : 'text-[#9a95b8]'}>{label}</span>
-              {n < STEPS.length ? <span className={`hidden h-px w-6 min-[1400px]:block ${done ? 'bg-[#b9a6ee]' : 'bg-[#e1dfed]'}`} aria-hidden="true" /> : null}
+              <span className={`${active ? 'font-bold text-[#30235f]' : `hidden sm:inline ${done ? 'text-[#5b4d8f]' : 'text-[#9a95b8]'}`}`}>{label}</span>
+              {n < STEPS.length ? <ArrowRight className={`ml-1 size-4 shrink-0 transition-colors ${done ? 'text-[#f65a8a]' : 'text-[#cfcbe0]'}`} strokeWidth={3} aria-hidden="true" /> : null}
             </li>
           )
         })}

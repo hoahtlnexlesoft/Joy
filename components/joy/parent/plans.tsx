@@ -501,22 +501,22 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
         <img src="/images/butterfly-purple.webp" alt="" className="pointer-events-none absolute -top-2 right-6 size-14 object-contain drop-shadow-[0_6px_10px_rgba(150,100,220,0.25)] sm:right-8 sm:size-16" />
         <DlgHead title={many ? t('Your plans are ready') : (() => { const c0 = assign[bought[0]?.id] ? app.s.children.find((x) => x.id === assign[bought[0].id]) : null; return c0 ? `${bought[0].name} ${t('is ready for')} ${c0.name}` : t('Your plan is ready') })()} />
       </div>
-      <div className="mb-4 rounded-3xl bg-gradient-to-br from-[#e6f8ef] via-[#eefaf6] to-[#e6f3ff] p-4 ring-1 ring-[#c9ecdb]">
-        <ul className="space-y-2">
+      <div className="mb-3 rounded-2xl bg-gradient-to-br from-[#e6f8ef] via-[#eefaf6] to-[#e6f3ff] px-3.5 py-2.5 ring-1 ring-[#c9ecdb]">
+        <ul className="space-y-1.5">
           {bought.map((b) => {
             const c = assign[b.id] ? app.s.children.find((x) => x.id === assign[b.id]) : null
             return (
               <li key={b.id} className="flex items-center justify-between gap-3 text-sm">
-                <b className="font-display text-base">{b.name}</b>
-                <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#23915a] ring-1 ring-[#bfe8d3]">{c ? `${t('For')} ${c.name}` : t('Not assigned yet')}</span>
+                <b className="font-display text-sm">{b.name}</b>
+                <span className="rounded-full bg-white px-2.5 py-0.5 text-[11px] font-semibold text-[#23915a] ring-1 ring-[#bfe8d3]">{c ? `${t('For')} ${c.name}` : t('Not assigned yet')}</span>
               </li>
             )
           })}
         </ul>
-        <dl className="mt-3 grid grid-cols-3 gap-2 border-t border-dashed border-[#b5e2cc] pt-3 text-center">
-          <div><dt className="text-[11px] text-muted-foreground">{t('Paid via')}</dt><dd className="mt-1 flex justify-center"><ChannelBadge ch="AYA" /></dd></div>
-          <div className="min-w-0"><dt className="text-[11px] text-muted-foreground">{t('Transaction')}</dt><dd className="mt-1 truncate text-xs font-bold">{ref}</dd></div>
-          <div><dt className="text-[11px] text-muted-foreground">{t('Total paid')}</dt><dd className="mt-0.5 font-display text-lg font-extrabold text-[#23915a]">{money(total)}</dd></div>
+        <dl className="mt-2 grid grid-cols-3 gap-2 border-t border-dashed border-[#b5e2cc] pt-2 text-center">
+          <div><dt className="text-[10px] text-muted-foreground">{t('Paid via')}</dt><dd className="mt-0.5 flex justify-center [&>*]:scale-90"><ChannelBadge ch="AYA" /></dd></div>
+          <div className="min-w-0"><dt className="text-[10px] text-muted-foreground">{t('Transaction')}</dt><dd className="mt-0.5 truncate text-[11px] font-bold">{ref}</dd></div>
+          <div><dt className="text-[10px] text-muted-foreground">{t('Total paid')}</dt><dd className="font-display text-base font-extrabold leading-tight text-[#23915a]">{money(total)}</dd></div>
         </dl>
       </div>
       <p className="mb-4 text-center text-sm text-muted-foreground">{bought.some((b) => assign[b.id]) ? `${t('New activities are unlocked.')} ✨` : t('Assign it to a child anytime from Plans.')}</p>

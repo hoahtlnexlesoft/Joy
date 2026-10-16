@@ -14,9 +14,11 @@ import {
   Heart,
   LockKeyhole,
   Mail,
+  ShieldCheck,
   Smartphone,
   Sparkles,
   Star,
+  UserRound,
   X,
 } from '@/components/joy/cute-icons'
 
@@ -431,6 +433,43 @@ function PasswordField({ id, label, autoComplete, onChange }: { id: string; labe
   )
 }
 
+function CodeBoxes({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const refs = useRef<(HTMLInputElement | null)[]>([])
+  const focusAt = (i: number) => refs.current[Math.max(0, Math.min(5, i))]?.focus()
+  const setAt = (i: number, digits: string) => {
+    const chars = value.padEnd(6, ' ').split('')
+    const incoming = digits.replace(/\D/g, '').slice(0, 6 - i)
+    if (!incoming) { chars[i] = ' '; onChange(chars.join('').trimEnd().replace(/ /g, '')); return }
+    incoming.split('').forEach((d, k) => { chars[i + k] = d })
+    onChange(chars.join('').replace(/ /g, ''))
+    focusAt(i + incoming.length)
+  }
+  return (
+    <div role="group" aria-label="Verification code" className="flex justify-between gap-2">
+      {Array.from({ length: 6 }, (_, i) => (
+        <input
+          key={i}
+          ref={(el) => { refs.current[i] = el }}
+          inputMode="numeric"
+          autoComplete={i === 0 ? 'one-time-code' : 'off'}
+          autoFocus={i === 0}
+          maxLength={6}
+          aria-label={`Digit ${i + 1}`}
+          value={value[i] ?? ''}
+          onChange={(e) => setAt(i, e.target.value)}
+          onFocus={(e) => e.target.select()}
+          onKeyDown={(e) => {
+            if (e.key === 'Backspace' && !value[i]) { e.preventDefault(); focusAt(i - 1) }
+            if (e.key === 'ArrowLeft') focusAt(i - 1)
+            if (e.key === 'ArrowRight') focusAt(i + 1)
+          }}
+          className={`aspect-square min-w-0 flex-1 rounded-2xl border bg-white text-center text-xl font-extrabold text-[#30235f] outline-none transition focus:border-[#f65b9d] focus:ring-4 focus:ring-[#f65b9d]/15 ${value[i] ? 'border-[#ffc1d9]' : 'border-[#e5e3f0]'}`}
+        />
+      ))}
+    </div>
+  )
+}
+
 function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitchToLogin: () => void }) {
   const router = useRouter()
   const [step, setStep] = useState<1 | 2 | 3>(1)
@@ -488,10 +527,10 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
           const done = step > n
           return (
             <li key={label} className="flex items-center gap-2" aria-current={active ? 'step' : undefined}>
-              <span className={`flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ${active || done ? 'bg-gradient-to-br from-[#ff9e50] to-[#f64f9b] text-white' : 'bg-[#f1eff7] text-[#9a95b8]'}`}>
-                {done ? <Check className="size-4" strokeWidth={3} aria-hidden="true" /> : n}
+              <span className={`flex shrink-0 items-center justify-center rounded-full text-xs font-extrabold text-white shadow-[0_4px_10px_rgba(120,90,200,0.22)] ${active ? 'size-9 ring-4 ring-[#ffd9b8]/70' : 'size-8'} ${i === 0 ? 'bg-gradient-to-br from-[#8ea7ff] to-[#6f7cf0]' : i === 1 ? 'bg-gradient-to-br from-[#b78cf5] to-[#8e5fe0]' : active || done ? 'bg-gradient-to-br from-[#ffa24f] to-[#f65a8a]' : 'bg-[#f1eff7] !text-[#9a95b8] shadow-none'}`}>
+                {i === 0 ? <UserRound className="size-4" strokeWidth={2.6} aria-hidden="true" /> : i === 1 ? <ShieldCheck className="size-4" strokeWidth={2.6} aria-hidden="true" /> : n}
               </span>
-              <span className={active ? 'text-[#30235f]' : 'text-[#9a95b8]'}>{label}</span>
+              <span className={active ? 'font-bold text-[#30235f]' : done ? 'text-[#5b4d8f]' : 'text-[#9a95b8]'}>{label}</span>
               {n < STEPS.length ? <span className="hidden h-px w-6 bg-[#e1dfed] min-[1400px]:block" aria-hidden="true" /> : null}
             </li>
           )
@@ -581,12 +620,7 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
               {method === 'phone' ? 'Enter the 6-digit code we sent to your Telegram.' : 'Enter the 6-digit code we sent to your email.'}
             </p>
           </header>
-          <div>
-            <label htmlFor="signup-code" className={labelCls}>Verification code</label>
-            <div className={`${fieldWrap} border-[#ffc1d9]`}>
-              <input id="signup-code" inputMode="numeric" autoComplete="one-time-code" maxLength={6} autoFocus value={code} onChange={(e) => { setCode(e.target.value.replace(/\D/g, '')); setError('') }} placeholder="123456" className={`${inputCls} tracking-[0.4em]`} />
-            </div>
-          </div>
+          <CodeBoxes value={code} onChange={(v) => { setCode(v); setError('') }} />
           {error ? <p role="alert" className="text-sm font-semibold text-[#e0386f]">{error}</p> : null}
           <p className="text-sm text-[#8984ad]">This is a preview: any 6 digits will work.</p>
           <button type="submit" className={primaryBtn}>
@@ -599,19 +633,28 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
       ) : null}
 
       {step === 3 ? (
-        <div className="flex min-h-0 flex-1 flex-col items-start gap-4">
-          <span className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-[#ff9e50] to-[#f64f9b] text-white shadow-[0_10px_22px_rgba(248,96,143,0.3)]">
-            <Check className="size-8" strokeWidth={3} aria-hidden="true" />
-          </span>
+        <div className="relative flex min-h-0 flex-1 flex-col items-start gap-3 pt-3">
+          <img src="/images/butterfly-purple.webp" alt="" aria-hidden="true" className="pointer-events-none absolute -top-1 right-0 w-[34%] max-w-36 object-contain drop-shadow-[0_8px_14px_rgba(150,100,220,0.28)]" />
+          <Heart className="pointer-events-none absolute right-[40%] top-6 size-5 fill-[#ff9ab8] text-[#ff9ab8]" aria-hidden="true" />
+          <div className="relative">
+            <span className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-[#ff8a5c] to-[#f2457f] text-white shadow-[0_10px_22px_rgba(248,96,143,0.35)] ring-4 ring-white/80">
+              <Check className="size-9" strokeWidth={3.5} aria-hidden="true" />
+            </span>
+            <span className="absolute -right-3 -top-1 h-3 w-0.5 rotate-[30deg] rounded-full bg-[#ffb23f]" aria-hidden="true" />
+            <span className="absolute -right-4 top-2.5 h-0.5 w-3 rounded-full bg-[#ff7aa8]" aria-hidden="true" />
+            <span className="absolute -left-3 top-0 h-3 w-0.5 -rotate-[30deg] rounded-full bg-[#ff7aa8]" aria-hidden="true" />
+          </div>
           <header>
-            <h2 id="joy-login-title" className="text-[clamp(1.5rem,2.8vw,1.875rem)] font-extrabold leading-[1.02] tracking-[-0.055em] text-[#30235f]">
-              You're all set!
+            <h2 id="joy-login-title" className="text-[clamp(1.75rem,3.4vw,2.25rem)] font-extrabold leading-[1.02] tracking-[-0.05em]">
+              <span className="bg-gradient-to-r from-[#6a35c9] to-[#8a45d6] bg-clip-text text-transparent">You're </span>
+              <span className="bg-gradient-to-r from-[#ff8a3d] to-[#ff5f7e] bg-clip-text text-transparent">all </span>
+              <span className="bg-gradient-to-r from-[#8a45d6] to-[#6a35c9] bg-clip-text text-transparent">set!</span>
             </h2>
-            <p id="joy-login-description" className="mt-2 text-[clamp(0.875rem,1.15vw,1rem)] leading-snug text-[#8984ad]">
+            <p id="joy-login-description" className="mt-2 max-w-[19rem] text-[clamp(0.875rem,1.15vw,1rem)] leading-snug text-[#6b5f93]">
               Your parent account is ready. Add your children in the Parent Portal.
             </p>
           </header>
-          <button type="button" onClick={finish} className={`${primaryBtn} w-full`}>
+          <button type="button" onClick={finish} className={`${primaryBtn} w-full !from-[#ffa24f] !via-[#ff7d78] !to-[#a65be8] shadow-[0_12px_24px_rgba(190,100,200,0.28)]`}>
             Go to Parent Portal <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden="true" />
           </button>
         </div>

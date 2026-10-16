@@ -463,7 +463,7 @@ function CodeBoxes({ value, onChange }: { value: string; onChange: (v: string) =
             if (e.key === 'ArrowLeft') focusAt(i - 1)
             if (e.key === 'ArrowRight') focusAt(i + 1)
           }}
-          className={`aspect-square min-w-0 flex-1 rounded-2xl border bg-white text-center text-xl font-extrabold text-[#30235f] outline-none transition focus:border-[#f65b9d] focus:ring-4 focus:ring-[#f65b9d]/15 ${value[i] ? 'border-[#ffc1d9]' : 'border-[#e5e3f0]'}`}
+          className={`aspect-square min-w-0 flex-1 rounded-[10px] border bg-white text-center text-xl font-extrabold text-[#30235f] outline-none transition focus:border-[#f65b9d] focus:ring-4 focus:ring-[#f65b9d]/15 ${value[i] ? 'border-[#ffc1d9]' : 'border-[#e5e3f0]'}`}
         />
       ))}
     </div>

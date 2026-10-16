@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { createPortal } from 'react-dom'
 import { useRouter } from 'next/navigation'
-import { DEMO_PARENT, joyLogin } from '@/lib/joy-session'
+import { DEMO_PARENT, joyGo, joyLogin } from '@/lib/joy-session'
 import { useCallback, useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import {
   Apple,
@@ -83,7 +83,7 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
     event.preventDefault()
     joyLogin({ ...DEMO_PARENT, method: method === 'phone' ? 'Phone' : 'Email' })
     onClose()
-    router.push('/parent')
+    joyGo(router, '/parent')
   }
 
   const showUnavailableMessage = (action: string) => {
@@ -464,7 +464,7 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
   const finish = () => {
     joyLogin({ name: name || DEMO_PARENT.name, method: method === 'phone' ? 'Phone' : 'Email' })
     onClose()
-    router.push('/parent')
+    joyGo(router, '/parent')
   }
 
   const tab = (value: 'phone' | 'email', label: string, icon: ReactNode) => (

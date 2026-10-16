@@ -42,10 +42,11 @@ export function useJoySession(): JoySession | undefined {
   )
 }
 
-/** Go to the home page after logging out. The static review preview has no server
- *  route for "/", so it can register `window.__joyGo` to map it to a file. */
-export function joyGoHome(router: { push: (href: string) => void }) {
+/** Navigate after login/logout. The static review preview has no server route for
+ *  these paths, so it can register `window.__joyGo` to map them to files. */
+export function joyGo(router: { push: (href: string) => void }, path: string) {
   const go = (window as unknown as { __joyGo?: (p: string) => boolean }).__joyGo
-  if (go && go('/')) return
-  router.push('/')
+  if (go && go(path)) return
+  router.push(path)
 }
+export const joyGoHome = (router: { push: (href: string) => void }) => joyGo(router, '/')

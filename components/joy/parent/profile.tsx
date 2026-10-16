@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Btn, Card, Field, Seg, Switch, inputCls } from './ui'
+import { Btn, Card, Field, Switch, inputCls } from './ui'
 import { fmtDate, money } from './data'
 import type { Channel } from './data'
 import type { App, Section } from './types'
@@ -9,14 +9,14 @@ import { AvatarBubble, QrPanel } from './dialogs'
 import { ChildThumb } from './plans'
 import { CHANNELS, ChannelBadge } from './plans'
 import { cn } from '@/lib/utils'
-import { setLang, useLang, useT } from '@/lib/i18n'
+import { useT } from '@/lib/i18n'
 import { CalendarHeart, Crown, FileText, Heart, Pencil, TriangleAlert, UserRound, Users } from '@/components/joy/cute-icons'
 import { isExpired } from './data'
 
 export const SECTIONS: { id: Section; icon: string; label: string; title: string; sub: string }[] = [
   { id: 'account', icon: '👤', label: 'Account details', title: 'Account details', sub: 'Your personal information.' },
   { id: 'payments', icon: '💳', label: 'Payments', title: 'Payments', sub: 'Everything you’ve paid for, and how you paid.' },
-  { id: 'prefs', icon: '🔔', label: 'Preferences', title: 'Preferences', sub: 'Notifications and language for your parent account.' },
+  { id: 'prefs', icon: '🔔', label: 'Notifications', title: 'Notifications', sub: 'Plan reminders 3 days before a plan ends, and updates about your children.' },
   { id: 'security', icon: '🔒', label: 'Login & security', title: 'Login & security', sub: 'How you log in, and account controls.' },
 ]
 
@@ -109,7 +109,6 @@ function Payments({ app }: { app: App }) {
 
 export function ProfileView({ app, sec }: { app: App; sec: Section }) {
   const t = useT()
-  const lang = useLang()
   const { parent, settings } = app.s
   const meta = SECTIONS.find((x) => x.id === sec)!
   const activePlans = app.s.plans.filter((p) => !isExpired(p)).length
@@ -170,11 +169,8 @@ export function ProfileView({ app, sec }: { app: App; sec: Section }) {
         <Payments app={app} />
       ) : sec === 'prefs' ? (
         <Card>
-          <PrefRow title={t('Notifications')} sub={t('Plan reminders 3 days before a plan ends, and updates about your children.')}>
+          <PrefRow title={t('Allow notifications')} sub={t('Turn reminders and child updates on or off.')}>
             <Switch label="Notifications" on={settings.notif} onChange={(v) => { app.setS((s) => ({ ...s, settings: { ...s.settings, notif: v } })); app.toast(v ? t('Notifications on. We’ll remind you 3 days before a plan ends.') : t('Notifications off.')) }} />
-          </PrefRow>
-          <PrefRow title={t('Language')} sub={t('The language for your parent account.')}>
-            <Seg label={t('Language')} value={lang === 'mm' ? 'မြန်မာ' : 'English'} onChange={(l) => { const next = l === 'မြန်မာ' ? 'mm' : 'en'; setLang(next); app.setS((s) => ({ ...s, settings: { ...s.settings, lang: l } })); app.toast(next === 'mm' ? 'ဘာသာစကားကို မြန်မာသို့ ပြောင်းလိုက်ပါပြီ။' : 'Language set to English.') }} options={['English', 'မြန်မာ'].map((l) => [l, l] as [string, string])} />
           </PrefRow>
         </Card>
       ) : (

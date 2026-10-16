@@ -236,7 +236,7 @@ const accountLinks: { href: string; icon: CuteName; label: string }[] = [
   { href: '/parent#plans', icon: 'plans', label: 'Plans' },
   { href: '/parent#profile-account', icon: 'account', label: 'Account details' },
   { href: '/parent#profile-payments', icon: 'payments', label: 'Payments' },
-  { href: '/parent#profile-prefs', icon: 'prefs', label: 'Preferences' },
+  { href: '/parent#profile-prefs', icon: 'prefs', label: 'Notifications' },
   { href: '/parent#profile-security', icon: 'security', label: 'Login & security' },
 ]
 

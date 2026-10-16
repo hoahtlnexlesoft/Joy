@@ -20,6 +20,8 @@ export const MM: Record<string, string> = {
   'Account details': 'အကောင့် အသေးစိတ်',
   'Payments': 'ငွေပေးချေမှုများ',
   'Preferences': 'ရွေးချယ်ချက်များ',
+  'Allow notifications': 'အသိပေးချက်များ ခွင့်ပြုရန်',
+  'Turn reminders and child updates on or off.': 'သတိပေးချက်နှင့် ကလေးများအကြောင်း အပ်ဒိတ်များကို ဖွင့်/ပိတ်ပါ။',
   'Login & security': 'ဝင်ရောက်မှုနှင့် လုံခြုံရေး',
   'Joy website': 'Joy ဝက်ဘ်ဆိုက်',
   'Hi,': 'မင်္ဂလာပါ၊',

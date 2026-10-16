@@ -41,7 +41,7 @@ export function DownloadButton({ href = '#download', className, label }: { href?
 }
 
 /** Compact App Store / Google Play pair, small enough to sit next to other buttons. */
-export function StoreBadges({ className, tone = 'dark' }: { className?: string; tone?: 'dark' | 'light' }) {
+export function StoreBadges({ className, tone = 'dark', children }: { className?: string; tone?: 'dark' | 'light'; children?: React.ReactNode }) {
   const t = useT()
   const base = 'inline-flex h-11 items-center gap-2 rounded-full px-4 transition-transform hover:-translate-y-0.5'
   const apple = tone === 'dark' ? 'bg-[#1a1625] text-white' : 'bg-white/10 text-white ring-1 ring-white/25'
@@ -62,6 +62,7 @@ export function StoreBadges({ className, tone = 'dark' }: { className?: string; 
           <span className="font-display text-[15px] font-medium">Google Play</span>
         </span>
       </Link>
+      {children}
     </div>
   )
 }

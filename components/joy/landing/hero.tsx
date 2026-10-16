@@ -33,13 +33,14 @@ export function Hero() {
           <p className="max-w-xl text-pretty text-base leading-normal sm:text-lg sm:leading-relaxed md:text-lg md:leading-relaxed text-muted-foreground">
             {t("Joy learns your child's nature, maps a path for them to grow, and picks fun activities for every day. You see how they feel and what they learn.")}
           </p>
-          <StoreBadges />
-          <VideoButton plain className="group inline-flex items-center gap-2 text-sm font-semibold text-foreground md:text-base">
-            <span className="inline-flex size-7 items-center justify-center rounded-full bg-gradient-joy text-white transition-transform group-hover:scale-110">
-              <Play className="size-3 fill-current" aria-hidden="true" />
-            </span>
-            <span className="underline-offset-4 group-hover:underline">{t('See how it works')}</span>
-          </VideoButton>
+          <StoreBadges className="gap-x-3 gap-y-2">
+            <VideoButton plain className="group inline-flex cursor-pointer items-center gap-2 px-1 text-sm font-semibold text-foreground">
+              <span className="inline-flex size-5 items-center justify-center rounded-full bg-gradient-joy text-white transition-transform group-hover:scale-110">
+                <Play className="size-2 fill-current" aria-hidden="true" />
+              </span>
+              <span className="underline-offset-4 group-hover:underline">{t('See how it works')}</span>
+            </VideoButton>
+          </StoreBadges>
           <p className="text-sm text-muted-foreground">
             {t('Create your parent account in a few minutes. Already have one?')}{' '}
             <Link href="#download" className="font-semibold text-foreground underline underline-offset-4">

@@ -97,16 +97,16 @@ function CtaStoreButton({ store }: { store: 'apple' | 'google' }) {
       href="#download"
       className={
         isApple
-          ? 'group inline-flex h-16 items-center gap-3 rounded-full bg-[#1a1625] pl-7 pr-6 text-white shadow-[0_16px_30px_-14px_rgba(26,22,37,0.7)] transition-transform hover:-translate-y-0.5'
-          : 'group inline-flex h-16 items-center gap-3 rounded-full bg-white pl-7 pr-6 text-foreground shadow-[0_16px_30px_-18px_rgba(42,34,64,0.35)] ring-1 ring-black/5 transition-transform hover:-translate-y-0.5'
+          ? 'group inline-flex h-12 items-center gap-2.5 rounded-full bg-[#1a1625] pl-5 pr-4 text-white shadow-[0_16px_30px_-14px_rgba(26,22,37,0.7)] transition-transform hover:-translate-y-0.5'
+          : 'group inline-flex h-12 items-center gap-2.5 rounded-full bg-white pl-5 pr-4 text-foreground shadow-[0_16px_30px_-18px_rgba(42,34,64,0.35)] ring-1 ring-black/5 transition-transform hover:-translate-y-0.5'
       }
     >
       {isApple ? (
-        <svg viewBox="0 0 24 24" className="size-7 fill-current" aria-hidden="true">
+        <svg viewBox="0 0 24 24" className="size-5 fill-current" aria-hidden="true">
           <path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.76 2.27-1.6 2.78-.41 6.9 1.15 9.16.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.78.74 2.99.72 1.24-.02 2.02-1.12 2.77-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.66ZM14.1 5.84c.63-.77 1.06-1.83.94-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.28Z" />
         </svg>
       ) : (
-        <svg viewBox="0 0 24 24" className="size-7" aria-hidden="true">
+        <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true">
           <path d="M3.6 2.2 13.3 12l-9.7 9.8c-.2-.2-.3-.6-.3-1V3.2c0-.4.1-.8.3-1Z" fill="#34a853" />
           <path d="m16.9 8.4-3.6 3.6-9.7-9.8c.3-.3.8-.3 1.3 0l12 6.2Z" fill="#4285f4" />
           <path d="M16.9 15.6 4.9 21.8c-.5.3-1 .3-1.3 0l9.7-9.8 3.6 3.6Z" fill="#ea4335" />
@@ -114,13 +114,13 @@ function CtaStoreButton({ store }: { store: 'apple' | 'google' }) {
         </svg>
       )}
       <span className="flex flex-col leading-tight">
-        <span className="text-[10px] font-medium uppercase tracking-wider opacity-80">
+        <span className="text-[9px] font-medium uppercase tracking-wider opacity-80">
           {isApple ? t('Download on the') : t('Get it on')}
         </span>
-        <span className="font-display text-xl font-medium">{isApple ? 'App Store' : 'Google Play'}</span>
+        <span className="font-display text-[15px] font-medium">{isApple ? 'App Store' : 'Google Play'}</span>
       </span>
       <ArrowRight
-        className={`ml-2 size-5 transition-transform group-hover:translate-x-1 ${isApple ? '' : 'text-joy-pink'}`}
+        className={`ml-1 size-4 transition-transform group-hover:translate-x-1 ${isApple ? '' : 'text-joy-pink'}`}
         aria-hidden="true"
       />
     </Link>
@@ -182,7 +182,7 @@ export function TryJoyCta() {
               ))}
             </ul>
 
-            <div className="flex flex-wrap gap-3 pt-3 [&>a]:pl-5 [&>a]:pr-4">
+            <div className="flex flex-wrap gap-2.5 pt-2 [&>a]:pl-4 [&>a]:pr-3.5">
               <CtaStoreButton store="apple" />
               <CtaStoreButton store="google" />
             </div>

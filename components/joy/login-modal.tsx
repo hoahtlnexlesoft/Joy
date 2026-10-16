@@ -633,30 +633,22 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
       ) : null}
 
       {step === 3 ? (
-        <div className="relative flex min-h-0 flex-1 flex-col items-start gap-3 pt-3">
-          <img src="/images/butterfly-purple.webp" alt="" aria-hidden="true" className="pointer-events-none absolute -top-1 right-0 w-[34%] max-w-36 object-contain drop-shadow-[0_8px_14px_rgba(150,100,220,0.28)]" />
-          <Heart className="pointer-events-none absolute right-[40%] top-6 size-5 fill-[#ff9ab8] text-[#ff9ab8]" aria-hidden="true" />
-          <div className="relative">
-            <span className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-[#ff8a5c] to-[#f2457f] text-white shadow-[0_10px_22px_rgba(248,96,143,0.35)] ring-4 ring-white/80">
-              <Check className="size-9" strokeWidth={3.5} aria-hidden="true" />
-            </span>
-            <span className="absolute -right-3 -top-1 h-3 w-0.5 rotate-[30deg] rounded-full bg-[#ffb23f]" aria-hidden="true" />
-            <span className="absolute -right-4 top-2.5 h-0.5 w-3 rounded-full bg-[#ff7aa8]" aria-hidden="true" />
-            <span className="absolute -left-3 top-0 h-3 w-0.5 -rotate-[30deg] rounded-full bg-[#ff7aa8]" aria-hidden="true" />
-          </div>
+        <div className="relative flex min-h-0 flex-1 flex-col items-start gap-5 pt-6 md:gap-6">
+          <img src="/images/signup-check.webp" alt="" aria-hidden="true" className="h-24 w-auto drop-shadow-[0_10px_16px_rgba(248,96,143,0.28)] md:h-28" />
           <header>
             <h2 id="joy-login-title" className="text-[clamp(1.75rem,3.4vw,2.25rem)] font-extrabold leading-[1.02] tracking-[-0.05em]">
               <span className="bg-gradient-to-r from-[#6a35c9] to-[#8a45d6] bg-clip-text text-transparent">You're </span>
               <span className="bg-gradient-to-r from-[#ff8a3d] to-[#ff5f7e] bg-clip-text text-transparent">all </span>
               <span className="bg-gradient-to-r from-[#8a45d6] to-[#6a35c9] bg-clip-text text-transparent">set!</span>
             </h2>
-            <p id="joy-login-description" className="mt-2 max-w-[19rem] text-[clamp(0.875rem,1.15vw,1rem)] leading-snug text-[#6b5f93]">
+            <p id="joy-login-description" className="mt-3 max-w-[19rem] text-[clamp(0.875rem,1.15vw,1rem)] leading-relaxed text-[#6b5f93]">
               Your parent account is ready. Add your children in the Parent Portal.
             </p>
           </header>
-          <button type="button" onClick={finish} className={`${primaryBtn} w-full !from-[#ffa24f] !via-[#ff7d78] !to-[#a65be8] shadow-[0_12px_24px_rgba(190,100,200,0.28)]`}>
+          <button type="button" onClick={finish} className={`${primaryBtn} mt-3 w-full !from-[#ffa24f] !via-[#ff7d78] !to-[#a65be8] shadow-[0_12px_24px_rgba(190,100,200,0.28)]`}>
             Go to Parent Portal <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden="true" />
           </button>
+          <img src="/images/signup-butterfly.webp" alt="" aria-hidden="true" className="pointer-events-none mt-auto -mb-3 w-[62%] max-w-72 self-end object-contain drop-shadow-[0_10px_18px_rgba(150,100,220,0.25)]" />
         </div>
       ) : null}
     </div>

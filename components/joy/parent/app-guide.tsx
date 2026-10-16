@@ -1,86 +1,95 @@
 'use client'
 
+import type { ReactNode } from 'react'
+import { StoreBadges } from '../download-cta'
 import { useT } from '@/lib/i18n'
-
-const APPLE_PATH =
-  'M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.76 2.27-1.6 2.78-.41 6.9 1.15 9.16.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.78.74 2.99.72 1.24-.02 2.02-1.12 2.77-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.66ZM14.1 5.84c.63-.77 1.06-1.83.94-2.89-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.28Z'
-
-function Badge({ store }: { store: 'apple' | 'google' }) {
-  const apple = store === 'apple'
-  return (
-    <a
-      href={apple ? 'https://apps.apple.com' : 'https://play.google.com/store'}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`flex h-10 min-w-0 flex-1 items-center justify-center gap-2 rounded-full px-3 ring-2 transition hover:-translate-y-0.5 hover:scale-[1.03] ${
-        apple
-          ? 'bg-gradient-to-r from-[#d9efff] to-[#e8e2ff] text-[#3d4fa0] ring-white shadow-[0_6px_16px_-6px_rgba(99,102,241,0.55)]'
-          : 'bg-gradient-to-r from-[#d9f6e6] to-[#fff1c9] text-[#1f7a4d] ring-white shadow-[0_6px_16px_-6px_rgba(34,160,100,0.55)]'
-      }`}
-    >
-      <span className="flex size-5 shrink-0 items-center justify-center">
-        {apple ? (
-          <svg viewBox="0 0 24 24" className="size-5 fill-[#5b6cf0]" aria-hidden="true">
-            <path d={APPLE_PATH} />
-          </svg>
-        ) : (
-          <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true">
-            <path d="M3.6 2.2 13.3 12l-9.7 9.8c-.2-.2-.3-.6-.3-1V3.2c0-.4.1-.8.3-1Z" fill="#34a853" />
-            <path d="m16.9 8.4-3.6 3.6-9.7-9.8c.3-.3.8-.3 1.3 0l12 6.2Z" fill="#4285f4" />
-            <path d="M16.9 15.6 4.9 21.8c-.5.3-1 .3-1.3 0l9.7-9.8 3.6 3.6Z" fill="#ea4335" />
-            <path d="m20.6 13-3.7 2.6-3.6-3.6 3.6-3.6 3.7 2.6c.9.6.9 1.4 0 2Z" fill="#fbbc04" />
-          </svg>
-        )}
-      </span>
-      <span className="flex flex-col leading-none">
-        <span className="whitespace-nowrap text-[13px] font-bold">{apple ? 'App Store' : 'Google Play'}</span>
-      </span>
-    </a>
-  )
-}
 
 function DashArrow() {
   return (
     <span className="flex shrink-0 items-center justify-center rotate-90 sm:rotate-0" aria-hidden="true">
-      <svg viewBox="0 0 40 16" className="h-3.5 w-7 text-[#f59ac0]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M2 8h26" strokeDasharray="1 5" />
-        <path d="m27 3 8 5-8 5" />
+      <svg viewBox="0 0 44 22" className="h-5 w-9 text-[#b9a2f0]" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 17C12 17 18 6 33 9" strokeDasharray="1 5.5" />
+        <path d="m30 3 8 6-9 5" />
       </svg>
     </span>
+  )
+}
+
+function PhoneArt() {
+  return (
+    <svg viewBox="0 0 96 96" className="size-full" aria-hidden="true">
+      <ellipse cx="48" cy="52" rx="42" ry="38" fill="#dbe8ff" />
+      <rect x="29" y="12" width="38" height="72" rx="9" fill="#4b4f9f" />
+      <rect x="33" y="17" width="30" height="62" rx="5" fill="#fff" />
+      <circle cx="44" cy="40" r="5.5" fill="#f59ac0" /><circle cx="55" cy="40" r="5.5" fill="#ffb26b" />
+      <circle cx="44" cy="51" r="5.5" fill="#8fc2ff" /><circle cx="55" cy="51" r="5.5" fill="#b9a2f0" />
+      <path d="M72 28l4-5M76 35l6-2M70 20l1-5" stroke="#f59a54" strokeWidth="2.2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function ChildArt() {
+  return (
+    <svg viewBox="0 0 96 96" className="size-full" aria-hidden="true">
+      <ellipse cx="48" cy="52" rx="42" ry="38" fill="#ffe8b8" />
+      <rect x="20" y="16" width="56" height="56" rx="16" fill="#ffd27a" stroke="#f3b64f" strokeWidth="3" />
+      <path d="M30 40c0-11 8-17 18-17s18 6 18 17c-6-3-10-7-12-11-4 6-14 11-24 11Z" fill="#7a4a2b" />
+      <circle cx="48" cy="46" r="15" fill="#ffd9b8" />
+      <path d="M33 38c4-1 10-4 15-9 4 5 9 8 15 9-1-9-8-15-15-15s-14 6-15 15Z" fill="#7a4a2b" />
+      <circle cx="42" cy="47" r="2" fill="#4a2f22" /><circle cx="54" cy="47" r="2" fill="#4a2f22" />
+      <path d="M43 53c3 3 7 3 10 0" stroke="#d8644a" strokeWidth="2" strokeLinecap="round" fill="none" />
+      <circle cx="38" cy="52" r="3" fill="#ffb3a0" opacity=".7" /><circle cx="58" cy="52" r="3" fill="#ffb3a0" opacity=".7" />
+      <path d="M30 70c3-8 10-10 18-10s15 2 18 10v2H30Z" fill="#ffe27a" />
+      <circle cx="68" cy="68" r="11" fill="#ff7a5a" stroke="#fff" strokeWidth="3" />
+      <path d="M68 62v12M62 68h12" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function LinkArt() {
+  return (
+    <svg viewBox="0 0 96 96" className="size-full" aria-hidden="true">
+      <ellipse cx="48" cy="52" rx="42" ry="38" fill="#e4d9ff" />
+      <rect x="18" y="14" width="56" height="58" rx="16" fill="#f1eaff" stroke="#fff" strokeWidth="3" />
+      <circle cx="46" cy="38" r="11" fill="#9a63e6" />
+      <path d="M26 66c0-11 9-17 20-17s20 6 20 17v4H26Z" fill="#9a63e6" />
+      <circle cx="68" cy="68" r="14" fill="#fff" stroke="#e4d9ff" strokeWidth="3" />
+      <path d="M62 72l-2 2a4 4 0 0 0 6 6l4-4m-2-6l2-2a4 4 0 0 0-6-6l-4 4" transform="translate(-1 -3)" stroke="#8a52e0" strokeWidth="3.4" strokeLinecap="round" fill="none" />
+      <path d="M80 30l5-4M82 40l6 0" stroke="#c9a8ff" strokeWidth="2.2" strokeLinecap="round" />
+    </svg>
   )
 }
 
 /** Shown after a successful payment: how to activate the Joy app on the child's device. */
 export function AppActivationGuide() {
   const t = useT()
-  const steps = [
-    { emoji: '📲', tint: 'from-[#e3f2ff] to-[#f4faff] ring-[#c9e3fb]', title: t('Download the app'), body: t("Install it on your child's device."), stores: true },
-    { emoji: '🧒', tint: 'from-[#ffeedd] to-[#fff8f0] ring-[#ffd9b8]', title: t('Switch to Child view'), body: <>{t('Tap Play on the Home screen.')}</> },
-    { emoji: '🔗', tint: 'from-[#efe7ff] to-[#f9f5ff] ring-[#d9c9fb]', title: t('Link parent account'), body: <>{t('My profile › Link Parent Account.')}</> },
+  const steps: { n: number; badge: string; panel: string; art: ReactNode; title: string; body: string; stores?: boolean }[] = [
+    { n: 1, badge: 'bg-[#3d7bf0]', panel: 'from-[#e3eeff] to-[#f5f9ff] ring-[#d3e2fb]', art: <PhoneArt />, title: t('Download the app'), body: t("Install it on your child's device."), stores: true },
+    { n: 2, badge: 'bg-[#f59a2e]', panel: 'from-[#fff0cf] to-[#fffaf0] ring-[#fde2a6]', art: <ChildArt />, title: t('Switch to Child view'), body: t('Tap Play on the Home screen.') },
+    { n: 3, badge: 'bg-[#9a63e6]', panel: 'from-[#ece3ff] to-[#f8f4ff] ring-[#ddd0fb]', art: <LinkArt />, title: t('Link parent account'), body: t('My profile › Link Parent Account.') },
   ]
   return (
-    <section aria-label={t('Activate the Joy app in 3 easy steps')} className="relative mb-5 overflow-hidden rounded-3xl bg-gradient-to-br from-[#fff6fa] via-[#fffaf2] to-[#f6f1ff] px-3 py-4 ring-1 ring-[#ffe3ee] sm:px-4">
-      <span className="pointer-events-none absolute left-4 top-3 text-lg opacity-60" aria-hidden="true">✨</span>
-      <span className="pointer-events-none absolute right-4 top-3 text-lg opacity-60" aria-hidden="true">🌈</span>
-      <p className="mb-3 text-center font-display text-sm font-extrabold">{t('Activate the Joy app in 3 easy steps')}</p>
-      <ol className="flex flex-col items-stretch gap-1 sm:flex-row sm:gap-2">
+    <section aria-label={t('Activate the Joy app in 3 easy steps')} className="relative mb-5 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#f6f1ff] via-[#fbf8ff] to-[#fff3f8] px-3 pb-4 pt-3.5 ring-1 ring-[#e6dcfb] sm:px-4">
+      <p className="mb-0.5 flex items-center justify-center gap-1.5 text-xs font-bold text-[#8a63d8]">
+        <svg viewBox="0 0 24 24" className="size-4 fill-[#ffc83d]" aria-hidden="true"><path d="M12 1.5c.7 5.6 4.9 9.8 10.5 10.5-5.6.7-9.8 4.9-10.5 10.5C11.3 16.9 7.1 12.7 1.5 12 7.1 11.3 11.3 7.1 12 1.5Z" /></svg>
+        {t('Next step')}
+      </p>
+      <p className="mb-3 flex items-center justify-center gap-2 text-center font-display text-[15px] font-extrabold text-[#2d205f] sm:text-base">
+        <span className="hidden text-[#b9a2f0] sm:inline" aria-hidden="true">⁓</span>
+        {t('Activate the Joy app in 3 easy steps')}
+        <span className="hidden text-[#b9a2f0] sm:inline" aria-hidden="true">⁓</span>
+      </p>
+      <ol className="flex flex-col items-stretch gap-1 sm:flex-row sm:gap-1">
         {steps.map((s, i) => (
-          <li key={s.title} className="contents">
-            <div className={`flex flex-1 items-center gap-3 rounded-3xl bg-white/90 p-3 shadow-[0_8px_20px_-14px_rgba(214,74,140,0.5)] ring-1 ring-white sm:flex-col sm:gap-2 sm:px-2.5 sm:py-3 sm:text-center ${i === 0 ? 'sm:flex-[2.2] sm:px-5 sm:py-4' : ''}`}>
-              <span className={`relative grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br text-2xl ring-2 ${s.tint}`} aria-hidden="true">
-                {s.emoji}
-              </span>
-              <div className="min-w-0 sm:w-full">
-                <span className="mb-1 inline-block rounded-full bg-[#ffe9d9] px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wide text-[#e4631f]">{t('Step')} {i + 1}</span>
-                <b className="block text-sm leading-tight">{s.title}</b>
-                <p className="mt-1 text-xs leading-snug text-muted-foreground">{s.body}</p>
-                {s.stores ? (
-                  <div className="mt-3.5 flex w-full flex-row gap-2.5 px-1 pb-0.5 text-left">
-                    <Badge store="apple" />
-                    <Badge store="google" />
-                  </div>
-                ) : null}
-              </div>
+          <li key={s.n} className="contents">
+            <div className={`relative flex flex-1 flex-col items-center gap-1.5 rounded-3xl bg-gradient-to-b p-3 pt-4 text-center ring-1 ${s.panel} ${s.stores ? 'sm:flex-[1.25]' : ''}`}>
+              <span className={`absolute left-2.5 top-2.5 grid size-7 place-items-center rounded-full text-sm font-extrabold text-white shadow-[0_4px_10px_-3px_rgba(60,60,120,0.5)] ${s.badge}`}>{s.n}</span>
+              <span className="block size-20 sm:size-[5.5rem]">{s.art}</span>
+              <b className="block font-display text-sm font-extrabold leading-tight text-[#2d205f]">{s.title}</b>
+              <p className="text-xs leading-snug text-[#7a7399]">{s.body}</p>
+              {s.stores ? (
+                <StoreBadges className="mt-1.5 w-full flex-col items-stretch justify-center gap-2 [&>a]:justify-center" appleHref="https://apps.apple.com" googleHref="https://play.google.com/store" />
+              ) : null}
             </div>
             {i < steps.length - 1 && <DashArrow />}
           </li>

@@ -10,6 +10,7 @@ export const MM: Record<string, string> = {
   'Pricing': 'စျေးနှုန်း',
   'Log in': 'ဝင်ရောက်ရန်',
   'Sign up': 'အကောင့်ဖွင့်ရန်',
+  'Next step': 'နောက်အဆင့်',
   'Try for free': 'အခမဲ့ စမ်းကြည့်ပါ',
   'Parent Portal': 'မိဘ ပေါ်တယ်',
   'Log out': 'ထွက်ရန်',

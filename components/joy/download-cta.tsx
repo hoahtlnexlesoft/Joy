@@ -41,7 +41,7 @@ export function DownloadButton({ href = '#download', className, label }: { href?
 }
 
 /** App Store / Google Play pair in the stores' own black and white. One size and style used everywhere on the site. */
-export function StoreBadges({ className, children }: { className?: string; tone?: 'dark' | 'light'; children?: React.ReactNode }) {
+export function StoreBadges({ className, children, appleHref, googleHref }: { className?: string; tone?: 'dark' | 'light'; appleHref?: string; googleHref?: string; children?: React.ReactNode }) {
   const t = useT()
   const base =
     'group inline-flex h-11 items-center gap-2.5 rounded-full py-0 pl-3.5 pr-5 transition-all duration-200 hover:-translate-y-0.5 hover:rotate-[-1.5deg]'
@@ -49,14 +49,14 @@ export function StoreBadges({ className, children }: { className?: string; tone?
   const play = 'bg-white text-black ring-1 ring-black/25 shadow-[0_8px_18px_-10px_rgba(0,0,0,0.35)]'
   return (
     <div className={cn('flex flex-wrap items-center gap-2.5', className)}>
-      <Link href="#download" className={cn(base, apple)} aria-label="App Store">
+      <Link href={appleHref ?? '#download'} {...(appleHref ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className={cn(base, apple)} aria-label="App Store">
         <AppleMark className="size-6 shrink-0 transition-transform group-hover:scale-110" />
         <span className="flex flex-col leading-none">
           <span className="text-[9px] font-semibold uppercase tracking-wider opacity-80">{t('Download on the')}</span>
           <span className="font-display text-[16px] font-semibold">App Store</span>
         </span>
       </Link>
-      <Link href="#download" className={cn(base, play)} aria-label="Google Play">
+      <Link href={googleHref ?? '#download'} {...(googleHref ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className={cn(base, play)} aria-label="Google Play">
         <PlayMark className="size-6 shrink-0 transition-transform group-hover:scale-110" />
         <span className="flex flex-col leading-none">
           <span className="text-[9px] font-semibold uppercase tracking-wider opacity-70">{t('Get it on')}</span>

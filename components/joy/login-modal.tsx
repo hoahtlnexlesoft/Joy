@@ -527,7 +527,7 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
           const done = step > n
           return (
             <li key={label} className="flex items-center gap-2" aria-current={active ? 'step' : undefined}>
-              <span className={`flex shrink-0 items-center justify-center rounded-full text-xs font-extrabold text-white shadow-[0_4px_10px_rgba(120,90,200,0.22)] ${active ? 'size-9 ring-4 ring-[#e9c9f5]/70' : 'size-8'} ${n > step ? 'bg-[#f1eff7] !text-[#9a95b8] shadow-none' : 'bg-gradient-to-br from-[#f0449a] to-[#6a28c8]'}`}>
+              <span className={`flex shrink-0 items-center justify-center rounded-full text-xs font-extrabold text-white shadow-[0_4px_10px_rgba(120,90,200,0.22)] ${active ? 'size-9 ring-4 ring-[#e9c9f5]/70' : 'size-8'} ${n > step ? 'bg-[#f1eff7] !text-[#9a95b8] shadow-none' : i === 0 ? 'bg-gradient-to-br from-[#7b97ff] to-[#4a52e0]' : i === 1 ? 'bg-gradient-to-br from-[#b57cf5] to-[#7a3fd6]' : 'bg-gradient-to-br from-[#ffa24f] to-[#f2457f]'}`}>
                 {i === 0 ? <UserRound className="size-[18px]" strokeWidth={2.8} fillOpacity={1} aria-hidden="true" /> : i === 1 ? <ShieldCheck className="size-[18px]" strokeWidth={2.8} fillOpacity={0.25} aria-hidden="true" /> : n}
               </span>
               <span className={`${active ? 'font-bold text-[#30235f]' : `hidden sm:inline ${done ? 'text-[#5b4d8f]' : 'text-[#9a95b8]'}`}`}>{label}</span>

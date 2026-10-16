@@ -124,9 +124,7 @@ type Accent = {
 const accents: Accent[] = [
   { shape: 'heart', className: 'top-[26%] left-[2%] size-14 -rotate-12' },
   { shape: 'sparkle', className: 'top-[30%] right-[1.5%] size-10' },
-  { shape: 'catPaw', className: 'top-[47%] left-[1.5%] size-12 -rotate-[20deg]' },
   { shape: 'flower', className: 'top-[52%] right-[5%] size-12' },
-  { shape: 'dogPaw', className: 'top-[67%] left-[2%] size-14 rotate-[20deg]' },
   { shape: 'moon', className: 'top-[72%] right-[5.5%] size-12 -rotate-12' },
 ]
 

@@ -9,6 +9,7 @@ export const MM: Record<string, string> = {
   'Parent Guide': 'မိဘလမ်းညွှန်',
   'Pricing': 'စျေးနှုန်း',
   'Log in': 'ဝင်ရောက်ရန်',
+  'Sign up': 'အကောင့်ဖွင့်ရန်',
   'Try for free': 'အခမဲ့ စမ်းကြည့်ပါ',
   'Parent Portal': 'မိဘ ပေါ်တယ်',
   'Log out': 'ထွက်ရန်',

@@ -4,10 +4,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { BookOpen, ChevronDown, ChevronRight, Download, Globe, Heart, LogOut, Menu, Sparkles, Ticket, X, type LucideIcon } from '@/components/joy/cute-icons'
+import { BookOpen, ChevronDown, ChevronRight, Globe, Heart, LogOut, Menu, Sparkles, Ticket, X, type LucideIcon } from '@/components/joy/cute-icons'
 import { cn } from '@/lib/utils'
 import { LoginModal } from './login-modal'
 import { joyLogout, useJoySession } from '@/lib/joy-session'
+import { joyButtonClass } from './ui'
 import { useT } from '@/lib/i18n'
 import { LangSwitch } from './lang-switch'
 import { CuteIcon, type CuteName } from './parent/icons'
@@ -148,6 +149,9 @@ export function SiteHeader() {
               <button type="button" onClick={showLogin} className="whitespace-nowrap rounded-full px-2 py-2 text-[13px] font-semibold text-foreground hover:bg-muted lg:px-4 lg:text-sm">
                 {t('Log in')}
               </button>
+              <button type="button" onClick={showLogin} className={joyButtonClass('primary', 'h-9 whitespace-nowrap px-3.5 text-[13px] lg:h-10 lg:px-5 lg:text-sm')}>
+                {t('Sign up')}
+              </button>
             </>
           )}
         </div>
@@ -207,7 +211,7 @@ export function SiteHeader() {
               </>
             ) : (
               <>
-                <Link href="/#download" onClick={() => setOpen(false)} className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-gradient-joy px-6 text-[15px] font-semibold text-white shadow-[0_12px_22px_-12px_rgba(238,90,138,0.8)]"><Download className="size-4" aria-hidden="true" />{t('Download the app')}</Link>
+                <button type="button" onClick={showLogin} className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-joy px-6 text-[15px] font-semibold text-white shadow-[0_12px_22px_-12px_rgba(238,90,138,0.8)]">{t('Sign up')}</button>
                 <button type="button" onClick={showLogin} className="inline-flex h-11 items-center justify-center rounded-full bg-white/80 px-6 text-[15px] font-semibold text-[#2a2240] ring-1 ring-[#2a2240]/10">{t('Log in')}</button>
               </>
             )}

@@ -88,7 +88,7 @@ export function AppActivationGuide() {
               <b className="block font-display text-sm font-extrabold leading-tight text-[#2d205f]">{s.title}</b>
               <p className="text-xs leading-snug text-[#7a7399]">{s.body}</p>
               {s.stores ? (
-                <StoreBadges className="mt-1 flex-col items-center gap-1.5 [&>a]:h-9 [&>a]:w-40 [&>a]:whitespace-nowrap [&>a]:justify-center [&>a]:gap-2 [&>a]:pl-3 [&>a]:pr-4 [&_svg]:size-4 [&_.font-display]:text-[13px] [&_.uppercase]:text-[8px]" appleHref="https://apps.apple.com" googleHref="https://play.google.com/store" />
+                <StoreBadges className="mt-0.5 flex-col items-center gap-1 [&>a]:h-8 [&>a]:w-32 [&>a]:pl-2.5 [&>a]:pr-3 [&>a]:whitespace-nowrap [&>a]:justify-center [&>a]:gap-2 [&_svg]:size-3.5 [&_.font-display]:text-[12px] [&_.uppercase]:text-[7px]" appleHref="https://apps.apple.com" googleHref="https://play.google.com/store" />
               ) : null}
             </div>
             {i < steps.length - 1 && <DashArrow />}

@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Play, Sparkles } from '@/components/joy/cute-icons'
-import { JoyButton } from '../ui'
+import { DownloadButton, StoreBadges } from '../download-cta'
 import { VideoButton } from './video-button'
 import { FeatureShowcase } from './feature-showcase'
 import { useT } from '@/lib/i18n'
@@ -34,9 +34,7 @@ export function Hero() {
             {t("Joy learns your child's nature, maps a path for them to grow, and picks fun activities for every day. You see how they feel and what they learn.")}
           </p>
           <div className="flex flex-wrap items-center gap-3">
-            <JoyButton href="#download" className="h-12 px-6 text-sm md:h-14 md:px-8 md:text-base">
-              {t('Try for free')}
-            </JoyButton>
+            <DownloadButton className="h-12 px-6 text-sm md:h-14 md:px-8 md:text-base" />
             <VideoButton className="h-12 px-4 text-sm md:h-14 md:px-6 md:text-base">
               <span className="inline-flex size-7 items-center justify-center rounded-full bg-gradient-joy text-white">
                 <Play className="size-3 fill-current" aria-hidden="true" />
@@ -44,6 +42,7 @@ export function Hero() {
               {t('See how it works')}
             </VideoButton>
           </div>
+          <StoreBadges className="hidden sm:flex" />
           <p className="text-sm text-muted-foreground">
             {t('Create your parent account in a few minutes. Already have one?')}{' '}
             <Link href="#download" className="font-semibold text-foreground underline underline-offset-4">

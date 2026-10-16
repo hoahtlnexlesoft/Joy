@@ -9,6 +9,7 @@ import { ContactLink } from '@/components/joy/contact-link'
 import { BlinkingAnimals } from '@/components/joy/blinking-animals'
 import { SiteHeader } from '@/components/joy/site-header'
 import { SiteFooter, TryJoyCta } from '@/components/joy/site-footer'
+import { DownloadStrip, MobileDownloadBar } from '@/components/joy/download-cta'
 import { Eyebrow, JoyButton } from '@/components/joy/ui'
 import { GuideDecorations } from '@/components/joy/guide/guide-decorations'
 import { GuideIcon } from '@/components/joy/guide/guide-icons'
@@ -171,6 +172,7 @@ export default function HowItWorksPage() {
           </div>
         </section>
 
+        <DownloadStrip />
         <section aria-label="Browse guide topics" className="relative z-10 px-3 sm:px-4 pb-6 pt-0 md:pb-6 lg:pb-10">
           <div className="mx-auto max-w-6xl">
             <TopicGrid topics={topics} />
@@ -545,6 +547,7 @@ export default function HowItWorksPage() {
         </div>
         </main>
         <SiteFooter surface="guide" />
+        <MobileDownloadBar />
       </div>
     </>
   )

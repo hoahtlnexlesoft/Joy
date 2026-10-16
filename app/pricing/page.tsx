@@ -5,6 +5,7 @@ import { Archive, ArrowRight, Baby, Check, ChevronDown, Crown, Eye, Gem, Lock, M
 import { ChoosePlanButton } from '@/components/joy/choose-plan-button'
 import { SiteHeader } from '@/components/joy/site-header'
 import { SiteFooter, TryJoyCta } from '@/components/joy/site-footer'
+import { DownloadStrip, MobileDownloadBar } from '@/components/joy/download-cta'
 import { Eyebrow, JoyButton, SectionHeading } from '@/components/joy/ui'
 import { cn } from '@/lib/utils'
 
@@ -239,6 +240,7 @@ export default function PricingPage() {
           </div>
         </section>
 
+        <DownloadStrip />
         <section aria-labelledby="how-plans" className="px-4 py-10 md:py-9 lg:py-16">
           <div className="mx-auto max-w-6xl">
             <SectionHeading id="how-plans" title="How" accent="plans work" />
@@ -420,6 +422,7 @@ export default function PricingPage() {
         <TryJoyCta />
       </main>
       <SiteFooter />
+      <MobileDownloadBar />
     </>
   )
 }

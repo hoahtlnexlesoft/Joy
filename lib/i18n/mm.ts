@@ -28,6 +28,10 @@ export const MM: Record<string, string> = {
   'for curious little minds': 'သိချင်စိတ်ပြင်းပြသော ကလေးငယ်များအတွက်',
   'Language': 'ဘာသာစကား',
 
+  // download buttons
+  'Download app': 'အက်ပ် ဒေါင်းလုဒ်',
+  'Get the Joy app': 'Joy အက်ပ်ကို ရယူပါ',
+  'Free on iOS and Android': 'iOS နှင့် Android တွင် အခမဲ့',
   // footer + download call-to-action
   'Download on the': 'ဒေါင်းလုဒ်လုပ်ရန်',
   'Get it on': 'ရယူရန်',

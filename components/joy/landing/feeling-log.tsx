@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { CalendarHeart, ChevronLeft, ChevronRight, Droplet, Zap } from '@/components/joy/cute-icons'
-import { JoyButton } from '../ui'
+import { DownloadButton } from '../download-cta'
 
 const highlights = [
   { icon: Droplet, title: 'Most element and mood', body: 'For any period you pick', tint: 'bg-sky text-joy-sky' },
@@ -250,7 +250,7 @@ export function FeelingLog() {
             After each activity, your child picks how they feel. Your Parent Portal turns those check-ins into a clear
             picture, in one glance.
           </p>
-          <JoyButton href="#download">Try for free</JoyButton>
+          <DownloadButton />
           </div>
           <ul className="grid w-full gap-2.5 sm:grid-cols-3 lg:grid-cols-1">
             {highlights.map(({ icon: Icon, title, body, tint }) => (

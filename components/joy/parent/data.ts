@@ -33,7 +33,7 @@ export type Avatar = { type: 'initials' } | { type: 'emoji'; value: string; bg: 
 export type Parent = { name: string; method: 'Apple' | 'Google' | 'Phone' | 'Email'; email: string; phone: string; avatar?: Avatar }
 export type State = {
   parent: Parent
-  settings: { notif: boolean; lang: string }
+  settings: { notif: boolean; lang: string; childUpdates?: boolean; tips?: boolean; channel?: 'Telegram' | 'Email' }
   children: Child[]
   plans: Plan[]
   payments: Payment[]
@@ -76,7 +76,7 @@ export function initialState(): State {
   const now = new Date()
   return {
     parent: { name: 'Bruce Smith', method: 'Apple', email: 'bruce@example.com', phone: '' },
-    settings: { notif: true, lang: 'English' },
+    settings: { notif: true, lang: 'English', childUpdates: true, tips: false, channel: 'Telegram' },
     children: [
       { id: 'c1', name: 'Thomas', dob: '2021-05-14', gender: 'Boy', needs: ['Attention differences'], element: 'Flame', animal: 'Lion', nature: 'Dream Explorer', arch: 'Explorer', stage: 'Alpha', color: COLORS[0] },
       { id: 'c2', name: 'Sarah', dob: '2019-11-02', gender: 'Girl', needs: [], element: 'Stream', animal: 'Dolphin', nature: 'Kind Helper', arch: 'Helper', stage: 'Omega', color: COLORS[1] },

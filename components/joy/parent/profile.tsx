@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Btn, Card, Field, Switch, inputCls } from './ui'
+import { Btn, Card, Field, Seg, Switch, inputCls } from './ui'
 import { fmtDate, money } from './data'
 import type { Channel } from './data'
 import type { App, Section } from './types'
@@ -16,7 +16,7 @@ import { isExpired } from './data'
 export const SECTIONS: { id: Section; icon: string; label: string; title: string; sub: string }[] = [
   { id: 'account', icon: '👤', label: 'Account details', title: 'Account details', sub: 'Your personal information.' },
   { id: 'payments', icon: '💳', label: 'Payments', title: 'Payments', sub: 'Everything you’ve paid for, and how you paid.' },
-  { id: 'prefs', icon: '🔔', label: 'Notifications', title: 'Notifications', sub: 'Plan reminders 3 days before a plan ends, and updates about your children.' },
+  { id: 'prefs', icon: '🔔', label: 'Notifications', title: 'Notifications', sub: 'Choose what Joy tells you about, and where.' },
   { id: 'security', icon: '🔒', label: 'Login & security', title: 'Login & security', sub: 'How you log in, and account controls.' },
 ]
 
@@ -169,8 +169,17 @@ export function ProfileView({ app, sec }: { app: App; sec: Section }) {
         <Payments app={app} />
       ) : sec === 'prefs' ? (
         <Card>
-          <PrefRow title={t('Allow notifications')} sub={t('Turn reminders and child updates on or off.')}>
-            <Switch label="Notifications" on={settings.notif} onChange={(v) => { app.setS((s) => ({ ...s, settings: { ...s.settings, notif: v } })); app.toast(v ? t('Notifications on. We’ll remind you 3 days before a plan ends.') : t('Notifications off.')) }} />
+          <PrefRow title={t('Plan reminders')} sub={t('A reminder 3 days before a plan ends.')}>
+            <Switch label="Plan reminders" on={settings.notif} onChange={(v) => { app.setS((s) => ({ ...s, settings: { ...s.settings, notif: v } })); app.toast(v ? t('Notifications on. We’ll remind you 3 days before a plan ends.') : t('Notifications off.')) }} />
+          </PrefRow>
+          <PrefRow title={t('Child updates')} sub={t('A weekly summary of progress and the feeling log.')}>
+            <Switch label="Child updates" on={settings.childUpdates ?? true} onChange={(v) => app.setS((s) => ({ ...s, settings: { ...s.settings, childUpdates: v } }))} />
+          </PrefRow>
+          <PrefRow title={t('New activities & tips')} sub={t('News and new content from Joy.')}>
+            <Switch label="New activities & tips" on={settings.tips ?? false} onChange={(v) => app.setS((s) => ({ ...s, settings: { ...s.settings, tips: v } }))} />
+          </PrefRow>
+          <PrefRow title={t('Send notifications via')} sub={t('Where Joy sends your notifications.')}>
+            <Seg label={t('Send notifications via')} value={settings.channel ?? 'Telegram'} onChange={(c) => { app.setS((s) => ({ ...s, settings: { ...s.settings, channel: c } })); app.toast(c === 'Telegram' ? t('We’ll send notifications to your Telegram.') : t('We’ll send notifications to your email.')) }} options={(['Telegram', 'Email'] as const).map((c) => [c, c] as ['Telegram' | 'Email', string])} />
           </PrefRow>
         </Card>
       ) : (

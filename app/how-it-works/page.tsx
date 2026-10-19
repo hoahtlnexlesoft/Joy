@@ -19,6 +19,7 @@ import { ElementCard, ElementMascot, type ElementKey } from '@/components/joy/gu
 import { TopicGrid, type Topic as TopicItem } from '@/components/joy/guide/topic-grid'
 import { movementTags } from '@/components/joy/landing/features'
 import { cn } from '@/lib/utils'
+import { Emo } from '@/components/joy/emo'
 
 export const metadata: Metadata = {
   title: 'How it works',
@@ -221,9 +222,9 @@ export default function HowItWorksPage() {
                       Each day, Joy prepares a set of activities in three parts of the day. Your child taps Start Journey to begin.
                     </p>
                     <ul className="mt-4 flex flex-col gap-2 text-sm">
-                      <li className="rounded-2xl bg-[#fff3d6] p-3"><strong>☀️ Morning Mindfulness</strong> — Calm, gentle activities to start the day.</li>
-                      <li className="rounded-2xl bg-peach p-3"><strong>🎒 Afternoon Adventures</strong> — Active and curious activities.</li>
-                      <li className="rounded-2xl bg-lavender p-3"><strong>🌙 Evening Enchantment</strong> — Soothing activities to wind down.</li>
+                      <li className="rounded-2xl bg-[#fff3d6] p-3"><strong><Emo e="☀️" /> Morning Mindfulness</strong> — Calm, gentle activities to start the day.</li>
+                      <li className="rounded-2xl bg-peach p-3"><strong><Emo e="🎒" /> Afternoon Adventures</strong> — Active and curious activities.</li>
+                      <li className="rounded-2xl bg-lavender p-3"><strong><Emo e="🌙" /> Evening Enchantment</strong> — Soothing activities to wind down.</li>
                     </ul>
                     <p className="mt-4 text-sm text-muted-foreground">
                       Every activity carries a movement tag: Think, Ground, Action, Create, Flow or Reset. Joy balances them across the day.
@@ -285,7 +286,7 @@ export default function HowItWorksPage() {
                 <ul className="mt-6 flex flex-wrap gap-2">
                   {movementTags.map((t) => (
                     <li key={t.name} className={cn('inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-semibold', t.className)}>
-                      <span aria-hidden="true">{t.icon}</span>
+                      <span aria-hidden="true"><Emo e={t.icon} /></span>
                       {t.name}
                     </li>
                   ))}
@@ -309,7 +310,7 @@ export default function HowItWorksPage() {
                   </Card>
                 </div>
                 <p className="mt-4 rounded-2xl bg-white p-4 text-sm ring-1 ring-border">
-                  {"✨ Once you set them, Calm Senses activities unlock for your child. They're included with Premium and Premium Plus plans."}
+                  {<><Emo e="✨" /> Once you set them, Calm Senses activities unlock for your child. They're included with Premium and Premium Plus plans.</>}
                 </p>
               </Topic>
 
@@ -414,7 +415,7 @@ export default function HowItWorksPage() {
                     const c = NATURE_TINTS[i % NATURE_TINTS.length]
                     return (
                       <li key={name} className="group flex items-center gap-3 rounded-[1.5rem] p-3.5 ring-1 transition duration-300 hover:-translate-y-0.5" style={{ background: `linear-gradient(135deg,#fff 35%,${c[0]})`, ['--tw-ring-color' as string]: c[1] }}>
-                        <span className="joy-bob grid size-12 shrink-0 place-items-center rounded-[1.1rem] text-2xl shadow-[0_8px_16px_-8px_rgba(80,50,120,0.35)] ring-[3px] ring-white" style={{ background: `linear-gradient(145deg,#fff,${c[1]})`, animationDelay: `-${((i * 0.6) % 3.6).toFixed(1)}s` }} aria-hidden="true">{icon}</span>
+                        <span className="joy-bob grid size-12 shrink-0 place-items-center rounded-[1.1rem] text-2xl shadow-[0_8px_16px_-8px_rgba(80,50,120,0.35)] ring-[3px] ring-white" style={{ background: `linear-gradient(145deg,#fff,${c[1]})`, animationDelay: `-${((i * 0.6) % 3.6).toFixed(1)}s` }} aria-hidden="true"><Emo e={icon} className="size-[1.2em]" /></span>
                         <div className="min-w-0"><p className="font-display font-semibold text-[#2a2240]">{name}</p><p className="text-xs text-muted-foreground">Grows toward <span className="font-semibold" style={{ color: c[2] }}>{grows}</span></p></div>
                       </li>
                     )
@@ -507,7 +508,7 @@ export default function HowItWorksPage() {
                   <Card className="flex flex-col gap-3 bg-blush">
                     <h3 className="text-xl font-medium">Extend</h3>
                     <p className="text-sm text-foreground/70">{"Plans don't renew automatically. To keep going, buy a new plan for your child from Child Plans."}</p>
-                    <p className="rounded-2xl bg-white/80 p-3 text-sm">{"🔔 Joy sends you a notification 3 days before your child's plan ends, so there's time to choose the next one."}</p>
+                    <p className="rounded-2xl bg-white/80 p-3 text-sm">{<><Emo e="🔔" /> Joy sends you a notification 3 days before your child&apos;s plan ends, so there&apos;s time to choose the next one.</>}</p>
                     <p className="text-sm text-foreground/70">{"If a plan ends, your child's profile, growth path and history are still saved."}</p>
                     <JoyButton href="/pricing" className="mt-auto self-start">See plans and prices</JoyButton>
                   </Card>

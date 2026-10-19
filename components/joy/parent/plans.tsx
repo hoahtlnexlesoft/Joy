@@ -11,6 +11,7 @@ import { ChildForm, QrCanvas } from './dialogs'
 import { cn } from '@/lib/utils'
 import { useT } from '@/lib/i18n'
 import { ANIMAL_IMG } from './data'
+import { Emo, EmoText } from '@/components/joy/emo'
 
 const TYPE_STYLE: Record<PlanType, { chip: string; bar: string; tint: string; emoji: string }> = {
   Premium: { chip: 'bg-[#e6f4ff] text-[#1b7fc4]', bar: '#1FA9E8', tint: '#eaf6ff', emoji: '🎈' },
@@ -24,7 +25,7 @@ export function ChildThumb({ c, className }: { c: Child; className?: string }) {
     // eslint-disable-next-line @next/next/no-img-element
     <img src={`/images/animals/${f}.webp`} alt="" className={cn('object-contain', className)} />
   ) : (
-    <span className={cn('grid place-items-center text-2xl', className)} aria-hidden="true">🌱</span>
+    <span className={cn('grid place-items-center text-2xl', className)} aria-hidden="true"><Emo e="🌱" /></span>
   )
 }
 
@@ -50,10 +51,10 @@ export function PlanCard({ app, p }: { app: App; p: Plan }) {
         <div className="flex flex-wrap items-center gap-1.5">
           <UnlockChip type={p.type} label={<>{p.type}{multi ? ' · Premium & Special' : ''}</>} />
           <span className={cn('inline-flex items-center gap-1 rounded-full px-3 py-1 text-[11px] font-semibold', st[1])}><i className="size-1.5 rounded-full bg-current" aria-hidden="true" />{st[0]}</span>
-          {p.voucher ? <span className="rounded-full bg-[#ffe9f1] px-3 py-1 text-[11px] font-semibold text-[#c93a73]">🎁 {tr('Voucher')}</span> : null}
+          {p.voucher ? <span className="rounded-full bg-[#ffe9f1] px-3 py-1 text-[11px] font-semibold text-[#c93a73]"><Emo e="🎁" /> {tr('Voucher')}</span> : null}
         </div>
         <div>
-          <h3 className="text-2xl font-medium text-[#2f2a5c]"><span aria-hidden="true" className="mr-1.5">{ts.emoji}</span>{p.name}</h3>
+          <h3 className="text-2xl font-medium text-[#2f2a5c]"><span aria-hidden="true" className="mr-1.5"><Emo e={ts.emoji} /></span>{p.name}</h3>
           <p className="mt-1 text-xs text-muted-foreground">{p.label} · {fmt(p.start)} – {fmt(p.end)}</p>
         </div>
         <div>
@@ -131,7 +132,7 @@ export function PlansView({ app }: { app: App }) {
       <div role="tablist" aria-label={t('Plan status')} className="inline-flex w-fit gap-1.5 rounded-full bg-white/80 p-1.5 shadow-[0_0_0_1px_var(--border)]">
         {tabs.map(([k, emo, label, n]) => (
           <button key={k} type="button" role="tab" aria-selected={tab === k} onClick={() => setTab(k)} className={cn('inline-flex h-10 items-center gap-2 rounded-full px-4 text-sm font-bold transition-all', tab === k ? 'bg-gradient-to-r from-[#ffd9a8] to-[#ffc7d6] text-[#7a3d12] shadow-sm' : 'text-[#6d6585] hover:bg-muted')}>
-            <span aria-hidden="true">{emo}</span>{label}<span className={cn('grid min-w-6 place-items-center rounded-full px-1.5 text-xs', tab === k ? 'bg-white/80' : 'bg-[#f1eef6]')}>{n}</span>
+            <span aria-hidden="true"><Emo e={emo} /></span>{label}<span className={cn('grid min-w-6 place-items-center rounded-full px-1.5 text-xs', tab === k ? 'bg-white/80' : 'bg-[#f1eef6]')}>{n}</span>
           </button>
         ))}
       </div>
@@ -258,7 +259,7 @@ export const CHANNELS: Record<Channel, { label: string; sub: string; cls: string
 }
 export function ChannelBadge({ ch }: { ch: Channel }) {
   const c = CHANNELS[ch]
-  return <span className={cn('inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold', c.cls)}><span aria-hidden="true">{c.icon}</span>{c.label}</span>
+  return <span className={cn('inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold', c.cls)}><span aria-hidden="true"><Emo e={c.icon} /></span>{c.label}</span>
 }
 
 function CuteBulb() {
@@ -372,14 +373,14 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
             const sug = pre.plan === c.name
             return (
               <article key={c.name} onClick={() => toggle(c.name)} className={cn('relative flex cursor-pointer flex-col rounded-3xl p-4 ring-1 transition', on ? 'bg-[#fff5f8] ring-2 ring-joy-pink shadow-md shadow-pink-100' : c.popular ? 'ring-2 ring-[#ffb347]/70' : sug ? 'ring-2 ring-[#6aa8ff]/70' : 'ring-border hover:ring-foreground/25')}>
-                {c.popular ? <span className="absolute -top-2.5 left-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#ff9f43] to-[#ff6b6b] px-2.5 py-0.5 text-[10px] font-bold text-white shadow-sm shadow-orange-200">🔥 {t('Most popular')}</span> : sug ? <span className="absolute -top-2.5 left-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#4facfe] to-[#7c6cff] px-2.5 py-0.5 text-[10px] font-bold text-white shadow-sm shadow-blue-200">✨ {t('Suggested')}</span> : null}
+                {c.popular ? <span className="absolute -top-2.5 left-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#ff9f43] to-[#ff6b6b] px-2.5 py-0.5 text-[10px] font-bold text-white shadow-sm shadow-orange-200"><Emo e="🔥" /> {t('Most popular')}</span> : sug ? <span className="absolute -top-2.5 left-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#4facfe] to-[#7c6cff] px-2.5 py-0.5 text-[10px] font-bold text-white shadow-sm shadow-blue-200">✨ {t('Suggested')}</span> : null}
                 <span aria-hidden="true" className={cn('absolute right-4 top-4 grid size-6 place-items-center rounded-full ring-1 transition', on ? 'bg-gradient-joy text-white ring-transparent' : 'bg-white text-transparent ring-border')}><Check className="size-3.5" strokeWidth={3.5} /></span>
                 <UnlockChip type={c.type} />
                 <h3 className="mt-2 font-display text-lg font-medium">{c.name}</h3>
                 <div className="font-display text-3xl font-medium"><small className="mr-0.5 align-top text-sm">$</small>{c.price.toFixed(2)}</div>
                 <p className="text-xs text-muted-foreground">{monthsOf(c.months)} · {t('about')} ${(c.price / c.months).toFixed(2)} {t('a month')}</p>
-                <ul className="my-3 flex flex-1 flex-col gap-1.5 text-xs">{BENEFITS[c.type].map((b) => <li key={b} className="flex gap-1.5"><span className="text-[#2f8f3a]">✓</span>{t(b)}</li>)}</ul>
-                <Btn small variant={on ? 'gold' : 'blueSoft'} aria-pressed={on} aria-label={`${on ? t('Remove') : t('Choose')} ${c.name}`} onClick={(e: React.MouseEvent) => { e.stopPropagation(); toggle(c.name) }}>{on ? `${t('Selected')} ✓` : t('Choose plan')}</Btn>
+                <ul className="my-3 flex flex-1 flex-col gap-1.5 text-xs">{BENEFITS[c.type].map((b) => <li key={b} className="flex gap-1.5"><span className="text-[#2f8f3a]"><Emo e="✓" /></span>{t(b)}</li>)}</ul>
+                <Btn small variant={on ? 'gold' : 'blueSoft'} aria-pressed={on} aria-label={`${on ? t('Remove') : t('Choose')} ${c.name}`} onClick={(e: React.MouseEvent) => { e.stopPropagation(); toggle(c.name) }}>{on ? <>{t('Selected')} <Emo e="✓" /></> : t('Choose plan')}</Btn>
               </article>
             )
           })}
@@ -417,9 +418,9 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
           ))}
           <li className="flex items-center justify-between py-3"><span className="text-xs text-muted-foreground">{t('Total')} · {planWord(chosen.length)}</span><b className="font-display text-xl">{money(total)}</b></li>
         </ul>
-        <Note>👧 {t(many ? 'After paying, you’ll pick which child gets each plan, or add a new child.' : 'After paying, you’ll pick which child gets this plan, or add a new child.')}</Note>
+        <Note><Emo e="👧" /> {t(many ? 'After paying, you’ll pick which child gets each plan, or add a new child.' : 'After paying, you’ll pick which child gets this plan, or add a new child.')}</Note>
         <div className="mb-5 flex items-center gap-3 rounded-2xl p-4 ring-1 ring-border">
-          <span className="relative grid size-16 shrink-0 -rotate-3 place-items-center rounded-[1.4rem] bg-gradient-to-br from-[#ff8a7a] to-[#ff5c8a] text-lg font-extrabold tracking-wide text-white shadow-[0_6px_14px_-4px_rgba(255,92,138,.6)] ring-2 ring-white">AYA<span className="absolute -right-2 -top-2 text-lg" aria-hidden="true">✨</span><span className="absolute -bottom-2 -left-1.5 text-sm" aria-hidden="true">💖</span></span>
+          <span className="relative grid size-16 shrink-0 -rotate-3 place-items-center rounded-[1.4rem] bg-gradient-to-br from-[#ff8a7a] to-[#ff5c8a] text-lg font-extrabold tracking-wide text-white shadow-[0_6px_14px_-4px_rgba(255,92,138,.6)] ring-2 ring-white">AYA<span className="absolute -right-2 -top-2 text-lg" aria-hidden="true"><Emo e="✨" /></span><span className="absolute -bottom-2 -left-1.5 text-sm" aria-hidden="true"><Emo e="💖" /></span></span>
           <div className="text-sm"><b className="block">{t('Pay online with AYA Pay')}</b><span className="text-xs text-muted-foreground">{t('You’ll confirm the payment on the secure AYA Pay page.')}</span></div>
           <span className="ml-auto inline-flex shrink-0 items-center gap-1.5 rounded-full bg-gradient-to-r from-[#e4f7e6] to-[#d9f1ff] py-1 pl-1 pr-3 text-xs font-semibold text-[#2f7d5b] ring-1 ring-white"><span className="grid size-6 place-items-center rounded-full bg-white shadow-sm" aria-hidden="true"><svg viewBox="0 0 24 24" className="size-4"><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="#7cc9a0" strokeWidth="2.4" strokeLinecap="round"/><rect x="5" y="10.5" width="14" height="10" rx="4" fill="#ff9fc0"/><circle cx="10" cy="15" r="1" fill="#fff"/><circle cx="14" cy="15" r="1" fill="#fff"/><path d="M10.6 17.2c.8.6 1.8.6 2.8 0" fill="none" stroke="#fff" strokeWidth="1.2" strokeLinecap="round"/></svg></span>Secure</span>
         </div>
@@ -519,7 +520,7 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
           <div><dt className="text-[10px] text-muted-foreground">{t('Total paid')}</dt><dd className="font-display text-base font-extrabold leading-tight text-[#23915a]">{money(total)}</dd></div>
         </dl>
       </div>
-      <p className="mb-4 text-center text-sm text-muted-foreground">{bought.some((b) => assign[b.id]) ? `${t('New activities are unlocked.')} ✨` : t('Assign it to a child anytime from Plans.')}</p>
+      <p className="mb-4 text-center text-sm text-muted-foreground">{bought.some((b) => assign[b.id]) ? <>{t('New activities are unlocked.')} <Emo e="✨" /></> : t('Assign it to a child anytime from Plans.')}</p>
       <AppActivationGuide />
       <div className="flex items-center justify-end gap-2">
         <Btn variant="ghost" onClick={() => app.open(null)}>{t('Close')}</Btn>

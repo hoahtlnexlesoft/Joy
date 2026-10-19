@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { Eyebrow } from '../ui'
 import { JoyFlow } from './joy-flow'
 import { GrowthCycleSlider } from './growth-cycle-slider'
+import { Emo, EmoText } from '@/components/joy/emo'
 
 function FeatureRow({
   id,
@@ -65,7 +66,7 @@ function TagList({ tags = movementTags }: { tags?: typeof movementTags }) {
     <ul className="flex flex-wrap gap-2">
       {tags.map((t) => (
         <li key={t.name} className={cn('inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-semibold', t.className)}>
-          <span aria-hidden="true">{t.icon}</span>
+          <span aria-hidden="true"><Emo e={t.icon} /></span>
           {t.name}
         </li>
       ))}
@@ -105,7 +106,7 @@ export function Features() {
               {profile.map((p) => (
                 <li key={p.label} className="flex items-center gap-3 rounded-2xl bg-white/90 p-3 shadow-sm">
                   <span className="inline-flex size-10 items-center justify-center rounded-xl bg-peach text-xl" aria-hidden="true">
-                    {p.icon}
+                    <Emo e={p.icon} className="size-[1.2em]" />
                   </span>
                   <div>
                     <p className="text-xs font-medium text-muted-foreground">{p.label}</p>
@@ -156,14 +157,14 @@ export function Features() {
             <div className="mt-2.5 grid grid-cols-2 gap-2">
               <div className="rounded-2xl bg-blush px-3 py-2">
                 <p className="text-xs text-muted-foreground">Feeling Okay?</p>
-                <p className="text-lg" aria-hidden="true">😊 😌 😁</p>
+                <p className="flex gap-1 text-lg" aria-hidden="true"><Emo e="😊" /><Emo e="😌" /><Emo e="😁" /></p>
               </div>
               <div className="rounded-2xl bg-sky px-3 py-2">
                 <p className="text-xs text-muted-foreground">Element Log</p>
-                <p className="text-lg" aria-hidden="true">🔥 💧 🌿</p>
+                <p className="flex gap-1 text-lg" aria-hidden="true"><Emo e="🔥" /><Emo e="💧" /><Emo e="🌿" /></p>
               </div>
             </div>
-            <div className="mt-2 rounded-2xl bg-[#fff3d6] px-3 py-2 text-sm font-semibold">☀️ Morning Mindfulness</div>
+            <div className="mt-2 rounded-2xl bg-[#fff3d6] px-3 py-2 text-sm font-semibold"><Emo e="☀️" /> Morning Mindfulness</div>
             <div className="mt-2.5 flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-joy text-sm font-semibold text-white">
               <Play className="size-4 fill-current" aria-hidden="true" />
               Start Journey
@@ -201,7 +202,7 @@ export function Features() {
               height={480}
               className="mt-2.5 aspect-[16/11] w-full rounded-2xl object-cover object-[50%_45%]"
             />
-            <p className="mt-3 text-sm font-semibold">⭐ Lesson type 1</p>
+            <p className="mt-3 text-sm font-semibold"><Emo e="⭐" /> Lesson type 1</p>
           </div>
         </FeatureRow>
       </div>

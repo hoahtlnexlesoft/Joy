@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { CalendarHeart, ChevronLeft, ChevronRight, Droplet, Zap } from '@/components/joy/cute-icons'
+import { Emo, EmoText } from '@/components/joy/emo'
 
 const highlights = [
   { icon: Droplet, title: 'Most element and mood', body: 'For any period you pick', tint: 'bg-sky text-joy-sky' },
@@ -94,7 +95,7 @@ function MostElementCard() {
           <div className="flex size-full items-center justify-center rounded-full bg-white/50 p-3">
             <div className="flex size-full flex-col items-center justify-center rounded-full bg-white shadow-inner">
               <span className="text-xl leading-none" aria-hidden="true">
-                💧
+                <Emo e="💧" />
               </span>
               <span className="mt-0.5 text-[10px] font-semibold text-muted-foreground">Water</span>
             </div>
@@ -135,7 +136,7 @@ function MostMoodCard() {
                 className="absolute -top-2.5 left-1/2 flex size-6 -translate-x-1/2 items-center justify-center rounded-full bg-white text-sm shadow-sm"
                 aria-hidden="true"
               >
-                {m.emoji}
+                <Emo e={m.emoji} />
               </span>
             </div>
             <span className="text-[9px] font-medium text-muted-foreground">
@@ -161,7 +162,7 @@ function FeelingCalendarCard() {
   return (
     <div className="relative overflow-hidden rounded-2xl bg-white p-4 ring-1 ring-border">
       <span aria-hidden="true" className="pointer-events-none absolute -bottom-6 -right-4 text-6xl opacity-20">
-        🍃
+        <Emo e="🍃" />
       </span>
       <div className="flex items-center justify-between">
         <p className="font-display text-base font-medium">Feeling Log</p>
@@ -191,7 +192,7 @@ function FeelingCalendarCard() {
               {feeling ? (
                 <>
                   <span aria-hidden="true" className="text-xs leading-none">
-                    {feeling}
+                    <Emo e={feeling} />
                   </span>
                   <span className="sr-only">{`${monthName} ${day}, logged`}</span>
                 </>
@@ -214,7 +215,7 @@ function ActivitiesByTagCard() {
         {tagCounts.map((t) => (
           <li key={t.name} className="flex items-center gap-2 text-xs">
             <span className={`inline-flex size-6 shrink-0 items-center justify-center rounded-lg ${t.tint}`} aria-hidden="true">
-              {t.icon}
+              <Emo e={t.icon} />
             </span>
             <span className="w-12 font-medium">{t.name}</span>
             <span className="h-2 flex-1 overflow-hidden rounded-full bg-muted">

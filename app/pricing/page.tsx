@@ -8,6 +8,7 @@ import { SiteFooter, TryJoyCta } from '@/components/joy/site-footer'
 import { MobileDownloadBar } from '@/components/joy/download-cta'
 import { Eyebrow, JoyButton, SectionHeading } from '@/components/joy/ui'
 import { cn } from '@/lib/utils'
+import { Emo } from '@/components/joy/emo'
 
 export const metadata: Metadata = {
   title: 'Pricing',
@@ -223,14 +224,14 @@ export default function PricingPage() {
                 />
               </div>
               <div className="animate-float absolute left-0 top-6 flex items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:origin-top-left md:scale-[0.75] lg:-left-10 lg:top-8 lg:scale-100 lg:px-4 lg:py-3">
-                <span className="text-2xl" aria-hidden="true">🎈</span>
+                <span className="text-2xl" aria-hidden="true"><Emo e="🎈" /></span>
                 <div>
                   <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Premium unlock</p>
                   <p className="font-display text-base font-medium">Daily activities</p>
                 </div>
               </div>
               <div className="animate-float absolute bottom-8 right-0 flex items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:origin-bottom-right md:scale-[0.75] lg:-right-8 lg:bottom-10 lg:scale-100 lg:px-4 lg:py-3" style={{ animationDelay: '-3s' }}>
-                <span className="text-2xl" aria-hidden="true">🔮</span>
+                <span className="text-2xl" aria-hidden="true"><Emo e="🔮" /></span>
                 <div>
                   <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Special unlock</p>
                   <p className="font-display text-base font-medium">Mastery</p>

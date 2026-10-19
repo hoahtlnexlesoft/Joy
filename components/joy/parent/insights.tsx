@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 import { Card, Empty, Seg } from './ui'
 import { ELS, MOODS, STAGES, TAGS, childData, dayKey, dayLabel, fmtTime, rangeDays, startOfDay } from './data'
 import type { Child, Stage } from './data'
+import { Emo, EmoText } from '@/components/joy/emo'
 
 /* ---------------- Improvement journey ---------------- */
 function spiral(cx: number, cy: number, r: number, turns: number, rot: number) {
@@ -94,7 +95,7 @@ export function JourneyCard({ child }: { child: Child }) {
               </li>
             ))}
           </ol>
-          <p className="text-xs text-muted-foreground">🔁 The journey repeats and adapts as {child.name} grows.</p>
+          <p className="text-xs text-muted-foreground"><Emo e="🔁" /> The journey repeats and adapts as {child.name} grows.</p>
         </div>
       </div>
     </Card>
@@ -133,25 +134,25 @@ export function FeelingLog({ child }: { child: Child }) {
         <span className="text-xs text-muted-foreground">{entries.length} check-ins · sample data</span>
       </div>
       <div className="grid gap-5 md:grid-cols-2">
-        <Card title="Most element" action={elC[0][1] ? <span className="rounded-full px-3 py-1 text-xs font-bold" style={{ background: elC[0][0][2] + '33' }}>{elC[0][0][1]} {elC[0][0][0]}</span> : null}>
+        <Card title="Most element" action={elC[0][1] ? <span className="rounded-full px-3 py-1 text-xs font-bold" style={{ background: elC[0][0][2] + '33' }}><EmoText>{`${elC[0][0][1]} ${elC[0][0][0]}`}</EmoText></span> : null}>
           <div className="flex flex-wrap items-center gap-5">
             <div className="grid size-36 shrink-0 place-items-center rounded-full" role="img" aria-label={elC.map(([e, n]) => `${e[0]} ${n}`).join(', ')} style={{ background: `radial-gradient(circle,#fff 0 52%,transparent 53%),conic-gradient(${cone})` }}>
               <span className="text-center text-xs text-muted-foreground"><b className="block font-display text-2xl text-foreground">{entries.length}</b>check-ins</span>
             </div>
             <ul className="flex min-w-[10rem] flex-1 flex-col gap-1.5 text-sm">
               {elC.map(([e, n]) => (
-                <li key={e[0]} className="flex items-center gap-2"><i className="size-2.5 rounded-full" style={{ background: e[2] }} /><span>{e[1]} {e[0]}</span><b className="ml-auto">{n}</b><em className="w-10 text-right text-xs not-italic text-muted-foreground">{Math.round((n / tot) * 100)}%</em></li>
+                <li key={e[0]} className="flex items-center gap-2"><i className="size-2.5 rounded-full" style={{ background: e[2] }} /><span><EmoText>{`${e[1]} ${e[0]}`}</EmoText></span><b className="ml-auto">{n}</b><em className="w-10 text-right text-xs not-italic text-muted-foreground">{Math.round((n / tot) * 100)}%</em></li>
               ))}
             </ul>
           </div>
         </Card>
-        <Card title="Most mood" action={mC.length ? <span className="rounded-full bg-[#fff2b8] px-3 py-1 text-xs font-bold">{mC[0][0][1]} {mC[0][0][0]}</span> : null}>
+        <Card title="Most mood" action={mC.length ? <span className="rounded-full bg-[#fff2b8] px-3 py-1 text-xs font-bold"><EmoText>{`${mC[0][0][1]} ${mC[0][0][0]}`}</EmoText></span> : null}>
           <div className="flex h-40 items-end gap-2" role="img" aria-label={mC.map(([m, n]) => `${m[0]} ${n}`).join(', ')}>
             {mC.map(([m, n], i) => (
               <div key={m[0]} className="flex h-full min-w-0 flex-1 flex-col items-center justify-end gap-1 text-center">
                 <em className="text-[11px] not-italic font-semibold text-muted-foreground">{n}</em>
                 <i className={cn('block w-full max-w-9 rounded-t-xl', i === 0 ? 'bg-gradient-joy' : 'bg-[#e6def5]')} style={{ height: `${Math.max(8, (n / maxM) * 62)}%` }} />
-                <span className="text-lg leading-none" aria-hidden="true">{m[1]}</span>
+                <span className="text-lg leading-none" aria-hidden="true"><Emo e={m[1]} /></span>
                 <small className="hidden truncate text-[10px] text-muted-foreground sm:block">{m[0]}</small>
               </div>
             ))}
@@ -181,7 +182,7 @@ export function FeelingLog({ child }: { child: Child }) {
                 <button key={k} type="button" disabled={fut} onClick={() => setSel(k)} aria-label={new Date(k + 'T00:00').toDateString() + (f.length ? ', ' + f.map((x) => x.mood[0]).join(' and ') : '')}
                   className={cn('flex aspect-square flex-col items-center justify-center rounded-xl text-xs transition disabled:opacity-30', k === sel ? 'bg-gradient-joy text-white' : f.length ? 'bg-[#fff6ec] hover:bg-[#ffe9d2]' : 'bg-[#f8f6fb] hover:bg-[#efeaf6]', k === todayK && k !== sel && 'ring-2 ring-joy-pink/50')}>
                   <span className="font-semibold">{d}</span>
-                  <span className="text-sm leading-none" aria-hidden="true">{f.slice(0, 2).map((x) => x.mood[1]).join('')}</span>
+                  <span className="text-sm leading-none" aria-hidden="true"><EmoText>{f.slice(0, 2).map((x) => x.mood[1]).join('')}</EmoText></span>
                 </button>
               )
             })}
@@ -191,7 +192,7 @@ export function FeelingLog({ child }: { child: Child }) {
             {sd.feel.length ? (
               <ul className="mt-3 flex flex-col gap-3">
                 {sd.feel.map((x, i) => (
-                  <li key={i} className="flex items-center gap-3"><span className="text-2xl" aria-hidden="true">{x.mood[1]}</span><div><b className="block text-sm">Felt {x.mood[0].toLowerCase()}</b><small className="text-xs text-muted-foreground">{fmtTime(x.time)} · picked {x.el[1]} {x.el[0]}</small></div></li>
+                  <li key={i} className="flex items-center gap-3"><span className="text-2xl" aria-hidden="true"><Emo e={x.mood[1]} /></span><div><b className="block text-sm">Felt {x.mood[0].toLowerCase()}</b><small className="text-xs text-muted-foreground">{fmtTime(x.time)} · picked {x.el[1]} {x.el[0]}</small></div></li>
                 ))}
               </ul>
             ) : <p className="mt-3 text-sm text-muted-foreground">No check-ins on this day.</p>}
@@ -200,7 +201,7 @@ export function FeelingLog({ child }: { child: Child }) {
                 <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Activities that day</p>
                 <ul className="mt-2 flex flex-col gap-2">
                   {sd.acts.map((a, i) => { const t = TAGS.find((x) => x[0] === a.tag)!; return (
-                    <li key={i} className="flex items-center gap-2 text-sm"><span className="rounded-full px-2.5 py-0.5 text-xs font-bold" style={{ color: t[2], background: t[3] }}>{t[1]} {a.tag}</span>{a.name}</li>
+                    <li key={i} className="flex items-center gap-2 text-sm"><span className="rounded-full px-2.5 py-0.5 text-xs font-bold" style={{ color: t[2], background: t[3] }}><EmoText>{`${t[1]} ${a.tag}`}</EmoText></span>{a.name}</li>
                   ) })}
                 </ul>
               </>
@@ -242,7 +243,7 @@ export function ActivitiesTab({ child }: { child: Child }) {
         </button>
         {TAGS.map(([t, ic, col, bg]) => (
           <button key={t} type="button" aria-pressed={tag === t} onClick={() => reset(() => setTag(t))} className="rounded-2xl p-3 text-left transition hover:-translate-y-0.5" style={{ background: bg, boxShadow: tag === t ? `inset 0 0 0 2px ${col}` : 'none' }}>
-            <i className="text-lg not-italic" aria-hidden="true">{ic}</i>
+            <i className="text-lg not-italic" aria-hidden="true"><Emo e={ic} /></i>
             <b className="block font-display text-2xl" style={{ color: col }}>{cnt[t]}</b>
             <span className="text-xs font-semibold">{t}</span>
           </button>
@@ -262,7 +263,7 @@ export function ActivitiesTab({ child }: { child: Child }) {
                 <ul className="flex flex-col gap-2">
                   {arr.map((a, i) => { const t = TAGS.find((x) => x[0] === a.tag)!; return (
                     <li key={i} className="flex items-center gap-3 rounded-2xl bg-[#faf8fc] p-3">
-                      <span className="grid size-10 shrink-0 place-items-center rounded-xl text-lg" style={{ background: t[3] }} aria-hidden="true">{t[1]}</span>
+                      <span className="grid size-10 shrink-0 place-items-center rounded-xl text-lg" style={{ background: t[3] }} aria-hidden="true"><Emo e={t[1]} /></span>
                       <div className="min-w-0 flex-1"><b className="block truncate text-sm">{a.name}</b><small className="text-xs text-muted-foreground">{a.secIc} {a.sec}</small></div>
                       <span className="hidden rounded-full px-2.5 py-0.5 text-xs font-bold sm:inline" style={{ color: t[2], background: t[3] }}>{a.tag}</span>
                       <time className="text-xs text-muted-foreground">{fmtTime(a.time)}</time>

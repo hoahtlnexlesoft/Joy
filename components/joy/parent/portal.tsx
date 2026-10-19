@@ -17,6 +17,7 @@ import { ActivitiesTab, FeelingLog, JourneyCard } from './insights'
 import { ProfileView, SECTIONS } from './profile'
 import { CuteIcon } from './icons'
 import { ElementMascot, type ElementKey } from '@/components/joy/guide/element-mascots'
+import { Emo, EmoText } from '@/components/joy/emo'
 
 const UNLOCK_STYLE: Record<Unlock, string> = {
   Free: 'bg-[#eeebf3] text-[#6d6585]',
@@ -249,12 +250,12 @@ function Children({ app }: { app: App }) {
         <div className="relative max-w-[34rem] px-5 pb-64 pt-6 sm:px-9 sm:pb-9 sm:pt-8 lg:px-11">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-2 rounded-full bg-[#ffe9ee] py-1.5 pl-2 pr-4 text-xs font-extrabold uppercase tracking-[0.14em] text-[#4a4270] ring-1 ring-[#ffd3df]">
-              <span className="text-lg leading-none" aria-hidden="true">🏠</span>{t('Your family space')}
+              <span className="text-lg leading-none" aria-hidden="true"><Emo e="🏠" className="size-[1.1em]" /></span>{t('Your family space')}
             </span>
             <svg aria-hidden="true" viewBox="0 0 28 28" className="size-6 text-[#ffc94d]" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round"><path d="M4 6l7 3M3 14h9M5 23l7-4" /></svg>
           </div>
           <h1 className="relative mt-5 font-display text-[1.6rem] font-bold leading-[1.02] tracking-tight text-[#2f2a5c] sm:text-4xl">
-            <span aria-hidden="true" className="absolute -left-1 top-[0.7rem] -rotate-12 text-xl drop-shadow sm:-left-7 sm:top-[2.9rem] sm:text-3xl">⭐</span>
+            <span aria-hidden="true" className="absolute -left-1 top-[0.7rem] -rotate-12 text-xl drop-shadow sm:-left-7 sm:top-[2.9rem] sm:text-3xl"><Emo e="⭐" /></span>
             {t('Welcome back,')}
             <br />
             <span className="inline-block bg-gradient-to-b from-[#ff6b9a] to-[#ee5a8a] bg-clip-text text-transparent sm:pl-1">{firstName(s.parent.name)}!</span>
@@ -274,7 +275,7 @@ function Children({ app }: { app: App }) {
 
       {soon.map((p) => (
         <div key={p.id} role="status" className="flex flex-wrap items-center gap-3 rounded-2xl bg-[#fff4e5] p-4 text-sm text-[#7a5a2b]">
-          <span aria-hidden="true">🔔</span>
+          <span aria-hidden="true"><Emo e="🔔" /></span>
           <div className="min-w-0 flex-1"><b>{p.name} {t('ends in')} {daysLeft(p)} {t(daysLeft(p) === 1 ? 'day' : 'days')}</b> {t('for')} {p.children.map((i) => s.children.find((c) => c.id === i)?.name).join(', ')}. {t('Plans don’t renew automatically.')}</div>
           <Btn small variant="blue" onClick={() => app.open({ k: 'buy', plan: p.type === 'Special' ? 'Mastery' : p.name, child: p.children[0] })}>{t('Buy a new plan')}</Btn>
         </div>
@@ -289,15 +290,15 @@ function Children({ app }: { app: App }) {
             return (
               <article key={c.id} className="group relative overflow-hidden rounded-[2.4rem] border shadow-[0_16px_32px_-18px_rgba(39,37,63,0.3)] transition duration-300 hover:-translate-y-1.5 hover:rotate-[0.6deg] hover:shadow-[0_24px_44px_-24px_rgba(39,37,63,0.4)]" style={{ borderColor: `${c.color}66`, background: `linear-gradient(120deg,${c.color}2e 0%,#ffffff 62%,${c.color}1f 100%)` }}>
                 <span aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-60" style={{ backgroundImage: `radial-gradient(${c.color}40 1.6px, transparent 1.8px)`, backgroundSize: '18px 18px', maskImage: 'linear-gradient(120deg, transparent 35%, #000)', WebkitMaskImage: 'linear-gradient(120deg, transparent 35%, #000)' }} />
-                <span aria-hidden="true" className="pointer-events-none absolute right-16 top-4 text-sm opacity-80 transition group-hover:rotate-12 group-hover:scale-125">✨</span>
-                <span aria-hidden="true" className="pointer-events-none absolute left-[44%] top-6 text-xs opacity-70">💗</span>
+                <span aria-hidden="true" className="pointer-events-none absolute right-16 top-4 text-sm opacity-80 transition group-hover:rotate-12 group-hover:scale-125"><Emo e="✨" /></span>
+                <span aria-hidden="true" className="pointer-events-none absolute left-[44%] top-6 text-xs opacity-70"><Emo e="💗" /></span>
                 <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-10 size-32 rounded-full blur-2xl" style={{ background: `${c.color}33` }} />
                 <span aria-hidden="true" className="pointer-events-none absolute -bottom-10 right-6 h-20 w-40 rounded-full blur-2xl" style={{ background: `${c.color}38` }} />
                 <button type="button" onClick={() => app.go({ name: 'child', id: c.id })} aria-label={`${t('Open')} ${c.name}`} className="relative flex min-h-[10.5rem] w-full items-stretch gap-2 p-5 text-left sm:min-h-[11.5rem]">
                   <div className="z-10 flex min-w-0 flex-1 flex-col items-start justify-between gap-1.5">
-                    {c.element ? <ElementMascot name={c.element as ElementKey} className="size-12" /> : <span className="text-3xl" aria-hidden="true">✨</span>}
+                    {c.element ? <ElementMascot name={c.element as ElementKey} className="size-12" /> : <span className="text-3xl" aria-hidden="true"><Emo e="✨" /></span>}
                     <div className="flex flex-col items-start gap-1">
-                      <b className="font-display text-[1.7rem] font-semibold leading-tight text-[#27253f]">{c.name}<span className="ml-1 text-lg" aria-hidden="true">🌟</span></b>
+                      <b className="font-display text-[1.7rem] font-semibold leading-tight text-[#27253f]">{c.name}<span className="ml-1 text-lg" aria-hidden="true"><Emo e="🌟" /></span></b>
                       <span className="text-sm text-[#6d6585]">{c.arch ?? t('Getting to know them')}</span>
                     </div>
                     <span className="relative z-10 inline-flex w-fit items-center gap-1.5 whitespace-nowrap rounded-full bg-white/80 px-3 py-1 text-xs font-bold shadow-sm" style={{ boxShadow: `inset 0 0 0 2px ${c.color}44`, color: c.color }}>
@@ -315,7 +316,7 @@ function Children({ app }: { app: App }) {
           })}
           {kidPage === kidPages ? <button type="button" onClick={() => app.open({ k: 'child' })} className="group flex min-h-[10.5rem] flex-col items-center justify-center gap-2 rounded-[2.4rem] sm:min-h-[11.5rem] border-[1.5px] border-dashed border-[#f4b7cb] bg-gradient-to-br from-[#fff8fb] to-[#fff1f6] p-6 text-[#d9467a] transition hover:-translate-y-0.5 hover:bg-[#fff1f6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ee5a8a]/60">
             <span className="grid size-14 place-items-center rounded-full bg-white shadow-[0_10px_20px_-10px_rgba(238,90,138,0.6)] ring-1 ring-[#f9d3e0]"><Plus className="size-6" /></span>
-            <span className="font-display text-lg font-bold">{t('Add a child')} 🧸</span>
+            <span className="font-display text-lg font-bold">{t('Add a child')} <Emo e="🧸" /></span>
           </button> : null}
         </div>
       )}
@@ -361,7 +362,7 @@ function ChildDetail({ app, child: c }: { app: App; child: Child }) {
               <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2.5 text-sm">
                 <Row k={t('Child name')} v={c.name} /><Row k={t('Age')} v={`${ageOf(c.dob)} ${t('years old')}`} /><Row k={t('Date of birth')} v={fmtDate(new Date(c.dob))} /><Row k={t('Gender')} v={t(c.gender)} /><Row k={t('Unique needs')} v={c.needs.length ? c.needs.map((n) => t(n)).join(', ') : t('None set')} />
               </dl>
-              {c.needs.length ? <p className="mt-4 rounded-2xl bg-[#fff8e6] px-4 py-3 text-xs text-[#8a6d2f]">✨ {t('Calm Senses activities are on for')} {c.name} {t('with a Premium or Premium Plus plan.')}</p> : null}
+              {c.needs.length ? <p className="mt-4 rounded-2xl bg-[#fff8e6] px-4 py-3 text-xs text-[#8a6d2f]"><Emo e="✨" /> {t('Calm Senses activities are on for')} {c.name} {t('with a Premium or Premium Plus plan.')}</p> : null}
             </Card>
             <Card title={`${c.name}${t('’s nature')}`}>
               {known ? (
@@ -374,7 +375,7 @@ function ChildDetail({ app, child: c }: { app: App; child: Child }) {
                   ))}
                 </div>
               ) : (
-                <div className="flex items-start gap-3 rounded-2xl bg-[#f4fbef] p-4 text-sm"><span className="text-2xl" aria-hidden="true">🌱</span><p>{t('Joy is still getting to know')} {c.name}. {t('Their core element, animal nature and child nature appear here as they play.')}</p></div>
+                <div className="flex items-start gap-3 rounded-2xl bg-[#f4fbef] p-4 text-sm"><span className="text-2xl" aria-hidden="true"><Emo e="🌱" /></span><p>{t('Joy is still getting to know')} {c.name}. {t('Their core element, animal nature and child nature appear here as they play.')}</p></div>
               )}
             </Card>
           </div>

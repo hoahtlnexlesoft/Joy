@@ -8,6 +8,7 @@ import type { Child, Gender, Payment } from './data'
 import type { App } from './types'
 import { cn } from '@/lib/utils'
 import { Switch } from './ui'
+import { Emo, EmoText } from '@/components/joy/emo'
 
 export function ChildForm({ app, child, onSaved, onBack }: { app: App; child?: Child; onSaved?: (c: Child) => void; onBack?: () => void }) {
   const edit = !!child
@@ -276,8 +277,8 @@ export function QrPanel({ app, size = 192, compact }: { app: App; size?: number;
       <div className="relative mb-3 overflow-hidden rounded-[1.75rem] bg-gradient-to-b from-[#fff3f8] via-[#fff8ee] to-[#fffdf5] p-4 text-center ring-2 ring-[#ffd3e2]">
         <span aria-hidden="true" className="pointer-events-none absolute -left-4 -top-4 size-20 rounded-full bg-[#ffe3ec]/80" />
         <span aria-hidden="true" className="pointer-events-none absolute -bottom-6 -right-5 size-24 rounded-full bg-[#fff0bf]/80" />
-        <span aria-hidden="true" className="pointer-events-none absolute right-5 top-4 text-lg">✨</span>
-        <span aria-hidden="true" className="pointer-events-none absolute left-5 top-14 text-sm opacity-80">💗</span>
+        <span aria-hidden="true" className="pointer-events-none absolute right-5 top-4 text-lg"><Emo e="✨" /></span>
+        <span aria-hidden="true" className="pointer-events-none absolute left-5 top-14 text-sm opacity-80"><Emo e="💗" /></span>
         <div className="relative mx-auto mb-2.5 w-fit max-w-full rounded-[1.5rem] bg-white p-3 shadow-[0_14px_30px_-14px_rgba(240,86,139,0.55)] ring-4 ring-[#ffe3ec]">
           <QrCanvas seed={`${name}:${ver}`} cute canvasRef={cv} size={size} />
         </div>

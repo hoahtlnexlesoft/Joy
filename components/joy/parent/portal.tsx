@@ -69,7 +69,9 @@ export function ParentPortal() {
   }, [])
 
   useEffect(() => {
-    const init = initialState()
+    let init = initialState()
+    // Review aid: open /parent#profile-payments-empty or #children-empty to see the empty states.
+    if (/-empty$/.test(location.hash)) init = { ...init, payments: [], ...(location.hash.startsWith('#children') ? { children: [], plans: [] } : {}) }
     setS0(init)
     setView(hashToView(location.hash, init))
   }, [])

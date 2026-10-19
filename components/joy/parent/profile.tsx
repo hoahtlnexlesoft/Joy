@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Btn, Card, Empty, Field, Pagination, Seg, Switch, inputCls } from './ui'
+import { Btn, Card, Field, Pagination, Seg, Switch, inputCls } from './ui'
 import { fmtDate, money } from './data'
 import type { Channel } from './data'
 import type { App, Section } from './types'
@@ -78,17 +78,27 @@ function Payments({ app }: { app: App }) {
   const cur = Math.min(pg, pages)
   const shown = list.slice((cur - 1) * PER, cur * PER)
   const counts = (k: Channel) => payments.filter((p) => p.channel === k).length
+  const review = process.env.NEXT_PUBLIC_JOY_REVIEW === '1'
   return (
     <Card>
+      {review ? (
+        <div className="mb-4 flex flex-wrap items-center gap-2 rounded-2xl border border-dashed border-[#d9cdf5] bg-[#faf7ff] px-3 py-2 text-xs text-[#6c6788]">
+          <b className="text-[#5b3fc4]">Review view</b>
+          <button type="button" aria-pressed={payments.length > 0} onClick={() => { location.hash = '#profile-payments' }} className={cn('rounded-full px-3 py-1 font-semibold ring-1', payments.length ? 'bg-[#5b3fc4] text-white ring-[#5b3fc4]' : 'bg-white ring-border')}>List with pagination</button>
+          <button type="button" aria-pressed={payments.length === 0} onClick={() => { location.hash = '#profile-payments-empty' }} className={cn('rounded-full px-3 py-1 font-semibold ring-1', payments.length === 0 ? 'bg-[#5b3fc4] text-white ring-[#5b3fc4]' : 'bg-white ring-border')}>Empty state</button>
+        </div>
+      ) : null}
       <div className="mb-5 grid gap-4 sm:grid-cols-[auto_1fr] sm:items-center">
         <div><small className="block text-xs text-muted-foreground">{t('Payments')}</small><b className="font-display text-2xl">{payments.length}</b></div>
         <p className="rounded-2xl bg-[#faf8fc] p-3 text-xs leading-relaxed text-muted-foreground">{t('Buy on the website with AYA Pay. Payments made in the Joy app or in person show here too.')}</p>
       </div>
+      {payments.length ? (
       <div role="group" aria-label={t('Filter by payment channel')} className="mb-4 flex flex-wrap gap-2">
         {([['all', t('All'), payments.length], ...(Object.keys(CHANNELS) as Channel[]).map((k) => [k, CHANNELS[k].label, counts(k)])] as [string, string, number][]).map(([k, l, n]) => (
           <button key={k} type="button" aria-pressed={f === k} onClick={() => { setF(k as 'all' | Channel); setPg(1) }} className={cn('rounded-full px-3.5 py-1.5 text-sm font-semibold ring-1 transition', f === k ? 'bg-foreground text-background ring-foreground' : 'bg-white ring-border hover:ring-foreground/30')}>{l} <span className="opacity-60">{n}</span></button>
         ))}
       </div>
+      ) : null}
       {list.length ? (
         <div role="table" aria-label="Payments" className="overflow-hidden rounded-2xl ring-1 ring-border">
           <div role="row" className="hidden grid-cols-[1fr_1.6fr_1fr_1.2fr_auto_5.5rem] gap-3 bg-[#faf8fc] px-4 py-2.5 text-xs font-semibold text-muted-foreground md:grid">
@@ -106,7 +116,15 @@ function Payments({ app }: { app: App }) {
           ))}
         </div>
       ) : (
-        <Empty icon="🧾" title={t('No payments yet')}>{payments.length ? t('No payments for this channel.') : t('When you buy a plan, your payments and invoices will show up here.')}</Empty>
+        <div className="relative flex flex-col items-center gap-2 overflow-hidden rounded-[1.5rem] bg-gradient-to-b from-[#fff6f9] via-[#fbf6ff] to-[#f6f3ff] px-6 pb-10 pt-8 text-center">
+          <img src="/images/empty-receipt.webp" alt="" width={720} height={290} className="h-auto w-full max-w-[22rem] select-none" draggable={false} />
+          <h3 className="mt-1 flex items-center gap-3 font-display text-2xl font-bold text-[#2a2150]">
+            <span aria-hidden="true" className="flex flex-col gap-1"><i className="block h-[3px] w-3 rotate-[-30deg] rounded-full bg-[#ffb62e]" /><i className="block h-[3px] w-3 rotate-[30deg] rounded-full bg-[#ff7aa8]" /></span>
+            {t('No payments yet')}
+            <span aria-hidden="true" className="flex flex-col gap-1"><i className="block h-[3px] w-3 rotate-[30deg] rounded-full bg-[#ffb62e]" /><i className="block h-[3px] w-3 rotate-[-30deg] rounded-full bg-[#ff7aa8]" /></span>
+          </h3>
+          <p className="max-w-sm text-sm leading-relaxed text-[#6c6788] sm:text-base">{payments.length ? t('No payments for this channel.') : t('When you buy a plan, your payments and invoices will show up here.')}</p>
+        </div>
       )}
       <Pagination page={cur} pages={pages} onChange={setPg} label={t('Payments pages')} />
     </Card>

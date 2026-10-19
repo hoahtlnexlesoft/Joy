@@ -62,7 +62,18 @@ export function ParentPortal() {
 
   useEffect(() => {
     // The header's account menu links here (e.g. /parent#plans); follow the hash when it changes.
-    const sync = () => setS0((cur) => { if (cur) setView(hashToView(location.hash, cur)); return cur })
+    const sync = () => setS0((cur) => {
+      if (!cur) return cur
+      let n = cur
+      if (process.env.NEXT_PUBLIC_JOY_REVIEW === '1' && location.hash.startsWith('#profile-payments')) {
+        // Review aid: switch between the full list (with pagination) and the empty state.
+        const empty = /-empty$/.test(location.hash)
+        if (empty && cur.payments.length) n = { ...cur, payments: [] }
+        else if (!empty && !cur.payments.length) n = { ...cur, payments: initialState().payments }
+      }
+      setView(hashToView(location.hash, n))
+      return n
+    })
     window.addEventListener('hashchange', sync)
     window.addEventListener('joy:portal-nav', sync)
     return () => { window.removeEventListener('hashchange', sync); window.removeEventListener('joy:portal-nav', sync) }
@@ -71,7 +82,7 @@ export function ParentPortal() {
   useEffect(() => {
     let init = initialState()
     // Review aid: open /parent#profile-payments-empty or #children-empty to see the empty states.
-    if (/-empty$/.test(location.hash)) init = { ...init, payments: [], ...(location.hash.startsWith('#children') ? { children: [], plans: [] } : {}) }
+    if (process.env.NEXT_PUBLIC_JOY_REVIEW === '1' && /-empty$/.test(location.hash)) init = { ...init, payments: [], ...(location.hash.startsWith('#children') ? { children: [], plans: [] } : {}) }
     setS0(init)
     setView(hashToView(location.hash, init))
   }, [])

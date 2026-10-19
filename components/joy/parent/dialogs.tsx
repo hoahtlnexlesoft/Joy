@@ -115,7 +115,7 @@ export function PasswordDialog({ app }: { app: App }) {
   }
   return (
     <>
-      <DlgHead icon="🔒" title="Change password" sub="Use at least 8 characters." />
+      <DlgHead icon={<img src="/images/lock-cute.webp" alt="" aria-hidden="true" className="size-9 drop-shadow-[0_3px_6px_rgba(244,112,102,0.25)]" />} title="Change password" sub="Use at least 8 characters." />
       <form onSubmit={submit} noValidate>
         <Field label="Current password" error={tried && !o ? 'Enter your current password.' : null}>{(id) => <input id={id} type="password" value={o} onChange={(e) => setO(e.target.value)} autoComplete="current-password" className={inputCls} />}</Field>
         <Field label="New password" error={tried && n.length < 8 ? 'Use at least 8 characters.' : null}>{(id) => <input id={id} type="password" value={n} onChange={(e) => setN(e.target.value)} autoComplete="new-password" className={inputCls} />}</Field>

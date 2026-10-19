@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Btn, Card, Field, Seg, Switch, inputCls } from './ui'
+import { Btn, Card, Empty, Field, Pagination, Seg, Switch, inputCls } from './ui'
 import { fmtDate, money } from './data'
 import type { Channel } from './data'
 import type { App, Section } from './types'
@@ -72,18 +72,21 @@ function Payments({ app }: { app: App }) {
   const [f, setF] = useState<'all' | Channel>('all')
   const { payments } = app.s
   const list = payments.filter((p) => f === 'all' || p.channel === f)
-  const total = payments.reduce((s, p) => s + p.amount, 0)
+  const PER = 5
+  const [pg, setPg] = useState(1)
+  const pages = Math.max(1, Math.ceil(list.length / PER))
+  const cur = Math.min(pg, pages)
+  const shown = list.slice((cur - 1) * PER, cur * PER)
   const counts = (k: Channel) => payments.filter((p) => p.channel === k).length
   return (
     <Card>
-      <div className="mb-5 grid gap-4 sm:grid-cols-[auto_auto_1fr] sm:items-center">
-        <div><small className="block text-xs text-muted-foreground">{t('Total paid')}</small><b className="font-display text-2xl">{money(total)}</b></div>
+      <div className="mb-5 grid gap-4 sm:grid-cols-[auto_1fr] sm:items-center">
         <div><small className="block text-xs text-muted-foreground">{t('Payments')}</small><b className="font-display text-2xl">{payments.length}</b></div>
         <p className="rounded-2xl bg-[#faf8fc] p-3 text-xs leading-relaxed text-muted-foreground">{t('Buy on the website with AYA Pay. Payments made in the Joy app or in person show here too.')}</p>
       </div>
       <div role="group" aria-label={t('Filter by payment channel')} className="mb-4 flex flex-wrap gap-2">
         {([['all', t('All'), payments.length], ...(Object.keys(CHANNELS) as Channel[]).map((k) => [k, CHANNELS[k].label, counts(k)])] as [string, string, number][]).map(([k, l, n]) => (
-          <button key={k} type="button" aria-pressed={f === k} onClick={() => setF(k as 'all' | Channel)} className={cn('rounded-full px-3.5 py-1.5 text-sm font-semibold ring-1 transition', f === k ? 'bg-foreground text-background ring-foreground' : 'bg-white ring-border hover:ring-foreground/30')}>{l} <span className="opacity-60">{n}</span></button>
+          <button key={k} type="button" aria-pressed={f === k} onClick={() => { setF(k as 'all' | Channel); setPg(1) }} className={cn('rounded-full px-3.5 py-1.5 text-sm font-semibold ring-1 transition', f === k ? 'bg-foreground text-background ring-foreground' : 'bg-white ring-border hover:ring-foreground/30')}>{l} <span className="opacity-60">{n}</span></button>
         ))}
       </div>
       {list.length ? (
@@ -91,7 +94,7 @@ function Payments({ app }: { app: App }) {
           <div role="row" className="hidden grid-cols-[1fr_1.6fr_1fr_1.2fr_auto_5.5rem] gap-3 bg-[#faf8fc] px-4 py-2.5 text-xs font-semibold text-muted-foreground md:grid">
             <span role="columnheader">{t('Date')}</span><span role="columnheader">{t('Plan')}</span><span role="columnheader">{t('Child')}</span><span role="columnheader">{t('Paid via')}</span><span role="columnheader" className="text-right">{t('Amount')}</span><span role="columnheader" className="text-right">{t('Invoice')}</span>
           </div>
-          {list.map((p) => (
+          {shown.map((p) => (
             <div key={`${p.ref}-${p.item}`} role="row" onClick={() => app.open({ k: 'invoice', pay: p })} className="grid cursor-pointer gap-1 border-t border-border/70 px-4 py-3 text-sm transition hover:bg-[#fff8fb] first:border-0 md:grid-cols-[1fr_1.6fr_1fr_1.2fr_auto_5.5rem] md:items-center md:gap-3">
               <span role="cell">{fmtDate(p.date)}</span>
               <span role="cell"><b className="block">{p.item}</b><small className="text-xs text-muted-foreground">{p.ref}</small></span>
@@ -102,7 +105,10 @@ function Payments({ app }: { app: App }) {
             </div>
           ))}
         </div>
-      ) : <p className="py-3 text-sm text-muted-foreground">{t('No payments yet.')}</p>}
+      ) : (
+        <Empty icon="🧾" title={t('No payments yet')}>{payments.length ? t('No payments for this channel.') : t('When you buy a plan, your payments and invoices will show up here.')}</Empty>
+      )}
+      <Pagination page={cur} pages={pages} onChange={setPg} label={t('Payments pages')} />
     </Card>
   )
 }

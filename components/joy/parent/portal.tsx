@@ -7,7 +7,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, BookOpenCheck, Crown, Heart, Pencil, Plus, Trash2 } from '@/components/joy/cute-icons'
 import { cn } from '@/lib/utils'
 import { useT } from '@/lib/i18n'
-import { Btn, Card, Empty, Modal, UnlockChip } from './ui'
+import { Btn, Card, Empty, Modal, Pagination, UnlockChip } from './ui'
 import { ageOf, daysLeft, endingSoon, fmtDate, firstName, initialState, isExpired, unlockOf } from './data'
 import type { Child, State, Unlock } from './data'
 import type { App, Dlg, Section, View } from './types'
@@ -220,6 +220,11 @@ function Children({ app }: { app: App }) {
   const t = useT()
   const { s } = app
   const soon = endingSoon(s)
+  const KID_PER = 3
+  const [kidPg, setKidPg] = useState(1)
+  const kidPages = Math.max(1, Math.ceil(s.children.length / KID_PER))
+  const kidPage = Math.min(kidPg, kidPages)
+  const kidsShown = s.children.slice((kidPage - 1) * KID_PER, kidPage * KID_PER)
   return (
     <div className="flex flex-col gap-6">
       <section className="relative isolate overflow-hidden rounded-[2rem] bg-gradient-to-r from-[#fff4ee] via-[#fff7f3] to-[#fdf0f6] shadow-[0_22px_50px_-30px_rgba(236,100,150,0.55)] ring-1 ring-white/80 sm:rounded-[2.5rem]">
@@ -266,7 +271,7 @@ function Children({ app }: { app: App }) {
         <Empty icon="🧒" title={t('Add your first child')} action={<Btn onClick={() => app.open({ k: 'child' })}>{t('+ Add a child')}</Btn>}>{t('Tell Joy a little about your child to start their journey. You can add all your children to one parent account.')}</Empty>
       ) : (
         <div id="children-grid" className="grid scroll-mt-28 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {s.children.map((c) => {
+          {kidsShown.map((c) => {
             const u = unlockOf(s, c)
             return (
               <article key={c.id} className="group relative overflow-hidden rounded-[2.4rem] border shadow-[0_16px_32px_-18px_rgba(39,37,63,0.3)] transition duration-300 hover:-translate-y-1.5 hover:rotate-[0.6deg] hover:shadow-[0_24px_44px_-24px_rgba(39,37,63,0.4)]" style={{ borderColor: `${c.color}66`, background: `linear-gradient(120deg,${c.color}2e 0%,#ffffff 62%,${c.color}1f 100%)` }}>
@@ -295,12 +300,13 @@ function Children({ app }: { app: App }) {
               </article>
             )
           })}
-          <button type="button" onClick={() => app.open({ k: 'child' })} className="group flex min-h-[10.5rem] flex-col items-center justify-center gap-2 rounded-[2.4rem] sm:min-h-[11.5rem] border-[1.5px] border-dashed border-[#f4b7cb] bg-gradient-to-br from-[#fff8fb] to-[#fff1f6] p-6 text-[#d9467a] transition hover:-translate-y-0.5 hover:bg-[#fff1f6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ee5a8a]/60">
+          {kidPage === kidPages ? <button type="button" onClick={() => app.open({ k: 'child' })} className="group flex min-h-[10.5rem] flex-col items-center justify-center gap-2 rounded-[2.4rem] sm:min-h-[11.5rem] border-[1.5px] border-dashed border-[#f4b7cb] bg-gradient-to-br from-[#fff8fb] to-[#fff1f6] p-6 text-[#d9467a] transition hover:-translate-y-0.5 hover:bg-[#fff1f6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ee5a8a]/60">
             <span className="grid size-14 place-items-center rounded-full bg-white shadow-[0_10px_20px_-10px_rgba(238,90,138,0.6)] ring-1 ring-[#f9d3e0]"><Plus className="size-6" /></span>
             <span className="font-display text-lg font-bold">{t('Add a child')} 🧸</span>
-          </button>
+          </button> : null}
         </div>
       )}
+      <Pagination page={kidPage} pages={kidPages} onChange={(n) => { setKidPg(n); document.getElementById('children-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }} label={t('Children pages')} />
     </div>
   )
 }

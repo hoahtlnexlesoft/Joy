@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef } from 'react'
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import { Crown, Gem, Sparkles, X } from '@/components/joy/cute-icons'
+import { ArrowLeft, ArrowRight, Crown, Gem, Sparkles, X } from '@/components/joy/cute-icons'
 import { cn } from '@/lib/utils'
 
 type BtnVariant = 'gold' | 'ghost' | 'danger' | 'aya' | 'blue' | 'green' | 'blueSoft' | 'greenSoft' | 'orangeSoft' | 'dark'
@@ -143,5 +143,20 @@ export function UnlockChip({ type, label, className }: { type: 'Premium' | 'Spec
     <span className={cn(base, 'bg-gradient-to-r from-[#ffe08a] to-[#ffc542] text-[#7a4a00] shadow-[0_6px_14px_-8px_rgba(255,170,0,0.8)] ring-1 ring-[#ffd166]', className)}>
       <Crown className="size-3.5" aria-hidden="true" />{text}{type === 'Premium Plus' ? <Sparkles className="size-3" aria-hidden="true" /> : null}
     </span>
+  )
+}
+
+export function Pagination({ page, pages, onChange, label = 'Pagination' }: { page: number; pages: number; onChange: (p: number) => void; label?: string }) {
+  if (pages <= 1) return null
+  const nums = Array.from({ length: pages }, (_, i) => i + 1)
+  const base = 'grid size-9 place-items-center rounded-full text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ee5a8a]/60'
+  return (
+    <nav aria-label={label} className="mt-5 flex items-center justify-center gap-1.5">
+      <button type="button" aria-label="Previous page" disabled={page <= 1} onClick={() => onChange(page - 1)} className={cn(base, 'bg-white ring-1 ring-border hover:ring-foreground/30 disabled:opacity-40 disabled:hover:ring-border')}><ArrowLeft className="size-4" /></button>
+      {nums.map((n) => (
+        <button key={n} type="button" aria-label={`Page ${n}`} aria-current={n === page ? 'page' : undefined} onClick={() => onChange(n)} className={cn(base, n === page ? 'bg-gradient-to-br from-[#f9709a] to-[#ee5a8a] text-white shadow-[0_8px_16px_-8px_rgba(238,90,138,0.8)]' : 'bg-white text-foreground ring-1 ring-border hover:ring-foreground/30')}>{n}</button>
+      ))}
+      <button type="button" aria-label="Next page" disabled={page >= pages} onClick={() => onChange(page + 1)} className={cn(base, 'bg-white ring-1 ring-border hover:ring-foreground/30 disabled:opacity-40 disabled:hover:ring-border')}><ArrowRight className="size-4" /></button>
+    </nav>
   )
 }

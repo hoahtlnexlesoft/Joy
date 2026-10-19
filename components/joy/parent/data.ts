@@ -95,6 +95,9 @@ export function initialState(): State {
       { date: addDays(now, -27), item: 'Discovery, 1 month', child: 'Thomas', amount: 4.99, channel: 'Apple', ref: 'MT7Q2K9P1X', status: 'Paid' },
       { date: addDays(now, -60), item: 'Adventure, 3 months', child: 'Sarah', amount: 12.99, channel: 'Google', ref: 'GPA.3321-8841-2210', status: 'Paid' },
       { date: addDays(now, -375), item: 'Guided Growth, 12 months', child: 'Smith', amount: 44.99, channel: 'Offline', ref: 'OFF-2025-0142', status: 'Paid' },
+      { date: addDays(now, -410), item: 'Discovery, 1 month', child: 'Mia', amount: 4.99, channel: 'Apple', ref: 'MT5B8R2D4Z', status: 'Paid' },
+      { date: addDays(now, -440), item: 'Adventure, 3 months', child: 'Sarah', amount: 12.99, channel: 'Google', ref: 'GPA.3320-1127-9034', status: 'Paid' },
+      { date: addDays(now, -470), item: 'Discovery, 1 month', child: 'Thomas', amount: 4.99, channel: 'AYA', ref: 'JOY48117722', status: 'Paid' },
     ],
     usedVouchers: ['WELCOME10'],
   }

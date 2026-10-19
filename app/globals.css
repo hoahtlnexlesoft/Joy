@@ -447,8 +447,16 @@ html[lang='my'] {
   --font-display: var(--font-noto), var(--font-myanmar), ui-rounded, system-ui, sans-serif;
   --font-hand: var(--font-noto), var(--font-myanmar), sans-serif;
 }
+/* Myanmar glyphs stack tall (stacked consonants, vowel marks above/below), so a
+   little smaller type plus a generous line-height stops lines clipping or dropping.
+   The universal rule beats Tailwind's leading-* / text-* line-heights; ids below still win. */
+html[lang='my'] { font-size: 93.75%; }
 html[lang='my'] body { line-height: 1.75; }
-html[lang='my'] :where(h1, h2, h3, h4) { line-height: 1.5; }
+html[lang='my'] body *:not(svg):not(svg *) { line-height: 1.7; }
+html[lang='my'] body *:not(svg):not(svg *) { letter-spacing: normal; word-spacing: normal; }
+html[lang='my'] body :where(h1, h2, h3, h4, h5, h6, .font-display, .font-hand) { line-height: 1.6; }
+html[lang='my'] body h1, html[lang='my'] body h2 { line-height: 1.55; }
+html[lang='my'] body :where(.truncate, .line-clamp-1, .line-clamp-2, .line-clamp-3) { padding-block: 0.08em; }
 
 /* Myanmar copy runs long: shrink the Try-Joy CTA text so the layout holds */
 html[lang='my'] #download .font-hand.text-3xl { font-size: 1.5rem; line-height: 1.6; }

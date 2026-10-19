@@ -123,7 +123,7 @@ function StepCard({ step, index }: { step: FlowStep; index: number }) {
 
 function VerbPill({ verb }: { verb: string }) {
   return (
-    <span className="whitespace-nowrap rounded-full bg-white px-3 py-1 font-display text-xs xl:text-sm font-semibold italic text-[#2a2240] shadow-sm ring-1 ring-black/5">
+    <span className="whitespace-nowrap rounded-full bg-white px-4 py-1 font-display text-xs xl:text-sm font-semibold italic text-[#2a2240] shadow-sm ring-1 ring-black/5">
       {verb}
     </span>
   )

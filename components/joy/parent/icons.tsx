@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 
-export type CuteName = 'children' | 'plans' | 'account' | 'payments' | 'prefs' | 'security' | 'profile' | 'gift'
+export type CuteName = 'children' | 'plans' | 'account' | 'payments' | 'prefs' | 'security' | 'profile' | 'gift' | 'trash' | 'warning' | 'bubble' | 'balloon' | 'clock'
 
 const TILE: Record<CuteName, string> = {
   children: 'from-[#ffe6d2] to-[#ffd3e2]',
@@ -11,6 +11,11 @@ const TILE: Record<CuteName, string> = {
   prefs: 'from-[#fff0bf] to-[#ffe0cf]',
   security: 'from-[#d9f6dd] to-[#d6f0ff]',
   gift: 'from-[#ffe0ec] to-[#fff0c9]',
+  trash: 'from-[#ffe0ec] to-[#ffd3d3]',
+  warning: 'from-[#fff0bf] to-[#ffd9c4]',
+  bubble: 'from-[#eadfff] to-[#d6f0ff]',
+  balloon: 'from-[#ffe0ec] to-[#ffe9c9]',
+  clock: 'from-[#fff0bf] to-[#ffe3b8]',
 }
 
 const Face = ({ x, y, c = '#5b4a6e' }: { x: number; y: number; c?: string }) => (
@@ -79,6 +84,47 @@ function Glyph({ name }: { name: CuteName }) {
           <rect x={6.5} y={13.5} width={19} height={13.5} rx={4.5} fill="#8be0a4" stroke="#4fbf7a" strokeWidth={1.4} />
           <circle cx={16} cy={19.2} r={2.1} fill="#fff" />
           <path d="M16 20.4 V23" stroke="#fff" strokeWidth={1.8} strokeLinecap="round" />
+        </>
+      )
+    case 'trash':
+      return (
+        <>
+          <path d="M13 8.5 V7.2 a1.6 1.6 0 0 1 1.6 -1.6 h2.8 a1.6 1.6 0 0 1 1.6 1.6 V8.5" fill="none" stroke="#f0689a" strokeWidth={1.4} strokeLinecap="round" />
+          <path d="M9 12.5 L10.2 25 a2 2 0 0 0 2 1.8 h7.6 a2 2 0 0 0 2 -1.8 L23 12.5 Z" fill="#ffd0e2" stroke="#f0689a" strokeWidth={1.4} strokeLinejoin="round" />
+          <rect x={6.5} y={8.5} width={19} height={4} rx={2} fill="#ff9db8" stroke="#f0689a" strokeWidth={1.4} />
+          <Face x={16} y={19.5} />
+        </>
+      )
+    case 'warning':
+      return (
+        <>
+          <path d="M16 5.2 L27.6 25 a1.7 1.7 0 0 1 -1.5 2.5 H5.9 a1.7 1.7 0 0 1 -1.5 -2.5 Z" fill="#ffd45e" stroke="#f0aa1e" strokeWidth={1.5} strokeLinejoin="round" />
+          <path d="M16 12.4 V19" stroke="#8a5a00" strokeWidth={2.3} strokeLinecap="round" />
+          <circle cx={16} cy={22.6} r={1.4} fill="#8a5a00" />
+        </>
+      )
+    case 'bubble':
+      return (
+        <>
+          <path d="M7 6 h18 a4 4 0 0 1 4 4 v8.5 a4 4 0 0 1 -4 4 H15.6 L9.6 27.8 V22.5 H7 a4 4 0 0 1 -4 -4 V10 a4 4 0 0 1 4 -4 Z" fill="#cdb8ff" stroke="#8f72e6" strokeWidth={1.4} strokeLinejoin="round" />
+          <Face x={16} y={13.4} />
+        </>
+      )
+    case 'balloon':
+      return (
+        <>
+          <path d="M16 24.6 q-2.8 1.8 0 3.4 t0 2.6" fill="none" stroke="#f0689a" strokeWidth={1.2} strokeLinecap="round" />
+          <ellipse cx={16} cy={13} rx={9} ry={9.6} fill="#ff9db8" stroke="#f0689a" strokeWidth={1.4} />
+          <path d="M16 22.4 l-1.8 2.6 h3.6 Z" fill="#f0689a" stroke="#f0689a" strokeWidth={1} strokeLinejoin="round" />
+          <Face x={16} y={13} />
+        </>
+      )
+    case 'clock':
+      return (
+        <>
+          <circle cx={16} cy={16.5} r={10.5} fill="#fff0bf" stroke="#f0aa1e" strokeWidth={1.5} />
+          <path d="M16 9.8 V16.5 L20.4 19" stroke="#c98a10" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx={16} cy={16.5} r={1.2} fill="#c98a10" />
         </>
       )
     case 'gift':

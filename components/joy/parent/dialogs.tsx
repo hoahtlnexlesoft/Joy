@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Camera, Download, FileText, RefreshCw, Share2, TriangleAlert } from '@/components/joy/cute-icons'
+import { Camera, Download, FileText, RefreshCw, Share2 } from '@/components/joy/cute-icons'
 import { Btn, DlgHead, Field, Modal, Note, inputCls } from './ui'
 import { NEEDS, COLORS, initials, fmtDate, money } from './data'
 import type { Child, Gender, Payment } from './data'
@@ -43,7 +43,7 @@ export function ChildForm({ app, child, onSaved, onBack }: { app: App; child?: C
 
   return (
     <>
-      <DlgHead icon="🧒" title={edit ? `Edit ${child!.name}` : 'Add a child'} sub={edit ? 'Update your child’s details.' : 'Tell Joy a little about your child.'} />
+      <DlgHead cute="children" title={edit ? `Edit ${child!.name}` : 'Add a child'} sub={edit ? 'Update your child’s details.' : 'Tell Joy a little about your child.'} />
       <form onSubmit={submit} noValidate>
         <Field label="Child name *" error={eName}>{(id) => <input id={id} value={name} onChange={(e) => setName(e.target.value)} autoComplete="off" className={inputCls} />}</Field>
         <div className="grid gap-x-3 sm:grid-cols-2">
@@ -79,7 +79,7 @@ export function ChildForm({ app, child, onSaved, onBack }: { app: App; child?: C
 export function DeleteChild({ app, child }: { app: App; child: Child }) {
   return (
     <>
-      <DlgHead icon="🗑️" title={`Delete ${child.name}?`} sub={`This removes ${child.name}’s profile, feeling log and activity history. You can’t undo this.`} />
+      <DlgHead cute="trash" title={`Delete ${child.name}?`} sub={`This removes ${child.name}’s profile, feeling log and activity history. You can’t undo this.`} />
       <div className="flex justify-end gap-3">
         <Btn variant="ghost" onClick={() => app.open(null)}>Keep {child.name}</Btn>
         <Btn variant="danger" onClick={() => {
@@ -96,7 +96,7 @@ export function DeleteAccount({ app }: { app: App }) {
   const [tried, setTried] = useState(false)
   return (
     <>
-      <DlgHead icon={<TriangleAlert className="size-7 text-[#e5446d]" aria-hidden="true" />} title="Delete your account?" sub="This permanently deletes your parent account, your children’s profiles and all their data. You can’t undo this." />
+      <DlgHead cute="warning" title="Delete your account?" sub="This permanently deletes your parent account, your children’s profiles and all their data. You can’t undo this." />
       <Field label="Type DELETE to confirm" error={tried && v !== 'DELETE' ? 'Type DELETE in capital letters.' : null}>{(id) => <input id={id} value={v} onChange={(e) => setV(e.target.value)} autoComplete="off" className={inputCls} />}</Field>
       <div className="flex justify-end gap-3">
         <Btn variant="ghost" onClick={() => app.open(null)}>Cancel</Btn>
@@ -115,7 +115,7 @@ export function PasswordDialog({ app }: { app: App }) {
   }
   return (
     <>
-      <DlgHead icon={<img src="/images/lock-cute.webp" alt="" aria-hidden="true" className="size-9 drop-shadow-[0_3px_6px_rgba(244,112,102,0.25)]" />} title="Change password" sub="Use at least 8 characters." />
+      <DlgHead cute="security" title="Change password" sub="Use at least 8 characters." />
       <form onSubmit={submit} noValidate>
         <Field label="Current password" error={tried && !o ? 'Enter your current password.' : null}>{(id) => <input id={id} type="password" value={o} onChange={(e) => setO(e.target.value)} autoComplete="current-password" className={inputCls} />}</Field>
         <Field label="New password" error={tried && n.length < 8 ? 'Use at least 8 characters.' : null}>{(id) => <input id={id} type="password" value={n} onChange={(e) => setN(e.target.value)} autoComplete="new-password" className={inputCls} />}</Field>

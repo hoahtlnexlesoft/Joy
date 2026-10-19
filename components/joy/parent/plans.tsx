@@ -137,7 +137,7 @@ export function PlansView({ app }: { app: App }) {
       </div>
 
       {list.length ? <div className="grid items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-3">{list.map((p) => <PlanCard key={p.id} app={app} p={p} />)}</div> : (
-        <Empty icon={tab === 'active' ? '🎈' : '🕰️'} title={tab === 'active' ? t('No active plans') : t('No expired plans')} action={tab === 'active' ? <Btn onClick={() => app.open({ k: 'buy' })}>{t('Buy new')}</Btn> : undefined}>
+        <Empty cute={tab === 'active' ? 'balloon' : 'clock'} title={tab === 'active' ? t('No active plans') : t('No expired plans')} action={tab === 'active' ? <Btn onClick={() => app.open({ k: 'buy' })}>{t('Buy new')}</Btn> : undefined}>
           {tab === 'active' ? t('Buy a plan or redeem a voucher to unlock more for your children.') : t('Plans that have ended will show here.')}
         </Empty>
       )}
@@ -171,7 +171,7 @@ export function AssignDialog({ app, plan, pre }: { app: App; plan: Plan; pre?: s
   }
   return (
     <>
-      <DlgHead icon="🧒" title={`${t('Assign')} ${plan.name}`} sub={multi ? t('Choose one or more children for this Trial Gift.') : t('Each plan covers one child. Choose who gets it.')} />
+      <DlgHead cute="children" title={`${t('Assign')} ${plan.name}`} sub={multi ? t('Choose one or more children for this Trial Gift.') : t('Each plan covers one child. Choose who gets it.')} />
       <form onSubmit={submit}>
         <fieldset className="mb-4 grid gap-2 sm:grid-cols-2">
           <legend className="sr-only">{t('Children')}</legend>
@@ -195,13 +195,13 @@ export function AssignToChildDialog({ app, child }: { app: App; child: Child }) 
   if (!avail.length)
     return (
       <>
-        <DlgHead icon="🎟️" title={t('No plans to assign')} sub={`${t('You don’t have an unassigned plan that fits')} ${child.name}. ${t('Buy a new one instead.')}`} />
+        <DlgHead cute="plans" title={t('No plans to assign')} sub={`${t('You don’t have an unassigned plan that fits')} ${child.name}. ${t('Buy a new one instead.')}`} />
         <Btn full onClick={() => app.open({ k: 'buy', child: child.id })}>{t('Buy a plan for')} {child.name}</Btn>
       </>
     )
   return (
     <>
-      <DlgHead icon="🎟️" title={`${t('Assign a plan to')} ${child.name}`} sub={t('Pick one of your available plans.')} />
+      <DlgHead cute="plans" title={`${t('Assign a plan to')} ${child.name}`} sub={t('Pick one of your available plans.')} />
       <form onSubmit={(e) => {
         e.preventDefault()
         if (!sel) return setErr(true)
@@ -239,7 +239,7 @@ export function RedeemDialog({ app }: { app: App }) {
   }
   return (
     <>
-      <DlgHead icon="🎁" title={t('Redeem a voucher')} sub={t('Enter your code to claim a Trial Gift! Unlock Premium, Special, or both. Discover your gift now!')} />
+      <DlgHead cute="gift" title={t('Redeem a voucher')} sub={t('Enter your code to claim a Trial Gift! Unlock Premium, Special, or both. Discover your gift now!')} />
       <form onSubmit={submit} noValidate>
         <Field label={t('Voucher code')} error={err}>{(id) => <input id={id} value={code} onChange={(e) => { setCode(e.target.value); setErr(null) }} autoComplete="off" placeholder="e.g. JOYTRIAL" className={cn(inputCls, 'font-semibold uppercase tracking-widest')} />}</Field>
         <Btn type="submit" full variant="green">{t('Redeem')}</Btn>

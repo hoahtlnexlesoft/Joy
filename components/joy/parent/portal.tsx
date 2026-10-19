@@ -281,7 +281,7 @@ function Children({ app }: { app: App }) {
       ))}
 
       {!s.children.length ? (
-        <Empty icon="🧒" title={t('Add your first child')} action={<Btn onClick={() => app.open({ k: 'child' })}>{t('+ Add a child')}</Btn>}>{t('Tell Joy a little about your child to start their journey. You can add all your children to one parent account.')}</Empty>
+        <Empty cute="children" title={t('Add your first child')} action={<Btn onClick={() => app.open({ k: 'child' })}>{t('+ Add a child')}</Btn>}>{t('Tell Joy a little about your child to start their journey. You can add all your children to one parent account.')}</Empty>
       ) : (
         <div id="children-grid" className="grid scroll-mt-28 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {kidsShown.map((c) => {
@@ -389,7 +389,7 @@ function ChildDetail({ app, child: c }: { app: App; child: Child }) {
               <Btn small onClick={() => app.open({ k: 'buy', child: c.id })}>{t('Buy a plan for')} {c.name}</Btn>
             </div>
           </div>
-          {act.length ? <><h3 className="text-sm font-semibold text-muted-foreground">{t('Active')}</h3><div className="grid items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-3">{act.map((p) => <PlanCard key={p.id} app={app} p={p} />)}</div></> : <Empty icon="🎟️" title={`${c.name} ${t('has no active plan.')}`} />}
+          {act.length ? <><h3 className="text-sm font-semibold text-muted-foreground">{t('Active')}</h3><div className="grid items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-3">{act.map((p) => <PlanCard key={p.id} app={app} p={p} />)}</div></> : <Empty cute="plans" title={`${c.name} ${t('has no active plan.')}`} />}
           {exp.length ? <><h3 className="text-sm font-semibold text-muted-foreground">{t('Expired')}</h3><div className="grid items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-3">{exp.map((p) => <PlanCard key={p.id} app={app} p={p} />)}</div></> : null}
         </div>
       ) : tab === 'feel' ? <FeelingLog child={c} /> : <ActivitiesTab child={c} />}

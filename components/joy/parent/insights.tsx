@@ -108,7 +108,7 @@ export function FeelingLog({ child }: { child: Child }) {
   const [sel, setSel] = useState(() => dayKey(startOfDay(new Date())))
   const data = childData(child)
   if (!child.element || !Object.keys(data).length)
-    return <Empty icon="💭" title="No check-ins yet">After each activity, {child.name} picks how they feel. Their feeling log starts here.</Empty>
+    return <Empty cute="bubble" title="No check-ins yet">After each activity, {child.name} picks how they feel. Their feeling log starts here.</Empty>
 
   const keys = rangeDays(period)
   const entries = keys.flatMap((k) => data[k]?.feel ?? [])
@@ -219,7 +219,7 @@ export function ActivitiesTab({ child }: { child: Child }) {
   const [more, setMore] = useState(false)
   const data = childData(child)
   if (!child.element || !Object.keys(data).length)
-    return <Empty icon="🎈" title="No activities yet">When {child.name} starts playing, every activity shows here with its movement tag.</Empty>
+    return <Empty cute="balloon" title="No activities yet">When {child.name} starts playing, every activity shows here with its movement tag.</Empty>
 
   const keys = rangeDays(period)
   const all = keys.flatMap((k) => data[k]?.acts ?? [])

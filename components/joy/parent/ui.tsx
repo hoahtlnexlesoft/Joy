@@ -4,6 +4,7 @@ import { useEffect, useId, useRef } from 'react'
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import { ArrowLeft, ArrowRight, Crown, Gem, Sparkles, X } from '@/components/joy/cute-icons'
 import { cn } from '@/lib/utils'
+import { CuteIcon, type CuteName } from './icons'
 
 type BtnVariant = 'gold' | 'ghost' | 'danger' | 'aya' | 'blue' | 'green' | 'blueSoft' | 'greenSoft' | 'orangeSoft' | 'dark'
 // Palette sampled from the JOY logo: orange #fd7e19→#fd9427, blue #008eed→#32b3fc, green #6cc800→#8fdc2a
@@ -49,10 +50,10 @@ export function Card({ title, action, children, className }: { title?: ReactNode
   )
 }
 
-export function Empty({ icon, title, children, action }: { icon: string; title: string; children?: ReactNode; action?: ReactNode }) {
+export function Empty({ icon, cute, title, children, action }: { icon?: string; cute?: CuteName; title: string; children?: ReactNode; action?: ReactNode }) {
   return (
     <div className="flex flex-col items-center gap-3 rounded-[1.5rem] bg-white px-6 py-12 text-center shadow-[0_0_0_1px_var(--border)]">
-      <span className="text-4xl" aria-hidden="true">{icon}</span>
+      {cute ? <CuteIcon name={cute} className="size-16 rounded-[1.4rem]" /> : <span className="text-4xl" aria-hidden="true">{icon}</span>}
       <h2 className="font-display text-xl font-medium">{title}</h2>
       {children ? <p className="max-w-md text-sm leading-relaxed text-muted-foreground">{children}</p> : null}
       {action}
@@ -114,10 +115,10 @@ export function Modal({ onClose, children, size = 'md', title }: { onClose: () =
     </div>
   )
 }
-export function DlgHead({ title, sub, icon }: { title: string; sub?: ReactNode; icon?: ReactNode }) {
+export function DlgHead({ title, sub, icon, cute }: { title: string; sub?: ReactNode; icon?: ReactNode; cute?: CuteName }) {
   return (
     <div className="mb-5 pr-8">
-      {icon ? <div className="mb-3 grid size-12 place-items-center rounded-2xl bg-[#fff3e8] text-2xl" aria-hidden="true">{icon}</div> : null}
+      {cute ? <CuteIcon name={cute} className="mb-3 size-12 rounded-2xl" /> : icon ? <div className="mb-3 grid size-12 place-items-center rounded-2xl bg-[#fff3e8] text-2xl" aria-hidden="true">{icon}</div> : null}
       <h2 className="font-display text-2xl font-medium leading-tight">{title}</h2>
       {sub ? <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{sub}</p> : null}
     </div>

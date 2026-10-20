@@ -41,7 +41,7 @@
   var esc = function (s) { return String(s == null ? '' : s).normalize('NFC').replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var authorKey = function (n) { return String(n || '').normalize('NFC').trim().toLowerCase(); };
   var mine = function (a) { return !!S.name && authorKey(a) === authorKey(S.name); }; // only the author may edit their own comment/reply
-  var COLORS = ['#1d4ed8', '#0d9488', '#d97706', '#0284c7', '#c026d3', '#16a34a', '#dc2626', '#7c3aed', '#0891b2', '#65a30d', '#db2777', '#ca8a04', '#2563eb', '#059669', '#ea580c', '#9333ea'];
+  var COLORS = ['#306eed'];
   var AUTHORS = [];
   function colorFor(name) {
     var i = AUTHORS.indexOf(authorKey(name)); if (i >= 0) return COLORS[i % COLORS.length];

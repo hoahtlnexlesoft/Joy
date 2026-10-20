@@ -71,8 +71,6 @@ const steps: FlowStep[] = [
   },
 ]
 
-const verbs = ['shapes', 'sets', 'draws from']
-
 function StepCard({ step, index }: { step: FlowStep; index: number }) {
   const Icon = step.icon
   return (
@@ -121,14 +119,6 @@ function StepCard({ step, index }: { step: FlowStep; index: number }) {
   )
 }
 
-function VerbPill({ verb }: { verb: string }) {
-  return (
-    <span className="whitespace-nowrap rounded-full bg-white px-4 py-1 font-display text-xs xl:text-sm font-semibold italic text-[#2a2240] shadow-sm ring-1 ring-black/5">
-      {verb}
-    </span>
-  )
-}
-
 function DesktopConnector({ index }: { index: number }) {
   const goesDown = index % 2 === 0
   const color = steps[index + 1].color
@@ -156,15 +146,6 @@ function DesktopConnector({ index }: { index: number }) {
         />
         <circle cx={node.cx} cy={node.cy} r="4" fill="white" stroke={color} strokeWidth="2.5" />
       </svg>
-      <div
-        className={cn(
-          'absolute left-1/2 -translate-x-1/2',
-          'hidden lg:block',
-          goesDown ? 'top-[17.5rem]' : 'top-[4.5rem]',
-        )}
-      >
-        <VerbPill verb={verbs[index]} />
-      </div>
     </div>
   )
 }
@@ -174,7 +155,6 @@ function MobileConnector({ index }: { index: number }) {
   return (
     <div className="flex flex-col items-center gap-2 py-3 md:hidden" aria-hidden="true">
       <span className="h-6 w-0 border-l-[3px] border-dotted" style={{ borderColor: color }} />
-      <VerbPill verb={verbs[index]} />
       <span className="h-6 w-0 border-l-[3px] border-dotted" style={{ borderColor: color }} />
     </div>
   )

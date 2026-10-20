@@ -452,3 +452,6 @@ html[lang='my'] {
 }
 /* Synthetic italics slant Myanmar glyphs past the pill edge and clip them. */
 html[lang='my'] body :where(.italic, em, i) { font-style: normal; }
+
+/* Myanmar labels can wrap to two lines: reserve that height so every card below stays on the same line. */
+html[lang='my'] .joy-feature-label{display:flex;align-items:center;justify-content:center;min-height:calc(2 * 1.75em)}

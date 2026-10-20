@@ -135,7 +135,7 @@ export function FeatureShowcase() {
             >
               <p
                 className={cn(
-                  'text-center font-display text-lg font-semibold transition-colors',
+                  'joy-feature-label text-center font-display text-lg font-semibold transition-colors',
                   isActive ? 'text-joy-pink' : 'text-muted-foreground',
                 )}
               >

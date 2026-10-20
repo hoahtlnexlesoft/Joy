@@ -7,6 +7,7 @@ import type { Channel } from './data'
 import type { App, Section } from './types'
 import { AvatarBubble, QrPanel } from './dialogs'
 import { ChildThumb } from './plans'
+import { CuteIcon } from './icons'
 import { CHANNELS, ChannelBadge } from './plans'
 import { cn } from '@/lib/utils'
 import { useT } from '@/lib/i18n'
@@ -88,9 +89,9 @@ function Payments({ app }: { app: App }) {
           <button type="button" aria-pressed={payments.length === 0} onClick={() => { location.hash = '#profile-payments-empty' }} className={cn('rounded-full px-3 py-1 font-semibold ring-1', payments.length === 0 ? 'bg-[#5b3fc4] text-white ring-[#5b3fc4]' : 'bg-white ring-border')}>Empty state</button>
         </div>
       ) : null}
-      <div className="mb-5 grid gap-4 sm:grid-cols-[auto_1fr] sm:items-center">
-        <div><small className="block text-xs text-muted-foreground">{t('Payments')}</small><b className="font-display text-2xl">{payments.length}</b></div>
-        <p className="rounded-2xl bg-[#faf8fc] p-3 text-xs leading-relaxed text-muted-foreground">{t('Buy on the website with AYA Pay. Payments made in the Joy app or in person show here too.')}</p>
+      <div className="mb-5 flex items-center gap-3 rounded-2xl bg-[#faf8fc] p-3">
+        <CuteIcon name="payments" className="size-10 rounded-xl" />
+        <p className="text-xs leading-relaxed text-muted-foreground">{t('Buy on the website with AYA Pay. Payments made in the Joy app or in person show here too.')}</p>
       </div>
       {payments.length ? (
       <div role="group" aria-label={t('Filter by payment channel')} className="mb-4 flex flex-wrap gap-2">

@@ -234,7 +234,7 @@ function Children({ app }: { app: App }) {
   const t = useT()
   const { s } = app
   const soon = endingSoon(s)
-  const KID_PER = 3
+  const KID_PER = 4
   const [kidPg, setKidPg] = useState(1)
   const kidPages = Math.max(1, Math.ceil(s.children.length / KID_PER))
   const kidPage = Math.min(kidPg, kidPages)
@@ -284,7 +284,7 @@ function Children({ app }: { app: App }) {
       {!s.children.length ? (
         <Empty cute="children" title={t('Add your first child')} action={<Btn onClick={() => app.open({ k: 'child' })}>{t('+ Add a child')}</Btn>}>{t('Tell Joy a little about your child to start their journey. You can add all your children to one parent account.')}</Empty>
       ) : (
-        <div id="children-grid" className="grid scroll-mt-28 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div id="children-grid" className="grid scroll-mt-28 gap-4 sm:grid-cols-2">
           {kidsShown.map((c) => {
             const u = unlockOf(s, c)
             return (
@@ -390,8 +390,8 @@ function ChildDetail({ app, child: c }: { app: App; child: Child }) {
               <Btn small onClick={() => app.open({ k: 'buy', child: c.id })}>{t('Buy a plan for')} {c.name}</Btn>
             </div>
           </div>
-          {act.length ? <><h3 className="text-sm font-semibold text-muted-foreground">{t('Active')}</h3><div className="grid items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-3">{act.map((p) => <PlanCard key={p.id} app={app} p={p} />)}</div></> : <Empty cute="plans" title={`${c.name} ${t('has no active plan.')}`} />}
-          {exp.length ? <><h3 className="text-sm font-semibold text-muted-foreground">{t('Expired')}</h3><div className="grid items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-3">{exp.map((p) => <PlanCard key={p.id} app={app} p={p} />)}</div></> : null}
+          {act.length ? <><h3 className="text-sm font-semibold text-muted-foreground">{t('Active')}</h3><div className="grid items-stretch gap-4 sm:grid-cols-2">{act.map((p) => <PlanCard key={p.id} app={app} p={p} />)}</div></> : <Empty cute="plans" title={`${c.name} ${t('has no active plan.')}`} />}
+          {exp.length ? <><h3 className="text-sm font-semibold text-muted-foreground">{t('Expired')}</h3><div className="grid items-stretch gap-4 sm:grid-cols-2">{exp.map((p) => <PlanCard key={p.id} app={app} p={p} />)}</div></> : null}
         </div>
       ) : tab === 'feel' ? <FeelingLog child={c} /> : <ActivitiesTab child={c} />}
     </div>

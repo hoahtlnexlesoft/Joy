@@ -8,7 +8,7 @@ export function ReviewScript() {
   return (
     <>
       <Script src={`${base}config.js`} strategy="afterInteractive" />
-      <Script src={`${base}review.js?v=2`} strategy="afterInteractive" />
+      <Script src={`${base}review.js?v=3`} strategy="afterInteractive" />
     </>
   )
 }

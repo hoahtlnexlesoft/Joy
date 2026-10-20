@@ -781,6 +781,9 @@
     }
     var hidden = root.style.display === 'none' || S.hidden, mobile = innerWidth <= 640;
     var off = hidden ? 0 : S.open ? (mobile ? 0 : Math.min(370, innerWidth)) : (mobile ? 0 : 54);
+    var de = document.documentElement, dock = innerWidth >= 900 ? off : 0;
+    if (dock) { de.style.setProperty('--joy-dock', dock + 'px'); de.setAttribute('data-joy-dock', '1'); }
+    else { de.style.removeProperty('--joy-dock'); de.removeAttribute('data-joy-dock'); }
     fixedCache.forEach(function (el) {
       if (!el.__rvT) { el.__rvT = 1; el.style.transition = (el.style.transition ? el.style.transition + ',' : '') + 'translate .25s ease'; }
       el.style.translate = off ? (-off) + 'px 0' : '';

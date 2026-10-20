@@ -4,7 +4,7 @@ import { Caveat, Fredoka, Noto_Sans, Noto_Sans_Myanmar, Plus_Jakarta_Sans } from
 import './globals.css'
 import { ContactBubble } from '@/components/joy/contact-bubble'
 import { LangHtmlSync } from '@/components/joy/lang-switch'
-import { CommentLayer } from '@/components/joy/review/comment-layer'
+import { ReviewScript } from '@/components/joy/review/review-script'
 import { DeviceSwitcher } from '@/components/joy/review/device-switcher'
 
 const caveat = Caveat({
@@ -72,7 +72,7 @@ export default function RootLayout({
         <LangHtmlSync />
         <ContactBubble />
         {process.env.NODE_ENV === 'production' && <Analytics />}
-        {process.env.NEXT_PUBLIC_JOY_REVIEW === '1' && <CommentLayer />}
+        {process.env.NEXT_PUBLIC_JOY_REVIEW === '1' && <ReviewScript />}
         {process.env.NEXT_PUBLIC_JOY_REVIEW === '1' && process.env.NEXT_PUBLIC_JOY_PREVIEW !== '1' && <DeviceSwitcher />}
       </body>
     </html>

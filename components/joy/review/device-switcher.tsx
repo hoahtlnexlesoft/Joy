@@ -59,7 +59,7 @@ export function DeviceSwitcher() {
       type="button"
       onClick={() => pick(k)}
       aria-pressed={mode === k}
-      className={`rounded-full px-3.5 py-1.5 text-[13px] font-semibold shadow-[0_1px_4px_rgba(0,0,0,.12)] transition ${mode === k ? 'bg-indigo-600 text-white' : 'bg-white text-[#2a2240] hover:bg-slate-50'}`}
+      className={`rounded-full px-3.5 py-1.5 text-[13px] font-semibold shadow-[0_1px_4px_rgba(0,0,0,.12)] transition ${mode === k ? 'bg-[#306eed] text-white' : 'bg-white text-[#2a2240] hover:bg-slate-50'}`}
     >
       {label}
     </button>

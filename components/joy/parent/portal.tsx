@@ -284,6 +284,11 @@ function Children({ app }: { app: App }) {
       {!s.children.length ? (
         <Empty cute="children" title={t('Add your first child')} action={<Btn onClick={() => app.open({ k: 'child' })}>{t('+ Add a child')}</Btn>}>{t('Tell Joy a little about your child to start their journey. You can add all your children to one parent account.')}</Empty>
       ) : (
+        <>
+        <div className="-mb-2 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-display text-xl font-semibold text-[#27253f]">{t('Your children')} <span className="text-base font-medium text-[#6d6585]">({s.children.length})</span></h2>
+          <Btn small onClick={() => app.open({ k: 'child' })}><Plus className="size-4" aria-hidden="true" /> {t('Add a child')}</Btn>
+        </div>
         <div id="children-grid" className="grid scroll-mt-28 gap-4 sm:grid-cols-2">
           {kidsShown.map((c) => {
             const u = unlockOf(s, c)
@@ -314,11 +319,8 @@ function Children({ app }: { app: App }) {
               </article>
             )
           })}
-          {kidPage === kidPages ? <button type="button" onClick={() => app.open({ k: 'child' })} className="group flex min-h-[10.5rem] flex-col items-center justify-center gap-2 rounded-[2.4rem] sm:min-h-[11.5rem] border-[1.5px] border-dashed border-[#f4b7cb] bg-gradient-to-br from-[#fff8fb] to-[#fff1f6] p-6 text-[#d9467a] transition hover:-translate-y-0.5 hover:bg-[#fff1f6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ee5a8a]/60">
-            <span className="grid size-14 place-items-center rounded-full bg-white shadow-[0_10px_20px_-10px_rgba(238,90,138,0.6)] ring-1 ring-[#f9d3e0]"><Plus className="size-6" /></span>
-            <span className="font-display text-lg font-bold">{t('Add a child')} <Emo e="🧸" /></span>
-          </button> : null}
         </div>
+        </>
       )}
       <Pagination page={kidPage} pages={kidPages} onChange={(n) => { setKidPg(n); document.getElementById('children-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }} label={t('Children pages')} />
     </div>

@@ -362,4 +362,6 @@ export const MM_PAGES: Record<string, string> = {
   "Plans don't renew automatically. Joy notifies you 3 days before your child's plan ends, so you can buy the next one. If a plan ends, your child's profile, growth path and history stay saved.": "အစီအစဉ်များသည် အလိုအလျောက် မသက်တမ်းတိုးပါ။ ကလေး၏အစီအစဉ်ကုန်မည့် ၃ ရက်အလို Joy က အသိပေးသဖြင့် နောက်တစ်ခုကို ဝယ်နိုင်ပါသည်။ အစီအစဉ်ကုန်သွားသော်လည်း ကလေး၏ပရိုဖိုင်၊ ကြီးထွားမှုလမ်းကြောင်းနှင့် မှတ်တမ်းများ ဆက်လက်သိမ်းဆည်းထားပါသည်။",
   "Where do I pay?": "ဘယ်မှာ ငွေပေးချေရမလဲ။",
   "You pick and pay for plans in your parent account in the Joy app.": "Joy အက်ပ်ရှိ သင့်မိဘအကောင့်တွင် အစီအစဉ်များကို ရွေး၍ ပေးချေပါသည်။",
+  "Your children": "သင့်ကလေးများ",
+  "Add a child": "ကလေး ထည့်ရန်",
 }

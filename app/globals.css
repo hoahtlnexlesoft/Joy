@@ -441,41 +441,14 @@ html[data-joy-dock] .joy-dock-right{right:calc(var(--joy-dock,0px) + 1rem)}
 /* modals stay centred in the visible area when the comments dock is showing */
 html[data-joy-dock] [class*="inset-0"][class*="z-[100]"]{right:var(--joy-dock,0px)}
 
-/* Myanmar: use a Myanmar font everywhere and give the script room to breathe */
+/* Myanmar: only swap the glyph font. Latin text keeps its English font and every
+   size, line-height, padding and width stays exactly as in English, so choosing a
+   language never moves the layout. The Myanmar font is just the fallback for
+   Myanmar characters (the English fonts are Latin-only). */
 html[lang='my'] {
-  --font-sans: var(--font-noto), var(--font-myanmar), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-noto), var(--font-myanmar), ui-rounded, system-ui, sans-serif;
-  --font-hand: var(--font-noto), var(--font-myanmar), sans-serif;
+  --font-sans: var(--font-jakarta), var(--font-myanmar), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fredoka), var(--font-myanmar), ui-rounded, system-ui, sans-serif;
+  --font-hand: var(--font-caveat), var(--font-myanmar), sans-serif;
 }
-/* Myanmar glyphs stack tall (stacked consonants, vowel marks above/below), so a
-   little smaller type plus a generous line-height stops lines clipping or dropping.
-   The universal rule beats Tailwind's leading-* / text-* line-heights; ids below still win. */
-html[lang='my'] { font-size: 93.75%; }
-html[lang='my'] body { line-height: 1.75; }
-html[lang='my'] body *:not(svg):not(svg *) { line-height: 1.7; }
-html[lang='my'] body *:not(svg):not(svg *) { letter-spacing: normal; word-spacing: normal; }
-html[lang='my'] body :where(h1, h2, h3, h4, h5, h6, .font-display, .font-hand) { line-height: 1.6; }
-html[lang='my'] body h1, html[lang='my'] body h2 { line-height: 1.55; }
 /* Synthetic italics slant Myanmar glyphs past the pill edge and clip them. */
 html[lang='my'] body :where(.italic, em, i) { font-style: normal; }
-html[lang='my'] body :where(.truncate, .line-clamp-1, .line-clamp-2, .line-clamp-3) { padding-block: 0.08em; }
-
-/* Myanmar copy runs long: shrink the Try-Joy CTA text so the layout holds */
-html[lang='my'] #download .font-hand.text-3xl { font-size: 1.5rem; line-height: 1.6; }
-html[lang='my'] #download h2 { font-size: 1.5rem; line-height: 1.7; column-gap: 0.5rem; }
-@media (min-width: 768px) { html[lang='my'] #download h2 { font-size: 1.75rem; } }
-@media (min-width: 1280px) { html[lang='my'] #download h2 { font-size: 2rem; } }
-html[lang='my'] #download h2 img { height: 1.75rem; }
-@media (min-width: 768px) { html[lang='my'] #download h2 img { height: 2rem; } }
-html[lang='my'] #download p.max-w-md { font-size: 1rem; line-height: 1.8; }
-html[lang='my'] #download li { font-size: 0.9rem; line-height: 1.7; }
-html[lang='my'] #download .font-hand.text-4xl { font-size: 1.15rem; line-height: 1.6; }
-@media (min-width: 768px) { html[lang='my'] #download .font-hand.text-4xl { font-size: 1.3rem; } }
-html[lang='my'] #download .font-hand.text-2xl { font-size: 0.95rem; line-height: 1.6; white-space: nowrap; }
-html[lang='my'] #download .font-hand.text-2xl + * , html[lang='my'] #download .bg-\[\#fde79a\] { gap: 0.4rem; padding: 0.5rem 1rem; }
-
-/* Myanmar: page hero headlines run long, so scale them down */
-html[lang='my'] main h1[class*="leading-[1.0"] { font-size: 1.75rem; line-height: 1.55; }
-@media (min-width: 640px) { html[lang='my'] main h1[class*="leading-[1.0"] { font-size: 2rem; } }
-@media (min-width: 768px) { html[lang='my'] main h1[class*="leading-[1.0"] { font-size: 2.25rem; } }
-@media (min-width: 1280px) { html[lang='my'] main h1[class*="leading-[1.0"] { font-size: 2.6rem; } }

@@ -72,7 +72,7 @@ export default function RootLayout({
         <LangHtmlSync />
         <ContactBubble />
         {process.env.NODE_ENV === 'production' && <Analytics />}
-        {process.env.NEXT_PUBLIC_JOY_REVIEW === '1' && <ReviewScript />}
+        {process.env.NEXT_PUBLIC_JOY_REVIEW === '1' && process.env.NEXT_PUBLIC_JOY_PREVIEW !== '1' && <ReviewScript />}
         {process.env.NEXT_PUBLIC_JOY_REVIEW === '1' && process.env.NEXT_PUBLIC_JOY_PREVIEW !== '1' && <DeviceSwitcher />}
       </body>
     </html>

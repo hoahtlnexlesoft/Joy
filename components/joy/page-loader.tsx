@@ -36,21 +36,21 @@ export function PageLoader({ label = 'Joy is getting ready' }: { label?: string 
 
       <div className="absolute inset-0 grid place-items-center px-4">
         <div className="flex flex-col items-center gap-8 text-center">
-          <div className="relative h-44 w-72 sm:h-52 sm:w-80">
+          <div className="relative h-36 w-64 sm:h-40 sm:w-72">
             <div className="joy-load-ring absolute left-1/2 top-1/2 size-0">
-              <span className="joy-load-orbit absolute block w-12" style={{ ['--r' as string]: '9.5rem' }}>
+              <span className="joy-load-orbit absolute block w-10" style={{ ['--r' as string]: '7.25rem' }}>
                 <span className="joy-load-keep block"><Image src="/images/butterfly-purple.webp" alt="" width={56} height={42} priority className="joy-load-wing h-auto w-full" /></span>
               </span>
             </div>
             <div className="joy-load-ring joy-load-ring-rev absolute left-1/2 top-1/2 size-0">
-              <span className="joy-load-orbit absolute block w-9" style={{ ['--r' as string]: '7.5rem' }}>
+              <span className="joy-load-orbit absolute block w-8" style={{ ['--r' as string]: '5.75rem' }}>
                 <span className="joy-load-keep block"><Image src="/images/butterfly-purple.webp" alt="" width={56} height={42} priority className="joy-load-wing h-auto w-full [filter:hue-rotate(-70deg)_saturate(1.2)]" /></span>
               </span>
             </div>
 
             <div className="absolute inset-0 grid place-items-center">
               <div className="relative">
-                <Image src="/images/joy-logo.webp" alt="Joy" width={260} height={119} priority className="joy-load-logo relative h-auto w-52 sm:w-60" />
+                <Image src="/images/joy-logo.webp" alt="Joy" width={260} height={119} priority className="joy-load-logo relative h-auto w-32 sm:w-40" />
                 {STARS.map((s, i) => (
                   <svg
                     key={i}

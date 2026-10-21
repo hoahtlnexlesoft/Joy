@@ -75,11 +75,11 @@ export function AppActivationGuide() {
   const steps: { n: number; badge: string; panel: string; art: ReactNode; title: string; body: string; stores?: boolean }[] = [
     { n: 1, badge: 'bg-[#3d7bf0]', panel: 'from-[#e3f1ff] to-[#ffffff]', art: <PhoneArt />, title: t('Download the app'), body: t("Install it on your child's device."), stores: true },
     { n: 2, badge: 'bg-[#ff9e50]', panel: 'from-[#fff3d6] to-[#fffaf4]', art: <ChildArt />, title: t('Switch to Child view'), body: t('Tap Play on the Home screen.') },
-    { n: 3, badge: 'bg-[#8e5cf0]', panel: 'from-[#efeaff] to-[#f6f1fb]', art: <LinkArt />, title: t('Link parent account'), body: t('My profile › Link Parent Account.') },
+    { n: 3, badge: 'bg-[#8e5cf0]', panel: 'from-[#f3efff] to-[#fbf9ff]', art: <LinkArt />, title: t('Link parent account'), body: t('My profile › Link Parent Account.') },
   ]
   return (
-    <section aria-label={t('Activate the Joy app in 3 easy steps')} className="relative mb-5 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#f4eeff] via-[#f6f1fb] to-[#f6f1fb] px-3 pb-4 pt-3.5 sm:px-4">
-      <DashedBorder radius={28} color="#b9a0ff" />
+    <section aria-label={t('Activate the Joy app in 3 easy steps')} className="relative mb-5 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#faf7ff] via-[#fcfaff] to-[#fcfaff] px-3 pb-4 pt-3.5 sm:px-4">
+      <DashedBorder radius={28} color="#d9ccff" />
       <p className="mb-0.5 flex items-center justify-center gap-1.5 text-xs font-bold text-[#8e5cf0]">
         <svg viewBox="0 0 24 24" className="size-4 fill-[#fbc23c]" aria-hidden="true"><path d="M12 1.5c.7 5.6 4.9 9.8 10.5 10.5-5.6.7-9.8 4.9-10.5 10.5C11.3 16.9 7.1 12.7 1.5 12 7.1 11.3 11.3 7.1 12 1.5Z" /></svg>
         {t('Next step')}

@@ -88,7 +88,7 @@ export function PlanCarousel({
   const arrow = 'absolute top-1/2 z-20 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-white text-foreground shadow-lg ring-1 ring-border transition hover:scale-105 disabled:pointer-events-none disabled:opacity-0'
 
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn('relative w-0 min-w-full', className)}>
       <Tag
         ref={ref as never}
         tabIndex={0}
@@ -96,7 +96,7 @@ export function PlanCarousel({
         aria-label={label}
         onScroll={measure}
         className={cn(
-          'flex snap-x snap-mandatory overflow-x-auto scroll-smooth px-1 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>*]:snap-start',
+          'flex snap-x snap-mandatory overflow-x-auto scroll-smooth scroll-px-2 px-2 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>*]:snap-start',
           s.gap,
           s.item,
           s.pad,

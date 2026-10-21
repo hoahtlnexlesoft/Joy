@@ -21,7 +21,7 @@ export function BootLoader() {
       // Static review build only: every page is a full load there, so remember the first one.
       if (PREVIEW) { try { sessionStorage.setItem('joy-booted', '1') } catch {} }
       setPhase('out')
-      window.setTimeout(() => setPhase('gone'), 500)
+      window.setTimeout(() => { document.documentElement.setAttribute('data-joy-ready', '1'); setPhase('gone') }, 500)
     }
     const ready = () => window.setTimeout(finish, 80)
     if (document.readyState === 'complete') ready()

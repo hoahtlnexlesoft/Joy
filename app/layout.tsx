@@ -69,9 +69,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fredoka.variable} ${jakarta.variable} ${caveat.variable} ${myanmar.variable} ${notoSans.variable}`}>
       <body className="antialiased">
+        <style href="joy-boot" precedence="high">{'html:not([data-joy-ready]):not([data-joy-booted]){background:linear-gradient(170deg,#2a2550,#4b3f86 70%,#6a4f9c) fixed}.joy-boot{position:fixed;inset:0;z-index:2147483000;background:linear-gradient(170deg,#2a2550,#4b3f86 70%,#6a4f9c)}'}</style>
         {process.env.NEXT_PUBLIC_JOY_PREVIEW === '1' && <script dangerouslySetInnerHTML={{ __html: "try{if(sessionStorage.getItem('joy-booted'))document.documentElement.setAttribute('data-joy-booted','1')}catch(e){}" }} />}
         <BootLoader />
-        <noscript><style>{'.joy-boot{display:none!important}'}</style></noscript>
+        <noscript><style>{'.joy-boot{display:none!important}html{background:none!important}'}</style></noscript>
         {children}
         <LangHtmlSync />
         <ContactBubble />

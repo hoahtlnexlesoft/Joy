@@ -29,7 +29,7 @@ const UnlockBadge = ({ u }: { u: Unlock }) => <UnlockChip type={u} className="!t
 
 function hashToView(h: string, s: State): View {
   const x = h.replace('#', '')
-  if (x === 'plans') return { name: 'plans' }
+  if (x === 'plans' || x.startsWith('buy')) return { name: 'plans' }
   if (x.startsWith('child-') && s.children.some((c) => c.id === x.slice(6))) return { name: 'child', id: x.slice(6) }
   if (x.startsWith('profile')) {
     const sec = x.split('-')[1] as Section
@@ -86,6 +86,14 @@ export function ParentPortal() {
     if (process.env.NEXT_PUBLIC_JOY_REVIEW === '1' && /-empty$/.test(location.hash)) init = { ...init, payments: [], ...(location.hash.startsWith('#children') ? { children: [], plans: [] } : {}) }
     setS0(init)
     setView(hashToView(location.hash, init))
+    // Arrived from a public "Choose plan" button (/parent#buy-Adventure): open the Choose a plan dialog.
+    const buy = location.hash.match(/^#buy(?:-(.+))?$/)
+    if (buy) {
+      let plan: string | undefined
+      try { plan = buy[1] ? decodeURIComponent(buy[1]) : undefined } catch { /* ignore */ }
+      setDlg({ k: 'buy', plan })
+      try { history.replaceState(null, '', '#plans') } catch { /* preview frames can block this */ }
+    }
   }, [])
 
   const toast = useCallback((m: string) => {

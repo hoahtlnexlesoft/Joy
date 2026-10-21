@@ -381,7 +381,7 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
                 <div className="font-display text-3xl font-medium"><small className="mr-0.5 align-top text-sm">$</small>{c.price.toFixed(2)}</div>
                 <p className="text-xs text-muted-foreground">{monthsOf(c.months)} · {t('about')} ${(c.price / c.months).toFixed(2)} {t('a month')}</p>
                 <ul className="my-3 flex flex-1 flex-col gap-1.5 text-xs">{BENEFITS[c.type].map((b) => <li key={b} className="flex gap-1.5"><span className="text-[#2f8f3a]"><Emo e="✓" /></span>{t(b)}</li>)}</ul>
-                <Btn small variant={on ? 'gold' : 'blueSoft'} aria-pressed={on} aria-label={`${t('Choose')} ${c.name}`} onClick={(e: React.MouseEvent) => { e.stopPropagation(); pick(c.name) }}>{on ? <>{t('Selected')} <Emo e="✓" /></> : t('Choose plan')}</Btn>
+                <Btn small variant={on ? 'gold' : 'blueSoft'} aria-pressed={on} aria-label={`${t('Choose')} ${c.name}`} onClick={(e: React.MouseEvent) => { e.stopPropagation(); pick(c.name) }}>{on ? <>{t('Selected')} <Check className="size-4" strokeWidth={3.5} aria-hidden="true" /></> : t('Choose plan')}</Btn>
               </article>
             )
           })}

@@ -282,7 +282,7 @@ export default function PricingPage() {
                   key={plan.name}
                   className={cn(
                     'relative flex flex-col rounded-[2rem] bg-white p-3 ring-1 ring-border shadow-[0_20px_50px_-30px_rgba(42, 34, 64, 0.3)]',
-                    plan.popular && 'ring-2 ring-joy-pink lg:-translate-y-3',
+                    plan.popular && 'ring-2 ring-joy-pink',
                   )}
                 >
                   {plan.popular ? (
@@ -309,7 +309,7 @@ export default function PricingPage() {
                       </p>
                       <p className="text-sm text-muted-foreground">{plan.monthly}</p>
                     </div>
-                    <ChoosePlanButton variant={plan.popular ? 'primary' : 'dark'} className="w-full" />
+                    <ChoosePlanButton variant={plan.popular ? 'primary' : 'dark'} className="w-full" plan={plan.name} />
                     <details className="group mt-auto rounded-2xl bg-muted/70 px-4 py-3">
                       <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold [&::-webkit-details-marker]:hidden">
                         See benefits

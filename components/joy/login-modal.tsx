@@ -27,12 +27,14 @@ import {
   onClose: () => void
   /** Which view opens first: the log in form or the "Try for free" sign-up flow. */
   mode?: 'login' | 'signup'
+  /** Where to go after logging in (default: the Parent Portal). */
+  next?: string
 }
 
 const referenceImageUrl =
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/6a5b1715-b8c8-4243-ae7f-41668b87b996-F3YPLmZFZ8ODUrvrSbdgQTPDGtjmWO.png'
 
-export function LoginModal({ open, onClose, mode: initialMode = 'login' }: LoginModalProps) {
+export function LoginModal({ open, onClose, mode: initialMode = 'login', next = '/parent' }: LoginModalProps) {
   const router = useRouter()
   const [mode, setMode] = useState<'login' | 'signup'>(initialMode)
   useEffect(() => {
@@ -85,7 +87,7 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
     event.preventDefault()
     joyLogin({ ...DEMO_PARENT, method: method === 'phone' ? 'Phone' : 'Email' })
     onClose()
-    joyGo(router, '/parent')
+    joyGo(router, next)
   }
 
   const showUnavailableMessage = (action: string) => {
@@ -178,7 +180,7 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
 
           <div className="relative flex min-h-0 flex-1 flex-col px-[8.5%] pb-[4%] pt-[8.3%]">
             {mode === 'signup' ? (
-              <SignupFlow onClose={onClose} onSwitchToLogin={() => setMode('login')} />
+              <SignupFlow onClose={onClose} next={next} onSwitchToLogin={() => setMode('login')} />
             ) : (
               <>
               <header className="mb-[4.2%] pr-12">
@@ -470,7 +472,7 @@ function CodeBoxes({ value, onChange }: { value: string; onChange: (v: string) =
   )
 }
 
-function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitchToLogin: () => void }) {
+function SignupFlow({ onClose, onSwitchToLogin, next }: { onClose: () => void; onSwitchToLogin: () => void; next: string }) {
   const router = useRouter()
   const [step, setStep] = useState<1 | 2 | 3>(1)
   const [method, setMethod] = useState<'phone' | 'email'>('phone')
@@ -503,7 +505,7 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
   const finish = () => {
     joyLogin({ name: name || DEMO_PARENT.name, method: method === 'phone' ? 'Phone' : 'Email' })
     onClose()
-    joyGo(router, '/parent')
+    joyGo(router, next)
   }
 
   const tab = (value: 'phone' | 'email', label: string, icon: ReactNode) => (

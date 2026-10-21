@@ -293,3 +293,22 @@ export function JoyAnim({ kind, caption, className, replayKey = 0, loop = true, 
     />
   )
 }
+
+/** A small butterfly whose two wings beat on their own. Used by the page loader. */
+export function FlyingButterfly({ className, seed = 0, calm = false, style }: { className?: string; seed?: number; calm?: boolean; style?: React.CSSProperties }) {
+  const ref = useRef<SVGSVGElement>(null)
+  const html = useMemo(() => `<defs>${RIG_DEFS}</defs>${BUTTERFLY(0, 0)}`, [])
+  useEffect(() => {
+    const g = ref.current?.querySelector('.bw')
+    if (!g) return
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    wing(g, 0, calm, seed)
+    if (reduce) return
+    let raf = 0
+    const t0 = performance.now()
+    const tick = (now: number) => { wing(g, (now - t0) / 1000, calm, seed); raf = requestAnimationFrame(tick) }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [calm, seed])
+  return <svg ref={ref} aria-hidden="true" viewBox="-30 -26 60 52" className={className} style={style} dangerouslySetInnerHTML={{ __html: html }} />
+}

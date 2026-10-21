@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { JoyAnim, type AnimKind } from '@/components/joy/anim/joy-anim'
+import { FlyingButterfly, JoyAnim, type AnimKind } from '@/components/joy/anim/joy-anim'
 
 const STARS = [
   { x: -14, y: -6, s: 18, d: 0 },
@@ -55,12 +55,12 @@ export function PageLoader({ label = 'Joy is getting ready', kind = 'classic' }:
             <div className="relative h-36 w-64 sm:h-40 sm:w-72">
               <div className="joy-load-ring absolute left-1/2 top-1/2 size-0">
                 <span className="joy-load-orbit absolute block w-10" style={{ ['--r' as string]: '7.25rem' }}>
-                  <span className="joy-load-keep block"><Image src="/images/butterfly-purple.webp" alt="" width={56} height={42} priority className="joy-load-wing h-auto w-full" /></span>
+                  <span className="joy-load-keep block"><FlyingButterfly className="h-auto w-full overflow-visible" /></span>
                 </span>
               </div>
               <div className="joy-load-ring joy-load-ring-rev absolute left-1/2 top-1/2 size-0">
                 <span className="joy-load-orbit absolute block w-8" style={{ ['--r' as string]: '5.75rem' }}>
-                  <span className="joy-load-keep block"><Image src="/images/butterfly-purple.webp" alt="" width={56} height={42} priority className="joy-load-wing h-auto w-full [filter:hue-rotate(-70deg)_saturate(1.2)]" /></span>
+                  <span className="joy-load-keep block"><FlyingButterfly seed={2} className="h-auto w-full overflow-visible [filter:hue-rotate(-70deg)_saturate(1.2)]" /></span>
                 </span>
               </div>
               <div className="absolute inset-0 grid place-items-center">

@@ -96,7 +96,7 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[100] grid place-items-center overflow-hidden overscroll-none bg-[#fff0f5]/55 p-3 backdrop-blur-md sm:p-4"
+      className="fixed inset-0 z-[100] grid place-items-center overflow-hidden overscroll-none bg-[#ffe7ef]/55 p-3 backdrop-blur-md sm:p-4"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) onClose()
       }}
@@ -107,7 +107,7 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
         aria-modal="true"
         aria-labelledby="joy-login-title"
         aria-describedby="joy-login-description"
-        className="joy-login-dialog relative grid overflow-hidden rounded-[2rem] bg-white shadow-[0_30px_100px_-30px_rgba(42,34,64,0.4)] ring-1 ring-white/70"
+        className="joy-login-dialog relative grid overflow-hidden rounded-[2rem] bg-white shadow-[0_30px_100px_-30px_rgba(42, 34, 64, 0.4)] ring-1 ring-white/70"
       >
         <div className="joy-login-art relative hidden flex-col overflow-hidden bg-[linear-gradient(145deg,#fff0d8_0%,#fff3e7_37%,#ffe6ed_72%,#f8dcf5_100%)] md:flex">
           <Image
@@ -132,25 +132,25 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
               <Image src="/images/joy-logo.webp" alt="Joy" width={440} height={200} priority className="relative z-10 h-auto w-[clamp(7.5rem,11vw,9.75rem)]" />
             </div>
 
-            <h1 className="whitespace-nowrap text-[clamp(1.8rem,3.35vw,3.1rem)] font-extrabold leading-[0.98] tracking-[-0.055em] text-[#2d205f]">
+            <h1 className="whitespace-nowrap text-[clamp(1.8rem,3.35vw,3.1rem)] font-extrabold leading-[0.98] tracking-[-0.055em] text-[#30235f]">
               {mode === 'login' ? (
-                <>Welcome <span className="bg-gradient-to-r from-[#ff765f] via-[#f64f9b] to-[#a647e8] bg-clip-text text-transparent">back!</span></>
+                <>Welcome <span className="bg-gradient-to-r from-[#ff765f] via-[#f0488a] to-[#a647e8] bg-clip-text text-transparent">back!</span></>
               ) : (
-                <>Try Joy <span className="bg-gradient-to-r from-[#ff765f] via-[#f64f9b] to-[#a647e8] bg-clip-text text-transparent">for free</span></>
+                <>Try Joy <span className="bg-gradient-to-r from-[#ff765f] via-[#f0488a] to-[#a647e8] bg-clip-text text-transparent">for free</span></>
               )}
-              <Sparkles className="mb-[0.55em] ml-1 inline size-[0.45em] fill-[#f64f9b] text-[#f64f9b]" aria-hidden="true" />
+              <Sparkles className="mb-[0.55em] ml-1 inline size-[0.45em] fill-[#f0488a] text-[#f0488a]" aria-hidden="true" />
             </h1>
-            <p className="mt-2 max-w-[27rem] text-[clamp(0.9rem,1.45vw,1.15rem)] leading-[1.35] text-[#81799f]">
+            <p className="mt-2 max-w-[27rem] text-[clamp(0.9rem,1.45vw,1.15rem)] leading-[1.35] text-[#8984ad]">
               {mode === 'login' ? 'Log in to see how your children are doing today.' : 'One parent account for all your children.'}
             </p>
 
-            <ul className="mt-2.5 flex flex-col gap-2 text-[clamp(0.85rem,1.35vw,1.05rem)] font-medium text-[#716990]">
+            <ul className="mt-2.5 flex flex-col gap-2 text-[clamp(0.85rem,1.35vw,1.05rem)] font-medium text-[#6b6380]">
               {(mode === 'login'
                 ? ["Today's activities for each child", 'Feeling log and activity history', 'Plans for each child']
                 : ['Daily activities picked for your child', 'A growth path that adapts as they grow', 'A feeling log you can follow']
               ).map((item) => (
                 <li key={item} className="flex items-center gap-3">
-                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#ff6a9d] to-[#ef3d83] text-white shadow-[0_5px_12px_rgba(239,61,131,0.2)]">
+                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#f8608f] to-[#f0488a] text-white shadow-[0_5px_12px_rgba(240, 72, 138, 0.2)]">
                     <Check className="size-4" strokeWidth={3} aria-hidden="true" />
                   </span>
                   <span>{item}</span>
@@ -163,15 +163,15 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
         </div>
 
         <div className="joy-login-form-panel relative flex min-h-0 flex-col overflow-hidden bg-white">
-          <div className="pointer-events-none absolute -right-4 -top-5 size-32 rounded-full bg-[#fff4f7] blur-2xl" aria-hidden="true" />
-          <Star className="pointer-events-none absolute right-[7%] top-[13%] size-5 fill-[#ffd875] text-[#ffd875]" aria-hidden="true" />
-          <Heart className="pointer-events-none absolute bottom-[6%] right-[6%] size-6 rotate-12 fill-[#ff9bb2]/60 text-[#ff9bb2]/60" aria-hidden="true" />
+          <div className="pointer-events-none absolute -right-4 -top-5 size-32 rounded-full bg-[#f6f1fb] blur-2xl" aria-hidden="true" />
+          <Star className="pointer-events-none absolute right-[7%] top-[13%] size-5 fill-[#ffe27a] text-[#ffe27a]" aria-hidden="true" />
+          <Heart className="pointer-events-none absolute bottom-[6%] right-[6%] size-6 rotate-12 fill-[#ff9db8]/60 text-[#ff9db8]/60" aria-hidden="true" />
 
           <button
             type="button"
             onClick={onClose}
             aria-label={mode === 'signup' ? 'Close sign-up dialog' : 'Close login dialog'}
-            className="joy-login-close absolute right-[4.5%] top-[3.5%] z-10 flex size-10 items-center justify-center rounded-full bg-[#f8f7fb] text-[#625a83] shadow-sm ring-1 ring-[#efedf5] transition hover:bg-[#f1eef8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
+            className="joy-login-close absolute right-[4.5%] top-[3.5%] z-10 flex size-10 items-center justify-center rounded-full bg-[#ffffff] text-[#6b6380] shadow-sm ring-1 ring-[#f6f1fb] transition hover:bg-[#f6f1fb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
           >
             <X className="size-5" aria-hidden="true" />
           </button>
@@ -183,14 +183,14 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
               <>
               <header className="mb-[4.2%] pr-12">
               <h2 id="joy-login-title" className="text-[clamp(1.5rem,2.8vw,1.875rem)] font-extrabold leading-[1.02] tracking-[-0.055em] text-[#30235f]">
-                Log in <Sparkles className="mb-[0.55em] ml-1 inline size-[0.62em] fill-[#fb6aa3] text-[#fb6aa3]" aria-hidden="true" />
+                Log in <Sparkles className="mb-[0.55em] ml-1 inline size-[0.62em] fill-[#f8608f] text-[#f8608f]" aria-hidden="true" />
               </h2>
               <p id="joy-login-description" className="mt-2 max-w-[35rem] text-[clamp(0.875rem,1.15vw,1rem)] leading-snug text-[#8984ad]">
                 Use the email or phone number linked to your parent account.
               </p>
             </header>
 
-            <div className="mb-[4%] grid h-[clamp(2.75rem,4vw,3.25rem)] grid-cols-2 rounded-full bg-[#f5f4f8] p-1" role="tablist" aria-label="Choose how to log in">
+            <div className="mb-[4%] grid h-[clamp(2.75rem,4vw,3.25rem)] grid-cols-2 rounded-full bg-[#ffffff] p-1" role="tablist" aria-label="Choose how to log in">
               <button
                 type="button"
                 id="login-tab-email"
@@ -198,7 +198,7 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
                 aria-selected={method === 'email'}
                 aria-controls="login-panel"
                 onClick={() => { setMethod('email'); setNotice('') }}
-                className={`flex items-center justify-center gap-2 rounded-full text-sm font-bold transition ${method === 'email' ? 'bg-white text-[#f24b91] shadow-[0_2px_12px_rgba(235,87,148,0.16)] ring-1 ring-[#ffc6dc]' : 'text-[#908bb2]'}`}
+                className={`flex items-center justify-center gap-2 rounded-full text-sm font-bold transition ${method === 'email' ? 'bg-white text-[#f0488a] shadow-[0_2px_12px_rgba(240, 72, 138, 0.16)] ring-1 ring-[#f6bfd5]' : 'text-[#8984ad]'}`}
               >
                 <Mail className="size-[1em]" strokeWidth={2.8} aria-hidden="true" /> Email
               </button>
@@ -209,7 +209,7 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
                 aria-selected={method === 'phone'}
                 aria-controls="login-panel"
                 onClick={() => { setMethod('phone'); setNotice('') }}
-                className={`flex items-center justify-center gap-2 rounded-full text-sm font-bold transition ${method === 'phone' ? 'bg-white text-[#f24b91] shadow-[0_2px_12px_rgba(235,87,148,0.16)] ring-1 ring-[#ffc6dc]' : 'text-[#908bb2]'}`}
+                className={`flex items-center justify-center gap-2 rounded-full text-sm font-bold transition ${method === 'phone' ? 'bg-white text-[#f0488a] shadow-[0_2px_12px_rgba(240, 72, 138, 0.16)] ring-1 ring-[#f6bfd5]' : 'text-[#8984ad]'}`}
               >
                 <Smartphone className="size-[1em]" strokeWidth={2.5} aria-hidden="true" /> Phone
               </button>
@@ -217,10 +217,10 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
 
             <form id="login-panel" role="tabpanel" aria-labelledby={`login-tab-${method}`} onSubmit={submitDemoForm} className="flex min-h-0 flex-col">
               <div className="mb-[4.2%]">
-                <label htmlFor="joy-login-identity" className="mb-1.5 block text-sm font-bold text-[#3a315f]">
-                  {method === 'email' ? 'Email' : 'Phone number'} <span className="text-[#ff527f]" aria-hidden="true">*</span>
+                <label htmlFor="joy-login-identity" className="mb-1.5 block text-sm font-bold text-[#352d57]">
+                  {method === 'email' ? 'Email' : 'Phone number'} <span className="text-[#f8607a]" aria-hidden="true">*</span>
                 </label>
-                <div className="flex h-[clamp(2.75rem,4vw,3.25rem)] items-center gap-3 rounded-full border border-[#ffc1d9] bg-white px-4 transition focus-within:border-[#f65b9d] focus-within:ring-4 focus-within:ring-[#f65b9d]/10">
+                <div className="flex h-[clamp(2.75rem,4vw,3.25rem)] items-center gap-3 rounded-full border border-[#f6bfd5] bg-white px-4 transition focus-within:border-[#f8608f] focus-within:ring-4 focus-within:ring-[#f8608f]/10">
                   {method === 'email' ? <Mail className="size-4 shrink-0 text-[#aaa6c8]" aria-hidden="true" /> : <Smartphone className="size-4 shrink-0 text-[#aaa6c8]" aria-hidden="true" />}
                   <input
                     ref={firstFieldRef}
@@ -239,10 +239,10 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
               </div>
 
               <div>
-                <label htmlFor="joy-login-password" className="mb-1.5 block text-sm font-bold text-[#3a315f]">
-                  Password <span className="text-[#ff527f]" aria-hidden="true">*</span>
+                <label htmlFor="joy-login-password" className="mb-1.5 block text-sm font-bold text-[#352d57]">
+                  Password <span className="text-[#f8607a]" aria-hidden="true">*</span>
                 </label>
-                <div className="flex h-[clamp(2.75rem,4vw,3.25rem)] items-center gap-3 rounded-full border border-[#e5e3f0] bg-white px-4 transition focus-within:border-[#aaa1cf] focus-within:ring-4 focus-within:ring-[#aaa1cf]/10">
+                <div className="flex h-[clamp(2.75rem,4vw,3.25rem)] items-center gap-3 rounded-full border border-[#ede5f5] bg-white px-4 transition focus-within:border-[#aaa6c8] focus-within:ring-4 focus-within:ring-[#aaa6c8]/10">
                   <LockKeyhole className="size-4 shrink-0 text-[#aaa6c8]" aria-hidden="true" />
                   <input
                     id="joy-login-password"
@@ -260,7 +260,7 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
                     onClick={() => setShowPassword((visible) => !visible)}
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                     aria-pressed={showPassword}
-                    className="shrink-0 text-sm font-medium text-[#9290b4] hover:text-[#554b7f] focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
+                    className="shrink-0 text-sm font-medium text-[#8984ad] hover:text-[#52428a] focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
                   >
                     {showPassword ? 'Hide' : 'Show'}
                     <span className="sr-only"> password</span>
@@ -271,38 +271,38 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login' }: Login
               <button
                 type="button"
                 onClick={() => showUnavailableMessage('Password reset')}
-                className="mt-2 self-end text-sm font-semibold text-[#f34f94] underline decoration-[#f7a8c7] underline-offset-4 hover:text-[#d93477] focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
+                className="mt-2 self-end text-sm font-semibold text-[#f0488a] underline decoration-[#ff9db8] underline-offset-4 hover:text-[#d6336c] focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
               >
                 Forgot password?
               </button>
 
-              <button type="submit" className="joy-login-submit mt-[4.2%] flex h-[clamp(2.875rem,4.2vw,3.25rem)] shrink-0 items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#ff9e50] via-[#ff7c82] to-[#f64f9b] text-sm font-bold text-white shadow-[0_12px_24px_rgba(248,96,143,0.22)] transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#f8608f]/30">
+              <button type="submit" className="joy-login-submit mt-[4.2%] flex h-[clamp(2.875rem,4.2vw,3.25rem)] shrink-0 items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#ff9e50] via-[#f27b85] to-[#f0488a] text-sm font-bold text-white shadow-[0_12px_24px_rgba(248, 96, 143, 0.22)] transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#f8608f]/30">
                 Log in <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden="true" />
               </button>
 
-              <div className="my-[4.2%] flex shrink-0 items-center gap-4 text-sm text-[#918bad]" aria-hidden="true">
-                <span className="h-px flex-1 bg-[#e1dfed]" />or<span className="h-px flex-1 bg-[#e1dfed]" />
+              <div className="my-[4.2%] flex shrink-0 items-center gap-4 text-sm text-[#8984ad]" aria-hidden="true">
+                <span className="h-px flex-1 bg-[#ede5f5]" />or<span className="h-px flex-1 bg-[#ede5f5]" />
               </div>
 
-              <button type="button" onClick={() => showUnavailableMessage('Google sign-in')} className="flex h-[clamp(2.75rem,3.8vw,3rem)] shrink-0 items-center justify-center gap-2.5 rounded-full border border-[#e3e1ed] bg-white text-sm font-bold text-[#30285a] shadow-sm transition hover:bg-[#faf9fc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]">
+              <button type="button" onClick={() => showUnavailableMessage('Google sign-in')} className="flex h-[clamp(2.75rem,3.8vw,3rem)] shrink-0 items-center justify-center gap-2.5 rounded-full border border-[#ede5f5] bg-white text-sm font-bold text-[#30235f] shadow-sm transition hover:bg-[#ffffff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]">
                 <span className="bg-gradient-to-tr from-[#34a853] via-[#4285f4] to-[#ea4335] bg-clip-text text-[1.45em] font-black leading-none text-transparent" aria-hidden="true">G</span>
                 Continue with Google
               </button>
-              <button type="button" onClick={() => showUnavailableMessage('Apple sign-in')} className="mt-[2.1%] flex h-[clamp(2.75rem,3.8vw,3rem)] shrink-0 items-center justify-center gap-2.5 rounded-full border border-[#e3e1ed] bg-white text-sm font-bold text-[#30285a] shadow-sm transition hover:bg-[#faf9fc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]">
+              <button type="button" onClick={() => showUnavailableMessage('Apple sign-in')} className="mt-[2.1%] flex h-[clamp(2.75rem,3.8vw,3rem)] shrink-0 items-center justify-center gap-2.5 rounded-full border border-[#ede5f5] bg-white text-sm font-bold text-[#30235f] shadow-sm transition hover:bg-[#ffffff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]">
                 <Apple className="size-[1.2em] fill-[#17151b] text-[#17151b]" aria-hidden="true" />
                 Continue with Apple
               </button>
 
-              <p className="mt-auto pt-[2%] text-center text-sm text-[#918bad]">
+              <p className="mt-auto pt-[2%] text-center text-sm text-[#8984ad]">
                 New to Joy?{' '}
-                <button type="button" onClick={() => { setMode('signup'); setNotice('') }} className="font-bold text-[#f34f94] underline decoration-[#f7a8c7] underline-offset-4 hover:text-[#d93477]">
+                <button type="button" onClick={() => { setMode('signup'); setNotice('') }} className="font-bold text-[#f0488a] underline decoration-[#ff9db8] underline-offset-4 hover:text-[#d6336c]">
                   Try for free
                 </button>
               </p>
 
               {notice ? (
-                <p role="status" aria-live="polite" className="joy-login-notice absolute inset-x-[8.5%] bottom-[2%] flex items-start gap-2 rounded-xl border border-[#f8c8d8] bg-[#fff5f8] px-3 py-2 text-xs leading-snug text-[#6a4560] shadow-sm">
-                  <Check className="mt-0.5 size-4 shrink-0 text-[#e8538e]" aria-hidden="true" />
+                <p role="status" aria-live="polite" className="joy-login-notice absolute inset-x-[8.5%] bottom-[2%] flex items-start gap-2 rounded-xl border border-[#ffd0e2] bg-[#f6f1fb] px-3 py-2 text-xs leading-snug text-[#6a4560] shadow-sm">
+                  <Check className="mt-0.5 size-4 shrink-0 text-[#f0488a]" aria-hidden="true" />
                   <span>{notice}</span>
                 </p>
               ) : null}
@@ -403,18 +403,18 @@ const COUNTRY_CODES = ['+95', '+84', '+66', '+65', '+60', '+62', '+63', '+44', '
 const STEPS = ['Account', 'Verify', 'Ready'] as const
 
 const fieldWrap =
-  'flex h-11 items-center gap-3 rounded-full border border-[#e5e3f0] bg-white px-4 transition focus-within:border-[#f65b9d] focus-within:ring-4 focus-within:ring-[#f65b9d]/10'
+  'flex h-11 items-center gap-3 rounded-full border border-[#ede5f5] bg-white px-4 transition focus-within:border-[#f8608f] focus-within:ring-4 focus-within:ring-[#f8608f]/10'
 const inputCls = 'min-w-0 flex-1 bg-transparent text-sm text-[#352d57] outline-none placeholder:text-[#9994b4]'
-const labelCls = 'mb-1.5 block text-sm font-bold text-[#3a315f]'
+const labelCls = 'mb-1.5 block text-sm font-bold text-[#352d57]'
 const primaryBtn =
-  'mt-2 flex h-12 shrink-0 items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#ff9e50] via-[#ff7c82] to-[#f64f9b] text-sm font-bold text-white shadow-[0_12px_24px_rgba(248,96,143,0.22)] transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#f8608f]/30'
+  'mt-2 flex h-12 shrink-0 items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#ff9e50] via-[#f27b85] to-[#f0488a] text-sm font-bold text-white shadow-[0_12px_24px_rgba(248, 96, 143, 0.22)] transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#f8608f]/30'
 
 function PasswordField({ id, label, autoComplete, onChange }: { id: string; label: string; autoComplete: string; onChange: () => void }) {
   const [show, setShow] = useState(false)
   return (
     <div>
       <label htmlFor={id} className={labelCls}>
-        {label} <span className="text-[#ff527f]" aria-hidden="true">*</span>
+        {label} <span className="text-[#f8607a]" aria-hidden="true">*</span>
       </label>
       <div className={fieldWrap}>
         <LockKeyhole className="size-4 shrink-0 text-[#aaa6c8]" aria-hidden="true" />
@@ -423,7 +423,7 @@ function PasswordField({ id, label, autoComplete, onChange }: { id: string; labe
           type="button"
           onClick={() => setShow((v) => !v)}
           aria-pressed={show}
-          className="shrink-0 text-sm font-medium text-[#9290b4] hover:text-[#554b7f] focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
+          className="shrink-0 text-sm font-medium text-[#8984ad] hover:text-[#52428a] focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
         >
           {show ? 'Hide' : 'Show'}
           <span className="sr-only"> password</span>
@@ -463,7 +463,7 @@ function CodeBoxes({ value, onChange }: { value: string; onChange: (v: string) =
             if (e.key === 'ArrowLeft') focusAt(i - 1)
             if (e.key === 'ArrowRight') focusAt(i + 1)
           }}
-          className={`aspect-square min-w-0 flex-1 rounded-[10px] border bg-white text-center text-xl font-extrabold text-[#30235f] outline-none transition focus:border-[#f65b9d] focus:ring-4 focus:ring-[#f65b9d]/15 ${value[i] ? 'border-[#ffc1d9]' : 'border-[#e5e3f0]'}`}
+          className={`aspect-square min-w-0 flex-1 rounded-[10px] border bg-white text-center text-xl font-extrabold text-[#30235f] outline-none transition focus:border-[#f8608f] focus:ring-4 focus:ring-[#f8608f]/15 ${value[i] ? 'border-[#f6bfd5]' : 'border-[#ede5f5]'}`}
         />
       ))}
     </div>
@@ -512,7 +512,7 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
       role="tab"
       aria-selected={method === value}
       onClick={() => { setMethod(value); setError('') }}
-      className={`flex items-center justify-center gap-2 rounded-full text-sm font-bold transition ${method === value ? 'bg-white text-[#f24b91] shadow-[0_2px_12px_rgba(235,87,148,0.16)] ring-1 ring-[#ffc6dc]' : 'text-[#908bb2]'}`}
+      className={`flex items-center justify-center gap-2 rounded-full text-sm font-bold transition ${method === value ? 'bg-white text-[#f0488a] shadow-[0_2px_12px_rgba(240, 72, 138, 0.16)] ring-1 ring-[#f6bfd5]' : 'text-[#8984ad]'}`}
     >
       {icon} {label}
     </button>
@@ -527,11 +527,11 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
           const done = step > n
           return (
             <li key={label} className="flex items-center gap-2" aria-current={active ? 'step' : undefined}>
-              <span className={`flex shrink-0 items-center justify-center rounded-full text-xs font-extrabold text-white shadow-[0_4px_10px_rgba(120,90,200,0.22)] ${active ? 'size-9 ring-4 ring-[#e9c9f5]/70' : 'size-8'} ${n > step ? 'bg-[#f1eff7] !text-[#9a95b8] shadow-none' : i === 0 ? 'bg-gradient-to-br from-[#7b97ff] to-[#4a52e0]' : i === 1 ? 'bg-gradient-to-br from-[#b57cf5] to-[#7a3fd6]' : 'bg-gradient-to-br from-[#ffa24f] to-[#f2457f]'}`}>
+              <span className={`flex shrink-0 items-center justify-center rounded-full text-xs font-extrabold text-white shadow-[0_4px_10px_rgba(120, 90, 200, 0.22)] ${active ? 'size-9 ring-4 ring-[#e6d6ff]/70' : 'size-8'} ${n > step ? 'bg-[#f6f1fb] !text-[#9994b4] shadow-none' : i === 0 ? 'bg-gradient-to-br from-[#7b97ff] to-[#4a52e0]' : i === 1 ? 'bg-gradient-to-br from-[#a97ff0] to-[#8a45d6]' : 'bg-gradient-to-br from-[#ff9e50] to-[#f0488a]'}`}>
                 {i === 0 ? <UserRound className="size-[18px]" strokeWidth={2.8} fillOpacity={1} aria-hidden="true" /> : i === 1 ? <ShieldCheck className="size-[18px]" strokeWidth={2.8} fillOpacity={0.25} aria-hidden="true" /> : n}
               </span>
-              <span className={`${active ? 'font-bold text-[#30235f]' : `hidden sm:inline ${done ? 'text-[#5b4d8f]' : 'text-[#9a95b8]'}`}`}>{label}</span>
-              {n < STEPS.length ? <ArrowRight className={`ml-1 size-4 shrink-0 transition-colors ${done ? 'text-[#f65a8a]' : 'text-[#cfcbe0]'}`} strokeWidth={3} aria-hidden="true" /> : null}
+              <span className={`${active ? 'font-bold text-[#30235f]' : `hidden sm:inline ${done ? 'text-[#52428a]' : 'text-[#9994b4]'}`}`}>{label}</span>
+              {n < STEPS.length ? <ArrowRight className={`ml-1 size-4 shrink-0 transition-colors ${done ? 'text-[#f8608f]' : 'text-[#c9bfd6]'}`} strokeWidth={3} aria-hidden="true" /> : null}
             </li>
           )
         })}
@@ -541,14 +541,14 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto pr-1">
           <header className="mb-[3%]">
             <h2 id="joy-login-title" className="text-[clamp(1.5rem,2.8vw,1.875rem)] font-extrabold leading-[1.02] tracking-[-0.055em] text-[#30235f]">
-              Create your parent account <Sparkles className="mb-[0.55em] ml-1 inline size-[0.62em] fill-[#fb6aa3] text-[#fb6aa3]" aria-hidden="true" />
+              Create your parent account <Sparkles className="mb-[0.55em] ml-1 inline size-[0.62em] fill-[#f8608f] text-[#f8608f]" aria-hidden="true" />
             </h2>
             <p id="joy-login-description" className="mt-2 text-[clamp(0.875rem,1.15vw,1rem)] leading-snug text-[#8984ad]">
               Try Joy for free. One account for all your children.
             </p>
           </header>
 
-          <div className="mb-[3%] grid h-11 shrink-0 grid-cols-2 rounded-full bg-[#f5f4f8] p-1" role="tablist" aria-label="Choose how to sign up">
+          <div className="mb-[3%] grid h-11 shrink-0 grid-cols-2 rounded-full bg-[#ffffff] p-1" role="tablist" aria-label="Choose how to sign up">
             {tab('phone', 'Phone', <Smartphone className="size-[1em]" strokeWidth={2.5} aria-hidden="true" />)}
             {tab('email', 'Email', <Mail className="size-[1em]" strokeWidth={2.8} aria-hidden="true" />)}
           </div>
@@ -556,15 +556,15 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
           <form onSubmit={submitAccount} className="flex min-h-0 flex-col gap-[clamp(0.5rem,1.4vh,0.9rem)]">
             <div>
               <label htmlFor="signup-identity" className={labelCls}>
-                {method === 'phone' ? 'Phone' : 'Email'} <span className="text-[#ff527f]" aria-hidden="true">*</span>
+                {method === 'phone' ? 'Phone' : 'Email'} <span className="text-[#f8607a]" aria-hidden="true">*</span>
               </label>
-              <div className={`${fieldWrap} border-[#ffc1d9]`}>
+              <div className={`${fieldWrap} border-[#f6bfd5]`}>
                 {method === 'phone' ? (
                   <>
                     <select aria-label="Country code" defaultValue="+95" className="shrink-0 cursor-pointer bg-transparent pr-1 text-sm text-[#352d57] outline-none">
                       {COUNTRY_CODES.map((c) => <option key={c} value={c}>{c}</option>)}
                     </select>
-                    <span className="h-6 w-px bg-[#e5e3f0]" aria-hidden="true" />
+                    <span className="h-6 w-px bg-[#ede5f5]" aria-hidden="true" />
                     <input id="signup-identity" name="signup-phone" type="tel" inputMode="tel" autoComplete="tel-national" required autoFocus placeholder="9 123 456 789" onChange={() => setError('')} className={inputCls} />
                   </>
                 ) : (
@@ -578,7 +578,7 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
 
             <div>
               <label htmlFor="signup-name" className={labelCls}>
-                Full name <span className="text-[#ff527f]" aria-hidden="true">*</span>
+                Full name <span className="text-[#f8607a]" aria-hidden="true">*</span>
               </label>
               <div className={fieldWrap}>
                 <input id="signup-name" name="signup-name" type="text" autoComplete="name" required onChange={() => setError('')} className={inputCls} />
@@ -588,7 +588,7 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
             <PasswordField id="signup-password" label="Password" autoComplete="new-password" onChange={() => setError('')} />
             <PasswordField id="signup-confirm" label="Confirm password" autoComplete="new-password" onChange={() => setError('')} />
 
-            {error ? <p role="alert" className="text-sm font-semibold text-[#e0386f]">{error}</p> : null}
+            {error ? <p role="alert" className="text-sm font-semibold text-[#d6336c]">{error}</p> : null}
 
             <p className="text-sm leading-snug text-[#8984ad]">
               {method === 'phone'
@@ -600,9 +600,9 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
               Continue <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden="true" />
             </button>
 
-            <p className="pb-1 text-center text-sm text-[#918bad]">
+            <p className="pb-1 text-center text-sm text-[#8984ad]">
               Already have an account?{' '}
-              <button type="button" onClick={onSwitchToLogin} className="font-bold text-[#f34f94] underline decoration-[#f7a8c7] underline-offset-4 hover:text-[#d93477]">
+              <button type="button" onClick={onSwitchToLogin} className="font-bold text-[#f0488a] underline decoration-[#ff9db8] underline-offset-4 hover:text-[#d6336c]">
                 Log in
               </button>
             </p>
@@ -621,12 +621,12 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
             </p>
           </header>
           <CodeBoxes value={code} onChange={(v) => { setCode(v); setError('') }} />
-          {error ? <p role="alert" className="text-sm font-semibold text-[#e0386f]">{error}</p> : null}
+          {error ? <p role="alert" className="text-sm font-semibold text-[#d6336c]">{error}</p> : null}
           <p className="text-center text-sm text-[#8984ad]">This is a preview: any 6 digits will work.</p>
           <button type="submit" className={primaryBtn}>
             Verify <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden="true" />
           </button>
-          <button type="button" onClick={() => { setStep(1); setError('') }} className="self-center text-sm font-semibold text-[#9290b4] hover:text-[#554b7f]">
+          <button type="button" onClick={() => { setStep(1); setError('') }} className="self-center text-sm font-semibold text-[#8984ad] hover:text-[#52428a]">
             Back
           </button>
         </form>
@@ -634,21 +634,21 @@ function SignupFlow({ onClose, onSwitchToLogin }: { onClose: () => void; onSwitc
 
       {step === 3 ? (
         <div className="relative flex min-h-0 flex-1 flex-col items-center gap-5 pt-6 text-center md:gap-6">
-          <img src="/images/signup-check.webp" alt="" aria-hidden="true" className="h-24 w-auto drop-shadow-[0_10px_16px_rgba(248,96,143,0.28)] md:h-28" />
+          <img src="/images/signup-check.webp" alt="" aria-hidden="true" className="h-24 w-auto drop-shadow-[0_10px_16px_rgba(248, 96, 143, 0.28)] md:h-28" />
           <header>
             <h2 id="joy-login-title" className="text-[clamp(1.75rem,3.4vw,2.25rem)] font-extrabold leading-[1.02] tracking-[-0.05em]">
-              <span className="bg-gradient-to-r from-[#6a35c9] to-[#8a45d6] bg-clip-text text-transparent">You're </span>
-              <span className="bg-gradient-to-r from-[#ff8a3d] to-[#ff5f7e] bg-clip-text text-transparent">all </span>
-              <span className="bg-gradient-to-r from-[#8a45d6] to-[#6a35c9] bg-clip-text text-transparent">set!</span>
+              <span className="bg-gradient-to-r from-[#5b3fc4] to-[#8a45d6] bg-clip-text text-transparent">You're </span>
+              <span className="bg-gradient-to-r from-[#ff8a2a] to-[#f8607a] bg-clip-text text-transparent">all </span>
+              <span className="bg-gradient-to-r from-[#8a45d6] to-[#5b3fc4] bg-clip-text text-transparent">set!</span>
             </h2>
             <p id="joy-login-description" className="mx-auto mt-3 max-w-[19rem] text-[clamp(0.875rem,1.15vw,1rem)] leading-relaxed text-[#6b5f93]">
               Your parent account is ready. Add your children in the Parent Portal.
             </p>
           </header>
-          <button type="button" onClick={finish} className={`${primaryBtn} mt-3 w-full !from-[#ffa24f] !via-[#ff7d78] !to-[#a65be8] shadow-[0_12px_24px_rgba(190,100,200,0.28)]`}>
+          <button type="button" onClick={finish} className={`${primaryBtn} mt-3 w-full !from-[#ff9e50] !via-[#ff8a7a] !to-[#a647e8] shadow-[0_12px_24px_rgba(190, 100, 200, 0.28)]`}>
             Go to Parent Portal <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden="true" />
           </button>
-          <img src="/images/signup-butterfly.webp" alt="" aria-hidden="true" className="pointer-events-none mt-auto -mb-3 w-[62%] max-w-72 self-center object-contain drop-shadow-[0_10px_18px_rgba(150,100,220,0.25)]" />
+          <img src="/images/signup-butterfly.webp" alt="" aria-hidden="true" className="pointer-events-none mt-auto -mb-3 w-[62%] max-w-72 self-center object-contain drop-shadow-[0_10px_18px_rgba(142, 92, 240, 0.25)]" />
         </div>
       ) : null}
     </div>

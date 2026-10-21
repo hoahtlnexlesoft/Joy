@@ -26,7 +26,7 @@ export const StepsIcon = ({ className }: P) => (
     <rect x="2.500" y="15" width="5.500" height="6.500" rx="1.800" fill="var(--ic-main,#fff)" opacity=".85" />
     <rect x="9.200" y="10.500" width="5.500" height="11" rx="1.800" fill="var(--ic-main,#fff)" opacity=".93" />
     <rect x="15.900" y="6" width="5.500" height="15.500" rx="1.800" fill="var(--ic-main,#fff)" />
-    <path d="m18.650 .4 1.050 2.200 2.400.3-1.750 1.650.45 2.400-2.150-1.200-2.150 1.200.45-2.400L15.200 2.900l2.400-.3Z" fill="#FFE066" />
+    <path d="m18.650 .4 1.050 2.200 2.400.3-1.750 1.650.45 2.400-2.150-1.200-2.150 1.200.45-2.400L15.200 2.900l2.400-.3Z" fill="#ffe27a" />
   </Svg>
 )
 
@@ -51,7 +51,7 @@ export const BooksIcon = ({ className }: P) => (
     <rect x="3.700" y="8" width="3.400" height="1.500" rx=".75" fill="var(--ic-accent,#fff)" opacity=".6" />
     <rect x="10.200" y="6.500" width="3.400" height="1.500" rx=".75" fill="var(--ic-accent,#fff)" opacity=".6" />
     <rect x="16" y="6.500" width="5.200" height="15" rx="1.800" fill="var(--ic-main,#fff)" opacity=".85" transform="rotate(14 18.600 14)" />
-    <path d="M20.500 .8v3M19 2.300h3" stroke="#FFE066" strokeWidth="1.700" strokeLinecap="round" />
+    <path d="M20.500 .8v3M19 2.300h3" stroke="#ffe27a" strokeWidth="1.700" strokeLinecap="round" />
   </Svg>
 )
 

@@ -59,7 +59,7 @@ export function DeviceSwitcher() {
       type="button"
       onClick={() => pick(k)}
       aria-pressed={mode === k}
-      className={`rounded-full px-3.5 py-1.5 text-[13px] font-semibold shadow-[0_1px_4px_rgba(0,0,0,.12)] transition ${mode === k ? 'bg-[#306eed] text-white' : 'bg-white text-[#2a2240] hover:bg-slate-50'}`}
+      className={`rounded-full px-3.5 py-1.5 text-[13px] font-semibold shadow-[0_1px_4px_rgba(0, 0, 0, .12)] transition ${mode === k ? 'bg-[#3d7bf0] text-white' : 'bg-white text-[#2a2240] hover:bg-slate-50'}`}
     >
       {label}
     </button>
@@ -68,11 +68,11 @@ export function DeviceSwitcher() {
   return (
     <div data-review-ui data-no-reveal>
       {mode === 'desktop' ? (
-        <div className="fixed bottom-3 left-3 z-[75] flex max-md:hidden gap-1.5 rounded-full bg-white/85 p-1.5 shadow-[0_4px_16px_rgba(0,0,0,.18)] backdrop-blur">
+        <div className="fixed bottom-3 left-3 z-[75] flex max-md:hidden gap-1.5 rounded-full bg-white/85 p-1.5 shadow-[0_4px_16px_rgba(0, 0, 0, .18)] backdrop-blur">
           {TABS.map((t) => btn(t.key, t.label))}
         </div>
       ) : (
-        <div className="fixed inset-0 z-[200] bg-[#e8e2f0]">
+        <div className="fixed inset-0 z-[200] bg-[#ede5f5]">
           <div className="absolute inset-x-0 top-0 z-10 flex h-[52px] items-center justify-center gap-2 bg-white/75 backdrop-blur">
             {TABS.map((t) => btn(t.key, t.label))}
           </div>
@@ -82,7 +82,7 @@ export function DeviceSwitcher() {
               src={src}
               title={`${mode} preview`}
               style={{ width: WIDTH[mode], maxWidth: '100%', height: 'calc(100vh - 5rem)' }}
-              className="rounded-[28px] border-8 border-[#2a2240] bg-white shadow-[0_20px_50px_rgba(60,30,90,.25)]"
+              className="rounded-[28px] border-8 border-[#2a2240] bg-white shadow-[0_20px_50px_rgba(48, 35, 95, .25)]"
             />
           </div>
         </div>

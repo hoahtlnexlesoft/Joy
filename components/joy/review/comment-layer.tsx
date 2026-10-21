@@ -122,7 +122,7 @@ function selectorFor(el: Element): string {
   return parts.join(' > ')
 }
 
-const USER_COLORS = ['#4f46e5', '#0d9488', '#d97706', '#0284c7', '#c026d3', '#16a34a', '#dc2626', '#7c3aed', '#0891b2', '#65a30d', '#db2777', '#ca8a04', '#2563eb', '#059669', '#ea580c', '#9333ea']
+const USER_COLORS = ['#5b3fc4', '#0d9488', '#d96a0a', '#0284c7', '#c026d3', '#16a34a', '#d02a22', '#8a45d6', '#0891b2', '#65a30d', '#d6336c', '#b98200', '#2563eb', '#23915a', '#ea580c', '#8a45d6']
 // authors in order of first appearance: each gets its own colour (no two share one until the palette runs out)
 let AUTHOR_ORDER: string[] = []
 const authorKey = (n: string) => n.trim().toLowerCase()
@@ -295,7 +295,7 @@ export function CommentLayer() {
       if (hoverRef.current !== t) {
         clear()
         hoverRef.current = t
-        t.style.outline = '2px dashed #4f46e5'
+        t.style.outline = '2px dashed #5b3fc4'
         t.style.outlineOffset = '2px'
       }
     }
@@ -606,7 +606,7 @@ export function CommentLayer() {
           setHidden(false)
           setOpen(true)
         }}
-        className="fixed right-0 top-1/2 z-[110] flex -translate-y-1/2 items-center gap-1.5 rounded-l-full bg-[#fafafa] py-2.5 pl-3 pr-2.5 text-slate-700 shadow-[0_4px_18px_-4px_rgba(30,20,60,0.4)] ring-1 ring-black/10 transition hover:pl-4"
+        className="fixed right-0 top-1/2 z-[110] flex -translate-y-1/2 items-center gap-1.5 rounded-l-full bg-[#ffffff] py-2.5 pl-3 pr-2.5 text-slate-700 shadow-[0_4px_18px_-4px_rgba(30, 20, 60, 0.4)] ring-1 ring-black/10 transition hover:pl-4"
         aria-label="Show comments"
         title="Show comments"
       >
@@ -640,7 +640,7 @@ export function CommentLayer() {
               style={{ left: p.x, top: p.y, ...(t.resolved ? {} : { backgroundColor: colorFor(t.author) }) }}
               aria-label={`Comment ${idx}`}
             >
-              {flash === t.id && <span className="absolute inset-0 -z-10 animate-ping rounded-full opacity-70" style={{ backgroundColor: t.resolved ? '#10b981' : colorFor(t.author) }} />}
+              {flash === t.id && <span className="absolute inset-0 -z-10 animate-ping rounded-full opacity-70" style={{ backgroundColor: t.resolved ? '#2fb37f' : colorFor(t.author) }} />}
               {t.resolved ? <Check className="size-4" /> : idx}
             </button>
           )
@@ -771,7 +771,7 @@ export function CommentLayer() {
       {!open && (
         <div
           data-review-ui
-          className="fixed bottom-0 right-0 top-0 z-[110] flex w-14 flex-col items-center gap-2.5 overflow-y-auto rounded-l-[1.4rem] bg-[#fafafa] pb-4 pt-4 shadow-[0_0_30px_-8px_rgba(30,20,60,0.35)] ring-1 ring-black/10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-sm:w-11"
+          className="fixed bottom-0 right-0 top-0 z-[110] flex w-14 flex-col items-center gap-2.5 overflow-y-auto rounded-l-[1.4rem] bg-[#ffffff] pb-4 pt-4 shadow-[0_0_30px_-8px_rgba(30, 20, 60, 0.35)] ring-1 ring-black/10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-sm:w-11"
         >
           <button onClick={() => setOpen(true)} className="grid size-8 place-items-center rounded-full text-slate-600 hover:bg-black/5" aria-label="Open comments" title="Open comments">
             <ChevronsLeft className="size-[1.1rem]" />
@@ -786,7 +786,7 @@ export function CommentLayer() {
                 setOpen(true)
                 setActive(t.id)
               }}
-              style={{ backgroundColor: t.resolved ? '#10b981' : colorFor(t.author) }}
+              style={{ backgroundColor: t.resolved ? '#2fb37f' : colorFor(t.author) }}
               className="grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold uppercase text-white ring-2 ring-transparent transition hover:ring-indigo-200"
               title={`${t.author}: ${t.text.slice(0, 60)}`}
               aria-label={`Comment by ${t.author}`}
@@ -806,7 +806,7 @@ export function CommentLayer() {
       {open && (
         <aside
           data-review-ui
-          className="fixed bottom-0 right-0 top-0 z-[110] flex w-[19rem] max-w-full flex-col rounded-l-[1.4rem] bg-[#fafafa] text-left shadow-[0_0_30px_-8px_rgba(30,20,60,0.35)] ring-1 ring-black/10"
+          className="fixed bottom-0 right-0 top-0 z-[110] flex w-[19rem] max-w-full flex-col rounded-l-[1.4rem] bg-[#ffffff] text-left shadow-[0_0_30px_-8px_rgba(30, 20, 60, 0.35)] ring-1 ring-black/10"
         >
           {menu && <div className="fixed inset-0 z-[1]" onClick={() => setMenu(null)} />}
           <header className="flex items-center justify-between gap-2 px-4 pb-2.5 pt-4">
@@ -1071,7 +1071,7 @@ export function CommentLayer() {
             data-review-ui
             role="dialog"
             aria-label="Comment"
-            className="fixed z-[115] flex w-[19rem] max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-[1.6rem] bg-white text-left shadow-[0_20px_60px_-12px_rgba(30,20,60,0.4)] ring-1 ring-black/10"
+            className="fixed z-[115] flex w-[19rem] max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-[1.6rem] bg-white text-left shadow-[0_20px_60px_-12px_rgba(30, 20, 60, 0.4)] ring-1 ring-black/10"
             style={style}
           >
             <header className="flex items-center gap-1 px-4 pb-2 pt-3.5">

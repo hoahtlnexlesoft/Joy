@@ -59,7 +59,7 @@ export function GuideToc({ topics }: { topics: GuideLink[] }) {
                   className={`joy-toclink group relative -ml-0.5 flex items-center gap-2.5 rounded-r-xl border-l-2 px-3 py-2 text-sm ${
                     active
                       ? 'border-joy-pink bg-blush/70 font-semibold text-joy-pink'
-                      : 'border-transparent text-muted-foreground hover:border-[#e8ad4d] hover:bg-[#fff1c9] hover:text-[#805019]'
+                      : 'border-transparent text-muted-foreground hover:border-[#f5b73b] hover:bg-[#fff3d6] hover:text-[#7a4a00]'
                   }`}
                 >
                   {active ? <Sparkles className="size-3.5 shrink-0" aria-hidden="true" /> : <span className="size-3.5 shrink-0" aria-hidden="true" />}

@@ -5,15 +5,15 @@ import { Emo, EmoText } from '@/components/joy/emo'
 const highlights = [
   { icon: Droplet, title: 'Most element and mood', body: 'For any period you pick', tint: 'bg-sky text-joy-sky' },
   { icon: CalendarHeart, title: 'Feeling calendar', body: 'How they felt each day', tint: 'bg-blush text-joy-pink' },
-  { icon: Zap, title: 'Activities by tag', body: 'What they did, and when', tint: 'bg-[#fff3d6] text-[#c08400]' },
+  { icon: Zap, title: 'Activities by tag', body: 'What they did, and when', tint: 'bg-[#fff3d6] text-[#b98200]' },
 ]
 
 const elements = [
-  { name: 'Water', icon: '💧', value: 40, color: '#5cc3f5' },
-  { name: 'Fire', icon: '🔥', value: 10, color: '#f5a14a' },
-  { name: 'Sky', icon: '☁️', value: 18, color: '#b18cf0' },
-  { name: 'Earth', icon: '🪨', value: 18, color: '#f6cf4f' },
-  { name: 'Garden', icon: '🌿', value: 14, color: '#9bd96a' },
+  { name: 'Water', icon: '💧', value: 40, color: '#5ccaff' },
+  { name: 'Fire', icon: '🔥', value: 10, color: '#f59a2e' },
+  { name: 'Sky', icon: '☁️', value: 18, color: '#a97ff0' },
+  { name: 'Earth', icon: '🪨', value: 18, color: '#f9c95c' },
+  { name: 'Garden', icon: '🌿', value: 14, color: '#7ccf4a' },
 ]
 
 const elementTotal = elements.reduce((sum, e) => sum + e.value, 0)
@@ -50,7 +50,7 @@ function feelingFor(day: number, today: number) {
 }
 
 const tagCounts = [
-  { icon: '💡', name: 'Think', count: 3, color: 'bg-[#f6cf4f]', tint: 'bg-[#fff3d6]' },
+  { icon: '💡', name: 'Think', count: 3, color: 'bg-[#f9c95c]', tint: 'bg-[#fff3d6]' },
   { icon: '🌱', name: 'Ground', count: 4, color: 'bg-joy-mint', tint: 'bg-mint' },
   { icon: '🍃', name: 'Reset', count: 3, color: 'bg-joy-lilac', tint: 'bg-lavender' },
   { icon: '🌊', name: 'Flow', count: 2, color: 'bg-joy-sky', tint: 'bg-sky' },
@@ -117,7 +117,7 @@ function MostElementCard() {
 
 function MostMoodCard() {
   return (
-    <div className="relative rounded-2xl bg-[#fff6dc] p-4 ring-1 ring-[#f6cf4f]/30">
+    <div className="relative rounded-2xl bg-[#fff3d6] p-4 ring-1 ring-[#f9c95c]/30">
       <Sparkles />
       <CardTitle title="Most Mood" subtitle="Happy → Activated" />
       <ul className="relative mt-3 flex h-32 items-end justify-between gap-1.5" aria-label="Mood check-ins this week">
@@ -129,7 +129,7 @@ function MostMoodCard() {
               </span>
             )}
             <div
-              className="relative w-full rounded-full bg-gradient-to-b from-[#ffe48a] to-[#f6c33b] shadow-[inset_0_-3px_0_rgba(0,0,0,0.06)]"
+              className="relative w-full rounded-full bg-gradient-to-b from-[#ffe27a] to-[#fbc23c] shadow-[inset_0_-3px_0_rgba(0, 0, 0, 0.06)]"
               style={{ height: `${Math.max((m.value / maxMood) * 72, 22)}%` }}
             >
               <span

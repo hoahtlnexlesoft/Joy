@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 /**
- * Glossy "inflated" glyphs in the JOY logo palette (blue #008eed, orange #fd7e19, green #6cc800):
+ * Glossy "inflated" glyphs in the JOY logo palette (blue #0a86e8, orange #f46f10, green #58b800):
  * saturated top-to-bottom gradients, no outlines, white specular highlights. They replace native
  * emoji and also drive the Parent-portal CuteIcon tiles. Unknown emoji fall back to plain text.
  */
@@ -162,7 +162,7 @@ function Glyph({ name, u }: { name: EmoName; u: U }): ReactNode {
           <circle cx={24.4} cy={7.8} r={3.2} fill={u('tan')} />
           <circle cx={16} cy={17} r={9} fill={u('tan')} />
           <Eyes x={16} y={15.4} d={3.6} r={1.3} />
-          <path d="M14.4 19 h3.2 l-1.6 1.9 Z" fill="#e8423a" />
+          <path d="M14.4 19 h3.2 l-1.6 1.9 Z" fill="#e5484d" />
           <path d="M16 20.9 v1.2 M13.4 22.6 q2.6 1.8 5.2 0" stroke={INK} strokeWidth={1.1} strokeLinecap="round" />
           <Gloss cx={9} cy={11} rx={3.4} ry={1.4} r={-45} />
         </>
@@ -277,14 +277,14 @@ function Glyph({ name, u }: { name: EmoName; u: U }): ReactNode {
       return (
         <>
           <path d="M3.2 25 a12.8 12.8 0 0 1 25.6 0" stroke="#f46f10" strokeWidth={3.4} strokeLinecap="round" />
-          <path d="M8.2 25 a7.8 7.8 0 0 1 15.6 0" stroke="#6cc800" strokeWidth={3.4} strokeLinecap="round" />
+          <path d="M8.2 25 a7.8 7.8 0 0 1 15.6 0" stroke="#58b800" strokeWidth={3.4} strokeLinecap="round" />
           <path d="M12.8 25 a3.2 3.2 0 0 1 6.4 0" stroke="#0a86e8" strokeWidth={3.4} strokeLinecap="round" />
         </>
       )
     case 'sun':
       return (
         <>
-          <g stroke="#ffab00" strokeWidth={2.2} strokeLinecap="round">
+          <g stroke="#ffb300" strokeWidth={2.2} strokeLinecap="round">
             <path d="M16 2.6 V6 M16 26 V29.4 M2.6 16 H6 M26 16 H29.4 M6.5 6.5 L8.9 8.9 M23.1 23.1 L25.5 25.5 M25.5 6.5 L23.1 8.9 M8.9 23.1 L6.5 25.5" />
           </g>
           <circle cx={16} cy={16} r={8.2} fill={u('yellow')} />
@@ -443,7 +443,7 @@ function Glyph({ name, u }: { name: EmoName; u: U }): ReactNode {
     case 'trash':
       return (
         <>
-          <path d="M12.6 8.4 V7 a1.8 1.8 0 0 1 1.8 -1.8 h3.2 a1.8 1.8 0 0 1 1.8 1.8 V8.4" stroke="#e8423a" strokeWidth={1.8} strokeLinecap="round" />
+          <path d="M12.6 8.4 V7 a1.8 1.8 0 0 1 1.8 -1.8 h3.2 a1.8 1.8 0 0 1 1.8 1.8 V8.4" stroke="#e5484d" strokeWidth={1.8} strokeLinecap="round" />
           <path d="M8.4 12 L9.8 25.4 a2.4 2.4 0 0 0 2.4 2.2 h7.6 a2.4 2.4 0 0 0 2.4 -2.2 L23.6 12 Z" fill={u('pink')} />
           <rect x={5.8} y={8} width={20.4} height={4.6} rx={2.3} fill={u('red')} />
           <path d="M13 15.4 V24 M16 15.4 V24 M19 15.4 V24" stroke="#fff" strokeWidth={1.4} strokeLinecap="round" opacity={0.7} />
@@ -536,7 +536,7 @@ function Glyph({ name, u }: { name: EmoName; u: U }): ReactNode {
         <>
           <MoodBase u={u} />
           <path d="M9.4 15 h4.4 M18.2 15 h4.4" stroke={INK} strokeWidth={1.7} strokeLinecap="round" />
-          <path d="M9.4 12.6 h4.4 M18.2 12.6 h4.4" stroke="#ffab00" strokeWidth={1.8} strokeLinecap="round" />
+          <path d="M9.4 12.6 h4.4 M18.2 12.6 h4.4" stroke="#ffb300" strokeWidth={1.8} strokeLinecap="round" />
           <path d="M12.6 21 q3.4 -1.8 6.8 0" stroke={INK} strokeWidth={1.6} strokeLinecap="round" />
         </>
       )
@@ -557,7 +557,7 @@ function Glyph({ name, u }: { name: EmoName; u: U }): ReactNode {
           <MoodBase u={u} />
           <path d="M9.6 14.4 q2 2.6 4 0 M18.4 14.4 q2 2.6 4 0" stroke={INK} strokeWidth={1.6} strokeLinecap="round" />
           <ellipse cx={16} cy={20.6} rx={1.8} ry={2.2} fill="#7a2a2a" />
-          <path d="M23 5.4 h4.4 l-4.4 4.8 h4.4" stroke="#8a5ee8" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M23 5.4 h4.4 l-4.4 4.8 h4.4" stroke="#8e5cf0" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
         </>
       )
   }
@@ -568,12 +568,12 @@ const GRAD: Record<string, [string, string]> = {
   orange: ['#ffb15c', '#f46f10'],
   green: ['#b2ee45', '#58b800'],
   yellow: ['#ffe27a', '#ffb300'],
-  pink: ['#ffa6c4', '#f0488a'],
-  purple: ['#cfb8ff', '#8a5ee8'],
-  red: ['#ff8a7a', '#e8423a'],
-  skin: ['#ffe6d0', '#f5b98a'],
+  pink: ['#ff9db8', '#f0488a'],
+  purple: ['#cfb8ff', '#8e5cf0'],
+  red: ['#ff8a7a', '#e5484d'],
+  skin: ['#ffeadf', '#ffb98a'],
   tan: ['#f6dfae', '#dba85c'],
-  grey: ['#ffffff', '#b4bdd4'],
+  grey: ['#ffffff', '#aab3cc'],
 }
 
 export function EmoGlyph({ name, className }: { name: EmoName; className?: string }) {

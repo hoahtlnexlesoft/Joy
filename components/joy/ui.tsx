@@ -5,7 +5,7 @@ type Variant = 'primary' | 'ghost' | 'dark'
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-gradient-joy text-white shadow-[0_10px_30px_-10px_rgba(248,96,143,0.6)] hover:shadow-[0_14px_36px_-10px_rgba(248,96,143,0.75)] hover:-translate-y-0.5',
+    'bg-gradient-joy text-white shadow-[0_10px_30px_-10px_rgba(248, 96, 143, 0.6)] hover:shadow-[0_14px_36px_-10px_rgba(248, 96, 143, 0.75)] hover:-translate-y-0.5',
   ghost:
     'bg-white/80 text-foreground ring-1 ring-border backdrop-blur hover:bg-white hover:ring-foreground/20',
   dark: 'bg-foreground text-background hover:bg-foreground/90',

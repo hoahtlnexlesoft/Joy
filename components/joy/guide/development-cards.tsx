@@ -5,10 +5,10 @@ export type DevKey = 'balance' | 'movement' | 'cycle' | 'progress'
 
 /** soft = icon tint, line = icon stroke, deep = eyebrow text */
 const palette: Record<DevKey, { soft: string; line: string; deep: string }> = {
-  balance: { soft: '#fff0e8', line: '#f08a64', deep: '#d9582a' },
-  movement: { soft: '#e8f8ef', line: '#4cbf8b', deep: '#2a9462' },
-  cycle: { soft: '#f0ecff', line: '#9a82f0', deep: '#6f57d6' },
-  progress: { soft: '#e8f3ff', line: '#5aa9ee', deep: '#2b7fcb' },
+  balance: { soft: '#ffeadf', line: '#f49678', deep: '#ea580c' },
+  movement: { soft: '#e2f6ec', line: '#2fb37f', deep: '#23915a' },
+  cycle: { soft: '#efeaff', line: '#a97ff0', deep: '#785ac8' },
+  progress: { soft: '#e3f1ff', line: '#3f9cf2', deep: '#0877c9' },
 }
 
 function pt(cx: number, cy: number, r: number, deg: number) {

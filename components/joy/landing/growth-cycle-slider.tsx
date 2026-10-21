@@ -26,9 +26,9 @@ const cycles: Cycle[] = [
     homeIcon: 'check',
     nodes: [
       { name: 'Alpha', color: '#7ccf4a', angle: 180, current: true },
-      { name: 'Omega', color: '#f2c14e', angle: 270 },
+      { name: 'Omega', color: '#f9c95c', angle: 270 },
       { name: 'Crystal', color: '#ec6a47', angle: 0 },
-      { name: 'Rainbow', color: '#56b8e6', angle: 90 },
+      { name: 'Rainbow', color: '#22b8e8', angle: 90 },
     ],
   },
   {
@@ -38,9 +38,9 @@ const cycles: Cycle[] = [
     homeIcon: 'star',
     nodes: [
       { name: 'Alpha', color: '#7ccf4a', angle: 198, current: true },
-      { name: 'Omega', color: '#f2c14e', angle: 270 },
+      { name: 'Omega', color: '#f9c95c', angle: 270 },
       { name: 'Crystal', color: '#ec6a47', angle: 342 },
-      { name: 'Rainbow', color: '#56b8e6', angle: 54 },
+      { name: 'Rainbow', color: '#22b8e8', angle: 54 },
       { name: 'Crystal', color: '#a66ee0', angle: 126 },
     ],
   },
@@ -90,7 +90,7 @@ function Triskelion({ gradientId }: { gradientId: string }) {
       className="motion-safe:animate-[spin_28s_linear_infinite]"
       style={{ transformOrigin: `${CX}px ${CY}px`, transformBox: 'view-box' }}
     >
-      <circle cx={CX} cy={CY} r={58} fill="#fff7e3" />
+      <circle cx={CX} cy={CY} r={58} fill="#fff3d6" />
       {arms.map((deg) => {
         const c = point(deg, 21)
         return (
@@ -114,11 +114,11 @@ function CuteFace({ x, y, color }: { x: number; y: number; color: string }) {
     <g aria-hidden="true">
       <path d={`M ${x - 18} ${y - 13} Q ${x - 25} ${y - 22} ${x - 15} ${y - 20} Q ${x - 10} ${y - 19} ${x - 10} ${y - 13}`} fill={color} opacity={0.8} />
       <path d={`M ${x + 18} ${y - 13} Q ${x + 25} ${y - 22} ${x + 15} ${y - 20} Q ${x + 10} ${y - 19} ${x + 10} ${y - 13}`} fill={color} opacity={0.8} />
-      <circle cx={x - 7} cy={y - 2} r={2.6} fill="#3a2f4a" />
-      <circle cx={x + 7} cy={y - 2} r={2.6} fill="#3a2f4a" />
+      <circle cx={x - 7} cy={y - 2} r={2.6} fill="#2a2240" />
+      <circle cx={x + 7} cy={y - 2} r={2.6} fill="#2a2240" />
       <circle cx={x - 6.2} cy={y - 3} r={0.9} fill="#fff" />
       <circle cx={x + 7.8} cy={y - 3} r={0.9} fill="#fff" />
-      <path d={`M ${x - 4} ${y + 5} Q ${x} ${y + 9} ${x + 4} ${y + 5}`} fill="none" stroke="#3a2f4a" strokeWidth={1.8} strokeLinecap="round" />
+      <path d={`M ${x - 4} ${y + 5} Q ${x} ${y + 9} ${x + 4} ${y + 5}`} fill="none" stroke="#2a2240" strokeWidth={1.8} strokeLinecap="round" />
       <ellipse cx={x - 13} cy={y + 5} rx={3.5} ry={2.2} fill={color} opacity={0.45} />
       <ellipse cx={x + 13} cy={y + 5} rx={3.5} ry={2.2} fill={color} opacity={0.45} />
     </g>
@@ -129,7 +129,7 @@ function HomeNode({ x, y, color, icon }: { x: number; y: number; color: string; 
   return (
     <g className="motion-safe:animate-[joy-bob_3s_ease-in-out_infinite]" style={{ transformBox: 'fill-box', transformOrigin: 'center' }}>
       <circle cx={x} cy={y} r={NODE_R + 9} fill={color} opacity={0.16} />
-      <circle cx={x} cy={y} r={NODE_R} fill="#f2fbe9" stroke={color} strokeWidth={4} />
+      <circle cx={x} cy={y} r={NODE_R} fill="#eaf7e1" stroke={color} strokeWidth={4} />
       <path
         d={`M ${x - 12} ${y - 1} L ${x} ${y - 13} L ${x + 12} ${y - 1} M ${x - 9} ${y - 3} V ${y + 12} H ${x + 9} V ${y - 3}`}
         fill="none"
@@ -159,8 +159,8 @@ function CycleDiagram({ cycle, diamondArrows = false }: { cycle: Cycle; diamondA
     <svg viewBox="0 0 440 400" className="h-full w-full" role="img" aria-label={`${cycle.title}: ${cycle.nodes.map((n) => n.name).join(', ')}. Alpha is the current stage.`}>
       <defs>
         <linearGradient id={gold} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#ffd56b" />
-          <stop offset="100%" stopColor="#e3a12f" />
+          <stop offset="0%" stopColor="#f9c95c" />
+          <stop offset="100%" stopColor="#e3a500" />
         </linearGradient>
         <marker id={arrow} viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
           <path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#c9bfd6" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
@@ -210,13 +210,13 @@ function CycleDiagram({ cycle, diamondArrows = false }: { cycle: Cycle; diamondA
             </text>
             {node.current ? (
               <g>
-                <rect x={lx - 34} y={ly + 2} width={68} height={22} rx={11} fill="#5bbfe8" />
+                <rect x={lx - 34} y={ly + 2} width={68} height={22} rx={11} fill="#22b8e8" />
                 <text x={lx} y={ly + 17.5} textAnchor="middle" fill="#fff" style={{ fontSize: 12, fontWeight: 700 }}>
                   Current
                 </text>
               </g>
             ) : (
-              <text x={lx} y={ly + 13} textAnchor="middle" fill="#b3a9c2" style={{ fontSize: 12.5, fontWeight: 700 }}>
+              <text x={lx} y={ly + 13} textAnchor="middle" fill="#aaa6c8" style={{ fontSize: 12.5, fontWeight: 700 }}>
                 Upcoming
               </text>
             )}
@@ -249,7 +249,7 @@ export function GrowthCycleSlider() {
 
   return (
     <div
-      className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-[#fffaf4] to-[#fff1f4] shadow-md"
+      className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-[#fffaf4] to-[#f6f1fb] shadow-md"
       role="region"
       aria-roledescription="carousel"
       aria-label="Growth Path cycles"

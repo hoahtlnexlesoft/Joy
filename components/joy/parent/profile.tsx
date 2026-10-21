@@ -35,7 +35,7 @@ function InfoRow({ app, k, label, value, prefix, login, type, ph, required }: { 
   const [v, setV] = useState(value)
   const [err, setErr] = useState<string | null>(null)
   const msg = { name: 'Enter your full name.', phone: 'Enter a valid phone number.', email: 'Enter a valid email address.' }[k]
-  const tag = login ? <span className="ml-2 rounded-full bg-[#e6f4ff] px-2 py-0.5 text-[10px] font-bold text-[#1b7fc4]">Used to log in</span> : null
+  const tag = login ? <span className="ml-2 rounded-full bg-[#e3f1ff] px-2 py-0.5 text-[10px] font-bold text-[#0a86e8]">Used to log in</span> : null
   const save = (e: React.FormEvent) => {
     e.preventDefault()
     const t = v.trim()
@@ -63,7 +63,7 @@ function InfoRow({ app, k, label, value, prefix, login, type, ph, required }: { 
   return (
     <li className="flex items-center justify-between gap-3 py-4">
       <div className="min-w-0"><span className="block text-xs font-semibold text-muted-foreground">{label}{tag}</span><span className={cn('block truncate font-semibold', !shown && 'font-normal text-muted-foreground')}>{shown || 'Not added yet'}</span></div>
-      <button type="button" onClick={() => { setV(value); setEditing(true) }} aria-label={`${shown ? 'Edit' : 'Add'} ${label.toLowerCase()}`} className="shrink-0 rounded-full px-4 py-1.5 text-sm font-semibold text-joy-pink ring-1 ring-border hover:bg-[#fff5f8]">{shown ? 'Edit' : '+ Add'}</button>
+      <button type="button" onClick={() => { setV(value); setEditing(true) }} aria-label={`${shown ? 'Edit' : 'Add'} ${label.toLowerCase()}`} className="shrink-0 rounded-full px-4 py-1.5 text-sm font-semibold text-joy-pink ring-1 ring-border hover:bg-[#f6f1fb]">{shown ? 'Edit' : '+ Add'}</button>
     </li>
   )
 }
@@ -83,13 +83,13 @@ function Payments({ app }: { app: App }) {
   return (
     <Card>
       {review ? (
-        <div className="mb-4 flex flex-wrap items-center gap-2 rounded-2xl border border-dashed border-[#d9cdf5] bg-[#faf7ff] px-3 py-2 text-xs text-[#6c6788]">
+        <div className="mb-4 flex flex-wrap items-center gap-2 rounded-2xl border border-dashed border-[#e6d6ff] bg-[#f6f1fb] px-3 py-2 text-xs text-[#6b6380]">
           <b className="text-[#5b3fc4]">Review view</b>
           <button type="button" aria-pressed={payments.length > 0} onClick={() => { location.hash = '#profile-payments' }} className={cn('rounded-full px-3 py-1 font-semibold ring-1', payments.length ? 'bg-[#5b3fc4] text-white ring-[#5b3fc4]' : 'bg-white ring-border')}>List with pagination</button>
           <button type="button" aria-pressed={payments.length === 0} onClick={() => { location.hash = '#profile-payments-empty' }} className={cn('rounded-full px-3 py-1 font-semibold ring-1', payments.length === 0 ? 'bg-[#5b3fc4] text-white ring-[#5b3fc4]' : 'bg-white ring-border')}>Empty state</button>
         </div>
       ) : null}
-      <div className="mb-5 flex items-center gap-3 rounded-2xl bg-[#faf8fc] p-3">
+      <div className="mb-5 flex items-center gap-3 rounded-2xl bg-[#ffffff] p-3">
         <CuteIcon name="payments" className="size-10 rounded-xl" />
         <p className="text-xs leading-relaxed text-muted-foreground">{t('Buy on the website with AYA Pay. Payments made in the Joy app or in person show here too.')}</p>
       </div>
@@ -102,29 +102,29 @@ function Payments({ app }: { app: App }) {
       ) : null}
       {list.length ? (
         <div role="table" aria-label="Payments" className="overflow-hidden rounded-2xl ring-1 ring-border">
-          <div role="row" className="hidden grid-cols-[1fr_1.6fr_1fr_1.2fr_auto_5.5rem] gap-3 bg-[#faf8fc] px-4 py-2.5 text-xs font-semibold text-muted-foreground md:grid">
+          <div role="row" className="hidden grid-cols-[1fr_1.6fr_1fr_1.2fr_auto_5.5rem] gap-3 bg-[#ffffff] px-4 py-2.5 text-xs font-semibold text-muted-foreground md:grid">
             <span role="columnheader">{t('Date')}</span><span role="columnheader">{t('Plan')}</span><span role="columnheader">{t('Child')}</span><span role="columnheader">{t('Paid via')}</span><span role="columnheader" className="text-right">{t('Amount')}</span><span role="columnheader" className="text-right">{t('Invoice')}</span>
           </div>
           {shown.map((p) => (
-            <div key={`${p.ref}-${p.item}`} role="row" onClick={() => app.open({ k: 'invoice', pay: p })} className="grid cursor-pointer gap-1 border-t border-border/70 px-4 py-3 text-sm transition hover:bg-[#fff8fb] first:border-0 md:grid-cols-[1fr_1.6fr_1fr_1.2fr_auto_5.5rem] md:items-center md:gap-3">
+            <div key={`${p.ref}-${p.item}`} role="row" onClick={() => app.open({ k: 'invoice', pay: p })} className="grid cursor-pointer gap-1 border-t border-border/70 px-4 py-3 text-sm transition hover:bg-[#f6f1fb] first:border-0 md:grid-cols-[1fr_1.6fr_1fr_1.2fr_auto_5.5rem] md:items-center md:gap-3">
               <span role="cell">{fmtDate(p.date)}</span>
               <span role="cell"><b className="block">{p.item}</b><small className="text-xs text-muted-foreground">{p.ref}</small></span>
               <span role="cell">{t(p.child)}</span>
               <span role="cell" className="flex flex-col items-start gap-0.5"><ChannelBadge ch={p.channel} /></span>
-              <span role="cell" className="flex items-center gap-2 md:flex-col md:items-end md:gap-0.5"><b>{money(p.amount)}</b><span className="rounded-full bg-[#e4f7e6] px-2 py-0.5 text-[10px] font-bold text-[#2f8f3a]">{t(p.status)}</span></span>
-              <span role="cell" className="md:text-right"><button type="button" aria-label={`View invoice for ${p.item}`} onClick={(e) => { e.stopPropagation(); app.open({ k: 'invoice', pay: p }) }} className="inline-flex h-8 items-center gap-1.5 rounded-full bg-gradient-to-r from-[#ffe9f0] to-[#fff0d2] px-3 text-xs font-bold text-[#d6336c] ring-1 ring-[#ffd3e2] transition hover:-translate-y-0.5"><FileText className="size-3.5" />{t('Invoice')}</button></span>
+              <span role="cell" className="flex items-center gap-2 md:flex-col md:items-end md:gap-0.5"><b>{money(p.amount)}</b><span className="rounded-full bg-[#e2f6ec] px-2 py-0.5 text-[10px] font-bold text-[#2f8f3a]">{t(p.status)}</span></span>
+              <span role="cell" className="md:text-right"><button type="button" aria-label={`View invoice for ${p.item}`} onClick={(e) => { e.stopPropagation(); app.open({ k: 'invoice', pay: p }) }} className="inline-flex h-8 items-center gap-1.5 rounded-full bg-gradient-to-r from-[#ffe7ef] to-[#fff3d6] px-3 text-xs font-bold text-[#d6336c] ring-1 ring-[#ffd0e2] transition hover:-translate-y-0.5"><FileText className="size-3.5" />{t('Invoice')}</button></span>
             </div>
           ))}
         </div>
       ) : (
-        <div className="relative flex flex-col items-center gap-2 overflow-hidden rounded-[1.5rem] bg-gradient-to-b from-[#fff6f9] via-[#fbf6ff] to-[#f6f3ff] px-6 pb-10 pt-8 text-center">
+        <div className="relative flex flex-col items-center gap-2 overflow-hidden rounded-[1.5rem] bg-gradient-to-b from-[#f6f1fb] via-[#f6f1fb] to-[#f6f1fb] px-6 pb-10 pt-8 text-center">
           <img src="/images/empty-receipt.webp" alt="" width={720} height={290} className="h-auto w-full max-w-[22rem] select-none" draggable={false} />
-          <h3 className="mt-1 flex items-center gap-3 font-display text-2xl font-bold text-[#2a2150]">
-            <span aria-hidden="true" className="flex flex-col gap-1"><i className="block h-[3px] w-3 rotate-[-30deg] rounded-full bg-[#ffb62e]" /><i className="block h-[3px] w-3 rotate-[30deg] rounded-full bg-[#ff7aa8]" /></span>
+          <h3 className="mt-1 flex items-center gap-3 font-display text-2xl font-bold text-[#30235f]">
+            <span aria-hidden="true" className="flex flex-col gap-1"><i className="block h-[3px] w-3 rotate-[-30deg] rounded-full bg-[#ffb300]" /><i className="block h-[3px] w-3 rotate-[30deg] rounded-full bg-[#ff7fa5]" /></span>
             {t('No payments yet')}
-            <span aria-hidden="true" className="flex flex-col gap-1"><i className="block h-[3px] w-3 rotate-[30deg] rounded-full bg-[#ffb62e]" /><i className="block h-[3px] w-3 rotate-[-30deg] rounded-full bg-[#ff7aa8]" /></span>
+            <span aria-hidden="true" className="flex flex-col gap-1"><i className="block h-[3px] w-3 rotate-[30deg] rounded-full bg-[#ffb300]" /><i className="block h-[3px] w-3 rotate-[-30deg] rounded-full bg-[#ff7fa5]" /></span>
           </h3>
-          <p className="max-w-sm text-sm leading-relaxed text-[#6c6788] sm:text-base">{payments.length ? t('No payments for this channel.') : t('When you buy a plan, your payments and invoices will show up here.')}</p>
+          <p className="max-w-sm text-sm leading-relaxed text-[#6b6380] sm:text-base">{payments.length ? t('No payments for this channel.') : t('When you buy a plan, your payments and invoices will show up here.')}</p>
         </div>
       )}
       <Pagination page={cur} pages={pages} onChange={setPg} label={t('Payments pages')} />
@@ -140,20 +140,20 @@ export function ProfileView({ app, sec }: { app: App; sec: Section }) {
   return (
     <div className="flex flex-col gap-6">
       {sec === 'account' ? (
-        <section className="relative isolate overflow-hidden rounded-[2rem] bg-[#e9f3ff] p-5 shadow-[0_18px_40px_-28px_rgba(110,140,230,0.6)] ring-1 ring-white/80 sm:p-7">
+        <section className="relative isolate overflow-hidden rounded-[2rem] bg-[#e3f1ff] p-5 shadow-[0_18px_40px_-28px_rgba(123, 151, 255, 0.6)] ring-1 ring-white/80 sm:p-7">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/profile-bg.jpg" alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 size-full object-cover object-center" />
           <div className="relative flex flex-wrap items-center gap-5 sm:gap-6">
             <div className="relative">
-              <AvatarBubble avatar={parent.avatar} name={parent.name} className="relative size-28 text-3xl shadow-[0_10px_24px_-10px_rgba(110,90,200,0.6)] ring-[3px] ring-white sm:size-32" />
-              <button type="button" onClick={() => app.open({ k: 'avatar' })} aria-label={t('Change profile photo')} className="absolute -bottom-1 -right-1 grid size-9 place-items-center rounded-full bg-white text-[#8e5cf0] shadow-md ring-1 ring-[#eadcff] transition hover:scale-110"><Pencil className="size-4" /></button>
+              <AvatarBubble avatar={parent.avatar} name={parent.name} className="relative size-28 text-3xl shadow-[0_10px_24px_-10px_rgba(120, 90, 200, 0.6)] ring-[3px] ring-white sm:size-32" />
+              <button type="button" onClick={() => app.open({ k: 'avatar' })} aria-label={t('Change profile photo')} className="absolute -bottom-1 -right-1 grid size-9 place-items-center rounded-full bg-white text-[#8e5cf0] shadow-md ring-1 ring-[#e6d6ff] transition hover:scale-110"><Pencil className="size-4" /></button>
             </div>
             <div className="min-w-0 flex-1">
-              <p className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em] text-[#8e6bd8]">{t('Hello, parent')}<Crown className="size-4 fill-[#ffc94d] text-[#f0a92b]" aria-hidden="true" /></p>
-              <h1 className="mt-1 flex items-center gap-3 font-display text-3xl font-bold tracking-tight text-[#2f2a5c] sm:text-4xl"><span className="truncate">{parent.name}</span><Heart className="size-6 shrink-0 text-[#f58aac]" aria-hidden="true" /></h1>
+              <p className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em] text-[#8f72e6]">{t('Hello, parent')}<Crown className="size-4 fill-[#fbc23c] text-[#e3a500]" aria-hidden="true" /></p>
+              <h1 className="mt-1 flex items-center gap-3 font-display text-3xl font-bold tracking-tight text-[#30235f] sm:text-4xl"><span className="truncate">{parent.name}</span><Heart className="size-6 shrink-0 text-[#ff7fa5]" aria-hidden="true" /></h1>
               <div className="mt-2.5 flex flex-wrap items-center gap-2 text-xs font-bold">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/85 px-3.5 py-1.5 text-[#7a52d6] shadow-sm ring-1 ring-white"><UserRound className="size-3.5" />{t('Parent account')}</span>
-                <span className="rounded-full bg-white/85 px-3.5 py-1.5 text-[#4a4670] shadow-sm ring-1 ring-white">{t('Signed up with')} {parent.method}</span>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/85 px-3.5 py-1.5 text-[#785ac8] shadow-sm ring-1 ring-white"><UserRound className="size-3.5" />{t('Parent account')}</span>
+                <span className="rounded-full bg-white/85 px-3.5 py-1.5 text-[#4a3a63] shadow-sm ring-1 ring-white">{t('Signed up with')} {parent.method}</span>
               </div>
               {app.s.children.length ? (
                 <div className="mt-3 flex items-center gap-2">
@@ -162,13 +162,13 @@ export function ProfileView({ app, sec }: { app: App; sec: Section }) {
                       <span key={c.id} title={c.name} className="grid size-9 place-items-center overflow-hidden rounded-full ring-2 ring-white" style={{ background: `${c.color}2e` }}><ChildThumb c={c} className="size-8" /></span>
                     ))}
                   </span>
-                  <span className="text-xs font-semibold text-[#6d6585]">{app.s.children.map((c) => c.name).slice(0, 3).join(', ')}{app.s.children.length > 3 ? ` +${app.s.children.length - 3}` : ''}</span>
+                  <span className="text-xs font-semibold text-[#6b6380]">{app.s.children.map((c) => c.name).slice(0, 3).join(', ')}{app.s.children.length > 3 ? ` +${app.s.children.length - 3}` : ''}</span>
                 </div>
               ) : null}
             </div>
             <div className="grid w-full grid-cols-2 gap-3 sm:w-auto">
-              <button type="button" onClick={() => app.go({ name: 'children' })} className="group rounded-[1.5rem] bg-white/90 px-6 py-3.5 text-center shadow-[0_8px_20px_-14px_rgba(31,169,232,0.7)] ring-1 ring-[#d7eeff] transition hover:-translate-y-0.5 hover:bg-white"><span className="mx-auto grid size-8 place-items-center rounded-xl bg-[#e6f3ff] text-[#1b7fc4]" aria-hidden="true"><Users className="size-4" /></span><b className="block font-display text-3xl font-semibold text-[#1b7fc4]">{app.s.children.length}</b><span className="text-xs font-semibold text-muted-foreground">Children</span></button>
-              <button type="button" onClick={() => app.go({ name: 'plans' })} className="group rounded-[1.5rem] bg-white/90 px-6 py-3.5 text-center shadow-[0_8px_20px_-14px_rgba(95,191,0,0.7)] ring-1 ring-[#dff3c4] transition hover:-translate-y-0.5 hover:bg-white"><span className="mx-auto grid size-8 place-items-center rounded-xl bg-[#e9f8dc] text-[#3f8a00]" aria-hidden="true"><CalendarHeart className="size-4" /></span><b className="block font-display text-3xl font-semibold text-[#3f8a00]">{activePlans}</b><span className="text-xs font-semibold text-muted-foreground">Active plans</span></button>
+              <button type="button" onClick={() => app.go({ name: 'children' })} className="group rounded-[1.5rem] bg-white/90 px-6 py-3.5 text-center shadow-[0_8px_20px_-14px_rgba(31, 169, 232, 0.7)] ring-1 ring-[#d6f0ff] transition hover:-translate-y-0.5 hover:bg-white"><span className="mx-auto grid size-8 place-items-center rounded-xl bg-[#e3f1ff] text-[#0a86e8]" aria-hidden="true"><Users className="size-4" /></span><b className="block font-display text-3xl font-semibold text-[#0a86e8]">{app.s.children.length}</b><span className="text-xs font-semibold text-muted-foreground">Children</span></button>
+              <button type="button" onClick={() => app.go({ name: 'plans' })} className="group rounded-[1.5rem] bg-white/90 px-6 py-3.5 text-center shadow-[0_8px_20px_-14px_rgba(88, 184, 0, 0.7)] ring-1 ring-[#ddf1bd] transition hover:-translate-y-0.5 hover:bg-white"><span className="mx-auto grid size-8 place-items-center rounded-xl bg-[#eaf7e1] text-[#3f8a00]" aria-hidden="true"><CalendarHeart className="size-4" /></span><b className="block font-display text-3xl font-semibold text-[#3f8a00]">{activePlans}</b><span className="text-xs font-semibold text-muted-foreground">Active plans</span></button>
             </div>
           </div>
         </section>
@@ -210,11 +210,11 @@ export function ProfileView({ app, sec }: { app: App; sec: Section }) {
       ) : (
         <>
           <Card>
-            <PrefRow title={t('Sign-up method')} sub={t('You log in with this method.')}><span className="rounded-full bg-[#f4f1f8] px-3.5 py-1.5 text-sm font-bold">{parent.method}</span></PrefRow>
+            <PrefRow title={t('Sign-up method')} sub={t('You log in with this method.')}><span className="rounded-full bg-[#f6f1fb] px-3.5 py-1.5 text-sm font-bold">{parent.method}</span></PrefRow>
             <PrefRow title={t('Password')} sub={t('Change the password for your parent account.')}><Btn small variant="blueSoft" onClick={() => app.open({ k: 'pw' })}>{t('Change password')}</Btn></PrefRow>
             <PrefRow title={t('Sign out')} sub={t('Log out of Joy on this browser.')}><Btn small variant="orangeSoft" onClick={() => app.logout()}>↪ {t('Sign out')}</Btn></PrefRow>
           </Card>
-          <Card title={<span className="inline-flex items-center gap-2.5"><span className="grid size-9 place-items-center rounded-2xl bg-gradient-to-br from-[#ffe3e8] to-[#ffd0dc] text-[#e5446d] shadow-[0_6px_14px_-8px_rgba(229,68,109,0.8)]"><TriangleAlert className="size-5" aria-hidden="true" /></span>{t('Danger zone')}</span>} className="bg-gradient-to-br from-[#fff3f4] via-[#ffe9ec] to-[#ffdde3] ring-1 ring-[#f5c6c8]">
+          <Card title={<span className="inline-flex items-center gap-2.5"><span className="grid size-9 place-items-center rounded-2xl bg-gradient-to-br from-[#ffe6ee] to-[#ffd0e2] text-[#e5446d] shadow-[0_6px_14px_-8px_rgba(229, 68, 109, 0.8)]"><TriangleAlert className="size-5" aria-hidden="true" /></span>{t('Danger zone')}</span>} className="bg-gradient-to-br from-[#f6f1fb] via-[#ffe7ef] to-[#ffe6ee] ring-1 ring-[#ffd3d3]">
             <PrefRow title={t('Delete account')} sub={t('Permanently delete your account and all associated data.')}><Btn small variant="danger" onClick={() => app.open({ k: 'delAcc' })}>{t('Delete account')}</Btn></PrefRow>
           </Card>
         </>

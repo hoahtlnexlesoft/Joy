@@ -64,9 +64,9 @@ export const VOUCHERS: Record<string, { name: string; type: PlanType; days: numb
   JOYTRIAL: { name: 'Trial Gift', type: 'Premium Plus', days: 10 },
   JOYGIFT10: { name: 'Trial Gift', type: 'Premium Plus', days: 10 },
 }
-export const COLORS = ['#FF8A2A', '#1FA9E8', '#5CC62A', '#8E5CF0', '#F0449A', '#E3A500']
+export const COLORS = ['#ff8a2a', '#1fa9e8', '#58b800', '#8e5cf0', '#f0488a', '#e3a500']
 export const NEEDS = ['Attention differences', 'Sensory sensitivity', 'Pattern thinking', 'Emotional intensity']
-export const STAGES: [Stage, string][] = [['Alpha', '#6CC62E'], ['Omega', '#E8C23A'], ['Crystal', '#E8472B'], ['Rainbow', '#22B8E8']]
+export const STAGES: [Stage, string][] = [['Alpha', '#7ccf4a'], ['Omega', '#f9c95c'], ['Crystal', '#e8332a'], ['Rainbow', '#22b8e8']]
 
 export const ANIMAL_IMG: Record<string, string> = {
   Lion: 'lion', Dolphin: 'dolphin', Panda: 'panda', Hummingbird: 'hummingbird', Owl: 'owl', Bunny: 'bunny', Elephant: 'elephant', Whale: 'whale',
@@ -129,8 +129,8 @@ export function endingSoon(s: State) {
 
 /* ---------- sample activity history ---------- */
 export const MOODS: [string, string][] = [['Happy', '😊'], ['Excited', '😁'], ['Calm', '😌'], ['Okay', '🙂'], ['Tired', '😑'], ['Worried', '😥'], ['Sad', '😟'], ['Grumpy', '😒'], ['Angry', '😠']]
-export const ELS: [string, string, string][] = [['Water', '💧', '#4FC3F7'], ['Sky', '☁️', '#B57BEE'], ['Earth', '⛰️', '#FFD23F'], ['Garden', '🌿', '#8BD65A'], ['Fire', '🔥', '#FF9A3C']]
-export const TAGS: [string, string, string, string][] = [['Think', '💡', '#F2B705', '#FFF6D1'], ['Ground', '🌱', '#5CB82A', '#EAF7E1'], ['Action', '⚡', '#FF8A2A', '#FFEEDF'], ['Create', '🎨', '#8E5CF0', '#F1EAFF'], ['Flow', '🌊', '#1FA9E8', '#E3F4FF'], ['Reset', '🍃', '#E7609E', '#FFE8F2']]
+export const ELS: [string, string, string][] = [['Water', '💧', '#5ccaff'], ['Sky', '☁️', '#a97ff0'], ['Earth', '⛰️', '#f9c95c'], ['Garden', '🌿', '#7ccf4a'], ['Fire', '🔥', '#ff9e50']]
+export const TAGS: [string, string, string, string][] = [['Think', '💡', '#fbc23c', '#fff3d6'], ['Ground', '🌱', '#58b800', '#eaf7e1'], ['Action', '⚡', '#ff8a2a', '#ffeadf'], ['Create', '🎨', '#8e5cf0', '#efeaff'], ['Flow', '🌊', '#1fa9e8', '#e3f1ff'], ['Reset', '🍃', '#e7609e', '#ffe7ef']]
 const ACT_NAMES: Record<string, string[]> = {
   Think: ['A, B, C Sun Book Forest', 'Counting Stars', 'Shape Detective'],
   Ground: ['Calm Breathing Garden', 'Tree Pose Friends', 'Roots and Toes'],

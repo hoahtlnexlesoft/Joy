@@ -212,7 +212,7 @@ export default function PricingPage() {
               </Link>
             </div>
             <figure className="relative mx-auto w-full max-w-[680px] lg:-mr-6">
-              <div className="relative aspect-[6/5] w-full overflow-hidden rounded-[2.5rem] border-[6px] border-white shadow-[0_24px_60px_-30px_rgba(72,52,93,0.4)]">
+              <div className="relative aspect-[6/5] w-full overflow-hidden rounded-[2.5rem] border-[6px] border-white shadow-[0_24px_60px_-30px_rgba(74, 58, 99, 0.4)]">
                 <Image
                   src="/images/family-picnic.jpg"
                   alt="A family with a puppy enjoying a picnic in the garden at sunset"
@@ -270,7 +270,7 @@ export default function PricingPage() {
                 <li
                   key={plan.name}
                   className={cn(
-                    'relative flex flex-col rounded-[2rem] bg-white p-3 ring-1 ring-border shadow-[0_20px_50px_-30px_rgba(42,34,64,0.3)]',
+                    'relative flex flex-col rounded-[2rem] bg-white p-3 ring-1 ring-border shadow-[0_20px_50px_-30px_rgba(42, 34, 64, 0.3)]',
                     plan.popular && 'ring-2 ring-joy-pink lg:-translate-y-3',
                   )}
                 >
@@ -281,9 +281,9 @@ export default function PricingPage() {
                   ) : null}
                   <div className="flex flex-1 flex-col gap-4 p-3 pt-4">
                     {plan.badge === 'Special unlock' ? (
-                      <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-gradient-to-r from-[#8b5cf6] via-[#d946ef] to-[#f0449a] px-3 py-1 text-[11px] font-bold text-white shadow-[0_8px_18px_-8px_rgba(217,70,239,0.9)] ring-1 ring-white/60"><Gem className="size-3.5" aria-hidden="true" />{plan.badge}<Sparkles className="size-3" aria-hidden="true" /></span>
+                      <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-gradient-to-r from-[#8e5cf0] via-[#d946ef] to-[#f0488a] px-3 py-1 text-[11px] font-bold text-white shadow-[0_8px_18px_-8px_rgba(217, 70, 239, 0.9)] ring-1 ring-white/60"><Gem className="size-3.5" aria-hidden="true" />{plan.badge}<Sparkles className="size-3" aria-hidden="true" /></span>
                     ) : (
-                      <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-gradient-to-r from-[#ffe08a] to-[#ffc542] px-3 py-1 text-[11px] font-bold text-[#7a4a00] shadow-[0_6px_14px_-8px_rgba(255,170,0,0.8)] ring-1 ring-[#ffd166]"><Crown className="size-3.5" aria-hidden="true" />{plan.badge}</span>
+                      <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-gradient-to-r from-[#ffe27a] to-[#fbc23c] px-3 py-1 text-[11px] font-bold text-[#7a4a00] shadow-[0_6px_14px_-8px_rgba(255, 179, 0, 0.8)] ring-1 ring-[#f9c95c]"><Crown className="size-3.5" aria-hidden="true" />{plan.badge}</span>
                     )}
                     <div>
                       <h3 className="text-2xl font-medium">{plan.name}</h3>
@@ -344,7 +344,7 @@ export default function PricingPage() {
             </ul>
 
             <p className="mt-8 text-center text-xs font-medium text-muted-foreground md:hidden">Swipe sideways to compare all plans →</p>
-            <div className="relative mt-3 overflow-x-auto rounded-[2rem] bg-white ring-1 ring-border shadow-[0_20px_50px_-30px_rgba(42,34,64,0.25)]">
+            <div className="relative mt-3 overflow-x-auto rounded-[2rem] bg-white ring-1 ring-border shadow-[0_20px_50px_-30px_rgba(42, 34, 64, 0.25)]">
               <table className="w-full min-w-[760px] border-collapse text-left">
                 <caption className="sr-only">Features included in each plan type</caption>
                 <thead>
@@ -403,7 +403,7 @@ export default function PricingPage() {
             <ul className="flex flex-col gap-3">
               {faqs.map((f) => (
                 <li key={f.q}>
-                  <details className="group rounded-3xl bg-white px-6 py-5 ring-1 ring-border open:shadow-[0_20px_50px_-30px_rgba(42,34,64,0.3)]">
+                  <details className="group rounded-3xl bg-white px-6 py-5 ring-1 ring-border open:shadow-[0_20px_50px_-30px_rgba(42, 34, 64, 0.3)]">
                     <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold [&::-webkit-details-marker]:hidden">
                       {f.q}
                       <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-muted transition-transform group-open:rotate-180">

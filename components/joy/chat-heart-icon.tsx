@@ -7,12 +7,12 @@ export function ChatHeartIcon({ className }: { className?: string }) {
     <svg viewBox="0 0 28 28" className={className} aria-hidden="true" focusable="false">
       <defs>
         <linearGradient id={`${id}-h`} x1="9" y1="9" x2="19" y2="19" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#FF9A5C" />
-          <stop offset="1" stopColor="#F0447F" />
+          <stop stopColor="#ff9e50" />
+          <stop offset="1" stopColor="#f0488a" />
         </linearGradient>
         <linearGradient id={`${id}-b`} x1="14" y1="2" x2="14" y2="25" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#FFFFFF" />
-          <stop offset="1" stopColor="#FFE4EE" />
+          <stop stopColor="#ffffff" />
+          <stop offset="1" stopColor="#ffe6ee" />
         </linearGradient>
       </defs>
       <path
@@ -24,7 +24,7 @@ export function ChatHeartIcon({ className }: { className?: string }) {
         d="M14 18.200c-.3 0-.6-.1-.8-.3-2.300-1.900-4.200-3.500-4.200-5.600 0-1.500 1.100-2.600 2.500-2.600.9 0 1.800.5 2.500 1.400.7-.9 1.600-1.400 2.500-1.400 1.400 0 2.500 1.100 2.500 2.600 0 2.100-1.900 3.700-4.200 5.600-.2.200-.5.300-.8.300Z"
         fill={`url(#${id}-h)`}
       />
-      <path d="M23.500 1.200v3M22 2.700h3" stroke="#FFE066" strokeWidth="1.400" strokeLinecap="round" />
+      <path d="M23.500 1.200v3M22 2.700h3" stroke="#ffe27a" strokeWidth="1.400" strokeLinecap="round" />
     </svg>
   )
 }

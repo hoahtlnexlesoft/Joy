@@ -55,13 +55,13 @@ export function ChildForm({ app, child, onSaved, onBack }: { app: App; child?: C
             </select>
           )}</Field>
         </div>
-        <div className="mb-5 rounded-2xl bg-[#faf8fc] p-4">
+        <div className="mb-5 rounded-2xl bg-[#ffffff] p-4">
           <div className="flex items-center justify-between gap-4 text-sm font-semibold"><span>Tell us a bit more about your child’s unique needs</span><Switch on={needsOn} onChange={setNeedsOn} label="Add unique needs" /></div>
           {needsOn ? (
             <div className="mt-3 flex flex-col gap-2">
               {NEEDS.map((n) => (
                 <label key={n} className="flex items-center gap-3 text-sm">
-                  <input type="checkbox" className="size-4 accent-[#f0449a]" checked={needs.includes(n)} onChange={(e) => setNeeds((x) => (e.target.checked ? [...x, n] : x.filter((i) => i !== n)))} />{n}
+                  <input type="checkbox" className="size-4 accent-[#f0488a]" checked={needs.includes(n)} onChange={(e) => setNeeds((x) => (e.target.checked ? [...x, n] : x.filter((i) => i !== n)))} />{n}
                 </label>
               ))}
               <p className="mt-1 text-xs text-muted-foreground">Only you can see and change these. Setting them unlocks Calm Senses activities with a Premium or Premium Plus plan.</p>
@@ -127,7 +127,7 @@ export function PasswordDialog({ app }: { app: App }) {
   )
 }
 
-const AV_PRESETS: [string, string][] = [['/images/animals/lion.webp', '#FFE3C9'], ['/images/animals/dolphin.webp', '#D6F1FF'], ['/images/animals/panda.webp', '#EDF9E6'], ['/images/animals/owl.webp', '#F3EEFF'], ['/images/animals/bunny.webp', '#FFE6F1'], ['/images/animals/butterfly.webp', '#E7F7FA'], ['/images/animals/elephant.webp', '#EEF1F7'], ['/images/animals/ladybug.webp', '#FFF1CC']]
+const AV_PRESETS: [string, string][] = [['/images/animals/lion.webp', '#ffe3c9'], ['/images/animals/dolphin.webp', '#d6f0ff'], ['/images/animals/panda.webp', '#e2f6ec'], ['/images/animals/owl.webp', '#f4eeff'], ['/images/animals/bunny.webp', '#ffe6ee'], ['/images/animals/butterfly.webp', '#e7f7fa'], ['/images/animals/elephant.webp', '#ffffff'], ['/images/animals/ladybug.webp', '#fff3d6']]
 export function AvatarDialog({ app }: { app: App }) {
   const [pick, setPick] = useState(app.s.parent.avatar ?? { type: 'initials' as const })
   const [err, setErr] = useState('')
@@ -145,7 +145,7 @@ export function AvatarDialog({ app }: { app: App }) {
     <>
       <DlgHead title="Change profile photo" sub="Upload a photo, or pick a Joy friend." />
       <div className="mb-4 flex justify-center"><AvatarBubble avatar={pick} name={app.s.parent.name} className="size-48 text-5xl" /></div>
-      <label className="mb-1 flex h-14 w-full cursor-pointer items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#f9709a] to-[#ee5a8a] text-base font-bold text-white shadow-[0_12px_22px_-12px_rgba(238,90,138,0.85)] transition hover:-translate-y-0.5">
+      <label className="mb-1 flex h-14 w-full cursor-pointer items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#f8608f] to-[#f8608f] text-base font-bold text-white shadow-[0_12px_22px_-12px_rgba(248, 96, 143, 0.85)] transition hover:-translate-y-0.5">
         <span className="grid size-9 place-items-center rounded-full bg-white/25"><Camera className="size-5" /></span>Upload a photo<input type="file" accept="image/png,image/jpeg,image/webp" className="sr-only" onChange={onFile} />
       </label>
       {err ? <p className="mt-1 text-xs font-medium text-[#e5484d]">{err}</p> : null}
@@ -154,7 +154,7 @@ export function AvatarDialog({ app }: { app: App }) {
         {AV_PRESETS.map(([e, bg]) => (
           <button key={e} type="button" aria-label="Use this Joy friend as avatar" aria-pressed={pick.type === 'emoji' && pick.value === e} onClick={() => setPick({ type: 'emoji', value: e, bg })} className="grid aspect-square place-items-center rounded-[1.4rem] ring-2 ring-transparent transition hover:-translate-y-0.5 aria-pressed:ring-joy-pink aria-pressed:ring-4" style={{ background: bg }}>{/\.(png|webp)$/.test(e) ? <img src={e} alt="" className="size-[82%] object-contain" /> : e}</button>
         ))}
-        <button type="button" aria-label="Use the default avatar" aria-pressed={pick.type === 'initials'} onClick={() => setPick({ type: 'initials' })} className="grid aspect-square place-items-center rounded-[1.4rem] bg-[#f4f1f8] ring-2 ring-transparent transition hover:-translate-y-0.5 aria-pressed:ring-joy-pink aria-pressed:ring-4"><img src="/images/parent-avatar.webp" alt="" className="size-[82%] rounded-full object-cover" /></button>
+        <button type="button" aria-label="Use the default avatar" aria-pressed={pick.type === 'initials'} onClick={() => setPick({ type: 'initials' })} className="grid aspect-square place-items-center rounded-[1.4rem] bg-[#f6f1fb] ring-2 ring-transparent transition hover:-translate-y-0.5 aria-pressed:ring-joy-pink aria-pressed:ring-4"><img src="/images/parent-avatar.webp" alt="" className="size-[82%] rounded-full object-cover" /></button>
       </div>
       <div className="flex justify-end gap-3">
         <Btn variant="ghost" onClick={() => app.open(null)}>Cancel</Btn>
@@ -190,14 +190,14 @@ export function QrCanvas({ seed, size = 232, cute = false, canvasRef }: { seed: 
         let h = 0
         for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) >>> 0
         const rnd = () => ((h = (h * 1103515245 + 12345) >>> 0) / 4294967296)
-        const ink = cute ? '#52428a' : '#27253F'
+        const ink = cute ? '#52428a' : '#27253f'
         g.fillStyle = '#fff'; g.fillRect(0, 0, 232, 232); g.fillStyle = ink
         const rr = (x: number, y: number, w: number, hh: number, r: number) => { g.beginPath(); g.roundRect(x, y, w, hh, r); g.fill() }
         const finder = (x: number, y: number) => {
           if (!cute) { g.fillRect(x * s, y * s, 7 * s, 7 * s); g.fillStyle = '#fff'; g.fillRect((x + 1) * s, (y + 1) * s, 5 * s, 5 * s); g.fillStyle = ink; g.fillRect((x + 2) * s, (y + 2) * s, 3 * s, 3 * s); return }
           g.fillStyle = ink; rr(x * s, y * s, 7 * s, 7 * s, 2.6 * s)
           g.fillStyle = '#fff'; rr((x + 1) * s, (y + 1) * s, 5 * s, 5 * s, 1.8 * s)
-          g.fillStyle = '#e0608a'; rr((x + 2) * s, (y + 2) * s, 3 * s, 3 * s, 1.2 * s)
+          g.fillStyle = '#f0488a'; rr((x + 2) * s, (y + 2) * s, 3 * s, 3 * s, 1.2 * s)
           g.fillStyle = ink
         }
         for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
@@ -209,8 +209,8 @@ export function QrCanvas({ seed, size = 232, cute = false, canvasRef }: { seed: 
         if (cute) {
           const cx = 116, cy = 116
           g.fillStyle = '#fff'; g.beginPath(); g.arc(cx, cy, 25, 0, Math.PI * 2); g.fill()
-          g.fillStyle = '#fbe0ea'; g.beginPath(); g.arc(cx, cy, 21, 0, Math.PI * 2); g.fill()
-          g.fillStyle = '#e0608a'; g.beginPath(); g.moveTo(cx, cy + 12)
+          g.fillStyle = '#ffe6ee'; g.beginPath(); g.arc(cx, cy, 21, 0, Math.PI * 2); g.fill()
+          g.fillStyle = '#f0488a'; g.beginPath(); g.moveTo(cx, cy + 12)
           g.bezierCurveTo(cx - 20, cy - 2, cx - 9, cy - 17, cx, cy - 6); g.bezierCurveTo(cx + 9, cy - 17, cx + 20, cy - 2, cx, cy + 12); g.fill()
         }
       }}
@@ -267,36 +267,36 @@ export function QrPanel({ app, size = 192, compact }: { app: App; size?: number;
   }
 
   const actions = [
-    { label: 'Refresh', icon: RefreshCw, tile: 'from-[#ffe6d2] to-[#ffd0a8]', ink: 'text-[#e8731f]', run: refresh },
-    { label: 'Save', icon: Download, tile: 'from-[#dff0ff] to-[#c4e0ff]', ink: 'text-[#2f7fd1]', run: save },
-    { label: 'Share', icon: Share2, tile: 'from-[#e3f6ee] to-[#c7ecd8]', ink: 'text-[#2f9a62]', run: share },
+    { label: 'Refresh', icon: RefreshCw, tile: 'from-[#ffeadf] to-[#ffd0a8]', ink: 'text-[#f46f10]', run: refresh },
+    { label: 'Save', icon: Download, tile: 'from-[#e3f1ff] to-[#c4e0ff]', ink: 'text-[#0a86e8]', run: save },
+    { label: 'Share', icon: Share2, tile: 'from-[#e2f6ec] to-[#c9ecdb]', ink: 'text-[#23915a]', run: share },
   ]
 
   return (
     <>
-      <div className="relative mb-3 overflow-hidden rounded-[1.75rem] bg-gradient-to-b from-[#fff3f8] via-[#fff8ee] to-[#fffdf5] p-4 text-center ring-2 ring-[#ffd3e2]">
-        <span aria-hidden="true" className="pointer-events-none absolute -left-4 -top-4 size-20 rounded-full bg-[#ffe3ec]/80" />
-        <span aria-hidden="true" className="pointer-events-none absolute -bottom-6 -right-5 size-24 rounded-full bg-[#fff0bf]/80" />
+      <div className="relative mb-3 overflow-hidden rounded-[1.75rem] bg-gradient-to-b from-[#f6f1fb] via-[#f7f0e7] to-[#fffaf4] p-4 text-center ring-2 ring-[#ffd0e2]">
+        <span aria-hidden="true" className="pointer-events-none absolute -left-4 -top-4 size-20 rounded-full bg-[#ffe6ee]/80" />
+        <span aria-hidden="true" className="pointer-events-none absolute -bottom-6 -right-5 size-24 rounded-full bg-[#f6dfae]/80" />
         <span aria-hidden="true" className="pointer-events-none absolute right-5 top-4 text-lg"><Emo e="✨" /></span>
         <span aria-hidden="true" className="pointer-events-none absolute left-5 top-14 text-sm opacity-80"><Emo e="💗" /></span>
-        <div className="relative mx-auto mb-2.5 w-fit max-w-full rounded-[1.5rem] bg-white p-3 shadow-[0_14px_30px_-14px_rgba(240,86,139,0.55)] ring-4 ring-[#ffe3ec]">
+        <div className="relative mx-auto mb-2.5 w-fit max-w-full rounded-[1.5rem] bg-white p-3 shadow-[0_14px_30px_-14px_rgba(240, 72, 138, 0.55)] ring-4 ring-[#ffe6ee]">
           <QrCanvas seed={`${name}:${ver}`} cute canvasRef={cv} size={size} />
         </div>
         <b className="relative block font-display text-lg leading-tight text-foreground">{name}</b>
-        <p className="relative mt-1 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-0.5 text-sm shadow-sm ring-1 ring-[#ffe3ec]">
-          Code expires in: <b className="font-display text-base text-[#3aa6dd]" aria-live="off">{fmtLeft(left)}</b>
+        <p className="relative mt-1 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-0.5 text-sm shadow-sm ring-1 ring-[#ffe6ee]">
+          Code expires in: <b className="font-display text-base text-[#1fa9e8]" aria-live="off">{fmtLeft(left)}</b>
         </p>
         <p className="relative mx-auto mt-2 max-w-xs text-[0.8rem] leading-snug text-foreground/80">Show this to your child’s device to link instantly. Refreshed every 24h.</p>
       </div>
       <div className="mb-3 grid grid-cols-3 gap-2">
         {actions.map(({ label, icon: Icon, tile, ink, run }) => (
           <button key={label} type="button" onClick={run} className="group flex flex-col items-center gap-1 rounded-3xl p-1 transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-joy-pink/60">
-            <span className={cn('grid size-11 place-items-center rounded-2xl bg-gradient-to-br shadow-[inset_0_0_0_1.5px_rgba(255,255,255,0.9),0_8px_16px_-8px_rgba(39,37,63,0.4)] transition group-active:scale-95', tile, ink)}><Icon className="size-5" strokeWidth={2.6} /></span>
+            <span className={cn('grid size-11 place-items-center rounded-2xl bg-gradient-to-br shadow-[inset_0_0_0_1.5px_rgba(255, 255, 255, 0.9),0_8px_16px_-8px_rgba(39, 37, 63, 0.4)] transition group-active:scale-95', tile, ink)}><Icon className="size-5" strokeWidth={2.6} /></span>
             <span className={cn('text-sm font-bold', ink)}>{label}</span>
           </button>
         ))}
       </div>
-      {compact ? null : <p className="rounded-2xl bg-[#fff8e6] px-3 py-2 text-center text-[0.7rem] leading-snug text-[#8a6d2f]">Refreshing invalidates the old code - anyone with a saved copy of it will need the new one</p>}
+      {compact ? null : <p className="rounded-2xl bg-[#fff3d6] px-3 py-2 text-center text-[0.7rem] leading-snug text-[#8a6d2f]">Refreshing invalidates the old code - anyone with a saved copy of it will need the new one</p>}
     </>
   )
 }
@@ -354,22 +354,22 @@ export function InvoiceDialog({ app, pay }: { app: App; pay: Payment }) {
   return (
     <>
       <DlgHead title="Invoice" />
-      <div className="mb-4 overflow-hidden rounded-[1.25rem] bg-white shadow-[0_16px_34px_-18px_rgba(39,37,63,0.45)] ring-1 ring-border">
-        <div className="flex items-center justify-between bg-gradient-to-r from-[#ffe9f0] to-[#fff3d6] px-5 py-4">
+      <div className="mb-4 overflow-hidden rounded-[1.25rem] bg-white shadow-[0_16px_34px_-18px_rgba(39, 37, 63, 0.45)] ring-1 ring-border">
+        <div className="flex items-center justify-between bg-gradient-to-r from-[#ffe7ef] to-[#fff3d6] px-5 py-4">
           <img src="/images/joy-logo.webp" alt="Joy" className="h-9 w-auto" />
           <span className="font-display text-lg font-semibold tracking-wide text-[#2a2240]">INVOICE</span>
         </div>
         <div className="grid grid-cols-[1.7fr_1fr_auto] gap-3 px-5 pt-4 text-sm">
           <div><small className="block text-xs text-muted-foreground">Invoice no.</small><b className="whitespace-nowrap">{invoiceNo(pay)}</b></div>
           <div><small className="block text-xs text-muted-foreground">Date</small><b>{fmtDate(pay.date)}</b></div>
-          <div className="text-right"><span className="inline-block rounded-full bg-[#e4f7e6] px-2.5 py-0.5 text-xs font-bold text-[#2f8f3a]">{pay.status}</span></div>
+          <div className="text-right"><span className="inline-block rounded-full bg-[#e2f6ec] px-2.5 py-0.5 text-xs font-bold text-[#2f8f3a]">{pay.status}</span></div>
         </div>
         <div className="grid grid-cols-2 gap-3 px-5 pt-4 text-sm">
           <div><small className="block text-xs text-muted-foreground">Billed to</small><b className="block">{parent.name}</b><span className="text-xs text-muted-foreground">{parent.email || parent.phone}</span></div>
           <div><small className="block text-xs text-muted-foreground">Paid via</small><b>{CHANNEL_LABEL[pay.channel]}</b></div>
         </div>
         <div className="mx-5 mt-4 rounded-2xl ring-1 ring-border">
-          <div className="grid grid-cols-[1.6fr_1fr_auto] gap-3 bg-[#faf8fc] px-4 py-2 text-xs font-semibold text-muted-foreground"><span>Description</span><span>Child</span><span className="text-right">Amount</span></div>
+          <div className="grid grid-cols-[1.6fr_1fr_auto] gap-3 bg-[#ffffff] px-4 py-2 text-xs font-semibold text-muted-foreground"><span>Description</span><span>Child</span><span className="text-right">Amount</span></div>
           <div className="grid grid-cols-[1.6fr_1fr_auto] items-center gap-3 px-4 py-3 text-sm"><b>{pay.item}</b><span>{pay.child}</span><b className="text-right">{money(pay.amount)}</b></div>
         </div>
         <div className="flex items-center justify-between px-5 py-4">

@@ -40,20 +40,20 @@ function BottomLeftDecor() {
       aria-hidden="true"
     >
       <g transform="translate(150 30) rotate(-12)">
-        <path d="M0 34C-14 30-20 14-14 0c6 6 10 10 14 12 4-2 8-6 14-12 6 14 0 30-14 34Z" fill="#f9d77a" />
-        <path d="M0 12C-6 4-4-6 2-12c6 6 6 16-2 24Z" fill="#f6c95b" />
-        <path d="M-14 0c4 10 10 14 14 12M14 0c-4 10-10 14-14 12" stroke="#efb94a" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M0 34C-14 30-20 14-14 0c6 6 10 10 14 12 4-2 8-6 14-12 6 14 0 30-14 34Z" fill="#ffe27a" />
+        <path d="M0 12C-6 4-4-6 2-12c6 6 6 16-2 24Z" fill="#f9c95c" />
+        <path d="M-14 0c4 10 10 14 14 12M14 0c-4 10-10 14-14 12" stroke="#f5b73b" strokeWidth="1.5" strokeLinecap="round" />
       </g>
       <path
         d="M0 330V175c40-12 80-50 112-82 30-30 70-28 84 6 12 30-2 58 18 84 30 36 80 60 106 147H0Z"
-        fill="#fde7a8"
+        fill="#f6dfae"
         opacity="0.9"
       />
       <path d="M150 165c10-18 22-30 34-36M162 196c12-18 28-32 40-36M190 215c10-10 22-18 32-20" stroke="#fff" strokeWidth="4" strokeLinecap="round" opacity="0.85" />
       <path d="M78 262C38 214 22 140 34 86c34 30 64 104 44 176Z" fill="#9cc48a" />
       <path d="M76 250C62 200 50 150 40 102" stroke="#6f9c5e" strokeWidth="2.5" strokeLinecap="round" />
-      <path d="M84 268c4-62 40-128 92-150 4 54-32 118-92 150Z" fill="#8bb878" />
-      <path d="M90 256c18-48 42-92 76-124" stroke="#628f52" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M84 268c4-62 40-128 92-150 4 54-32 118-92 150Z" fill="#9cc48a" />
+      <path d="M90 256c18-48 42-92 76-124" stroke="#6f9c5e" strokeWidth="2.5" strokeLinecap="round" />
     </svg>
   )
 }
@@ -66,7 +66,7 @@ export function TryJoyCta() {
     <section id="download" aria-labelledby="try-title" className="scroll-mt-28 px-4 py-10 md:py-9 lg:py-16">
       <div className="relative mx-auto max-w-7xl">
         <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#fdebdc] via-[#fff4ea] to-[#fdeee4]"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#ffeadf] via-[#f7f0e7] to-[#ffeadf]"
           style={{ borderRadius: '6rem 9rem 7rem 10rem / 8rem 6rem 9rem 7rem' }}
           aria-hidden="true"
         />
@@ -127,7 +127,7 @@ export function TryJoyCta() {
 
           <div className="relative mx-auto w-full max-w-sm md:max-w-[26rem]">
             <div
-              className="absolute -bottom-6 -left-6 h-1/3 w-1/2 bg-[#fbc7cf]/80"
+              className="absolute -bottom-6 -left-6 h-1/3 w-1/2 bg-[#ffd0e2]/80"
               style={{ borderRadius: '50% 50% 40% 60% / 60% 50% 50% 40%' }}
               aria-hidden="true"
             />
@@ -142,14 +142,14 @@ export function TryJoyCta() {
               <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/15 to-transparent" aria-hidden="true" />
             </div>
 
-            <p className="pointer-events-none absolute left-[10%] bottom-[15%] -rotate-6 font-hand text-4xl leading-none text-white drop-shadow-lg md:text-5xl" style={{ textShadow: '0 4px 12px rgba(0,0,0,0.4)' }}>
+            <p className="pointer-events-none absolute left-[10%] bottom-[15%] -rotate-6 font-hand text-4xl leading-none text-white drop-shadow-lg md:text-5xl" style={{ textShadow: '0 4px 12px rgba(0, 0, 0, 0.4)' }}>
               <span className="font-light opacity-80">{t('Better')}</span>
               <br />
               <span className="font-semibold">{t('Together')}</span>
             </p>
 
             <svg className="pointer-events-none absolute -right-4 -top-12 size-20 md:-right-8" viewBox="0 0 80 80" aria-hidden="true">
-              <circle cx="40" cy="40" r="15" fill="#fcd96b" />
+              <circle cx="40" cy="40" r="15" fill="#ffe27a" />
               {Array.from({ length: 8 }).map((_, i) => (
                 <line
                   key={i}
@@ -165,10 +165,10 @@ export function TryJoyCta() {
               ))}
             </svg>
 
-            <Leaf className="pointer-events-none absolute -right-6 top-[12%] size-16 rotate-12 fill-[#9cc48a] text-[#7aab6a] md:-right-10" strokeWidth={1.2} aria-hidden="true" />
+            <Leaf className="pointer-events-none absolute -right-6 top-[12%] size-16 rotate-12 fill-[#9cc48a] text-[#5fae6e] md:-right-10" strokeWidth={1.2} aria-hidden="true" />
 
             <div
-              className="absolute -right-2 top-[32%] flex rotate-[-8deg] items-center gap-2 bg-[#fde79a] px-5 py-3 shadow-md md:-right-10"
+              className="absolute -right-2 top-[32%] flex rotate-[-8deg] items-center gap-2 bg-[#ffe27a] px-5 py-3 shadow-md md:-right-10"
               style={{ borderRadius: '55% 45% 50% 50% / 60% 55% 45% 40%' }}
             >
               <Heart className="size-7 fill-[#f8607a] text-[#f8607a]" aria-hidden="true" />
@@ -191,7 +191,7 @@ export function TryJoyCta() {
                 />
               </div>
             </div>
-            <Leaf className="pointer-events-none absolute -bottom-2 -right-10 hidden size-12 -rotate-45 fill-[#9cc48a] text-[#7aab6a] md:block" strokeWidth={1.2} aria-hidden="true" />
+            <Leaf className="pointer-events-none absolute -bottom-2 -right-10 hidden size-12 -rotate-45 fill-[#9cc48a] text-[#5fae6e] md:block" strokeWidth={1.2} aria-hidden="true" />
           </div>
         </div>
       </div>
@@ -233,7 +233,7 @@ export function SiteFooter({ surface = 'default' }: { surface?: 'default' | 'gui
 
   return (
     <footer
-      className={`relative overflow-hidden ${isGuideSurface ? 'bg-transparent' : 'bg-gradient-to-b from-transparent via-blush to-[#ffd6e4]'}`}
+      className={`relative overflow-hidden ${isGuideSurface ? 'bg-transparent' : 'bg-gradient-to-b from-transparent via-blush to-[#ffd0e2]'}`}
     >
       {!isGuideSurface && (
         <>

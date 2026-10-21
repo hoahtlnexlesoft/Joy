@@ -57,8 +57,8 @@ export const movementTags = [
   { icon: '🌱', name: 'Ground', className: 'bg-mint text-[#1d7a55]' },
   { icon: '⚡', name: 'Action', className: 'bg-peach text-[#b14a1d]' },
   { icon: '🎨', name: 'Create', className: 'bg-blush text-[#b0305c]' },
-  { icon: '🌊', name: 'Flow', className: 'bg-sky text-[#1e6bb3]' },
-  { icon: '🍃', name: 'Reset', className: 'bg-lavender text-[#5a48c2]' },
+  { icon: '🌊', name: 'Flow', className: 'bg-sky text-[#0877c9]' },
+  { icon: '🍃', name: 'Reset', className: 'bg-lavender text-[#5b3fc4]' },
 ]
 
 function TagList({ tags = movementTags }: { tags?: typeof movementTags }) {

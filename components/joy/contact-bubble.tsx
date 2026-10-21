@@ -34,7 +34,7 @@ export function ContactBubble() {
         <section
           role="dialog"
           aria-label="Quick contact"
-          className="w-[20rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-3xl bg-white ring-1 ring-black/5 shadow-[0_18px_50px_-12px_rgba(60,30,60,0.35)]"
+          className="w-[20rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-3xl bg-white ring-1 ring-black/5 shadow-[0_18px_50px_-12px_rgba(60, 30, 60, 0.35)]"
         >
           <header className="relative bg-gradient-joy px-5 pb-4 pt-5 text-white">
             <h2 className="text-base font-extrabold">Contact customer service</h2>
@@ -77,7 +77,7 @@ export function ContactBubble() {
         aria-label={open ? 'Close contact' : 'Contact customer service'}
         aria-expanded={open}
       >
-        {open ? <X className="size-6" /> : <ChatHeartIcon className="size-8 drop-shadow-[0_2px_3px_rgba(150,20,70,0.35)]" />}
+        {open ? <X className="size-6" /> : <ChatHeartIcon className="size-8 drop-shadow-[0_2px_3px_rgba(150, 20, 70, 0.35)]" />}
       </button>
     </div>
   )

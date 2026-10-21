@@ -61,7 +61,7 @@ export function Hero() {
             width={749}
             height={594}
             priority
-            className="relative mx-auto h-auto w-full max-w-[22rem] sm:max-w-[26rem] md:max-w-[28rem] drop-shadow-[0_20px_30px_rgba(244,150,120,0.18)]"
+            className="relative mx-auto h-auto w-full max-w-[22rem] sm:max-w-[26rem] md:max-w-[28rem] drop-shadow-[0_20px_30px_rgba(244, 150, 120, 0.18)]"
           />
           <div className={'absolute left-0 top-0 flex sm:left-[10%] md:left-auto md:top-8 items-center gap-3 rounded-2xl bg-white/95 px-3 py-2 shadow-lg ring-1 ring-border backdrop-blur md:px-4 md:py-3 md:-left-10'}>
             <span className="text-2xl" aria-hidden="true"><Emo e="🦁" /></span>

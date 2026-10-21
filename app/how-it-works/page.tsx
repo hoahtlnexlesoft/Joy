@@ -42,15 +42,15 @@ const topics: TopicItem[] = [
 
 /** soft card tint, icon tint, accent for each of the nine natures */
 const NATURE_TINTS = [
-  ['#fff0e2', '#ffd9b8', '#e2742a'],
-  ['#ffeaf2', '#ffcfe2', '#d6477f'],
-  ['#f3ebff', '#e0d0fb', '#8250d6'],
-  ['#e8f4ff', '#c8e3fb', '#2f82cc'],
-  ['#fff8da', '#ffeaa0', '#b98200'],
-  ['#eaf8ea', '#cdeccd', '#3a9a4e'],
-  ['#e6f7f8', '#c4ebee', '#23939c'],
-  ['#ffece8', '#ffd0c6', '#e0523a'],
-  ['#eeeafc', '#d6d0f6', '#5b4fc4'],
+  ['#efe4d7', '#ffd0a8', '#f46f10'],
+  ['#ffe7ef', '#ffd0e2', '#d64a8c'],
+  ['#efeaff', '#e6d6ff', '#8a45d6'],
+  ['#e3f1ff', '#c4e0ff', '#0a86e8'],
+  ['#fff3d6', '#fff1b8', '#b98200'],
+  ['#e2f6ec', '#bfe5bd', '#16a34a'],
+  ['#e7f7fa', '#c4ebee', '#23939c'],
+  ['#ffeadf', '#ffd3d3', '#e8332a'],
+  ['#efeaff', '#e6d6ff', '#5b3fc4'],
 ]
 
 const natures = [
@@ -110,7 +110,7 @@ function Topic({
   children?: React.ReactNode
 }) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-32 relative z-[1] max-sm:rounded-[1.5rem] rounded-[2rem] bg-white/95 px-3 py-4 sm:px-4 sm:py-5 md:px-5 md:py-6 lg:py-8 shadow-[0_12px_38px_-30px_rgba(42,34,64,0.32)] ring-1 ring-border/70 backdrop-blur-[2px] md:px-9 md:py-5">
+    <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-32 relative z-[1] max-sm:rounded-[1.5rem] rounded-[2rem] bg-white/95 px-3 py-4 sm:px-4 sm:py-5 md:px-5 md:py-6 lg:py-8 shadow-[0_12px_38px_-30px_rgba(42, 34, 64, 0.32)] ring-1 ring-border/70 backdrop-blur-[2px] md:px-9 md:py-5">
       <div className="flex items-center gap-4">
         <GuideIcon id={id} variant="section" />
         <h2 id={`${id}-title`} className="text-3xl font-medium tracking-tight md:text-4xl">
@@ -133,13 +133,13 @@ export default function HowItWorksPage() {
       <div
         className="relative isolate"
         style={{
-          backgroundColor: '#fff8f2',
+          backgroundColor: '#fffaf4',
           backgroundImage: [
-            'radial-gradient(circle at 12% 10%, rgba(255,177,129,0.23), transparent 30rem)',
-            'radial-gradient(circle at 88% 22%, rgba(187,164,255,0.2), transparent 34rem)',
-            'radial-gradient(circle at 74% 76%, rgba(133,218,191,0.2), transparent 38rem)',
-            'radial-gradient(rgba(126,103,151,0.11) 0.75px, transparent 0.85px)',
-            'linear-gradient(110deg, #fff4ec 0%, #f8f2ff 50%, #eff8ff 100%)',
+            'radial-gradient(circle at 12% 10%, rgba(255, 185, 138, 0.23), transparent 30rem)',
+            'radial-gradient(circle at 88% 22%, rgba(185, 160, 255, 0.2), transparent 34rem)',
+            'radial-gradient(circle at 74% 76%, rgba(133, 218, 191, 0.2), transparent 38rem)',
+            'radial-gradient(rgba(126, 103, 151, 0.11) 0.75px, transparent 0.85px)',
+            'linear-gradient(110deg, #f7f0e7 0%, #f6f1fb 50%, #e3f1ff 100%)',
           ].join(', '),
           backgroundSize: 'auto, auto, auto, 20px 20px, 100% 100%',
         }}
@@ -268,13 +268,13 @@ export default function HowItWorksPage() {
                     </ul>
                   </Card>
                 </div>
-                <figure className="mt-6 overflow-hidden rounded-[1.75rem] bg-[#f3efff] ring-1 ring-border">
+                <figure className="mt-6 overflow-hidden rounded-[1.75rem] bg-[#f4eeff] ring-1 ring-border">
                   <video
                     controls
                     playsInline
                     preload="none"
                     poster="/videos/joy-daily-activities-poster.webp"
-                    className="aspect-video w-full bg-[#f3efff] object-cover"
+                    className="aspect-video w-full bg-[#f4eeff] object-cover"
                     aria-label="A short video of a child's day with Joy: morning, afternoon and evening activities"
                   >
                     <source src="/videos/joy-daily-activities.webm" type="video/webm" />
@@ -317,7 +317,7 @@ export default function HowItWorksPage() {
               <section
                 id="stages"
                 aria-labelledby="stages-title"
-                className="scroll-mt-32 relative z-[1] overflow-hidden max-sm:rounded-[1.5rem] rounded-[2rem] bg-white/95 px-3 py-6 sm:px-5 sm:py-8 shadow-[0_12px_38px_-30px_rgba(42,34,64,0.32)] ring-1 ring-border/70 backdrop-blur-[2px] md:px-9 md:py-5 lg:py-9"
+                className="scroll-mt-32 relative z-[1] overflow-hidden max-sm:rounded-[1.5rem] rounded-[2rem] bg-white/95 px-3 py-6 sm:px-5 sm:py-8 shadow-[0_12px_38px_-30px_rgba(42, 34, 64, 0.32)] ring-1 ring-border/70 backdrop-blur-[2px] md:px-9 md:py-5 lg:py-9"
               >
                 <div className="relative">
                   <span aria-hidden="true" className="absolute -right-1 top-0 size-5 rotate-45 rounded-md bg-joy-lilac/15" />
@@ -330,7 +330,7 @@ export default function HowItWorksPage() {
                 </div>
 
                 <div className="mt-6 grid items-center gap-5 lg:grid-cols-[1.15fr_0.95fr]">
-                  <figure className="rounded-[1.75rem] bg-gradient-to-br from-white via-[#fffdfb] to-[#f7f3ff] p-3.5 ring-1 ring-border/80 sm:p-5">
+                  <figure className="rounded-[1.75rem] bg-gradient-to-br from-white via-[#ffffff] to-[#f6f1fb] p-3.5 ring-1 ring-border/80 sm:p-5">
                     <GrowthCycleIllustration />
                     <figcaption className="mt-2 text-center text-xs leading-relaxed text-muted-foreground">
                       The journey repeats and adapts as your child grows.
@@ -344,7 +344,7 @@ export default function HowItWorksPage() {
                       { name: 'Crystal', accent: 'bg-joy-sky', copy: 'Small wins come together as your child keeps growing.' },
                       { name: 'Rainbow', accent: 'bg-joy-lilac', copy: 'Celebrate the journey before a new path begins.' },
                     ].map((stage) => (
-                      <li key={stage.name} className="relative overflow-hidden rounded-2xl bg-[#f7f5fb] p-3.5 pl-5">
+                      <li key={stage.name} className="relative overflow-hidden rounded-2xl bg-[#f6f1fb] p-3.5 pl-5">
                         <span className={cn('absolute inset-y-0 left-0 w-1 rounded-full', stage.accent)} />
                         <h3 className="font-display text-base font-semibold">{stage.name}</h3>
                         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{stage.copy}</p>
@@ -353,7 +353,7 @@ export default function HowItWorksPage() {
                   </ol>
                 </div>
 
-                <section aria-labelledby="improvement-title" className="relative mt-6 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#fffaf3] via-white to-[#f6f1ff] p-4 ring-1 ring-border/80 sm:p-6 md:p-7">
+                <section aria-labelledby="improvement-title" className="relative mt-6 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#fffaf4] via-white to-[#f4eeff] p-4 ring-1 ring-border/80 sm:p-6 md:p-7">
                   <span aria-hidden="true" className="absolute -right-5 -top-6 size-20 rotate-45 rounded-2xl border-[10px] border-white/70" />
                   <div className="relative grid items-center gap-6 md:grid-cols-[1fr_0.85fr] md:gap-6 lg:gap-10">
                     <div>
@@ -377,18 +377,18 @@ export default function HowItWorksPage() {
 
                     <div className="relative mx-auto aspect-[1.2/1] w-full max-w-[330px]" role="img" aria-label="Brave, Kind, and Dream form a balanced improvement triangle around the baseline program">
                       <svg viewBox="0 0 320 250" className="absolute inset-0 size-full" aria-hidden="true">
-                        <path d="M160 30 L42 218 L278 218 Z" fill="rgba(255,255,255,0.52)" stroke="#c9bfd6" strokeWidth="4" strokeDasharray="2 9" strokeLinecap="round" />
+                        <path d="M160 30 L42 218 L278 218 Z" fill="rgba(255, 255, 255, 0.52)" stroke="#c9bfd6" strokeWidth="4" strokeDasharray="2 9" strokeLinecap="round" />
                       </svg>
                       <span className="absolute left-1/2 top-[4%] flex -translate-x-1/2 flex-col items-center gap-1.5 text-joy-orange">
-                        <span className="grid size-[4.25rem] place-items-center rounded-full border-[3px] border-joy-orange bg-peach shadow-[0_0_0_7px_rgba(255,143,74,0.14)]"><ShieldCheck className="size-7 text-joy-orange" aria-hidden="true" /></span>
+                        <span className="grid size-[4.25rem] place-items-center rounded-full border-[3px] border-joy-orange bg-peach shadow-[0_0_0_7px_rgba(255, 138, 42, 0.14)]"><ShieldCheck className="size-7 text-joy-orange" aria-hidden="true" /></span>
                         <span className="text-xs font-bold">Brave</span>
                       </span>
                       <span className="absolute bottom-[2%] left-[2%] flex flex-col items-center gap-1.5 text-joy-lilac">
-                        <span className="grid size-[4.25rem] place-items-center rounded-full border-[3px] border-joy-lilac bg-lavender shadow-[0_0_0_7px_rgba(155,104,245,0.14)]"><Sparkles className="size-7 text-joy-lilac" aria-hidden="true" /></span>
+                        <span className="grid size-[4.25rem] place-items-center rounded-full border-[3px] border-joy-lilac bg-lavender shadow-[0_0_0_7px_rgba(143, 114, 230, 0.14)]"><Sparkles className="size-7 text-joy-lilac" aria-hidden="true" /></span>
                         <span className="text-xs font-bold">Dream</span>
                       </span>
                       <span className="absolute bottom-[2%] right-[2%] flex flex-col items-center gap-1.5 text-joy-mint">
-                        <span className="grid size-[4.25rem] place-items-center rounded-full border-[3px] border-joy-mint bg-mint shadow-[0_0_0_7px_rgba(91,191,132,0.14)]"><Heart className="size-7 text-joy-mint" aria-hidden="true" /></span>
+                        <span className="grid size-[4.25rem] place-items-center rounded-full border-[3px] border-joy-mint bg-mint shadow-[0_0_0_7px_rgba(121, 191, 139, 0.14)]"><Heart className="size-7 text-joy-mint" aria-hidden="true" /></span>
                         <span className="text-xs font-bold">Kind</span>
                       </span>
                       <span className="absolute left-1/2 top-[52%] -translate-x-1/2 -translate-y-1/2 text-center text-xs font-semibold leading-tight text-foreground/80">Baseline<br />program</span>
@@ -415,7 +415,7 @@ export default function HowItWorksPage() {
                     const c = NATURE_TINTS[i % NATURE_TINTS.length]
                     return (
                       <li key={name} className="group flex items-center gap-3 rounded-[1.5rem] p-3.5 ring-1 transition duration-300 hover:-translate-y-0.5" style={{ background: `linear-gradient(135deg,#fff 35%,${c[0]})`, ['--tw-ring-color' as string]: c[1] }}>
-                        <span className="joy-bob grid size-12 shrink-0 place-items-center rounded-[1.1rem] text-2xl shadow-[0_8px_16px_-8px_rgba(80,50,120,0.35)] ring-[3px] ring-white" style={{ background: `linear-gradient(145deg,#fff,${c[1]})`, animationDelay: `-${((i * 0.6) % 3.6).toFixed(1)}s` }} aria-hidden="true"><Emo e={icon} className="size-[1.2em]" /></span>
+                        <span className="joy-bob grid size-12 shrink-0 place-items-center rounded-[1.1rem] text-2xl shadow-[0_8px_16px_-8px_rgba(80, 50, 120, 0.35)] ring-[3px] ring-white" style={{ background: `linear-gradient(145deg,#fff,${c[1]})`, animationDelay: `-${((i * 0.6) % 3.6).toFixed(1)}s` }} aria-hidden="true"><Emo e={icon} className="size-[1.2em]" /></span>
                         <div className="min-w-0"><p className="font-display font-semibold text-[#2a2240]">{name}</p><p className="text-xs text-muted-foreground">Grows toward <span className="font-semibold" style={{ color: c[2] }}>{grows}</span></p></div>
                       </li>
                     )
@@ -435,7 +435,7 @@ export default function HowItWorksPage() {
                     ))}
                   </ul>
                 </div>
-                <div className="mt-6 rounded-3xl bg-gradient-to-r from-[#dcf5f7] to-[#e8f1ff] p-5 sm:p-6">
+                <div className="mt-6 rounded-3xl bg-gradient-to-r from-[#e7f7fa] to-[#e3f1ff] p-5 sm:p-6">
                   <p className="flex items-start gap-3 text-sm leading-relaxed"><ElementMascot name="Ocean" className="mt-0.5 size-9 shrink-0" /><span><strong className="text-foreground">Ocean holds every energy:</strong> Fire, Water, Air, Earth and Sky.</span></p>
                 </div>
               </Topic>
@@ -457,7 +457,7 @@ export default function HowItWorksPage() {
                           className="size-[4.5rem] object-contain transition-transform duration-300 group-hover:scale-110 sm:size-20"
                         />
                       </span>
-                      <span className="font-display text-sm font-semibold text-[#302b3d]">{name}</span>
+                      <span className="font-display text-sm font-semibold text-[#27253f]">{name}</span>
                     </li>
                   ))}
                 </ul>

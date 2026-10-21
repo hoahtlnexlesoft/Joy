@@ -67,7 +67,7 @@ const steps: FlowStep[] = [
     color: '#8b78f0',
     solid: 'bg-joy-lilac',
     soft: 'bg-lavender',
-    text: 'text-[#5a48c2]',
+    text: 'text-[#5b3fc4]',
   },
 ]
 
@@ -76,7 +76,7 @@ function StepCard({ step, index }: { step: FlowStep; index: number }) {
   return (
     <article
       id={`flow-${step.id}`}
-      className="relative flex w-full max-w-none sm:max-w-md flex-col items-center gap-4 rounded-[2rem] bg-white px-5 pb-6 pt-9 text-center shadow-[0_30px_60px_-30px_rgba(42,34,64,0.35)] ring-1 ring-black/5 transition-transform duration-300 hover:-translate-y-1.5 md:max-w-none"
+      className="relative flex w-full max-w-none sm:max-w-md flex-col items-center gap-4 rounded-[2rem] bg-white px-5 pb-6 pt-9 text-center shadow-[0_30px_60px_-30px_rgba(42, 34, 64, 0.35)] ring-1 ring-black/5 transition-transform duration-300 hover:-translate-y-1.5 md:max-w-none"
     >
       <span
         className={cn(
@@ -111,7 +111,7 @@ function StepCard({ step, index }: { step: FlowStep; index: number }) {
       <h4 className="text-balance font-display text-xl font-semibold leading-tight text-[#2a2240] xl:text-2xl">
         {step.title}
       </h4>
-      <p className="text-pretty text-[15px] leading-relaxed text-[#4f4766] xl:text-base">{step.description}</p>
+      <p className="text-pretty text-[15px] leading-relaxed text-[#5b4a6e] xl:text-base">{step.description}</p>
       <p className={cn('mt-auto w-full rounded-full px-4 py-2.5 text-sm font-semibold leading-snug', step.soft, step.text)}>
         {step.outputs.join(' · ')}
       </p>
@@ -174,7 +174,7 @@ export function JoyFlow() {
           <h3 className="text-balance font-display text-3xl font-semibold leading-tight text-[#2a2240] md:text-4xl">
             Everything grows from your child&apos;s nature
           </h3>
-          <p className="text-pretty leading-relaxed text-[#6b6480]">
+          <p className="text-pretty leading-relaxed text-[#6b6380]">
             Their nature shapes the growth path, the path sets each day&apos;s routine, and every routine draws from
             the Joy Collection.
           </p>

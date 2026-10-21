@@ -45,7 +45,7 @@ export function HowSteps() {
           {steps.map((step, i) => (
             <li
               key={step.title}
-              className="group relative flex flex-col gap-3 rounded-3xl bg-white p-5 shadow-[0_20px_50px_-30px_rgba(42,34,64,0.3)] ring-1 ring-border"
+              className="group relative flex flex-col gap-3 rounded-3xl bg-white p-5 shadow-[0_20px_50px_-30px_rgba(42, 34, 64, 0.3)] ring-1 ring-border"
             >
               <div className="flex items-center justify-between">
                 <span className={`relative inline-flex size-14 items-center md:size-12 lg:size-16 justify-center rounded-[1.35rem] ring-1 ring-white shadow-[0_10px_24px_-12px_currentColor] transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:transform-none ${step.tint}`}>
@@ -57,7 +57,7 @@ export function HowSteps() {
                 </span>
               </div>
               <h3 className="text-xl font-medium leading-snug">{step.title}</h3>
-              <p className="text-[15px] leading-relaxed text-[#4f4766]">{step.body}</p>
+              <p className="text-[15px] leading-relaxed text-[#5b4a6e]">{step.body}</p>
               {step.link ? (
                 <Link
                   href={step.link.href}

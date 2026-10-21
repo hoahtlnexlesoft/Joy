@@ -20,9 +20,9 @@ const links = [
 ]
 
 const mobileLinkStyle: Record<string, { Icon: LucideIcon; tile: string }> = {
-  'About Joy': { Icon: Sparkles, tile: 'bg-[#ffe9dc] text-[#f06a35]' },
-  'Parent Guide': { Icon: BookOpen, tile: 'bg-[#efe6ff] text-[#7a5ad8]' },
-  Pricing: { Icon: Ticket, tile: 'bg-[#dcf5e8] text-[#1f9d6b]' },
+  'About Joy': { Icon: Sparkles, tile: 'bg-[#ffeadf] text-[#ec6a47]' },
+  'Parent Guide': { Icon: BookOpen, tile: 'bg-[#efeaff] text-[#8e5cf0]' },
+  Pricing: { Icon: Ticket, tile: 'bg-[#e2f6ec] text-[#23915a]' },
 }
 
 export function SiteHeader() {
@@ -77,7 +77,7 @@ export function SiteHeader() {
 
   if (pathname && /(^|\/)parent(\.html)?(\/|$)/.test(pathname)) {
     return (
-      <header className="sticky top-0 z-50 border-y border-[#efe6d3] bg-[#fffaf0]/95 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-y border-[#efe4d7] bg-[#fffaf4]/95 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-3 sm:px-4 lg:px-8">
           <div className="flex min-w-0 items-center gap-4">
             <Link href="/" aria-label="Joy home" className="shrink-0">
@@ -104,20 +104,20 @@ export function SiteHeader() {
       <div className={cn(
         'relative isolate z-10 mx-auto flex max-w-6xl items-center justify-between gap-2 rounded-full py-2 pl-3 pr-2 lg:gap-4 lg:pl-4 transition-all duration-300',
         hasScrolled
-          ? 'shadow-[0_10px_30px_-18px_rgba(214,74,140,0.4)] ring-1 ring-[#f1d9d2]/80'
+          ? 'shadow-[0_10px_30px_-18px_rgba(214, 74, 140, 0.4)] ring-1 ring-[#ffeadf]/80'
           : '',
       )}>
         <span
           aria-hidden="true"
           data-no-reveal
           className={cn(
-            'pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-full bg-[#fff4ee] transition-opacity duration-300',
+            'pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-full bg-[#fffaf4] transition-opacity duration-300',
             hasScrolled ? 'opacity-100' : 'opacity-0',
           )}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/footer-clouds.jpg" alt="" className="size-full object-cover object-bottom" />
-          <span className="absolute inset-0 bg-[#fffaf6]/25" />
+          <span className="absolute inset-0 bg-[#fffaf4]/25" />
         </span>
         <Link
           href="/"
@@ -178,7 +178,7 @@ export function SiteHeader() {
         <LangSwitch compact />
         <button
           type="button"
-          className="inline-flex size-10 items-center justify-center rounded-full bg-[#fff0f6] text-[#c2307a] transition active:scale-95"
+          className="inline-flex size-10 items-center justify-center rounded-full bg-[#ffe7ef] text-[#c2307a] transition active:scale-95"
           aria-label={open ? t('Close menu') : t('Open menu')}
           aria-expanded={open}
           aria-controls="mobile-menu"
@@ -204,7 +204,7 @@ export function SiteHeader() {
                       aria-current={active ? 'page' : undefined}
                       className={cn(
                         'flex items-center gap-3.5 rounded-2xl p-3 pr-4 ring-1 transition active:scale-[0.99]',
-                        active ? 'bg-white shadow-[0_10px_24px_-16px_rgba(214,74,140,0.55)] ring-[#f6c6dd]' : 'bg-white/70 ring-white/80',
+                        active ? 'bg-white shadow-[0_10px_24px_-16px_rgba(214, 74, 140, 0.55)] ring-[#f6bfd5]' : 'bg-white/70 ring-white/80',
                       )}
                     >
                       <span className={cn('grid size-11 shrink-0 place-items-center rounded-xl', tile)}>
@@ -222,18 +222,18 @@ export function SiteHeader() {
           <div className="joy-sheet-item mt-auto flex flex-col gap-3 pt-8" style={{ animationDelay: `${60 + links.length * 60}ms` }}>
             {session ? (
               <>
-                <Link href="/parent" onClick={() => setOpen(false)} className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-joy px-6 text-[15px] font-semibold text-white shadow-[0_12px_22px_-12px_rgba(238,90,138,0.8)]">{t('Hi,')} {session.name.split(' ')[0]} · {t('Parent Portal')}</Link>
+                <Link href="/parent" onClick={() => setOpen(false)} className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-joy px-6 text-[15px] font-semibold text-white shadow-[0_12px_22px_-12px_rgba(248, 96, 143, 0.8)]">{t('Hi,')} {session.name.split(' ')[0]} · {t('Parent Portal')}</Link>
                 <button type="button" onClick={logOut} className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-white/80 px-6 text-[15px] font-semibold text-[#2a2240] ring-1 ring-[#2a2240]/10">
                   <LogOut className="size-4" aria-hidden="true" /> {t('Log out')}
                 </button>
               </>
             ) : (
               <>
-                <button type="button" onClick={showSignup} className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-joy px-6 text-[15px] font-semibold text-white shadow-[0_12px_22px_-12px_rgba(238,90,138,0.8)]">{t('Try for free')}</button>
+                <button type="button" onClick={showSignup} className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-joy px-6 text-[15px] font-semibold text-white shadow-[0_12px_22px_-12px_rgba(248, 96, 143, 0.8)]">{t('Try for free')}</button>
                 <button type="button" onClick={showLogin} className="inline-flex h-11 items-center justify-center rounded-full bg-white/80 px-6 text-[15px] font-semibold text-[#2a2240] ring-1 ring-[#2a2240]/10">{t('Log in')}</button>
               </>
             )}
-            <p className="flex items-center justify-center gap-1 pt-1 text-xs text-[#6b6480]">{t('Made with')} <Heart className="size-3 fill-[#f8607a] text-[#f8607a]" aria-hidden="true" /> {t('for curious little minds')}</p>
+            <p className="flex items-center justify-center gap-1 pt-1 text-xs text-[#6b6380]">{t('Made with')} <Heart className="size-3 fill-[#f8607a] text-[#f8607a]" aria-hidden="true" /> {t('for curious little minds')}</p>
           </div>
         </div>
       ) : null}
@@ -274,7 +274,7 @@ function AccountMenu({ name, onLogout, portal }: { name: string; onLogout: () =>
   return (
     <div ref={ref} className="relative">
       {portal ? (
-        <button type="button" aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen((o) => !o)} className="flex items-center gap-2 rounded-full bg-white py-1 pl-1 pr-3 text-left shadow-[0_2px_8px_-4px_rgba(39,37,63,0.2)] ring-1 ring-[#e8e0f0] transition hover:shadow-md">
+        <button type="button" aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen((o) => !o)} className="flex items-center gap-2 rounded-full bg-white py-1 pl-1 pr-3 text-left shadow-[0_2px_8px_-4px_rgba(39, 37, 63, 0.2)] ring-1 ring-[#ede5f5] transition hover:shadow-md">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/parent-avatar.webp" alt="" aria-hidden="true" className="size-10 rounded-full object-cover" />
           <span className="hidden min-w-0 flex-col leading-tight sm:flex"><b className="truncate font-display text-[0.8rem] font-semibold text-[#27253f]">{name}</b><small className="text-[0.68rem] text-muted-foreground">{t('Parent account')}</small></span>
@@ -288,7 +288,7 @@ function AccountMenu({ name, onLogout, portal }: { name: string; onLogout: () =>
       </button>
       )}
       {open ? (
-        <div role="menu" className="absolute right-0 top-[2.9rem] z-50 w-64 rounded-2xl bg-white p-2 shadow-[0_20px_50px_-20px_rgba(39,37,63,0.45)] ring-1 ring-border">
+        <div role="menu" className="absolute right-0 top-[2.9rem] z-50 w-64 rounded-2xl bg-white p-2 shadow-[0_20px_50px_-20px_rgba(39, 37, 63, 0.45)] ring-1 ring-border">
           <div className="px-3 py-2.5"><b className="block truncate text-sm">{name}</b><small className="text-xs text-muted-foreground">{t('Parent account')}</small></div>
           <hr className="my-1 border-border/70" />
           {accountLinks.map((l) => (

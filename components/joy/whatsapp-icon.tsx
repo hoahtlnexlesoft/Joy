@@ -7,8 +7,8 @@ export function WhatsAppIcon({ className }: { className?: string }) {
     <svg viewBox="0 0 24 24" className={className} aria-hidden="true" focusable="false">
       <defs>
         <linearGradient id={`${id}-g`} x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#6EE7A0" />
-          <stop offset="1" stopColor="#22B866" />
+          <stop stopColor="#6ee7a0" />
+          <stop offset="1" stopColor="#37c677" />
         </linearGradient>
       </defs>
       <path d="M12 1.2a10.8 10.8 0 1 1-5.3 20.2l-4.3 1.2 1.3-4A10.8 10.8 0 0 1 12 1.2z" fill={`url(#${id}-g)`} />

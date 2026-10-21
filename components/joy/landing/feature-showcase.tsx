@@ -38,7 +38,7 @@ const features: Feature[] = [
     image: '/images/child-nature-animals.jpg',
     alt: 'A group of cute animal friends on a fluffy pastel cloud with a rainbow',
     icon: SproutIcon,
-    badgeBg: '[--ic-main:#FF9F5A]',
+    badgeBg: '[--ic-main:#ff9e50]',
     badgeFg: '',
     overlay: 'from-[#5a2a12]/95 via-[#5a2a12]/60',
     imageScale: 'scale-100',
@@ -51,7 +51,7 @@ const features: Feature[] = [
     image: '/images/growth-path-cycle.jpg',
     alt: 'Growth path cycle of cute characters: Alpha, Omega, Crystal and Rainbow',
     icon: StepsIcon,
-    badgeBg: '[--ic-main:#A97BF2]',
+    badgeBg: '[--ic-main:#a97ff0]',
     badgeFg: '',
     overlay: 'from-[#5b1f4d]/95 via-[#5b1f4d]/60',
   },
@@ -63,7 +63,7 @@ const features: Feature[] = [
     image: '/images/daily-adventure.jpg',
     alt: 'Four happy kids and a puppy on a mountain trail with a map, binoculars and a tent by the lake',
     icon: DayIcon,
-    badgeBg: '[--ic-main:#3CC9A5]',
+    badgeBg: '[--ic-main:#3cc9a5]',
     badgeFg: '',
     overlay: 'from-[#163d33]/95 via-[#163d33]/60',
   },
@@ -75,9 +75,9 @@ const features: Feature[] = [
     image: '/images/joy-collection-yoga.jpg',
     alt: 'A group of cute animal friends on a fluffy pastel cloud with a rainbow',
     icon: BooksIcon,
-    badgeBg: '[--ic-main:#7A78F0]',
+    badgeBg: '[--ic-main:#8b78f0]',
     badgeFg: '',
-    overlay: 'from-[#2e1f63]/95 via-[#2e1f63]/60',
+    overlay: 'from-[#30235f]/95 via-[#30235f]/60',
   },
   {
     id: 'feeling-log',
@@ -87,7 +87,7 @@ const features: Feature[] = [
     image: '/images/feeling-log-heart.jpg',
     alt: 'A cheerful child surrounded by floating emotion bubbles',
     icon: SmileyIcon,
-    badgeBg: '[--ic-main:#FF7FA8]',
+    badgeBg: '[--ic-main:#ff7fa5]',
     badgeFg: '',
     overlay: 'from-[#1b3a63]/95 via-[#1b3a63]/60',
   },
@@ -159,8 +159,8 @@ export function FeatureShowcase() {
                 className={cn(
                   'group relative h-[19rem] cursor-pointer overflow-hidden rounded-[2.25rem] outline-none transition-all duration-500 focus-visible:ring-4 focus-visible:ring-joy-pink/50 md:h-[21rem]',
                   isActive
-                    ? 'shadow-[0_30px_60px_-30px_rgba(214,74,140,0.6)] ring-[6px] ring-[#f6c6dd]'
-                    : 'shadow-[0_20px_40px_-25px_rgba(42,34,64,0.45)]',
+                    ? 'shadow-[0_30px_60px_-30px_rgba(214, 74, 140, 0.6)] ring-[6px] ring-[#f6bfd5]'
+                    : 'shadow-[0_20px_40px_-25px_rgba(42, 34, 64, 0.45)]',
                 )}
               >
                 <div className={cn('absolute inset-0', feature.imageScale)}>
@@ -184,7 +184,7 @@ export function FeatureShowcase() {
                   <div className="flex items-start justify-between gap-3">
                     <span
                       className={cn(
-                        'inline-flex size-11 shrink-0 items-center justify-center rounded-2xl bg-white/85 shadow-[0_4px_12px_-6px_rgba(40,20,60,0.35)] ring-1 ring-white transition-transform duration-300 group-hover:scale-105 md:size-12',
+                        'inline-flex size-11 shrink-0 items-center justify-center rounded-2xl bg-white/85 shadow-[0_4px_12px_-6px_rgba(30, 20, 60, 0.35)] ring-1 ring-white transition-transform duration-300 group-hover:scale-105 md:size-12',
                         feature.badgeBg,
                       )}
                     >

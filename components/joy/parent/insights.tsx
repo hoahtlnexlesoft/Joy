@@ -29,13 +29,13 @@ function JourneySVG({ stage }: { stage: Stage }) {
   return (
     <svg viewBox="-40 30 540 420" role="img" aria-label={`Improvement journey: ${STAGES.map((s, i) => s[0] + ' ' + status(i).toLowerCase()).join(', ')}`} className="mx-auto h-auto w-full max-w-[460px]">
       <defs>
-        <marker id={`${uid}h`} viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0L10 5L0 10z" fill="#A9A8B4" /></marker>
+        <marker id={`${uid}h`} viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0L10 5L0 10z" fill="#a9a8b4" /></marker>
       </defs>
       <g fontFamily="inherit">
         {arcs.map(([x1, y1, x2, y2, qx, qy], i) => (
-          <path key={i} d={`M${x1} ${y1}Q${qx} ${qy} ${x2} ${y2}`} fill="none" stroke="#A9A8B4" strokeWidth={5} strokeLinecap="round" markerEnd={`url(#${uid}h)`} />
+          <path key={i} d={`M${x1} ${y1}Q${qx} ${qy} ${x2} ${y2}`} fill="none" stroke="#a9a8b4" strokeWidth={5} strokeLinecap="round" markerEnd={`url(#${uid}h)`} />
         ))}
-        <g stroke="#E6A817" strokeWidth={7} fill="none" strokeLinecap="round" opacity={0.95}>
+        <g stroke="#e3a500" strokeWidth={7} fill="none" strokeLinecap="round" opacity={0.95}>
           <path d={spiral(230, 196, 26, 2.2, Math.PI * 1.5)} />
           <path d={spiral(204, 244, 26, 2.2, Math.PI * 0.9)} />
           <path d={spiral(256, 244, 26, 2.2, Math.PI * 0.1)} />
@@ -52,16 +52,16 @@ function JourneySVG({ stage }: { stage: Stage }) {
               ) : (
                 <circle cx={x} cy={y} r={27} fill="#fff" stroke={col} strokeWidth={6} />
               )}
-              {done ? <path d={`M${x - 10} ${cy}l7 7l13 -14`} fill="none" stroke={i === 0 ? col : '#D9A800'} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" /> : null}
-              {now ? <path d={`M${x} ${cy - 12}l3.6 7.4 8.1 1.2 -5.9 5.7 1.4 8.1 -7.2 -3.8 -7.2 3.8 1.4 -8.1 -5.9 -5.7 8.1 -1.2z`} fill="#E03131" /> : null}
-              <text x={tx} y={ty - 4} textAnchor={anc} fontSize={21} fontWeight={600} fill="#27253F">{n}</text>
+              {done ? <path d={`M${x - 10} ${cy}l7 7l13 -14`} fill="none" stroke={i === 0 ? col : '#e3a500'} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" /> : null}
+              {now ? <path d={`M${x} ${cy - 12}l3.6 7.4 8.1 1.2 -5.9 5.7 1.4 8.1 -7.2 -3.8 -7.2 3.8 1.4 -8.1 -5.9 -5.7 8.1 -1.2z`} fill="#e8332a" /> : null}
+              <text x={tx} y={ty - 4} textAnchor={anc} fontSize={21} fontWeight={600} fill="#27253f">{n}</text>
               {now ? (
                 <>
-                  <rect x={bx} y={ty + 4} width={w} height={26} rx={13} fill="#22B8E8" />
+                  <rect x={bx} y={ty + 4} width={w} height={26} rx={13} fill="#22b8e8" />
                   <text x={bx + w / 2} y={ty + 22} textAnchor="middle" fontSize={15} fontWeight={700} fill="#fff">Current</text>
                 </>
               ) : (
-                <text x={tx} y={ty + 20} textAnchor={anc} fontSize={16} fontWeight={600} fill="#A6A4B8">{st}</text>
+                <text x={tx} y={ty + 20} textAnchor={anc} fontSize={16} fontWeight={600} fill="#a9a8b4">{st}</text>
               )}
             </g>
           )
@@ -78,18 +78,18 @@ export function JourneyCard({ child }: { child: Child }) {
       <div className="grid items-center gap-6 md:grid-cols-[1.1fr_0.9fr]">
         <JourneySVG stage={child.stage} />
         <div className="flex flex-col gap-4">
-          <div className="rounded-2xl bg-[#f8f6fb] p-4" style={{ borderLeft: `6px solid ${STAGES[cur][1]}` }}>
+          <div className="rounded-2xl bg-[#f6f1fb] p-4" style={{ borderLeft: `6px solid ${STAGES[cur][1]}` }}>
             <small className="text-xs text-muted-foreground">Current stage</small>
             <b className="block font-display text-2xl font-medium">{STAGES[cur][0]}</b>
           </div>
           <div>
-            <div className="h-2 overflow-hidden rounded-full bg-[#eeebf3]"><i className="block h-full rounded-full bg-gradient-joy" style={{ width: `${(cur / STAGES.length) * 100}%` }} /></div>
+            <div className="h-2 overflow-hidden rounded-full bg-[#f6f1fb]"><i className="block h-full rounded-full bg-gradient-joy" style={{ width: `${(cur / STAGES.length) * 100}%` }} /></div>
             <span className="mt-1.5 block text-xs text-muted-foreground">{cur} of {STAGES.length} stages completed</span>
           </div>
           <ol className="flex flex-col gap-1.5">
             {STAGES.map(([n, col], i) => (
               <li key={n} className="flex items-center gap-3 text-sm font-semibold">
-                <span className="size-3 rounded-full" style={{ background: i <= cur ? col : '#e3e0ea' }} />
+                <span className="size-3 rounded-full" style={{ background: i <= cur ? col : '#ede5f5' }} />
                 {n}
                 <em className={cn('ml-auto text-xs not-italic font-medium', i === cur ? 'text-[#1b9ac9]' : 'text-muted-foreground')}>{i < cur ? 'Completed' : i === cur ? 'Current' : 'Upcoming'}</em>
               </li>
@@ -146,12 +146,12 @@ export function FeelingLog({ child }: { child: Child }) {
             </ul>
           </div>
         </Card>
-        <Card title="Most mood" action={mC.length ? <span className="rounded-full bg-[#fff2b8] px-3 py-1 text-xs font-bold"><EmoText>{`${mC[0][0][1]} ${mC[0][0][0]}`}</EmoText></span> : null}>
+        <Card title="Most mood" action={mC.length ? <span className="rounded-full bg-[#fff1b8] px-3 py-1 text-xs font-bold"><EmoText>{`${mC[0][0][1]} ${mC[0][0][0]}`}</EmoText></span> : null}>
           <div className="flex h-40 items-end gap-2" role="img" aria-label={mC.map(([m, n]) => `${m[0]} ${n}`).join(', ')}>
             {mC.map(([m, n], i) => (
               <div key={m[0]} className="flex h-full min-w-0 flex-1 flex-col items-center justify-end gap-1 text-center">
                 <em className="text-[11px] not-italic font-semibold text-muted-foreground">{n}</em>
-                <i className={cn('block w-full max-w-9 rounded-t-xl', i === 0 ? 'bg-gradient-joy' : 'bg-[#e6def5]')} style={{ height: `${Math.max(8, (n / maxM) * 62)}%` }} />
+                <i className={cn('block w-full max-w-9 rounded-t-xl', i === 0 ? 'bg-gradient-joy' : 'bg-[#efeaff]')} style={{ height: `${Math.max(8, (n / maxM) * 62)}%` }} />
                 <span className="text-lg leading-none" aria-hidden="true"><Emo e={m[1]} /></span>
                 <small className="hidden truncate text-[10px] text-muted-foreground sm:block">{m[0]}</small>
               </div>
@@ -163,9 +163,9 @@ export function FeelingLog({ child }: { child: Child }) {
         title="Feeling calendar"
         action={
           <div className="flex items-center gap-2 text-sm">
-            <button type="button" onClick={() => setMonth((m) => m - 1)} aria-label="Previous month" className="grid size-8 place-items-center rounded-full ring-1 ring-border hover:bg-[#f4f1f8]">‹</button>
+            <button type="button" onClick={() => setMonth((m) => m - 1)} aria-label="Previous month" className="grid size-8 place-items-center rounded-full ring-1 ring-border hover:bg-[#f6f1fb]">‹</button>
             <b className="min-w-32 text-center">{mTitle}</b>
-            <button type="button" onClick={() => setMonth((m) => Math.min(0, m + 1))} disabled={month >= 0} aria-label="Next month" className="grid size-8 place-items-center rounded-full ring-1 ring-border hover:bg-[#f4f1f8] disabled:opacity-40">›</button>
+            <button type="button" onClick={() => setMonth((m) => Math.min(0, m + 1))} disabled={month >= 0} aria-label="Next month" className="grid size-8 place-items-center rounded-full ring-1 ring-border hover:bg-[#f6f1fb] disabled:opacity-40">›</button>
           </div>
         }
       >
@@ -180,14 +180,14 @@ export function FeelingLog({ child }: { child: Child }) {
               const fut = k > todayK
               return (
                 <button key={k} type="button" disabled={fut} onClick={() => setSel(k)} aria-label={new Date(k + 'T00:00').toDateString() + (f.length ? ', ' + f.map((x) => x.mood[0]).join(' and ') : '')}
-                  className={cn('flex aspect-square flex-col items-center justify-center rounded-xl text-xs transition disabled:opacity-30', k === sel ? 'bg-gradient-joy text-white' : f.length ? 'bg-[#fff6ec] hover:bg-[#ffe9d2]' : 'bg-[#f8f6fb] hover:bg-[#efeaf6]', k === todayK && k !== sel && 'ring-2 ring-joy-pink/50')}>
+                  className={cn('flex aspect-square flex-col items-center justify-center rounded-xl text-xs transition disabled:opacity-30', k === sel ? 'bg-gradient-joy text-white' : f.length ? 'bg-[#f7f0e7] hover:bg-[#efe4d7]' : 'bg-[#f6f1fb] hover:bg-[#f6f1fb]', k === todayK && k !== sel && 'ring-2 ring-joy-pink/50')}>
                   <span className="font-semibold">{d}</span>
                   <span className="text-sm leading-none" aria-hidden="true"><EmoText>{f.slice(0, 2).map((x) => x.mood[1]).join('')}</EmoText></span>
                 </button>
               )
             })}
           </div>
-          <aside aria-live="polite" className="rounded-2xl bg-[#faf8fc] p-4">
+          <aside aria-live="polite" className="rounded-2xl bg-[#ffffff] p-4">
             <h3 className="font-display text-lg font-medium">{dayLabel(sel)}</h3>
             {sd.feel.length ? (
               <ul className="mt-3 flex flex-col gap-3">
@@ -262,7 +262,7 @@ export function ActivitiesTab({ child }: { child: Child }) {
                 <h3 className="mb-2 mt-4 text-sm font-semibold text-muted-foreground first:mt-0">{dayLabel(k)}</h3>
                 <ul className="flex flex-col gap-2">
                   {arr.map((a, i) => { const t = TAGS.find((x) => x[0] === a.tag)!; return (
-                    <li key={i} className="flex items-center gap-3 rounded-2xl bg-[#faf8fc] p-3">
+                    <li key={i} className="flex items-center gap-3 rounded-2xl bg-[#ffffff] p-3">
                       <span className="grid size-10 shrink-0 place-items-center rounded-xl text-lg" style={{ background: t[3] }} aria-hidden="true"><Emo e={t[1]} /></span>
                       <div className="min-w-0 flex-1"><b className="block truncate text-sm">{a.name}</b><small className="text-xs text-muted-foreground">{a.secIc} {a.sec}</small></div>
                       <span className="hidden rounded-full px-2.5 py-0.5 text-xs font-bold sm:inline" style={{ color: t[2], background: t[3] }}>{a.tag}</span>
@@ -272,7 +272,7 @@ export function ActivitiesTab({ child }: { child: Child }) {
                 </ul>
               </div>
             ))}
-            {list.length > 12 ? <button type="button" onClick={() => setMore((m) => !m)} className="mt-4 h-9 rounded-full px-4 text-sm font-semibold ring-1 ring-border hover:bg-[#f4f1f8]">{more ? 'Show less' : `Show all ${list.length}`}</button> : null}
+            {list.length > 12 ? <button type="button" onClick={() => setMore((m) => !m)} className="mt-4 h-9 rounded-full px-4 text-sm font-semibold ring-1 ring-border hover:bg-[#f6f1fb]">{more ? 'Show less' : `Show all ${list.length}`}</button> : null}
           </>
         ) : <p className="py-2 text-sm text-muted-foreground">No {tag === 'all' ? '' : tag + ' '}activities in this period.</p>}
       </Card>

@@ -24,7 +24,7 @@ function PlayMark({ className }: { className?: string }) {
       <path d="M3.6 2.2 13.3 12l-9.7 9.8c-.2-.2-.3-.6-.3-1V3.2c0-.4.1-.8.3-1Z" fill="#34a853" />
       <path d="m16.9 8.4-3.6 3.6-9.7-9.8c.3-.3.8-.3 1.3 0l12 6.2Z" fill="#4285f4" />
       <path d="M16.9 15.6 4.9 21.8c-.5.3-1 .3-1.3 0l9.7-9.8 3.6 3.6Z" fill="#ea4335" />
-      <path d="m20.6 13-3.7 2.6-3.6-3.6 3.6-3.6 3.7 2.6c.9.6.9 1.4 0 2Z" fill="#fbbc04" />
+      <path d="m20.6 13-3.7 2.6-3.6-3.6 3.6-3.6 3.7 2.6c.9.6.9 1.4 0 2Z" fill="#fbc23c" />
     </svg>
   )
 }
@@ -45,8 +45,8 @@ export function StoreBadges({ className, children, appleHref, googleHref }: { cl
   const t = useT()
   const base =
     'group inline-flex h-11 items-center gap-2.5 rounded-full py-0 pl-3.5 pr-5 transition-all duration-200 hover:-translate-y-0.5 hover:rotate-[-1.5deg]'
-  const apple = 'bg-black text-white ring-1 ring-black shadow-[0_8px_18px_-8px_rgba(0,0,0,0.55)]'
-  const play = 'bg-white text-black ring-1 ring-black/25 shadow-[0_8px_18px_-10px_rgba(0,0,0,0.35)]'
+  const apple = 'bg-black text-white ring-1 ring-black shadow-[0_8px_18px_-8px_rgba(0, 0, 0, 0.55)]'
+  const play = 'bg-white text-black ring-1 ring-black/25 shadow-[0_8px_18px_-10px_rgba(0, 0, 0, 0.35)]'
   return (
     <div className={cn('flex flex-wrap items-center gap-2.5', className)}>
       <Link href={appleHref ?? '#download'} {...(appleHref ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className={cn(base, apple)} aria-label="App Store">
@@ -77,7 +77,7 @@ export function DownloadStrip({ className, tone = 'light' }: { className?: strin
       <div
         className={cn(
           'mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 rounded-[2rem] px-6 py-5 md:flex-row md:px-8',
-          dark ? 'bg-white/5 ring-1 ring-white/10' : 'bg-gradient-to-r from-[#fff1e6] via-[#fff7f1] to-[#fdeef5] ring-1 ring-black/[0.04]',
+          dark ? 'bg-white/5 ring-1 ring-white/10' : 'bg-gradient-to-r from-[#f7f0e7] via-[#fffaf4] to-[#ffe7ef] ring-1 ring-black/[0.04]',
         )}
       >
         <div className="text-center md:text-left">
@@ -135,7 +135,7 @@ export function MobileDownloadBar() {
       <Link
         href="#download"
         tabIndex={show ? 0 : -1}
-        className="flex h-12 items-center justify-center gap-2 rounded-full bg-gradient-joy text-[15px] font-semibold text-white shadow-[0_14px_30px_-10px_rgba(238,90,138,0.8)]"
+        className="flex h-12 items-center justify-center gap-2 rounded-full bg-gradient-joy text-[15px] font-semibold text-white shadow-[0_14px_30px_-10px_rgba(248, 96, 143, 0.8)]"
       >
         <Download className="size-5" aria-hidden="true" />
         {t('Download the app')}

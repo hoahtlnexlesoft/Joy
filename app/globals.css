@@ -508,3 +508,10 @@ html[lang='my'] .joy-feature-label{display:flex;align-items:center;justify-conte
 /* Static review build only: first load = night light, later loads = the classic page loader */
 html[data-joy-booted] .joy-boot-night { display: none; }
 html:not([data-joy-booted]) .joy-boot-classic { display: none; }
+
+/* Every clickable thing shows the pointing hand (Tailwind v4 resets buttons to the arrow). */
+@layer base {
+  button:not(:disabled), [role="button"]:not([aria-disabled="true"]), [role="tab"], [role="menuitem"], [role="option"],
+  a[href], summary, select:not(:disabled), label[for], input:is([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="file"]):not(:disabled) { cursor: pointer; }
+  button:disabled, [aria-disabled="true"] { cursor: not-allowed; }
+}

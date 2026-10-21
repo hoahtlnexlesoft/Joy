@@ -8,6 +8,8 @@ import { PageLoader } from '@/components/joy/page-loader'
  * page starts arriving, and it leaves (with a short fade) once the page has hydrated and
  * finished loading. A fast load never sees it: it stays invisible for its first 350 ms.
  */
+const PREVIEW = process.env.NEXT_PUBLIC_JOY_PREVIEW === '1'
+
 export function BootLoader() {
   const [phase, setPhase] = useState<'on' | 'out' | 'gone'>('on')
 
@@ -16,7 +18,8 @@ export function BootLoader() {
     const finish = () => {
       if (done) return
       done = true
-      try { sessionStorage.setItem('joy-booted', '1') } catch {}
+      // Static review build only: every page is a full load there, so remember the first one.
+      if (PREVIEW) { try { sessionStorage.setItem('joy-booted', '1') } catch {} }
       setPhase('out')
       window.setTimeout(() => setPhase('gone'), 500)
     }
@@ -31,7 +34,7 @@ export function BootLoader() {
   return (
     <div className={phase === 'out' ? 'joy-boot joy-boot-out' : 'joy-boot'}>
       <div className="joy-boot-night"><PageLoader kind="night" /></div>
-      <div className="joy-boot-orbit"><PageLoader /></div>
+      {PREVIEW && <div className="joy-boot-classic"><PageLoader /></div>}
     </div>
   )
 }

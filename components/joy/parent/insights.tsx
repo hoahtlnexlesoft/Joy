@@ -35,7 +35,7 @@ function JourneySVG({ stage }: { stage: Stage }) {
         {arcs.map(([x1, y1, x2, y2, qx, qy], i) => (
           <path key={i} d={`M${x1} ${y1}Q${qx} ${qy} ${x2} ${y2}`} fill="none" stroke="#a9a8b4" strokeWidth={5} strokeLinecap="round" markerEnd={`url(#${uid}h)`} />
         ))}
-        <g stroke="#e3a500" strokeWidth={7} fill="none" strokeLinecap="round" opacity={0.95}>
+        <g stroke="#f5b73b" strokeWidth={7} fill="none" strokeLinecap="round" opacity={0.95}>
           <path d={spiral(230, 196, 26, 2.2, Math.PI * 1.5)} />
           <path d={spiral(204, 244, 26, 2.2, Math.PI * 0.9)} />
           <path d={spiral(256, 244, 26, 2.2, Math.PI * 0.1)} />
@@ -52,7 +52,7 @@ function JourneySVG({ stage }: { stage: Stage }) {
               ) : (
                 <circle cx={x} cy={y} r={27} fill="#fff" stroke={col} strokeWidth={6} />
               )}
-              {done ? <path d={`M${x - 10} ${cy}l7 7l13 -14`} fill="none" stroke={i === 0 ? col : '#e3a500'} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" /> : null}
+              {done ? <path d={`M${x - 10} ${cy}l7 7l13 -14`} fill="none" stroke={i === 0 ? col : '#f5b73b'} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" /> : null}
               {now ? <path d={`M${x} ${cy - 12}l3.6 7.4 8.1 1.2 -5.9 5.7 1.4 8.1 -7.2 -3.8 -7.2 3.8 1.4 -8.1 -5.9 -5.7 8.1 -1.2z`} fill="#e8332a" /> : null}
               <text x={tx} y={ty - 4} textAnchor={anc} fontSize={21} fontWeight={600} fill="#27253f">{n}</text>
               {now ? (
@@ -91,7 +91,7 @@ export function JourneyCard({ child }: { child: Child }) {
               <li key={n} className="flex items-center gap-3 text-sm font-semibold">
                 <span className="size-3 rounded-full" style={{ background: i <= cur ? col : '#ede5f5' }} />
                 {n}
-                <em className={cn('ml-auto text-xs not-italic font-medium', i === cur ? 'text-[#1b9ac9]' : 'text-muted-foreground')}>{i < cur ? 'Completed' : i === cur ? 'Current' : 'Upcoming'}</em>
+                <em className={cn('ml-auto text-xs not-italic font-medium', i === cur ? 'text-[#1fa9e8]' : 'text-muted-foreground')}>{i < cur ? 'Completed' : i === cur ? 'Current' : 'Upcoming'}</em>
               </li>
             ))}
           </ol>
@@ -146,7 +146,7 @@ export function FeelingLog({ child }: { child: Child }) {
             </ul>
           </div>
         </Card>
-        <Card title="Most mood" action={mC.length ? <span className="rounded-full bg-[#fff1b8] px-3 py-1 text-xs font-bold"><EmoText>{`${mC[0][0][1]} ${mC[0][0][0]}`}</EmoText></span> : null}>
+        <Card title="Most mood" action={mC.length ? <span className="rounded-full bg-[#f6dfae] px-3 py-1 text-xs font-bold"><EmoText>{`${mC[0][0][1]} ${mC[0][0][0]}`}</EmoText></span> : null}>
           <div className="flex h-40 items-end gap-2" role="img" aria-label={mC.map(([m, n]) => `${m[0]} ${n}`).join(', ')}>
             {mC.map(([m, n], i) => (
               <div key={m[0]} className="flex h-full min-w-0 flex-1 flex-col items-center justify-end gap-1 text-center">

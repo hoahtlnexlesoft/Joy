@@ -32,7 +32,7 @@ export function TopicGrid({ topics }: { topics: Topic[] }) {
             <li key={t.id}>
               <Link
                 href={`#${t.id}`}
-                className="group flex h-full items-start gap-3.5 rounded-3xl bg-gradient-to-b from-white to-[#ffffff] p-4 ring-1 ring-border transition-all duration-200 hover:-translate-y-1 hover:from-[#fff3d6] hover:to-[#fff3d6] hover:ring-[#f5b73b]/60 hover:shadow-[0_18px_38px_-22px_rgba(107, 73, 25, 0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-joy-pink/70"
+                className="group flex h-full items-start gap-3.5 rounded-3xl bg-gradient-to-b from-white to-[#ffffff] p-4 ring-1 ring-border transition-all duration-200 hover:-translate-y-1 hover:from-[#fff3d6] hover:to-[#fff3d6] hover:ring-[#f5b73b]/60 hover:shadow-[0_18px_38px_-22px_rgba(122, 74, 0, 0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-joy-pink/70"
               >
                 <GuideIcon id={t.id} tintClass={t.tint} />
                 <span className="pt-0.5">

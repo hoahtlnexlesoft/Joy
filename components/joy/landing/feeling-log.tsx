@@ -10,8 +10,8 @@ const highlights = [
 
 const elements = [
   { name: 'Water', icon: '💧', value: 40, color: '#5ccaff' },
-  { name: 'Fire', icon: '🔥', value: 10, color: '#f59a2e' },
-  { name: 'Sky', icon: '☁️', value: 18, color: '#a97ff0' },
+  { name: 'Fire', icon: '🔥', value: 10, color: '#ff9e50' },
+  { name: 'Sky', icon: '☁️', value: 18, color: '#8f72e6' },
   { name: 'Earth', icon: '🪨', value: 18, color: '#f9c95c' },
   { name: 'Garden', icon: '🌿', value: 14, color: '#7ccf4a' },
 ]

@@ -25,14 +25,14 @@ export function GuideDecorations() {
 
       <svg className="absolute -left-7 top-[76rem] size-28 opacity-70 md:left-8 md:top-[82rem] md:size-32" viewBox="0 0 128 128" fill="none">
         <path d="M63 109c1-20 3-33 6-44" stroke="#79bf8b" strokeWidth="5" strokeLinecap="round" />
-        <path d="M66 78c-17 2-25-6-26-19 13 0 23 6 26 19Zm4-14c2-16 11-23 24-20-2 13-10 20-24 20Z" fill="#94cea0" stroke="#5fae6e" strokeWidth="3" strokeLinejoin="round" />
-        <path d="M63 31c0-12 16-15 20-4 10-6 21 5 14 14 8 8 0 22-11 19-5 11-21 8-22-4-12-1-15-17-4-22Z" fill="#f7a7ae" stroke="#f27b85" strokeWidth="3" />
+        <path d="M66 78c-17 2-25-6-26-19 13 0 23 6 26 19Zm4-14c2-16 11-23 24-20-2 13-10 20-24 20Z" fill="#79bf8b" stroke="#5fae6e" strokeWidth="3" strokeLinejoin="round" />
+        <path d="M63 31c0-12 16-15 20-4 10-6 21 5 14 14 8 8 0 22-11 19-5 11-21 8-22-4-12-1-15-17-4-22Z" fill="#ff9db8" stroke="#f27b85" strokeWidth="3" />
         <circle cx="77" cy="39" r="8" fill="#f9c95c" />
       </svg>
 
       <svg className="absolute -right-6 top-[112rem] size-28 opacity-70 md:right-10 md:top-[126rem] md:size-32" viewBox="0 0 128 128" fill="none">
         <path d="m63 11 8 25 25 8-25 8-8 25-8-25-25-8 25-8 8-25Z" fill="#f9c95c" />
-        <path d="m101 75 4 12 12 4-12 4-4 12-4-12-12-4 12-4 4-12Z" fill="#f7a7ae" />
+        <path d="m101 75 4 12 12 4-12 4-4 12-4-12-12-4 12-4 4-12Z" fill="#ff9db8" />
         <circle cx="28" cy="94" r="4" fill="#79bf8b" />
         <circle cx="39" cy="108" r="2.5" fill="#79bf8b" />
       </svg>

@@ -64,7 +64,7 @@ export const VOUCHERS: Record<string, { name: string; type: PlanType; days: numb
   JOYTRIAL: { name: 'Trial Gift', type: 'Premium Plus', days: 10 },
   JOYGIFT10: { name: 'Trial Gift', type: 'Premium Plus', days: 10 },
 }
-export const COLORS = ['#ff8a2a', '#1fa9e8', '#58b800', '#8e5cf0', '#f0488a', '#e3a500']
+export const COLORS = ['#ff9e50', '#1fa9e8', '#58b800', '#8e5cf0', '#f0488a', '#f5b73b']
 export const NEEDS = ['Attention differences', 'Sensory sensitivity', 'Pattern thinking', 'Emotional intensity']
 export const STAGES: [Stage, string][] = [['Alpha', '#7ccf4a'], ['Omega', '#f9c95c'], ['Crystal', '#e8332a'], ['Rainbow', '#22b8e8']]
 
@@ -129,8 +129,8 @@ export function endingSoon(s: State) {
 
 /* ---------- sample activity history ---------- */
 export const MOODS: [string, string][] = [['Happy', '😊'], ['Excited', '😁'], ['Calm', '😌'], ['Okay', '🙂'], ['Tired', '😑'], ['Worried', '😥'], ['Sad', '😟'], ['Grumpy', '😒'], ['Angry', '😠']]
-export const ELS: [string, string, string][] = [['Water', '💧', '#5ccaff'], ['Sky', '☁️', '#a97ff0'], ['Earth', '⛰️', '#f9c95c'], ['Garden', '🌿', '#7ccf4a'], ['Fire', '🔥', '#ff9e50']]
-export const TAGS: [string, string, string, string][] = [['Think', '💡', '#fbc23c', '#fff3d6'], ['Ground', '🌱', '#58b800', '#eaf7e1'], ['Action', '⚡', '#ff8a2a', '#ffeadf'], ['Create', '🎨', '#8e5cf0', '#efeaff'], ['Flow', '🌊', '#1fa9e8', '#e3f1ff'], ['Reset', '🍃', '#e7609e', '#ffe7ef']]
+export const ELS: [string, string, string][] = [['Water', '💧', '#5ccaff'], ['Sky', '☁️', '#8f72e6'], ['Earth', '⛰️', '#f9c95c'], ['Garden', '🌿', '#7ccf4a'], ['Fire', '🔥', '#ff9e50']]
+export const TAGS: [string, string, string, string][] = [['Think', '💡', '#fbc23c', '#fff3d6'], ['Ground', '🌱', '#58b800', '#e2f6ec'], ['Action', '⚡', '#ff9e50', '#ffeadf'], ['Create', '🎨', '#8e5cf0', '#efeaff'], ['Flow', '🌊', '#1fa9e8', '#e3f1ff'], ['Reset', '🍃', '#f0488a', '#ffe7ef']]
 const ACT_NAMES: Record<string, string[]> = {
   Think: ['A, B, C Sun Book Forest', 'Counting Stars', 'Shape Detective'],
   Ground: ['Calm Breathing Garden', 'Tree Pose Friends', 'Roots and Toes'],

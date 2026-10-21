@@ -20,7 +20,7 @@ const links = [
 ]
 
 const mobileLinkStyle: Record<string, { Icon: LucideIcon; tile: string }> = {
-  'About Joy': { Icon: Sparkles, tile: 'bg-[#ffeadf] text-[#ec6a47]' },
+  'About Joy': { Icon: Sparkles, tile: 'bg-[#ffeadf] text-[#ff765f]' },
   'Parent Guide': { Icon: BookOpen, tile: 'bg-[#efeaff] text-[#8e5cf0]' },
   Pricing: { Icon: Ticket, tile: 'bg-[#e2f6ec] text-[#23915a]' },
 }
@@ -104,7 +104,7 @@ export function SiteHeader() {
       <div className={cn(
         'relative isolate z-10 mx-auto flex max-w-6xl items-center justify-between gap-2 rounded-full py-2 pl-3 pr-2 lg:gap-4 lg:pl-4 transition-all duration-300',
         hasScrolled
-          ? 'shadow-[0_10px_30px_-18px_rgba(214, 74, 140, 0.4)] ring-1 ring-[#ffeadf]/80'
+          ? 'shadow-[0_10px_30px_-18px_rgba(240, 72, 138, 0.4)] ring-1 ring-[#ffeadf]/80'
           : '',
       )}>
         <span
@@ -204,7 +204,7 @@ export function SiteHeader() {
                       aria-current={active ? 'page' : undefined}
                       className={cn(
                         'flex items-center gap-3.5 rounded-2xl p-3 pr-4 ring-1 transition active:scale-[0.99]',
-                        active ? 'bg-white shadow-[0_10px_24px_-16px_rgba(214, 74, 140, 0.55)] ring-[#f6bfd5]' : 'bg-white/70 ring-white/80',
+                        active ? 'bg-white shadow-[0_10px_24px_-16px_rgba(240, 72, 138, 0.55)] ring-[#f6bfd5]' : 'bg-white/70 ring-white/80',
                       )}
                     >
                       <span className={cn('grid size-11 shrink-0 place-items-center rounded-xl', tile)}>
@@ -233,7 +233,7 @@ export function SiteHeader() {
                 <button type="button" onClick={showLogin} className="inline-flex h-11 items-center justify-center rounded-full bg-white/80 px-6 text-[15px] font-semibold text-[#2a2240] ring-1 ring-[#2a2240]/10">{t('Log in')}</button>
               </>
             )}
-            <p className="flex items-center justify-center gap-1 pt-1 text-xs text-[#6b6380]">{t('Made with')} <Heart className="size-3 fill-[#f8607a] text-[#f8607a]" aria-hidden="true" /> {t('for curious little minds')}</p>
+            <p className="flex items-center justify-center gap-1 pt-1 text-xs text-[#6b6380]">{t('Made with')} <Heart className="size-3 fill-[#f27b85] text-[#f27b85]" aria-hidden="true" /> {t('for curious little minds')}</p>
           </div>
         </div>
       ) : null}

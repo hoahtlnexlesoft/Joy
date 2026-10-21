@@ -43,12 +43,12 @@ const topics: TopicItem[] = [
 /** soft card tint, icon tint, accent for each of the nine natures */
 const NATURE_TINTS = [
   ['#efe4d7', '#ffd0a8', '#f46f10'],
-  ['#ffe7ef', '#ffd0e2', '#d64a8c'],
+  ['#ffe7ef', '#ffd0e2', '#f0488a'],
   ['#efeaff', '#e6d6ff', '#8a45d6'],
   ['#e3f1ff', '#c4e0ff', '#0a86e8'],
-  ['#fff3d6', '#fff1b8', '#b98200'],
+  ['#fff3d6', '#f6dfae', '#b98200'],
   ['#e2f6ec', '#bfe5bd', '#16a34a'],
-  ['#e7f7fa', '#c4ebee', '#23939c'],
+  ['#d6f0ff', '#c4ebee', '#23939c'],
   ['#ffeadf', '#ffd3d3', '#e8332a'],
   ['#efeaff', '#e6d6ff', '#5b3fc4'],
 ]
@@ -138,7 +138,7 @@ export default function HowItWorksPage() {
             'radial-gradient(circle at 12% 10%, rgba(255, 185, 138, 0.23), transparent 30rem)',
             'radial-gradient(circle at 88% 22%, rgba(185, 160, 255, 0.2), transparent 34rem)',
             'radial-gradient(circle at 74% 76%, rgba(133, 218, 191, 0.2), transparent 38rem)',
-            'radial-gradient(rgba(126, 103, 151, 0.11) 0.75px, transparent 0.85px)',
+            'radial-gradient(rgba(133, 108, 174, 0.11) 0.75px, transparent 0.85px)',
             'linear-gradient(110deg, #f7f0e7 0%, #f6f1fb 50%, #e3f1ff 100%)',
           ].join(', '),
           backgroundSize: 'auto, auto, auto, 20px 20px, 100% 100%',
@@ -380,7 +380,7 @@ export default function HowItWorksPage() {
                         <path d="M160 30 L42 218 L278 218 Z" fill="rgba(255, 255, 255, 0.52)" stroke="#c9bfd6" strokeWidth="4" strokeDasharray="2 9" strokeLinecap="round" />
                       </svg>
                       <span className="absolute left-1/2 top-[4%] flex -translate-x-1/2 flex-col items-center gap-1.5 text-joy-orange">
-                        <span className="grid size-[4.25rem] place-items-center rounded-full border-[3px] border-joy-orange bg-peach shadow-[0_0_0_7px_rgba(255, 138, 42, 0.14)]"><ShieldCheck className="size-7 text-joy-orange" aria-hidden="true" /></span>
+                        <span className="grid size-[4.25rem] place-items-center rounded-full border-[3px] border-joy-orange bg-peach shadow-[0_0_0_7px_rgba(255, 158, 80, 0.14)]"><ShieldCheck className="size-7 text-joy-orange" aria-hidden="true" /></span>
                         <span className="text-xs font-bold">Brave</span>
                       </span>
                       <span className="absolute bottom-[2%] left-[2%] flex flex-col items-center gap-1.5 text-joy-lilac">
@@ -415,7 +415,7 @@ export default function HowItWorksPage() {
                     const c = NATURE_TINTS[i % NATURE_TINTS.length]
                     return (
                       <li key={name} className="group flex items-center gap-3 rounded-[1.5rem] p-3.5 ring-1 transition duration-300 hover:-translate-y-0.5" style={{ background: `linear-gradient(135deg,#fff 35%,${c[0]})`, ['--tw-ring-color' as string]: c[1] }}>
-                        <span className="joy-bob grid size-12 shrink-0 place-items-center rounded-[1.1rem] text-2xl shadow-[0_8px_16px_-8px_rgba(80, 50, 120, 0.35)] ring-[3px] ring-white" style={{ background: `linear-gradient(145deg,#fff,${c[1]})`, animationDelay: `-${((i * 0.6) % 3.6).toFixed(1)}s` }} aria-hidden="true"><Emo e={icon} className="size-[1.2em]" /></span>
+                        <span className="joy-bob grid size-12 shrink-0 place-items-center rounded-[1.1rem] text-2xl shadow-[0_8px_16px_-8px_rgba(82, 66, 138, 0.35)] ring-[3px] ring-white" style={{ background: `linear-gradient(145deg,#fff,${c[1]})`, animationDelay: `-${((i * 0.6) % 3.6).toFixed(1)}s` }} aria-hidden="true"><Emo e={icon} className="size-[1.2em]" /></span>
                         <div className="min-w-0"><p className="font-display font-semibold text-[#2a2240]">{name}</p><p className="text-xs text-muted-foreground">Grows toward <span className="font-semibold" style={{ color: c[2] }}>{grows}</span></p></div>
                       </li>
                     )
@@ -435,7 +435,7 @@ export default function HowItWorksPage() {
                     ))}
                   </ul>
                 </div>
-                <div className="mt-6 rounded-3xl bg-gradient-to-r from-[#e7f7fa] to-[#e3f1ff] p-5 sm:p-6">
+                <div className="mt-6 rounded-3xl bg-gradient-to-r from-[#d6f0ff] to-[#e3f1ff] p-5 sm:p-6">
                   <p className="flex items-start gap-3 text-sm leading-relaxed"><ElementMascot name="Ocean" className="mt-0.5 size-9 shrink-0" /><span><strong className="text-foreground">Ocean holds every energy:</strong> Fire, Water, Air, Earth and Sky.</span></p>
                 </div>
               </Topic>

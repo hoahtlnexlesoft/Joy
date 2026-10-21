@@ -7,18 +7,18 @@ import { cn } from '@/lib/utils'
 import { CuteIcon, type CuteName } from './icons'
 
 type BtnVariant = 'gold' | 'ghost' | 'danger' | 'aya' | 'blue' | 'green' | 'blueSoft' | 'greenSoft' | 'orangeSoft' | 'dark'
-// Palette sampled from the JOY logo: orange #f46f10→#ff8a2a, blue #0a86e8→#1fa9e8, green #58b800→#8fdc2a
+// Palette sampled from the JOY logo: orange #f46f10→#ff9e50, blue #0a86e8→#1fa9e8, green #58b800→#b2ee45
 const btnV: Record<BtnVariant, string> = {
-  gold: 'bg-gradient-to-r from-[#f46f10] to-[#ff8a2a] text-white shadow-[0_8px_22px_-10px_rgba(244, 111, 16, 0.75)] hover:-translate-y-0.5',
+  gold: 'bg-gradient-to-r from-[#f46f10] to-[#ff9e50] text-white shadow-[0_8px_22px_-10px_rgba(244, 111, 16, 0.75)] hover:-translate-y-0.5',
   blue: 'bg-gradient-to-r from-[#0a86e8] to-[#1fa9e8] text-white shadow-[0_8px_22px_-10px_rgba(10, 134, 232, 0.75)] hover:-translate-y-0.5',
-  green: 'bg-gradient-to-r from-[#58b800] to-[#8fdc2a] text-white shadow-[0_8px_22px_-10px_rgba(88, 184, 0, 0.7)] hover:-translate-y-0.5',
+  green: 'bg-gradient-to-r from-[#58b800] to-[#b2ee45] text-white shadow-[0_8px_22px_-10px_rgba(88, 184, 0, 0.7)] hover:-translate-y-0.5',
   blueSoft: 'bg-[#e3f1ff] text-[#0877c9] hover:bg-[#d6f0ff]',
-  greenSoft: 'bg-[#eaf7e1] text-[#3f8a00] hover:bg-[#ddf1bd]',
-  orangeSoft: 'bg-[#efe4d7] text-[#d96a0a] hover:bg-[#ffe3c9]',
+  greenSoft: 'bg-[#e2f6ec] text-[#3f8a00] hover:bg-[#ddf1bd]',
+  orangeSoft: 'bg-[#efe4d7] text-[#f46f10] hover:bg-[#ffeadf]',
   ghost: 'bg-white text-foreground ring-1 ring-border hover:ring-foreground/25',
-  danger: 'bg-[#e5484d] text-white hover:bg-[#d23a3f]',
-  dark: 'bg-[#2a2240] text-white hover:bg-[#352d57]',
-  aya: 'bg-[#e8332a] text-white hover:bg-[#d02a22]',
+  danger: 'bg-[#e5484d] text-white hover:bg-[#e5484d]',
+  dark: 'bg-[#2a2240] text-white hover:bg-[#30235f]',
+  aya: 'bg-[#e8332a] text-white hover:bg-[#e8332a]',
 }
 export function Btn({ variant = 'gold', small, full, className, ...p }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: BtnVariant; small?: boolean; full?: boolean }) {
   return (
@@ -75,7 +75,7 @@ export function Seg<T extends string | number>({ value, options, onChange, label
 
 export function Switch({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label: string }) {
   return (
-    <button type="button" role="switch" aria-checked={on} aria-label={label} onClick={() => onChange(!on)} className={cn('relative h-7 w-12 shrink-0 rounded-full transition-colors', on ? 'bg-gradient-joy' : 'bg-[#d4ccd8]')}>
+    <button type="button" role="switch" aria-checked={on} aria-label={label} onClick={() => onChange(!on)} className={cn('relative h-7 w-12 shrink-0 rounded-full transition-colors', on ? 'bg-gradient-joy' : 'bg-[#c9bfd6]')}>
       <span className={cn('absolute top-1 size-5 rounded-full bg-white shadow transition-all', on ? 'left-6' : 'left-1')} />
     </button>
   )

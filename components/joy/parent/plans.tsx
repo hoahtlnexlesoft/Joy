@@ -41,7 +41,7 @@ export function PlanCard({ app, p }: { app: App; p: Plan }) {
   const canAssign = !exp && (multi ? kids.length < s.children.length : kids.length === 0) && s.children.length > 0
   const ts = TYPE_STYLE[p.type]
   const tr = useT()
-  const st = exp ? [tr('Expired'), 'bg-[#f6f1fb] text-[#7a7399]'] : up ? [`${tr('Starts')} ${fmtDate(p.start)}`, 'bg-[#e3f1ff] text-[#0a86e8]'] : soon ? [tr('Ends soon'), 'bg-[#efe4d7] text-[#d96a0a]'] : [tr('Active'), 'bg-[#e2f6ec] text-[#2f8f3a]']
+  const st = exp ? [tr('Expired'), 'bg-[#f6f1fb] text-[#7a7399]'] : up ? [`${tr('Starts')} ${fmtDate(p.start)}`, 'bg-[#e3f1ff] text-[#0a86e8]'] : soon ? [tr('Ends soon'), 'bg-[#efe4d7] text-[#f46f10]'] : [tr('Active'), 'bg-[#e2f6ec] text-[#2f8f3a]']
   const total = Math.max(1, p.end.getTime() - p.start.getTime())
   const left = exp ? 0 : up ? 1 : Math.min(1, Math.max(0, (p.end.getTime() - Date.now()) / total))
   const pct = Math.round(left * 100)
@@ -119,7 +119,7 @@ export function PlansView({ app }: { app: App }) {
             <p className="mt-3 text-sm leading-relaxed text-[#6b5f93]">{t('Plans you’ve bought or redeemed, and the little ones they’re assigned to.')}</p>
             <div className="mt-3 flex flex-wrap gap-2 text-xs font-bold">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-[#e2f6ec]/90 px-3 py-1.5 text-[#2f8f3a] ring-1 ring-[#bfe5bd]"><Zap className="size-3.5" />{act.length} {t('active')}</span>
-              {soonN ? <span className="inline-flex items-center gap-1.5 rounded-full bg-[#ffe7ef]/90 px-3 py-1.5 text-[#e5446d] ring-1 ring-[#f6bfd5]"><Timer className="size-3.5" />{soonN} {t('ending soon')}</span> : null}
+              {soonN ? <span className="inline-flex items-center gap-1.5 rounded-full bg-[#ffe7ef]/90 px-3 py-1.5 text-[#d6336c] ring-1 ring-[#f6bfd5]"><Timer className="size-3.5" />{soonN} {t('ending soon')}</span> : null}
             </div>
           </div>
           <div className="flex flex-wrap gap-2 sm:absolute sm:bottom-5 sm:right-6">
@@ -131,7 +131,7 @@ export function PlansView({ app }: { app: App }) {
 
       <div role="tablist" aria-label={t('Plan status')} className="inline-flex w-fit gap-1.5 rounded-full bg-white/80 p-1.5 shadow-[0_0_0_1px_var(--border)]">
         {tabs.map(([k, emo, label, n]) => (
-          <button key={k} type="button" role="tab" aria-selected={tab === k} onClick={() => setTab(k)} className={cn('inline-flex h-10 items-center gap-2 rounded-full px-4 text-sm font-bold transition-all', tab === k ? 'bg-gradient-to-r from-[#ffd0a8] to-[#ffd0e2] text-[#7a3d12] shadow-sm' : 'text-[#6b6380] hover:bg-muted')}>
+          <button key={k} type="button" role="tab" aria-selected={tab === k} onClick={() => setTab(k)} className={cn('inline-flex h-10 items-center gap-2 rounded-full px-4 text-sm font-bold transition-all', tab === k ? 'bg-gradient-to-r from-[#ffd0a8] to-[#ffd0e2] text-[#7a4a2b] shadow-sm' : 'text-[#6b6380] hover:bg-muted')}>
             <span aria-hidden="true"><Emo e={emo} /></span>{label}<span className={cn('grid min-w-6 place-items-center rounded-full px-1.5 text-xs', tab === k ? 'bg-white/80' : 'bg-[#f6f1fb]')}>{n}</span>
           </button>
         ))}
@@ -252,7 +252,7 @@ export function RedeemDialog({ app }: { app: App }) {
 
 /* ---------------- buy flow ---------------- */
 export const CHANNELS: Record<Channel, { label: string; sub: string; cls: string; icon: string }> = {
-  AYA: { label: 'AYA Pay', sub: 'Website', cls: 'bg-[#ffe7ef] text-[#d02a22]', icon: '💳' },
+  AYA: { label: 'AYA Pay', sub: 'Website', cls: 'bg-[#ffe7ef] text-[#e8332a]', icon: '💳' },
   Apple: { label: 'App Store', sub: 'iPhone app', cls: 'bg-[#f6f1fb] text-[#27253f]', icon: '' },
   Google: { label: 'Google Play', sub: 'Android app', cls: 'bg-[#e2f6ec] text-[#1d7a55]', icon: '▶' },
   Offline: { label: 'Offline', sub: 'Paid in person', cls: 'bg-[#fff3d6] text-[#9a6a00]', icon: '🏢' },
@@ -264,12 +264,12 @@ export function ChannelBadge({ ch }: { ch: Channel }) {
 
 function CuteBulb() {
   return (
-    <span aria-hidden="true" className="relative grid size-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#fff1b8] to-[#ffd0e2]">
+    <span aria-hidden="true" className="relative grid size-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#f6dfae] to-[#ffd0e2]">
       <svg viewBox="0 0 48 48" className="size-7">
         <g stroke="#ffb300" strokeWidth="2.6" strokeLinecap="round"><path d="M24 3v4" /><path d="M7 11l3 3" /><path d="M41 11l-3 3" /><path d="M3 26h4" /><path d="M45 26h-4" /></g>
         <path d="M24 9c-8 0-13.5 6-13.5 13 0 4.6 2.4 7.4 4.6 9.6 1.4 1.4 2 2.7 2 4.4h14.8c0-1.7.6-3 2-4.4 2.2-2.2 4.6-5 4.6-9.6C37.5 15 32 9 24 9z" fill="#ffe27a" stroke="#ffb300" strokeWidth="2.4" strokeLinejoin="round" />
         <path d="M16 15c1.8-2 4-3 6.5-3.3" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" fill="none" opacity=".9" />
-        <rect x="17.5" y="36.5" width="13" height="4.5" rx="2.25" fill="#cfb8ff" stroke="#a97ff0" strokeWidth="2" />
+        <rect x="17.5" y="36.5" width="13" height="4.5" rx="2.25" fill="#cfb8ff" stroke="#8f72e6" strokeWidth="2" />
         <circle cx="19.5" cy="23" r="1.9" fill="#4a3a63" /><circle cx="28.5" cy="23" r="1.9" fill="#4a3a63" />
         <circle cx="19" cy="22.4" r=".6" fill="#fff" /><circle cx="28" cy="22.4" r=".6" fill="#fff" />
         <path d="M21.5 27c1.4 1.6 3.6 1.6 5 0" stroke="#4a3a63" strokeWidth="1.9" strokeLinecap="round" fill="none" />
@@ -343,8 +343,8 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
         return (
           <Fragment key={s}>
             <li aria-current={on ? 'step' : undefined} className="flex shrink-0 items-center gap-2">
-              <span className={cn('grid size-9 place-items-center rounded-full text-sm font-bold transition', done ? 'bg-gradient-to-br from-[#6ee7a0] to-[#37c677] text-white shadow-[0_6px_14px_-6px_rgba(55, 198, 119, 0.8)] ring-4 ring-[#c9ecdb]' : on ? 'bg-gradient-joy text-white shadow-[0_8px_18px_-6px_rgba(248, 96, 143, 0.7)] ring-4 ring-[#ffe6ee]' : 'bg-[#f6f1fb] text-[#9994b4]')}>
-                {done ? <svg viewBox="0 0 20 20" className="size-5 drop-shadow-[0_1px_1px_rgba(20, 110, 60, 0.35)]" fill="none" stroke="currentColor" strokeWidth="3.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m4.5 10.5 3.7 3.7 7.3-8" /></svg> : n}
+              <span className={cn('grid size-9 place-items-center rounded-full text-sm font-bold transition', done ? 'bg-gradient-to-br from-[#6ee7a0] to-[#37c677] text-white shadow-[0_6px_14px_-6px_rgba(55, 198, 119, 0.8)] ring-4 ring-[#e2f6ec]' : on ? 'bg-gradient-joy text-white shadow-[0_8px_18px_-6px_rgba(248, 96, 143, 0.7)] ring-4 ring-[#ffe6ee]' : 'bg-[#f6f1fb] text-[#aaa6c8]')}>
+                {done ? <svg viewBox="0 0 20 20" className="size-5 drop-shadow-[0_1px_1px_rgba(29, 122, 85, 0.35)]" fill="none" stroke="currentColor" strokeWidth="3.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m4.5 10.5 3.7 3.7 7.3-8" /></svg> : n}
               </span>
               <span className={cn('text-sm', on ? 'font-bold text-foreground' : done ? 'font-semibold text-foreground/70' : 'font-medium text-muted-foreground')}>{s}</span>
             </li>
@@ -372,8 +372,8 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
             const on = sel.includes(c.name)
             const sug = pre.plan === c.name
             return (
-              <article key={c.name} onClick={() => toggle(c.name)} className={cn('relative flex cursor-pointer flex-col rounded-3xl p-4 ring-1 transition', on ? 'bg-[#f6f1fb] ring-2 ring-joy-pink shadow-md shadow-pink-100' : c.popular ? 'ring-2 ring-[#ffb15c]/70' : sug ? 'ring-2 ring-[#6aa8ff]/70' : 'ring-border hover:ring-foreground/25')}>
-                {c.popular ? <span className="absolute -top-2.5 left-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#ff9e50] to-[#ff6b6b] px-2.5 py-0.5 text-[10px] font-bold text-white shadow-sm shadow-orange-200"><Emo e="🔥" /> {t('Most popular')}</span> : sug ? <span className="absolute -top-2.5 left-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#6aa8ff] to-[#8b78f0] px-2.5 py-0.5 text-[10px] font-bold text-white shadow-sm shadow-blue-200">✨ {t('Suggested')}</span> : null}
+              <article key={c.name} onClick={() => toggle(c.name)} className={cn('relative flex cursor-pointer flex-col rounded-3xl p-4 ring-1 transition', on ? 'bg-[#f6f1fb] ring-2 ring-joy-pink shadow-md shadow-pink-100' : c.popular ? 'ring-2 ring-[#ffb15c]/70' : sug ? 'ring-2 ring-[#7fb5e6]/70' : 'ring-border hover:ring-foreground/25')}>
+                {c.popular ? <span className="absolute -top-2.5 left-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#ff9e50] to-[#ff6b6b] px-2.5 py-0.5 text-[10px] font-bold text-white shadow-sm shadow-orange-200"><Emo e="🔥" /> {t('Most popular')}</span> : sug ? <span className="absolute -top-2.5 left-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#7fb5e6] to-[#8b78f0] px-2.5 py-0.5 text-[10px] font-bold text-white shadow-sm shadow-blue-200">✨ {t('Suggested')}</span> : null}
                 <span aria-hidden="true" className={cn('absolute right-4 top-4 grid size-6 place-items-center rounded-full ring-1 transition', on ? 'bg-gradient-joy text-white ring-transparent' : 'bg-white text-transparent ring-border')}><Check className="size-3.5" strokeWidth={3.5} /></span>
                 <UnlockChip type={c.type} />
                 <h3 className="mt-2 font-display text-lg font-medium">{c.name}</h3>
@@ -396,7 +396,7 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
         </div>
         <p className="mt-2.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 rounded-xl bg-[#f6f1fb] px-3 py-2 text-xs text-[#6b6380] sm:flex-nowrap">
           <span className="flex items-center gap-2.5"><CuteBulb /><span>{t('Put a Premium plan and Mastery on the same child to get Premium Plus, which unlocks everything.')}</span></span>
-          <a href="/pricing#compare" onClick={() => app.open(null)} className="shrink-0 whitespace-nowrap text-xs font-semibold text-[#e5446d] underline underline-offset-4">{t('Compare all plans')}</a>
+          <a href="/pricing#compare" onClick={() => app.open(null)} className="shrink-0 whitespace-nowrap text-xs font-semibold text-[#d6336c] underline underline-offset-4">{t('Compare all plans')}</a>
         </p>
       </>
     )
@@ -420,7 +420,7 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
         </ul>
         <Note><Emo e="👧" /> {t(many ? 'After paying, you’ll pick which child gets each plan, or add a new child.' : 'After paying, you’ll pick which child gets this plan, or add a new child.')}</Note>
         <div className="mb-5 flex items-center gap-3 rounded-2xl p-4 ring-1 ring-border">
-          <span className="relative grid size-16 shrink-0 -rotate-3 place-items-center rounded-[1.4rem] bg-gradient-to-br from-[#ff8a7a] to-[#f8608f] text-lg font-extrabold tracking-wide text-white shadow-[0_6px_14px_-4px_rgba(248, 96, 143, .6)] ring-2 ring-white">AYA<span className="absolute -right-2 -top-2 text-lg" aria-hidden="true"><Emo e="✨" /></span><span className="absolute -bottom-2 -left-1.5 text-sm" aria-hidden="true"><Emo e="💖" /></span></span>
+          <span className="relative grid size-16 shrink-0 -rotate-3 place-items-center rounded-[1.4rem] bg-gradient-to-br from-[#ff765f] to-[#f8608f] text-lg font-extrabold tracking-wide text-white shadow-[0_6px_14px_-4px_rgba(248, 96, 143, .6)] ring-2 ring-white">AYA<span className="absolute -right-2 -top-2 text-lg" aria-hidden="true"><Emo e="✨" /></span><span className="absolute -bottom-2 -left-1.5 text-sm" aria-hidden="true"><Emo e="💖" /></span></span>
           <div className="text-sm"><b className="block">{t('Pay online with AYA Pay')}</b><span className="text-xs text-muted-foreground">{t('You’ll confirm the payment on the secure AYA Pay page.')}</span></div>
           <span className="ml-auto inline-flex shrink-0 items-center gap-1.5 rounded-full bg-gradient-to-r from-[#e2f6ec] to-[#d6f0ff] py-1 pl-1 pr-3 text-xs font-semibold text-[#1d7a55] ring-1 ring-white"><span className="grid size-6 place-items-center rounded-full bg-white shadow-sm" aria-hidden="true"><svg viewBox="0 0 24 24" className="size-4"><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="#79bf8b" strokeWidth="2.4" strokeLinecap="round"/><rect x="5" y="10.5" width="14" height="10" rx="4" fill="#ff9db8"/><circle cx="10" cy="15" r="1" fill="#fff"/><circle cx="14" cy="15" r="1" fill="#fff"/><path d="M10.6 17.2c.8.6 1.8.6 2.8 0" fill="none" stroke="#fff" strokeWidth="1.2" strokeLinecap="round"/></svg></span>Secure</span>
         </div>
@@ -463,7 +463,7 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
     return (
       <>
         {stepper}
-        <div className="mb-5 flex items-center gap-3 rounded-2xl bg-gradient-to-r from-[#e2f6ec] to-[#e3f1ff] p-3.5 text-sm ring-1 ring-[#c9ecdb]"><span aria-hidden="true" className="relative grid size-11 shrink-0 place-items-center rounded-2xl bg-white shadow-[0_6px_14px_-8px_rgba(55, 150, 119, 0.6)] ring-1 ring-[#c9ecdb]"><svg viewBox="0 0 40 40" className="size-9"><rect x="4" y="9" width="28" height="20" rx="5" fill="#ffd0e2" stroke="#ff9db8" strokeWidth="2" /><rect x="4" y="14" width="28" height="5" fill="#ff9db8" /><rect x="8" y="23" width="9" height="3" rx="1.5" fill="#fff" /><circle cx="30" cy="28" r="8" fill="#37c677" stroke="#fff" strokeWidth="2.5" /><path d="m26.5 28.2 2.4 2.4 4.2-4.6" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /><path d="M33 4v5M30.5 6.5h5" stroke="#ffb300" strokeWidth="2" strokeLinecap="round" /></svg></span><div className="min-w-0"><b className="block">Payment complete</b><span className="block break-words text-xs text-[#1d7a55]">{bought.map((b) => b.name).join(' + ')} · {money(total)} · AYA Pay · {ref}</span></div></div>
+        <div className="mb-5 flex items-center gap-3 rounded-2xl bg-gradient-to-r from-[#e2f6ec] to-[#e3f1ff] p-3.5 text-sm ring-1 ring-[#e2f6ec]"><span aria-hidden="true" className="relative grid size-11 shrink-0 place-items-center rounded-2xl bg-white shadow-[0_6px_14px_-8px_rgba(55, 150, 119, 0.6)] ring-1 ring-[#e2f6ec]"><svg viewBox="0 0 40 40" className="size-9"><rect x="4" y="9" width="28" height="20" rx="5" fill="#ffd0e2" stroke="#ff9db8" strokeWidth="2" /><rect x="4" y="14" width="28" height="5" fill="#ff9db8" /><rect x="8" y="23" width="9" height="3" rx="1.5" fill="#fff" /><circle cx="30" cy="28" r="8" fill="#37c677" stroke="#fff" strokeWidth="2.5" /><path d="m26.5 28.2 2.4 2.4 4.2-4.6" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /><path d="M33 4v5M30.5 6.5h5" stroke="#ffb300" strokeWidth="2" strokeLinecap="round" /></svg></span><div className="min-w-0"><b className="block">Payment complete</b><span className="block break-words text-xs text-[#1d7a55]">{bought.map((b) => b.name).join(' + ')} · {money(total)} · AYA Pay · {ref}</span></div></div>
         <DlgHead title={many ? t('Who are these plans for?') : `${t('Who is')} ${bought[0]?.name} ${t('for?')}`} sub={t('Pick a child, add a new one, or assign it later from Plans.')} />
         <div className="mb-4 flex flex-col gap-3">
           {bought.map((b) => (
@@ -502,19 +502,19 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
         <img src="/images/butterfly-purple.webp" alt="" className="pointer-events-none absolute -top-2 right-6 size-14 object-contain drop-shadow-[0_6px_10px_rgba(142, 92, 240, 0.25)] sm:right-8 sm:size-16" />
         <DlgHead title={many ? t('Your plans are ready') : (() => { const c0 = assign[bought[0]?.id] ? app.s.children.find((x) => x.id === assign[bought[0].id]) : null; return c0 ? `${bought[0].name} ${t('is ready for')} ${c0.name}` : t('Your plan is ready') })()} />
       </div>
-      <div className="mb-3 rounded-2xl bg-gradient-to-br from-[#e2f6ec] via-[#e7f7fa] to-[#e3f1ff] px-3.5 py-2.5 ring-1 ring-[#c9ecdb]">
+      <div className="mb-3 rounded-2xl bg-gradient-to-br from-[#e2f6ec] via-[#d6f0ff] to-[#e3f1ff] px-3.5 py-2.5 ring-1 ring-[#e2f6ec]">
         <ul className="space-y-1.5">
           {bought.map((b) => {
             const c = assign[b.id] ? app.s.children.find((x) => x.id === assign[b.id]) : null
             return (
               <li key={b.id} className="flex items-center justify-between gap-3 text-sm">
                 <b className="font-display text-sm">{b.name}</b>
-                <span className="rounded-full bg-white px-2.5 py-0.5 text-[11px] font-semibold text-[#23915a] ring-1 ring-[#c9ecdb]">{c ? `${t('For')} ${c.name}` : t('Not assigned yet')}</span>
+                <span className="rounded-full bg-white px-2.5 py-0.5 text-[11px] font-semibold text-[#23915a] ring-1 ring-[#e2f6ec]">{c ? `${t('For')} ${c.name}` : t('Not assigned yet')}</span>
               </li>
             )
           })}
         </ul>
-        <dl className="mt-2 grid grid-cols-3 gap-2 border-t border-dashed border-[#c9ecdb] pt-2 text-center">
+        <dl className="mt-2 grid grid-cols-3 gap-2 border-t border-dashed border-[#e2f6ec] pt-2 text-center">
           <div><dt className="text-[10px] text-muted-foreground">{t('Paid via')}</dt><dd className="mt-0.5 flex justify-center [&>*]:scale-90"><ChannelBadge ch="AYA" /></dd></div>
           <div className="min-w-0"><dt className="text-[10px] text-muted-foreground">{t('Transaction')}</dt><dd className="mt-0.5 truncate text-[11px] font-bold">{ref}</dd></div>
           <div><dt className="text-[10px] text-muted-foreground">{t('Total paid')}</dt><dd className="font-display text-base font-extrabold leading-tight text-[#23915a]">{money(total)}</dd></div>

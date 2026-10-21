@@ -37,7 +37,7 @@ function ChildArt() {
       <circle cx="48" cy="46" r="15" fill="#ffd0a8" />
       <path d="M33 38c4-1 10-4 15-9 4 5 9 8 15 9-1-9-8-15-15-15s-14 6-15 15Z" fill="#7a4a2b" />
       <circle cx="42" cy="47" r="2" fill="#4a2f22" /><circle cx="54" cy="47" r="2" fill="#4a2f22" />
-      <path d="M43 53c3 3 7 3 10 0" stroke="#ec6a47" strokeWidth="2" strokeLinecap="round" fill="none" />
+      <path d="M43 53c3 3 7 3 10 0" stroke="#ff765f" strokeWidth="2" strokeLinecap="round" fill="none" />
       <circle cx="38" cy="52" r="3" fill="#ffb3a0" opacity=".7" /><circle cx="58" cy="52" r="3" fill="#ffb3a0" opacity=".7" />
       <path d="M30 70c3-8 10-10 18-10s15 2 18 10v2H30Z" fill="#ffe27a" />
       <circle cx="68" cy="68" r="11" fill="#ff765f" stroke="#fff" strokeWidth="3" />
@@ -74,7 +74,7 @@ export function AppActivationGuide() {
   const t = useT()
   const steps: { n: number; badge: string; panel: string; art: ReactNode; title: string; body: string; stores?: boolean }[] = [
     { n: 1, badge: 'bg-[#3d7bf0]', panel: 'from-[#e3f1ff] to-[#ffffff]', art: <PhoneArt />, title: t('Download the app'), body: t("Install it on your child's device."), stores: true },
-    { n: 2, badge: 'bg-[#f59a2e]', panel: 'from-[#fff3d6] to-[#fffaf4]', art: <ChildArt />, title: t('Switch to Child view'), body: t('Tap Play on the Home screen.') },
+    { n: 2, badge: 'bg-[#ff9e50]', panel: 'from-[#fff3d6] to-[#fffaf4]', art: <ChildArt />, title: t('Switch to Child view'), body: t('Tap Play on the Home screen.') },
     { n: 3, badge: 'bg-[#8e5cf0]', panel: 'from-[#efeaff] to-[#f6f1fb]', art: <LinkArt />, title: t('Link parent account'), body: t('My profile › Link Parent Account.') },
   ]
   return (
@@ -93,7 +93,7 @@ export function AppActivationGuide() {
         {steps.map((s, i) => (
           <li key={s.n} className="contents">
             <div className={`relative flex flex-1 flex-col items-center gap-1.5 rounded-3xl bg-gradient-to-b p-3 pt-4 text-center ${s.panel} ${s.stores ? 'sm:flex-[1.25]' : ''}`}>
-              <span className={`absolute left-2.5 top-2.5 grid size-7 place-items-center rounded-full text-sm font-extrabold text-white shadow-[0_4px_10px_-3px_rgba(60, 60, 120, 0.5)] ${s.badge}`}>{s.n}</span>
+              <span className={`absolute left-2.5 top-2.5 grid size-7 place-items-center rounded-full text-sm font-extrabold text-white shadow-[0_4px_10px_-3px_rgba(82, 66, 138, 0.5)] ${s.badge}`}>{s.n}</span>
               <span className="block size-20 sm:size-[5.5rem]">{s.art}</span>
               <b className="block font-display text-sm font-extrabold leading-tight text-[#30235f]">{s.title}</b>
               <p className="text-xs leading-snug text-[#7a7399]">{s.body}</p>

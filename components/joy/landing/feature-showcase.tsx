@@ -51,7 +51,7 @@ const features: Feature[] = [
     image: '/images/growth-path-cycle.jpg',
     alt: 'Growth path cycle of cute characters: Alpha, Omega, Crystal and Rainbow',
     icon: StepsIcon,
-    badgeBg: '[--ic-main:#a97ff0]',
+    badgeBg: '[--ic-main:#8f72e6]',
     badgeFg: '',
     overlay: 'from-[#5b1f4d]/95 via-[#5b1f4d]/60',
   },
@@ -159,7 +159,7 @@ export function FeatureShowcase() {
                 className={cn(
                   'group relative h-[19rem] cursor-pointer overflow-hidden rounded-[2.25rem] outline-none transition-all duration-500 focus-visible:ring-4 focus-visible:ring-joy-pink/50 md:h-[21rem]',
                   isActive
-                    ? 'shadow-[0_30px_60px_-30px_rgba(214, 74, 140, 0.6)] ring-[6px] ring-[#f6bfd5]'
+                    ? 'shadow-[0_30px_60px_-30px_rgba(240, 72, 138, 0.6)] ring-[6px] ring-[#f6bfd5]'
                     : 'shadow-[0_20px_40px_-25px_rgba(42, 34, 64, 0.45)]',
                 )}
               >
@@ -184,7 +184,7 @@ export function FeatureShowcase() {
                   <div className="flex items-start justify-between gap-3">
                     <span
                       className={cn(
-                        'inline-flex size-11 shrink-0 items-center justify-center rounded-2xl bg-white/85 shadow-[0_4px_12px_-6px_rgba(30, 20, 60, 0.35)] ring-1 ring-white transition-transform duration-300 group-hover:scale-105 md:size-12',
+                        'inline-flex size-11 shrink-0 items-center justify-center rounded-2xl bg-white/85 shadow-[0_4px_12px_-6px_rgba(42, 34, 64, 0.35)] ring-1 ring-white transition-transform duration-300 group-hover:scale-105 md:size-12',
                         feature.badgeBg,
                       )}
                     >

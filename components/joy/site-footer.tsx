@@ -14,7 +14,7 @@ const tryPoints = [
   'One parent account for all your children',
 ]
 
-const checkColors = ['#f27b85', '#f9c95c', '#5fae6e', '#a97ff0']
+const checkColors = ['#f27b85', '#f9c95c', '#5fae6e', '#8f72e6']
 
 function FlowerCheck({ color }: { color: string }) {
   return (
@@ -74,7 +74,7 @@ export function TryJoyCta() {
         <svg className="pointer-events-none absolute left-6 top-28 hidden w-10 text-joy-lilac/70 md:block" viewBox="0 0 40 80" fill="none" aria-hidden="true">
           <path d="M20 4c10 8 10 18 0 22-10 4-10 14 0 18s10 14 0 18c-6 3-6 10 0 14" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
         </svg>
-        <Heart className="pointer-events-none absolute left-4 top-1/2 hidden size-10 -rotate-12 text-[#f8607a]/80 md:block" strokeWidth={2.5} aria-hidden="true" />
+        <Heart className="pointer-events-none absolute left-4 top-1/2 hidden size-10 -rotate-12 text-[#f27b85]/80 md:block" strokeWidth={2.5} aria-hidden="true" />
         <div
           className="pointer-events-none absolute inset-0 overflow-hidden"
           style={{ borderRadius: '6rem 9rem 7rem 10rem / 8rem 6rem 9rem 7rem' }}
@@ -86,11 +86,11 @@ export function TryJoyCta() {
         <div className="relative grid items-center gap-8 px-6 py-10 md:px-8 md:py-7 lg:px-14 lg:py-12 md:grid-cols-[1fr_0.9fr]">
           <div className="relative flex flex-col gap-4">
             <div className="relative -rotate-6 self-start">
-              <p className="font-hand text-3xl font-bold text-[#f8607a]">{t('Happy Childhood')}</p>
-              <svg className="absolute -bottom-2 left-0 w-full text-[#f8607a]" viewBox="0 0 200 14" fill="none" aria-hidden="true">
+              <p className="font-hand text-3xl font-bold text-[#f27b85]">{t('Happy Childhood')}</p>
+              <svg className="absolute -bottom-2 left-0 w-full text-[#f27b85]" viewBox="0 0 200 14" fill="none" aria-hidden="true">
                 <path d="M2 12C50 2 130 0 198 6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               </svg>
-              <Heart className="absolute -right-8 -top-2 size-6 rotate-12 fill-[#f8607a] text-[#f8607a]" aria-hidden="true" />
+              <Heart className="absolute -right-8 -top-2 size-6 rotate-12 fill-[#f27b85] text-[#f27b85]" aria-hidden="true" />
             </div>
 
             <h2
@@ -171,7 +171,7 @@ export function TryJoyCta() {
               className="absolute -right-2 top-[32%] flex rotate-[-8deg] items-center gap-2 bg-[#ffe27a] px-5 py-3 shadow-md md:-right-10"
               style={{ borderRadius: '55% 45% 50% 50% / 60% 55% 45% 40%' }}
             >
-              <Heart className="size-7 fill-[#f8607a] text-[#f8607a]" aria-hidden="true" />
+              <Heart className="size-7 fill-[#f27b85] text-[#f27b85]" aria-hidden="true" />
               <span className="font-hand text-2xl font-bold leading-none text-[#2a2240]">
                 {t('Growing')}
                 <br />

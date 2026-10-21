@@ -149,7 +149,7 @@ export function ProfileView({ app, sec }: { app: App; sec: Section }) {
               <button type="button" onClick={() => app.open({ k: 'avatar' })} aria-label={t('Change profile photo')} className="absolute -bottom-1 -right-1 grid size-9 place-items-center rounded-full bg-white text-[#8e5cf0] shadow-md ring-1 ring-[#e6d6ff] transition hover:scale-110"><Pencil className="size-4" /></button>
             </div>
             <div className="min-w-0 flex-1">
-              <p className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em] text-[#8f72e6]">{t('Hello, parent')}<Crown className="size-4 fill-[#fbc23c] text-[#e3a500]" aria-hidden="true" /></p>
+              <p className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em] text-[#8f72e6]">{t('Hello, parent')}<Crown className="size-4 fill-[#fbc23c] text-[#f5b73b]" aria-hidden="true" /></p>
               <h1 className="mt-1 flex items-center gap-3 font-display text-3xl font-bold tracking-tight text-[#30235f] sm:text-4xl"><span className="truncate">{parent.name}</span><Heart className="size-6 shrink-0 text-[#ff7fa5]" aria-hidden="true" /></h1>
               <div className="mt-2.5 flex flex-wrap items-center gap-2 text-xs font-bold">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-white/85 px-3.5 py-1.5 text-[#785ac8] shadow-sm ring-1 ring-white"><UserRound className="size-3.5" />{t('Parent account')}</span>
@@ -168,7 +168,7 @@ export function ProfileView({ app, sec }: { app: App; sec: Section }) {
             </div>
             <div className="grid w-full grid-cols-2 gap-3 sm:w-auto">
               <button type="button" onClick={() => app.go({ name: 'children' })} className="group rounded-[1.5rem] bg-white/90 px-6 py-3.5 text-center shadow-[0_8px_20px_-14px_rgba(31, 169, 232, 0.7)] ring-1 ring-[#d6f0ff] transition hover:-translate-y-0.5 hover:bg-white"><span className="mx-auto grid size-8 place-items-center rounded-xl bg-[#e3f1ff] text-[#0a86e8]" aria-hidden="true"><Users className="size-4" /></span><b className="block font-display text-3xl font-semibold text-[#0a86e8]">{app.s.children.length}</b><span className="text-xs font-semibold text-muted-foreground">Children</span></button>
-              <button type="button" onClick={() => app.go({ name: 'plans' })} className="group rounded-[1.5rem] bg-white/90 px-6 py-3.5 text-center shadow-[0_8px_20px_-14px_rgba(88, 184, 0, 0.7)] ring-1 ring-[#ddf1bd] transition hover:-translate-y-0.5 hover:bg-white"><span className="mx-auto grid size-8 place-items-center rounded-xl bg-[#eaf7e1] text-[#3f8a00]" aria-hidden="true"><CalendarHeart className="size-4" /></span><b className="block font-display text-3xl font-semibold text-[#3f8a00]">{activePlans}</b><span className="text-xs font-semibold text-muted-foreground">Active plans</span></button>
+              <button type="button" onClick={() => app.go({ name: 'plans' })} className="group rounded-[1.5rem] bg-white/90 px-6 py-3.5 text-center shadow-[0_8px_20px_-14px_rgba(88, 184, 0, 0.7)] ring-1 ring-[#ddf1bd] transition hover:-translate-y-0.5 hover:bg-white"><span className="mx-auto grid size-8 place-items-center rounded-xl bg-[#e2f6ec] text-[#3f8a00]" aria-hidden="true"><CalendarHeart className="size-4" /></span><b className="block font-display text-3xl font-semibold text-[#3f8a00]">{activePlans}</b><span className="text-xs font-semibold text-muted-foreground">Active plans</span></button>
             </div>
           </div>
         </section>
@@ -214,7 +214,7 @@ export function ProfileView({ app, sec }: { app: App; sec: Section }) {
             <PrefRow title={t('Password')} sub={t('Change the password for your parent account.')}><Btn small variant="blueSoft" onClick={() => app.open({ k: 'pw' })}>{t('Change password')}</Btn></PrefRow>
             <PrefRow title={t('Sign out')} sub={t('Log out of Joy on this browser.')}><Btn small variant="orangeSoft" onClick={() => app.logout()}>↪ {t('Sign out')}</Btn></PrefRow>
           </Card>
-          <Card title={<span className="inline-flex items-center gap-2.5"><span className="grid size-9 place-items-center rounded-2xl bg-gradient-to-br from-[#ffe6ee] to-[#ffd0e2] text-[#e5446d] shadow-[0_6px_14px_-8px_rgba(229, 68, 109, 0.8)]"><TriangleAlert className="size-5" aria-hidden="true" /></span>{t('Danger zone')}</span>} className="bg-gradient-to-br from-[#f6f1fb] via-[#ffe7ef] to-[#ffe6ee] ring-1 ring-[#ffd3d3]">
+          <Card title={<span className="inline-flex items-center gap-2.5"><span className="grid size-9 place-items-center rounded-2xl bg-gradient-to-br from-[#ffe6ee] to-[#ffd0e2] text-[#d6336c] shadow-[0_6px_14px_-8px_rgba(214, 51, 108, 0.8)]"><TriangleAlert className="size-5" aria-hidden="true" /></span>{t('Danger zone')}</span>} className="bg-gradient-to-br from-[#f6f1fb] via-[#ffe7ef] to-[#ffe6ee] ring-1 ring-[#ffd3d3]">
             <PrefRow title={t('Delete account')} sub={t('Permanently delete your account and all associated data.')}><Btn small variant="danger" onClick={() => app.open({ k: 'delAcc' })}>{t('Delete account')}</Btn></PrefRow>
           </Card>
         </>

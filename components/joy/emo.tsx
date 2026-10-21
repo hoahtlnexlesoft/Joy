@@ -98,7 +98,7 @@ function Glyph({ name, u }: { name: EmoName; u: U }): ReactNode {
     case 'garden':
       return (
         <>
-          <path d="M16 28 V13" stroke="#3f9a00" strokeWidth={1.8} strokeLinecap="round" />
+          <path d="M16 28 V13" stroke="#3f8a00" strokeWidth={1.8} strokeLinecap="round" />
           <path d="M16 16.4 C9 16.4 5.8 12.2 5.8 6.4 C11.6 6.4 16 9.6 16 16.4 Z" fill={u('green')} />
           <path d="M16 22 C23 22 26.2 17.8 26.2 12 C20.4 12 16 15.2 16 22 Z" fill={u('green')} />
           <Gloss cx={10.4} cy={9.6} rx={2.6} ry={1} r={35} />
@@ -108,7 +108,7 @@ function Glyph({ name, u }: { name: EmoName; u: U }): ReactNode {
     case 'sprout':
       return (
         <>
-          <path d="M16 27 V15" stroke="#3f9a00" strokeWidth={2} strokeLinecap="round" />
+          <path d="M16 27 V15" stroke="#3f8a00" strokeWidth={2} strokeLinecap="round" />
           <path d="M16 15.6 C16 9.2 11.4 6.6 5.8 7.2 C5.8 13 9.8 15.8 16 15.6 Z" fill={u('green')} />
           <path d="M16 13.4 C16 8 19.8 5.4 26.2 5.8 C26.2 11.2 22.4 13.8 16 13.4 Z" fill={u('green')} />
           <path d="M7 28 C9.4 24.4 22.6 24.4 25 28 Z" fill={u('tan')} />
@@ -570,7 +570,7 @@ const GRAD: Record<string, [string, string]> = {
   yellow: ['#ffe27a', '#ffb300'],
   pink: ['#ff9db8', '#f0488a'],
   purple: ['#cfb8ff', '#8e5cf0'],
-  red: ['#ff8a7a', '#e5484d'],
+  red: ['#ff765f', '#e5484d'],
   skin: ['#ffeadf', '#ffb98a'],
   tan: ['#f6dfae', '#dba85c'],
   grey: ['#ffffff', '#aab3cc'],

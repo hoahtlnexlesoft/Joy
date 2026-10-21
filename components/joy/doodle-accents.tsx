@@ -41,7 +41,7 @@ const shapes = {
     <path
       d="M32 8c2 12 6 16 18 18-12 2-16 6-18 18-2-12-6-16-18-18 12-2 16-6 18-18Z"
       fill="#ffd0a8"
-      stroke="#f59a6b"
+      stroke="#f49678"
       strokeWidth="2.5"
       strokeLinejoin="round"
     />
@@ -51,7 +51,7 @@ const shapes = {
       <path d="M6 44a26 26 0 0 1 52 0" stroke="#ff9db8" strokeWidth="5" />
       <path d="M12 44a20 20 0 0 1 40 0" stroke="#ffd08a" strokeWidth="5" />
       <path d="M18 44a14 14 0 0 1 28 0" stroke="#bfe5bd" strokeWidth="5" />
-      <path d="M24 44a8 8 0 0 1 16 0" stroke="#a9d3ff" strokeWidth="5" />
+      <path d="M24 44a8 8 0 0 1 16 0" stroke="#c4e0ff" strokeWidth="5" />
       <g fill="#fff" stroke="#ffd0a8" strokeWidth="2">
         <path d="M2 50a5 5 0 0 1 5-6 6 6 0 0 1 11 1 4.5 4.5 0 0 1 0 9H6a4 4 0 0 1-4-4Z" />
         <path d="M46 50a5 5 0 0 1 5-6 6 6 0 0 1 11 1 4.5 4.5 0 0 1 0 9H50a4 4 0 0 1-4-4Z" />
@@ -79,7 +79,7 @@ const shapes = {
   moon: (
     <path
       d="M42 10a22 22 0 1 0 12 30A18 18 0 0 1 42 10Z"
-      fill="#fff1b8"
+      fill="#f6dfae"
       stroke="#f9c95c"
       strokeWidth="2.5"
       strokeLinejoin="round"
@@ -105,10 +105,10 @@ const shapes = {
   dots: (
     <g>
       <circle cx="16" cy="18" r="6" fill="#ffd0a8" />
-      <circle cx="44" cy="14" r="4" fill="#c9ecdb" />
+      <circle cx="44" cy="14" r="4" fill="#e2f6ec" />
       <circle cx="30" cy="36" r="7" fill="#e6d6ff" />
       <circle cx="50" cy="44" r="5" fill="#f6bfd5" />
-      <circle cx="14" cy="50" r="4" fill="#a9d3ff" />
+      <circle cx="14" cy="50" r="4" fill="#c4e0ff" />
     </g>
   ),
 } satisfies Record<string, ReactNode>

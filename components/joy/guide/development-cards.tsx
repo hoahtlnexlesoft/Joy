@@ -7,7 +7,7 @@ export type DevKey = 'balance' | 'movement' | 'cycle' | 'progress'
 const palette: Record<DevKey, { soft: string; line: string; deep: string }> = {
   balance: { soft: '#ffeadf', line: '#f49678', deep: '#ea580c' },
   movement: { soft: '#e2f6ec', line: '#2fb37f', deep: '#23915a' },
-  cycle: { soft: '#efeaff', line: '#a97ff0', deep: '#785ac8' },
+  cycle: { soft: '#efeaff', line: '#8f72e6', deep: '#785ac8' },
   progress: { soft: '#e3f1ff', line: '#3f9cf2', deep: '#0877c9' },
 }
 

@@ -127,7 +127,7 @@ export function PasswordDialog({ app }: { app: App }) {
   )
 }
 
-const AV_PRESETS: [string, string][] = [['/images/animals/lion.webp', '#ffe3c9'], ['/images/animals/dolphin.webp', '#d6f0ff'], ['/images/animals/panda.webp', '#e2f6ec'], ['/images/animals/owl.webp', '#f4eeff'], ['/images/animals/bunny.webp', '#ffe6ee'], ['/images/animals/butterfly.webp', '#e7f7fa'], ['/images/animals/elephant.webp', '#ffffff'], ['/images/animals/ladybug.webp', '#fff3d6']]
+const AV_PRESETS: [string, string][] = [['/images/animals/lion.webp', '#ffeadf'], ['/images/animals/dolphin.webp', '#d6f0ff'], ['/images/animals/panda.webp', '#e2f6ec'], ['/images/animals/owl.webp', '#f4eeff'], ['/images/animals/bunny.webp', '#ffe6ee'], ['/images/animals/butterfly.webp', '#d6f0ff'], ['/images/animals/elephant.webp', '#ffffff'], ['/images/animals/ladybug.webp', '#fff3d6']]
 export function AvatarDialog({ app }: { app: App }) {
   const [pick, setPick] = useState(app.s.parent.avatar ?? { type: 'initials' as const })
   const [err, setErr] = useState('')
@@ -269,7 +269,7 @@ export function QrPanel({ app, size = 192, compact }: { app: App; size?: number;
   const actions = [
     { label: 'Refresh', icon: RefreshCw, tile: 'from-[#ffeadf] to-[#ffd0a8]', ink: 'text-[#f46f10]', run: refresh },
     { label: 'Save', icon: Download, tile: 'from-[#e3f1ff] to-[#c4e0ff]', ink: 'text-[#0a86e8]', run: save },
-    { label: 'Share', icon: Share2, tile: 'from-[#e2f6ec] to-[#c9ecdb]', ink: 'text-[#23915a]', run: share },
+    { label: 'Share', icon: Share2, tile: 'from-[#e2f6ec] to-[#e2f6ec]', ink: 'text-[#23915a]', run: share },
   ]
 
   return (

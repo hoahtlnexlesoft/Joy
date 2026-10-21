@@ -27,7 +27,7 @@ const cycles: Cycle[] = [
     nodes: [
       { name: 'Alpha', color: '#7ccf4a', angle: 180, current: true },
       { name: 'Omega', color: '#f9c95c', angle: 270 },
-      { name: 'Crystal', color: '#ec6a47', angle: 0 },
+      { name: 'Crystal', color: '#ff765f', angle: 0 },
       { name: 'Rainbow', color: '#22b8e8', angle: 90 },
     ],
   },
@@ -39,9 +39,9 @@ const cycles: Cycle[] = [
     nodes: [
       { name: 'Alpha', color: '#7ccf4a', angle: 198, current: true },
       { name: 'Omega', color: '#f9c95c', angle: 270 },
-      { name: 'Crystal', color: '#ec6a47', angle: 342 },
+      { name: 'Crystal', color: '#ff765f', angle: 342 },
       { name: 'Rainbow', color: '#22b8e8', angle: 54 },
-      { name: 'Crystal', color: '#a66ee0', angle: 126 },
+      { name: 'Crystal', color: '#8f72e6', angle: 126 },
     ],
   },
 ]
@@ -129,7 +129,7 @@ function HomeNode({ x, y, color, icon }: { x: number; y: number; color: string; 
   return (
     <g className="motion-safe:animate-[joy-bob_3s_ease-in-out_infinite]" style={{ transformBox: 'fill-box', transformOrigin: 'center' }}>
       <circle cx={x} cy={y} r={NODE_R + 9} fill={color} opacity={0.16} />
-      <circle cx={x} cy={y} r={NODE_R} fill="#eaf7e1" stroke={color} strokeWidth={4} />
+      <circle cx={x} cy={y} r={NODE_R} fill="#e2f6ec" stroke={color} strokeWidth={4} />
       <path
         d={`M ${x - 12} ${y - 1} L ${x} ${y - 13} L ${x + 12} ${y - 1} M ${x - 9} ${y - 3} V ${y + 12} H ${x + 9} V ${y - 3}`}
         fill="none"
@@ -160,7 +160,7 @@ function CycleDiagram({ cycle, diamondArrows = false }: { cycle: Cycle; diamondA
       <defs>
         <linearGradient id={gold} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#f9c95c" />
-          <stop offset="100%" stopColor="#e3a500" />
+          <stop offset="100%" stopColor="#f5b73b" />
         </linearGradient>
         <marker id={arrow} viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
           <path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#c9bfd6" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />

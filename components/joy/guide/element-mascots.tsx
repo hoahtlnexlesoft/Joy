@@ -5,15 +5,15 @@ export type ElementKey = 'Flame' | 'Stream' | 'Spark' | 'Stone' | 'Wind' | 'Gard
 
 /** bg = card fill, bd = card border, blob = corner shapes, chip = energy pill, deep = chip text */
 const palette: Record<ElementKey, { bg: string; bd: string; blob: string; chip: string; deep: string }> = {
-  Flame: { bg: '#ffeadf', bd: '#ffd9c4', blob: '#ffd9c4', chip: '#ffd9c4', deep: '#e8332a' },
+  Flame: { bg: '#ffeadf', bd: '#e6c6b7', blob: '#e6c6b7', chip: '#e6c6b7', deep: '#e8332a' },
   Stream: { bg: '#e3f1ff', bd: '#c4e0ff', blob: '#c4e0ff', chip: '#e3f1ff', deep: '#0a86e8' },
-  Spark: { bg: '#fff3d6', bd: '#ffe27a', blob: '#fff1b8', chip: '#fff1b8', deep: '#b98200' },
-  Stone: { bg: '#ffffff', bd: '#dcdce5', blob: '#dcdce5', chip: '#dcdce5', deep: '#6b6b7d' },
+  Spark: { bg: '#fff3d6', bd: '#ffe27a', blob: '#f6dfae', chip: '#f6dfae', deep: '#b98200' },
+  Stone: { bg: '#ffffff', bd: '#f6f1fb', blob: '#f6f1fb', chip: '#f6f1fb', deep: '#6b6b7d' },
   Wind: { bg: '#e3f1ff', bd: '#c4e0ff', blob: '#e3f1ff', chip: '#e3f1ff', deep: '#0a86e8' },
-  Garden: { bg: '#e2f6ec', bd: '#bfe5bd', blob: '#c9ecdb', chip: '#c9ecdb', deep: '#2f8f3a' },
+  Garden: { bg: '#e2f6ec', bd: '#bfe5bd', blob: '#e2f6ec', chip: '#e2f6ec', deep: '#2f8f3a' },
   Sky: { bg: '#f4eeff', bd: '#e6d6ff', blob: '#e6d6ff', chip: '#e6d6ff', deep: '#8a45d6' },
-  Mountain: { bg: '#fff3d6', bd: '#f6dfae', blob: '#fff1b8', chip: '#fff1b8', deep: '#b3731a' },
-  Ocean: { bg: '#e7f7fa', bd: '#b3dff2', blob: '#d6f0ff', chip: '#d6f0ff', deep: '#0284c7' },
+  Mountain: { bg: '#fff3d6', bd: '#f6dfae', blob: '#f6dfae', chip: '#f6dfae', deep: '#b3731a' },
+  Ocean: { bg: '#d6f0ff', bd: '#b3dff2', blob: '#d6f0ff', chip: '#d6f0ff', deep: '#0a86e8' },
 }
 
 

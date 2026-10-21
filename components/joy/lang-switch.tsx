@@ -29,7 +29,7 @@ export function FlagMM({ className }: { className?: string }) {
       <clipPath id={id}><circle cx="12" cy="12" r="12" /></clipPath>
       <g clipPath={`url(#${id})`}>
         <rect y="0" width="24" height="8.1" fill="#fbc23c" />
-        <rect y="8" width="24" height="8.1" fill="#34b233" />
+        <rect y="8" width="24" height="8.1" fill="#58b800" />
         <rect y="16" width="24" height="8" fill="#e5484d" />
         <polygon fill="#fff" points="12.00,5.00 13.71,10.25 19.23,10.25 14.76,13.50 16.47,18.75 12.00,15.50 7.53,18.75 9.24,13.50 4.77,10.25 10.29,10.25" />
       </g>

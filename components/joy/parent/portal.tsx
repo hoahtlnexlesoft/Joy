@@ -179,7 +179,7 @@ export function ParentPortal() {
                 <p className="mt-3 px-3 pb-1 text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground">{t('My Profile')}</p>
                 {SECTIONS.map((i) => navBtn(sec === i.id, () => go({ name: 'profile', sec: i.id }), <CuteIcon name={i.id} active={sec === i.id} className="size-8" />, t(i.label), true))}
               </nav>
-              <div className="relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#eaf7e1] via-white to-[#fffaf4] p-5 shadow-[0_0_0_1px_var(--border)]">
+              <div className="relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#e2f6ec] via-white to-[#fffaf4] p-5 shadow-[0_0_0_1px_var(--border)]">
                 <div aria-hidden="true" className="pointer-events-none absolute -right-8 -top-8 size-28 opacity-[0.12]" style={{ backgroundImage: 'url(/images/triskele.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }} />
                 <CuteIcon name="gift" className="relative size-11" />
                 <b className="relative mt-3 block text-sm text-[#27253f]">{t('Have a voucher?')}</b>
@@ -369,7 +369,7 @@ function ChildDetail({ app, child: c }: { app: App; child: Child }) {
             <Card title={`${c.name}${t('’s nature')}`}>
               {known ? (
                 <div className="grid grid-cols-2 gap-3">
-                  {([['Core element', c.element!, '#ff8a2a'], ['Animal nature', c.animal!, '#e3a500'], ['Child nature', c.nature!, '#58b800'], ['Potential archetype', c.arch!, '#1fa9e8']] as const).map(([k, v, col], i) => (
+                  {([['Core element', c.element!, '#ff9e50'], ['Animal nature', c.animal!, '#f5b73b'], ['Child nature', c.nature!, '#58b800'], ['Potential archetype', c.arch!, '#1fa9e8']] as const).map(([k, v, col], i) => (
                     <div key={k} className={cn('rounded-2xl p-3', i > 1 && 'col-span-2')} style={{ background: col + '1a' }}>
                       {i === 0 ? <ElementMascot name={c.element as ElementKey} className="mb-1 size-9" /> : i === 1 ? <ChildThumb c={c} className="mb-1 size-9" /> : null}
                       <small className="block text-xs text-muted-foreground">{t(k)}</small><b className="font-display text-lg font-medium">{v}</b>
@@ -377,7 +377,7 @@ function ChildDetail({ app, child: c }: { app: App; child: Child }) {
                   ))}
                 </div>
               ) : (
-                <div className="flex items-start gap-3 rounded-2xl bg-[#eaf7e1] p-4 text-sm"><span className="text-2xl" aria-hidden="true"><Emo e="🌱" /></span><p>{t('Joy is still getting to know')} {c.name}. {t('Their core element, animal nature and child nature appear here as they play.')}</p></div>
+                <div className="flex items-start gap-3 rounded-2xl bg-[#e2f6ec] p-4 text-sm"><span className="text-2xl" aria-hidden="true"><Emo e="🌱" /></span><p>{t('Joy is still getting to know')} {c.name}. {t('Their core element, animal nature and child nature appear here as they play.')}</p></div>
               )}
             </Card>
           </div>

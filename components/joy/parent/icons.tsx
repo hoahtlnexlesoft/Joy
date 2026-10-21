@@ -8,14 +8,14 @@ const TILE: Record<CuteName, string> = {
   plans: 'from-[#f6dfae] to-[#f6dfae]',
   account: 'from-[#efeaff] to-[#ffd0e2]',
   profile: 'from-[#efeaff] to-[#ffd0e2]',
-  payments: 'from-[#d6f0ff] to-[#dfe6ff]',
+  payments: 'from-[#d6f0ff] to-[#efeaff]',
   prefs: 'from-[#f6dfae] to-[#ffeadf]',
-  security: 'from-[#c9ecdb] to-[#d6f0ff]',
+  security: 'from-[#e2f6ec] to-[#d6f0ff]',
   gift: 'from-[#ffe6ee] to-[#fff3d6]',
   trash: 'from-[#ffe6ee] to-[#ffd3d3]',
-  warning: 'from-[#f6dfae] to-[#ffd9c4]',
+  warning: 'from-[#f6dfae] to-[#e6c6b7]',
   bubble: 'from-[#efeaff] to-[#d6f0ff]',
-  balloon: 'from-[#ffe6ee] to-[#ffe3c9]',
+  balloon: 'from-[#ffe6ee] to-[#ffeadf]',
   clock: 'from-[#f6dfae] to-[#f6dfae]',
 }
 

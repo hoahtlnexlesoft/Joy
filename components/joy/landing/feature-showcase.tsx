@@ -118,7 +118,7 @@ export function FeatureShowcase() {
     <nav aria-label="What Joy offers" data-no-reveal className="relative mx-auto mt-6 max-w-6xl md:mt-8 lg:mt-14">
       <ul
         ref={listRef}
-        className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-6 pt-1 md:mx-0 md:overflow-visible md:px-0"
+        className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-6 pt-1 md:mx-0 md:scroll-px-0 md:overflow-visible md:px-0"
       >
         {features.map((feature, index) => {
           const isActive = index === active

@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Caveat, Fredoka, Noto_Sans, Noto_Sans_Myanmar, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
+import { BootLoader } from '@/components/joy/boot-loader'
 import { ContactBubble } from '@/components/joy/contact-bubble'
 import { LangHtmlSync } from '@/components/joy/lang-switch'
 import { ReviewScript } from '@/components/joy/review/review-script'
@@ -68,6 +69,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fredoka.variable} ${jakarta.variable} ${caveat.variable} ${myanmar.variable} ${notoSans.variable}`}>
       <body className="antialiased">
+        <BootLoader />
+        <noscript><style>{'.joy-boot{display:none!important}'}</style></noscript>
         {children}
         <LangHtmlSync />
         <ContactBubble />

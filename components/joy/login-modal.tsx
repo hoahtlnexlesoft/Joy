@@ -98,7 +98,7 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login', next = 
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[100] grid place-items-center overflow-hidden overscroll-none bg-[#ffe7ef]/55 p-3 backdrop-blur-md sm:p-4"
+      className="fixed inset-0 z-[100] grid place-items-center overflow-hidden overscroll-none bg-[#27253f]/45 p-3 backdrop-blur-sm sm:p-4"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) onClose()
       }}

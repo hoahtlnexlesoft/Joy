@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils'
 import { useT } from '@/lib/i18n'
 import { ANIMAL_IMG } from './data'
 import { Emo, EmoText } from '@/components/joy/emo'
+import { PlanCarousel } from '@/components/joy/plan-carousel'
 
 const TYPE_STYLE: Record<PlanType, { chip: string; bar: string; tint: string; emoji: string }> = {
   Premium: { chip: 'bg-[#e3f1ff] text-[#0a86e8]', bar: '#1fa9e8', tint: '#e3f1ff', emoji: '🎈' },
@@ -367,7 +368,7 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
       <>
         {stepper}
         <DlgHead title={t('Choose a plan')} sub={t('Pick one or more plans. Each plan covers one child, and you’ll choose the child after paying.')} />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <PlanCarousel size="sm" label={t('Plans')} prevLabel={t('Previous plans')} nextLabel={t('Next plans')}>
           {CATALOG.map((c) => {
             const on = sel.includes(c.name)
             const sug = pre.plan === c.name
@@ -384,7 +385,7 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
               </article>
             )
           })}
-        </div>
+        </PlanCarousel>
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-[#ffffff] px-4 py-3">
           <div className="text-sm" aria-live="polite">
             {chosen.length ? <><b>{planWord(chosen.length)} {t('selected')}</b><span className="text-muted-foreground"> · {chosen.map((c) => c.name).join(' + ')}</span></> : <span className="text-muted-foreground">{t('Select one or more plans to continue.')}</span>}

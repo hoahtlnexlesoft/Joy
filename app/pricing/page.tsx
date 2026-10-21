@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Archive, ArrowRight, Baby, Check, ChevronDown, Crown, Eye, Gem, Lock, Minus, Repeat2, Sparkles } from '@/components/joy/cute-icons'
+import { PlanCarousel } from '@/components/joy/plan-carousel'
 import { ChoosePlanButton } from '@/components/joy/choose-plan-button'
 import { SiteHeader } from '@/components/joy/site-header'
 import { SiteFooter, TryJoyCta } from '@/components/joy/site-footer'
@@ -265,7 +266,7 @@ export default function PricingPage() {
               accent="plan for your child"
               description="Open a plan to see what it unlocks. Longer Premium plans cost less per month."
             />
-            <ul className="mt-12 grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <PlanCarousel as="ul" className="mt-12" label="Plans" hint="Swipe or use the arrows to see more plans">
               {plans.map((plan) => (
                 <li
                   key={plan.name}
@@ -320,7 +321,7 @@ export default function PricingPage() {
                   </div>
                 </li>
               ))}
-            </ul>
+            </PlanCarousel>
             <p className="mx-auto mt-8 max-w-2xl text-center text-xs text-muted-foreground">
               Prices are in US dollars (USD) and are sample prices for this mockup. Plans are bought and managed in your
               parent account in the Joy app.

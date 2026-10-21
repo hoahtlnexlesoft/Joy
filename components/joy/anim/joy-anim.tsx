@@ -95,6 +95,7 @@ const MARKUP: Record<AnimKind, (caption?: string) => string> = {
      <circle class="mg" cx="196" cy="62" r="38" fill="#ffe9a8" opacity=".35" filter="url(#joy-soft)"/>
      <circle cx="196" cy="62" r="31" fill="#ffe9a8" mask="url(#joy-moon-mask)"/>` +
     [[48, 40], [92, 90], [330, 50], [360, 120], [300, 96], [60, 150], [120, 40], [260, 30], [372, 40], [28, 96], [340, 180], [44, 200]].map((p) => `<use href="#joy-sp" class="st" x="${p[0]}" y="${p[1]}" fill="#fff6d6" opacity=".6"/>`).join('') +
+    Array.from({ length: 12 }, (_, i) => `<use href="#joy-sp" class="tr" fill="${['#fff6d6', '#e4d8ff', '#ffd9ec'][i % 3]}" opacity="0"/>`).join('') +
     BUTTERFLY(200, 150, 'style="filter:drop-shadow(0 0 7px rgba(255,236,170,.95)) drop-shadow(0 0 16px rgba(190,160,255,.7))"'),
 }
 
@@ -190,10 +191,22 @@ const INIT: Record<AnimKind, Init> = {
   },
 
   night: (s) => {
-    const b = $(s, '.bw'), bf = $(s, '.joy-bf'), st = $$(s, '.st'), glow = $(s, '.mg')
-    bf.classList.add('joy-bf-slow')
+    const b = $(s, '.bw'), bf = $(s, '.joy-bf'), st = $$(s, '.st'), glow = $(s, '.mg'), trail = $$(s, '.tr')
+    bf.style.animation = 'none' // the wings are driven below, so they can follow the flight
+    // A slow, looping wander built from a few sine waves: no corners, no sudden stops.
+    const Pt = (t: number): P => [200 + 110 * Math.sin(0.42 * t) + 28 * Math.sin(0.97 * t + 1.3), 136 + 36 * Math.sin(0.63 * t + 0.4) + 12 * Math.sin(1.51 * t)]
     return { dur: 0, rest: 3, frame: (t) => {
-      place(b, 200 + 90 * Math.sin(t * 0.5), 150 + 28 * Math.sin(t), Math.cos(t * 0.5) * 8, 1.6)
+      const [x, y] = Pt(t)
+      const vx = 110 * 0.42 * Math.cos(0.42 * t) + 28 * 0.97 * Math.cos(0.97 * t + 1.3)
+      const ph = t * Math.PI * 2 * 1.7 // about 1.7 wing beats a second
+      const lift = Math.sin(ph) * 3.5 // body rises a little on each beat
+      place(b, x, y - lift, clamp(vx / 40, -1, 1) * 12, 1.6)
+      bf.setAttribute('transform', `scale(${(0.6 + 0.4 * (0.5 + 0.5 * Math.cos(ph))).toFixed(3)} ${(1 + 0.05 * Math.sin(ph)).toFixed(3)})`)
+      trail.forEach((el, i) => {
+        const [tx, ty] = Pt(t - (i + 1) * 0.16), k = 1 - i / trail.length
+        el.setAttribute('transform', `translate(${tx.toFixed(1)} ${(ty + 4 * i * 0.3).toFixed(1)}) scale(${((0.3 + 0.5 * k) * (0.8 + 0.3 * Math.sin(t * 5 + i))).toFixed(2)})`)
+        el.setAttribute('opacity', (0.6 * k).toFixed(2))
+      })
       st.forEach((el, i) => el.setAttribute('opacity', (0.25 + 0.75 * (0.5 + 0.5 * Math.sin(t * 2 + i * 1.7))).toFixed(2)))
       glow.setAttribute('opacity', (0.3 + 0.1 * Math.sin(t * 1.2)).toFixed(2))
     } }

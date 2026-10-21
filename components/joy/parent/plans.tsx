@@ -523,8 +523,8 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
 
   return (
     <>
-<JoyAnim kind="gift" loop={false} className="pointer-events-none mx-auto -mt-1 -mb-3 block h-auto w-52 overflow-visible sm:w-64" />
-      <div className="relative min-h-[3.25rem] pr-12 sm:pr-14">
+      <div className="relative min-h-[3.25rem] pr-28 sm:pr-40">
+        <JoyAnim kind="gift" loop={false} viewBox="110 36 230 190" className="pointer-events-none absolute -top-12 right-9 h-auto w-24 overflow-visible sm:right-11 sm:w-28" />
         <DlgHead title={many ? t('Your plans are ready') : (() => { const c0 = assign[bought[0]?.id] ? app.s.children.find((x) => x.id === assign[bought[0].id]) : null; return c0 ? `${bought[0].name} ${t('is ready for')} ${c0.name}` : t('Your plan is ready') })()} />
       </div>
       <div className="mb-3 rounded-2xl bg-gradient-to-br from-[#e2f6ec] via-[#d6f0ff] to-[#e3f1ff] px-3.5 py-2.5 ring-1 ring-[#e2f6ec]">

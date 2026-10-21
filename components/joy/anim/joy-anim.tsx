@@ -209,7 +209,7 @@ export const ANIM_LABEL: Record<AnimKind, string> = {
   night: 'A glowing butterfly drifts under the moon',
 }
 
-export function JoyAnim({ kind, caption, className, replayKey = 0, loop = true }: {
+export function JoyAnim({ kind, caption, className, replayKey = 0, loop = true, viewBox = '0 0 400 260' }: {
   kind: AnimKind
   caption?: string
   className?: string
@@ -217,6 +217,8 @@ export function JoyAnim({ kind, caption, className, replayKey = 0, loop = true }
   replayKey?: number
   /** false = play once and hold the last moment (used inside dialogs). */
   loop?: boolean
+  /** Crop the stage, e.g. to drop empty space around the gift. */
+  viewBox?: string
 }) {
   const html = useMemo(() => MARKUP[kind](caption), [kind, caption])
   const ref = useRef<SVGSVGElement>(null)
@@ -245,7 +247,7 @@ export function JoyAnim({ kind, caption, className, replayKey = 0, loop = true }
   return (
     <svg
       ref={ref}
-      viewBox="0 0 400 260"
+      viewBox={viewBox}
       role="img"
       aria-label={ANIM_LABEL[kind]}
       className={className}

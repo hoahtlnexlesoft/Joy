@@ -375,11 +375,9 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
             return (
               <article key={c.name} onClick={() => toggle(c.name)} className={cn('relative flex cursor-pointer flex-col rounded-3xl p-4 ring-1 transition', on ? 'bg-[#f6f1fb] ring-2 ring-joy-pink shadow-md shadow-pink-100' : c.popular ? 'ring-2 ring-[#ffb15c]/70' : sug ? 'ring-2 ring-[#7fb5e6]/70' : 'ring-border hover:ring-foreground/25')}>
                 {c.popular ? <span className="absolute -top-2.5 left-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#ff9e50] to-[#ff6b6b] px-2.5 py-0.5 text-[10px] font-bold text-white shadow-sm shadow-orange-200"><Emo e="🔥" /> {t('Most popular')}</span> : sug ? <span className="absolute -top-2.5 left-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#7fb5e6] to-[#8b78f0] px-2.5 py-0.5 text-[10px] font-bold text-white shadow-sm shadow-blue-200">✨ {t('Suggested')}</span> : null}
+                <span aria-hidden="true" className={cn('absolute right-4 top-4 grid size-6 place-items-center rounded-full ring-1 transition', on ? 'bg-gradient-joy text-white ring-transparent' : 'bg-white text-transparent ring-border')}><Check className="size-3.5" strokeWidth={3.5} /></span>
                 <UnlockChip type={c.type} />
-                <div className="mt-2 flex items-center justify-between gap-2">
-                  <h3 className="font-display text-lg font-medium">{c.name}</h3>
-                  <span aria-hidden="true" className={cn('grid size-6 shrink-0 place-items-center rounded-full ring-1 transition', on ? 'bg-gradient-joy text-white ring-transparent' : 'bg-white text-transparent ring-border')}><Check className="size-3.5" strokeWidth={3.5} /></span>
-                </div>
+                <h3 className="mt-2 font-display text-lg font-medium">{c.name}</h3>
                 <div className="font-display text-3xl font-medium"><small className="mr-0.5 align-top text-sm">$</small>{c.price.toFixed(2)}</div>
                 <p className="text-xs text-muted-foreground">{monthsOf(c.months)} · {t('about')} ${(c.price / c.months).toFixed(2)} {t('a month')}</p>
                 <ul className="my-3 flex flex-1 flex-col gap-1.5 text-xs">{BENEFITS[c.type].map((b) => <li key={b} className="flex gap-1.5"><span className="text-[#2f8f3a]"><Emo e="✓" /></span>{t(b)}</li>)}</ul>

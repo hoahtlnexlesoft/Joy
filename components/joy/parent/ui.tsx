@@ -108,7 +108,7 @@ export function Modal({ onClose, children, size = 'md', title }: { onClose: () =
   }, [onClose])
   return (
     <div className="fixed inset-0 z-[100] grid place-items-center overflow-y-auto bg-[#27253f]/45 p-4 backdrop-blur-sm" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose() }}>
-      <div ref={ref} role="dialog" aria-modal="true" aria-label={title} className={cn('relative my-auto w-full rounded-[2rem] bg-white p-6 shadow-[0_30px_80px_-30px_rgba(39, 37, 63, 0.6)] sm:p-8', size === 'md' ? 'max-w-md' : size === 'wide' ? 'max-w-xl' : size === 'lg' ? 'max-w-[46rem]' : 'max-w-4xl')}>
+      <div ref={ref} role="dialog" aria-modal="true" aria-label={title} className={cn('relative my-auto w-full rounded-[2rem] bg-white p-6 shadow-[0_30px_80px_-30px_rgba(39, 37, 63, 0.6)] sm:p-8', size === 'md' ? 'max-w-md' : size === 'wide' ? 'max-w-xl' : size === 'lg' ? 'max-w-[46rem]' : 'max-w-5xl')}>
         <button type="button" data-close onClick={onClose} aria-label="Close" className="absolute right-4 top-4 z-10 grid size-9 place-items-center rounded-full text-muted-foreground transition hover:bg-[#f6f1fb] hover:text-foreground"><X className="size-5" /></button>
         {children}
       </div>

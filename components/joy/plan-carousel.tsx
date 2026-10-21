@@ -20,11 +20,11 @@ const SIZES = {
       '[&>*]:shrink-0 [&>*]:basis-[82%] sm:[&>*]:basis-[calc((100%-1.25rem)/2)] lg:[&>*]:basis-[calc((100%-3.75rem)/4)]',
     pad: 'pt-8 -mt-8',
   },
-  // gap-3 (0.75rem), used inside the Buy dialog
+  // gap-5 (1.25rem), used inside the Buy dialog
   sm: {
-    gap: 'gap-3 items-stretch',
+    gap: 'gap-5 items-stretch',
     item:
-      '[&>*]:shrink-0 [&>*]:basis-[82%] sm:[&>*]:basis-[calc((100%-0.75rem)/2)] lg:[&>*]:basis-[calc((100%-2.25rem)/4)]',
+      '[&>*]:shrink-0 [&>*]:basis-[82%] sm:[&>*]:basis-[calc((100%-1.25rem)/2)] lg:[&>*]:basis-[calc((100%-3.75rem)/4)]',
     pad: 'pt-4 -mt-4',
   },
 } as const
@@ -71,7 +71,7 @@ export function PlanCarousel({
 
   if (count <= MAX_GRID) {
     return (
-      <Tag className={cn(GRID, size === 'md' ? 'items-start gap-5' : 'gap-3', className)} role={Tag === 'ul' ? 'list' : undefined}>
+      <Tag className={cn(GRID, size === 'md' ? 'items-start gap-5' : 'gap-5', className)} role={Tag === 'ul' ? 'list' : undefined}>
         {children}
       </Tag>
     )
@@ -104,10 +104,10 @@ export function PlanCarousel({
       >
         {children}
       </Tag>
-      <button type="button" aria-label={prevLabel} disabled={!st.prev} onClick={() => go(-1)} className={cn(arrow, '-left-3 lg:-left-5')}>
+      <button type="button" aria-label={prevLabel} disabled={!st.prev} onClick={() => go(-1)} className={cn(arrow, '-left-3')}>
         <ChevronLeft className="size-5" aria-hidden="true" />
       </button>
-      <button type="button" aria-label={nextLabel} disabled={!st.next} onClick={() => go(1)} className={cn(arrow, '-right-3 lg:-right-5')}>
+      <button type="button" aria-label={nextLabel} disabled={!st.next} onClick={() => go(1)} className={cn(arrow, '-right-3')}>
         <ChevronRight className="size-5" aria-hidden="true" />
       </button>
       {hint ? <p className="-mt-3 text-center text-xs text-muted-foreground">{hint}</p> : null}

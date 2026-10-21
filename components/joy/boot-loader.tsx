@@ -29,7 +29,7 @@ export function BootLoader() {
   if (phase === 'gone') return null
   return (
     <div className={phase === 'out' ? 'joy-boot joy-boot-out' : 'joy-boot'}>
-      <PageLoader />
+      <PageLoader kind="night" />
     </div>
   )
 }

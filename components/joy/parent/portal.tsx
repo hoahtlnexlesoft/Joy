@@ -16,6 +16,7 @@ import { AssignDialog, AssignToChildDialog, BuyFlow, ChildThumb, PlanCard, Plans
 import { ActivitiesTab, FeelingLog, JourneyCard } from './insights'
 import { ProfileView, SECTIONS } from './profile'
 import { CuteIcon } from './icons'
+import { JoyAnim } from '@/components/joy/anim/joy-anim'
 import { ElementMascot, type ElementKey } from '@/components/joy/guide/element-mascots'
 import { Emo, EmoText } from '@/components/joy/emo'
 
@@ -355,6 +356,7 @@ function ChildDetail({ app, child: c }: { app: App; child: Child }) {
           <p className="mt-0.5 text-sm text-muted-foreground">{ageOf(c.dob)} {t('years old')} · {t(c.gender)}</p>
           <div className="mt-2"><UnlockBadge u={u} /></div>
         </div>
+        <JoyAnim kind="plant" className="pointer-events-none hidden h-auto w-36 shrink-0 sm:block" />
         <div className="flex gap-2">
           <Btn small variant="blueSoft" onClick={() => app.open({ k: 'child', child: c })}>{t('Edit')}</Btn>
           <Btn small variant="ghost" className="text-[#e5484d]" onClick={() => app.open({ k: 'delChild', child: c })}>{t('Delete')}</Btn>

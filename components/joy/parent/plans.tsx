@@ -1,7 +1,7 @@
 'use client'
 
 import { AppActivationGuide } from './app-guide'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { CalendarHeart, Check, ChevronRight, Gift, Plus, Timer, Zap } from '@/components/joy/cute-icons'
 import { Btn, Card, DlgHead, Empty, Field, Note, Seg, UnlockChip, inputCls } from './ui'
 import { BENEFITS, CATALOG, VOUCHERS, addDays, daysLeft, fmt, fmtDate, isExpired, isUpcoming, money, unlockOf } from './data'
@@ -13,6 +13,7 @@ import { useT } from '@/lib/i18n'
 import { ANIMAL_IMG } from './data'
 import { Emo, EmoText } from '@/components/joy/emo'
 import { PlanCarousel } from '@/components/joy/plan-carousel'
+import { JoyAnim } from '@/components/joy/anim/joy-anim'
 
 const TYPE_STYLE: Record<PlanType, { chip: string; bar: string; tint: string; emoji: string }> = {
   Premium: { chip: 'bg-[#e3f1ff] text-[#0a86e8]', bar: '#1fa9e8', tint: '#e3f1ff', emoji: '🎈' },
@@ -332,12 +333,36 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [waiting])
 
+  // The little kid hops to the step you are on (Plan -> Pay -> Child).
+  const olRef = useRef<HTMLOListElement>(null)
+  const [kid, setKid] = useState<{ x: number; hop: number }>({ x: -1, hop: 0 })
+  useLayoutEffect(() => {
+    const ol = olRef.current
+    if (!ol) return
+    const move = () => {
+      const dots = ol.querySelectorAll<HTMLElement>('li:not([role="presentation"]) > span:first-child')
+      const el = dots[Math.min(Math.max(d, 1), 3) - 1]
+      if (!el) return
+      const x = el.offsetLeft + el.offsetWidth / 2
+      setKid((k) => (k.x === x ? k : { x, hop: k.x < 0 ? 0 : k.hop + 1 }))
+    }
+    move()
+    const ro = new ResizeObserver(move)
+    ro.observe(ol)
+    return () => ro.disconnect()
+  }, [d, addingFor])
+
   if (addingFor)
     return <ChildForm app={app} onSaved={(c) => { setAssign((a) => ({ ...a, [addingFor]: c.id })); setAddingFor(null) }} onBack={() => setAddingFor(null)} />
 
   const steps = [t('Plan'), t('Pay'), t('Child')]
   const stepper = (
-    <ol aria-label={t('Steps')} className="mb-7 flex items-center gap-2 pr-10 sm:gap-3">
+    <ol ref={olRef} aria-label={t('Steps')} className="relative mb-7 flex items-center gap-2 pr-10 pt-9 sm:gap-3">
+      <span aria-hidden="true" style={{ left: kid.x }} className={cn('pointer-events-none absolute top-0 z-10 -translate-x-1/2 transition-[left] duration-700 ease-in-out', kid.x < 0 && 'opacity-0')}>
+        <span key={kid.hop} className="joy-kid-hop block">
+          <svg viewBox="-18 -18 36 36" className="size-8"><circle r="17" fill="#ffd9a8" /><path d="M-17 -2A17 17 0 0 1 17 -2Q9 -10 0 -9Q-9 -10 -17 -2Z" fill="#6b4226" /><circle cx="-5.5" cy="3" r="1.9" fill="#3a2a22" /><circle cx="5.5" cy="3" r="1.9" fill="#3a2a22" /><path d="M-5 8.5Q0 13 5 8.5" stroke="#3a2a22" strokeWidth="1.6" fill="none" strokeLinecap="round" /><circle cx="-10" cy="8" r="2.6" fill="#ff9fb0" opacity=".7" /><circle cx="10" cy="8" r="2.6" fill="#ff9fb0" opacity=".7" /></svg>
+        </span>
+      </span>
       {steps.map((s, i) => {
         const n = i + 1
         const done = n < d, on = n === d
@@ -498,9 +523,8 @@ export function BuyFlow({ app, pre, onDone }: { app: App; onDone?: (done: boolea
 
   return (
     <>
-<div className="relative min-h-[3.25rem] pr-12 sm:pr-14">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/butterfly-purple.webp" alt="" className="pointer-events-none absolute -top-2 right-6 size-14 object-contain drop-shadow-[0_6px_10px_rgba(142, 92, 240, 0.25)] sm:right-8 sm:size-16" />
+<JoyAnim kind="gift" loop={false} className="pointer-events-none mx-auto -mt-1 -mb-3 block h-auto w-52 overflow-visible sm:w-64" />
+      <div className="relative min-h-[3.25rem] pr-12 sm:pr-14">
         <DlgHead title={many ? t('Your plans are ready') : (() => { const c0 = assign[bought[0]?.id] ? app.s.children.find((x) => x.id === assign[bought[0].id]) : null; return c0 ? `${bought[0].name} ${t('is ready for')} ${c0.name}` : t('Your plan is ready') })()} />
       </div>
       <div className="mb-3 rounded-2xl bg-gradient-to-br from-[#e2f6ec] via-[#d6f0ff] to-[#e3f1ff] px-3.5 py-2.5 ring-1 ring-[#e2f6ec]">

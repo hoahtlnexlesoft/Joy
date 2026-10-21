@@ -457,7 +457,7 @@ html[lang='my'] body :where(.italic, em, i) { font-style: normal; }
 html[lang='my'] .joy-feature-label{display:flex;align-items:center;justify-content:center;min-height:calc(2 * 1.75em)}
 
 /* Page loader (cute) */
-.joy-boot { position: fixed; inset: 0; z-index: 2147483000; animation: joy-boot-in 0.35s ease 0.35s both; }
+.joy-boot { position: fixed; inset: 0; z-index: 2147483000; background: linear-gradient(170deg,#2a2550,#4b3f86 70%,#6a4f9c); }
 .joy-boot-out { animation: joy-boot-out 0.5s ease forwards; pointer-events: none; }
 @keyframes joy-boot-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes joy-boot-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(1.04); } }

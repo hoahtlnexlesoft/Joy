@@ -6,7 +6,7 @@ import { PageLoader } from '@/components/joy/page-loader'
 /**
  * Shown on every first load. It is part of the server HTML, so it paints as soon as the
  * page starts arriving, and it leaves (with a short fade) once the page has hydrated and
- * finished loading. A fast load never sees it: it stays invisible for its first 350 ms.
+ * finished loading. A fast load never sees it: it covers the page from the first paint with the night sky only, so the plain page loader never shows through.
  */
 const PREVIEW = process.env.NEXT_PUBLIC_JOY_PREVIEW === '1'
 

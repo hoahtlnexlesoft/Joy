@@ -737,7 +737,7 @@ export function CommentLayer() {
       )}
 
       {/* bottom-center mode pill (Browse / Comment) */}
-      <div data-review-ui style={{ left: 'calc(50% - var(--joy-dock, 0px) / 2)' }} className="fixed bottom-4 z-[110] flex -translate-x-1/2 flex-col items-center gap-2">
+      <div data-review-ui style={{ left: 'calc(50% - var(--joy-dock, 0px) / 2)' }} className="fixed bottom-[5.5rem] z-[110] flex -translate-x-1/2 flex-col items-center gap-2 md:bottom-4">
         {mode && (
           <span className="whitespace-nowrap rounded-full bg-slate-900/90 px-3 py-1.5 text-xs font-semibold text-white">
             Click anything to comment · Esc to cancel

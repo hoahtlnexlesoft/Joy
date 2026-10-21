@@ -127,8 +127,8 @@ export function MobileDownloadBar() {
       aria-hidden={!show}
       className={cn(
         'fixed inset-x-0 z-[60] px-3 pr-[4.75rem] transition-all duration-300 md:hidden',
-        // the client-review build has a Browse/Comment pill along the bottom edge: sit above it
-        process.env.NEXT_PUBLIC_JOY_REVIEW === '1' ? 'bottom-[3.75rem]' : 'bottom-3',
+        // same line as the contact bubble (bubble: bottom-4, size-14 -> its centre is 2.75rem up; this bar is h-12)
+        'bottom-5',
         show ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-full opacity-0',
       )}
     >

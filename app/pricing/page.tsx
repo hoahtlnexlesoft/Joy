@@ -83,6 +83,16 @@ const plans = [
   },
 ]
 
+// Preview-only: NEXT_PUBLIC_JOY_PLANS=6 shows two extra sample plans to demo the scrolling row.
+const extraPlans =
+  process.env.NEXT_PUBLIC_JOY_PLANS === '6'
+    ? [
+        { name: 'Explorer', badge: 'Premium unlock', duration: '6 months', price: '24.99', monthly: 'about $4.17 a month', image: '/images/daily-adventure.jpg', tint: 'bg-mint', benefits: premiumBenefits, excluded: 'Not included: Special Plan program and library' },
+        { name: 'Family Year', badge: 'Special unlock', duration: '24 months', price: '99.99', monthly: 'about $4.17 a month', image: '/images/joy-collection-yoga.jpg', tint: 'bg-lavender', benefits: plans[3].benefits, excluded: plans[3].excluded },
+      ]
+    : []
+const allPlans: ((typeof plans)[number] & { popular?: boolean })[] = [...plans, ...extraPlans]
+
 type Cell = 'in' | 'preview' | 'locked' | 'none'
 
 const groups: { group: string; rows: { name: string; hint?: string; cells: [Cell, Cell, Cell, Cell] }[] }[] = [
@@ -267,7 +277,7 @@ export default function PricingPage() {
               description="Open a plan to see what it unlocks. Longer Premium plans cost less per month."
             />
             <PlanCarousel as="ul" className="mt-12" label="Plans" hint="Swipe or use the arrows to see more plans">
-              {plans.map((plan) => (
+              {allPlans.map((plan) => (
                 <li
                   key={plan.name}
                   className={cn(

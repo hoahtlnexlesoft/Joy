@@ -55,6 +55,13 @@ export const CATALOG = [
   { name: 'Adventure', type: 'Premium' as const, months: 3, price: 12.99, popular: true },
   { name: 'Guided Growth', type: 'Premium' as const, months: 12, price: 44.99, popular: false },
   { name: 'Mastery', type: 'Special' as const, months: 12, price: 59.99, popular: false },
+  // Preview-only: NEXT_PUBLIC_JOY_PLANS=6 adds two sample plans to demo the scrolling row.
+  ...(process.env.NEXT_PUBLIC_JOY_PLANS === '6'
+    ? [
+        { name: 'Explorer', type: 'Premium' as const, months: 6, price: 24.99, popular: false },
+        { name: 'Family Year', type: 'Special' as const, months: 24, price: 99.99, popular: false },
+      ]
+    : []),
 ]
 export const BENEFITS: Record<string, string[]> = {
   Premium: ['All daily activities', 'Premium Joy Collection activities', 'Premium animals'],

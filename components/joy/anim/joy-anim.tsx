@@ -36,6 +36,30 @@ const arc = (p0: P, p1: P, p2: P, u: number) => {
 }
 const place = (g: Element, x: number, y: number, ang: number, sc: number) =>
   g.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${ang.toFixed(1)}) scale(${sc})`)
+const rigs = new WeakMap<Element, { rig: SVGElement; l: SVGElement; r: SVGElement; b: SVGElement }>()
+/**
+ * Beat the wings. Each wing folds toward the body and its tip lifts as it closes, the right wing a
+ * little behind the left, the beat speeds up and slows down, and the body rises on every down-stroke.
+ * `calm` is a slower, softer beat (butterfly resting or drifting).
+ */
+const wing = (g: Element, t: number, calm = false, seed = 0) => {
+  let k = rigs.get(g)
+  if (!k) { k = { rig: $(g, '.wrg'), l: $(g, '.wl'), r: $(g, '.wr'), b: $(g, '.wb') }; rigs.set(g, k) }
+  const f = calm ? 1.5 : 2.6
+  const p = (f * t + (calm ? 0.35 : 0.5) * Math.sin(0.4 * t + seed)) * Math.PI * 2
+  const beat = (ph: number) => (Math.cos(ph) + 0.24 * Math.cos(2 * ph - 0.7)) / 1.24 // 1 = wide open, -1 = folded up
+  const wl = beat(p), wr = beat(p - 0.16)
+  const side = (w: number, sign: number) => {
+    const u = (1 - w) / 2 // 0 open .. 1 folded
+    const sx = 0.34 + 0.66 * (1 - u * (calm ? 0.8 : 1))
+    const tip = (calm ? 12 : 20) * u - 5
+    return `scale(${sx.toFixed(3)} ${(1 + 0.04 * u).toFixed(3)}) skewY(${(sign * tip).toFixed(1)})`
+  }
+  k.l.setAttribute('transform', side(wl, 1))
+  k.r.setAttribute('transform', side(wr, -1))
+  k.rig.setAttribute('transform', `scale(0.115) translate(0 ${(-24 * (calm ? 0.6 : 1) * Math.cos(p)).toFixed(1)})`)
+  k.b.setAttribute('transform', `rotate(${(3 * Math.sin(p - 0.5)).toFixed(2)})`)
+}
 const bounce = (d: number) => (d > 0 && d < 1.4 ? Math.exp(-d * 5) * Math.cos(d * 18) : 0)
 const burst = (els: Element[], cx: number, cy: number, d: number, r: number) =>
   els.forEach((el, i) => {
@@ -47,11 +71,15 @@ const $ = (s: Element, sel: string) => s.querySelector(sel) as SVGElement
 const $$ = (s: Element, sel: string) => Array.from(s.querySelectorAll(sel)) as SVGElement[]
 
 const SPARK_COL = ['#ffb04a', '#ff6b8b', '#9a7bff', '#ffd166']
-const DEFS = '<defs><path id="joy-sp" d="M0 -6 L1.6 -1.6 L6 0 L1.6 1.6 L0 6 L-1.6 1.6 L-6 0 L-1.6 -1.6 Z"/></defs>'
+/** Clips that cut the butterfly picture into a left wing, a right wing and the body, so the wings can beat on their own. */
+const RIG_DEFS = '<clipPath id="joy-c-l"><rect x="-214" y="-150" width="214" height="318"/></clipPath><clipPath id="joy-c-r"><rect x="0" y="-150" width="206" height="318"/></clipPath><clipPath id="joy-c-b"><ellipse cx="0" cy="2" rx="92" ry="70"/><ellipse cx="31" cy="95" rx="50" ry="50"/><rect x="-129" y="-150" width="165" height="105"/></clipPath>'
+const DEFS = `<defs><path id="joy-sp" d="M0 -6 L1.6 -1.6 L6 0 L1.6 1.6 L0 6 L-1.6 1.6 L-6 0 L-1.6 -1.6 Z"/>${RIG_DEFS}</defs>`
 const sparks = (n: number) => Array.from({ length: n }, (_, i) => `<use href="#joy-sp" class="sk" fill="${SPARK_COL[i % 4]}" opacity="0"/>`).join('')
-/** The real Joy butterfly. `class="bf"` flaps; the wrapper `bw` is moved by the frame function. */
+/** The real Joy butterfly, cut into two wings and a body. The wrapper `bw` is moved by the frame
+ *  function and `wing()` beats the wings. The picture is 420 x 318, centred on the head. */
+const PIC = 'href="/images/butterfly-purple.webp" x="-214" y="-150" width="420" height="318"'
 const BUTTERFLY = (x: number, y: number, extra = '') =>
-  `<g class="bw" transform="translate(${x} ${y})" ${extra}><g class="joy-bf"><image href="/images/butterfly-purple.webp" x="-24" y="-18" width="48" height="36"/></g></g>`
+  `<g class="bw" transform="translate(${x} ${y})" ${extra}><g class="wrg" transform="scale(0.115)"><g class="wl"><image clip-path="url(#joy-c-l)" ${PIC}/></g><g class="wr"><image clip-path="url(#joy-c-r)" ${PIC}/></g><g class="wb"><image clip-path="url(#joy-c-b)" ${PIC}/></g></g></g>`
 const LOGO = (x: number, y: number, w: number) => `<image href="/images/joy-logo.webp" x="${x}" y="${y}" width="${w}" height="${(w * 119) / 260}"/>`
 const FONT = "font-family=\"'Plus Jakarta Sans',system-ui,sans-serif\" font-weight=\"700\""
 
@@ -90,7 +118,7 @@ const MARKUP: Record<AnimKind, (caption?: string) => string> = {
     (caption ? `<g class="cap" opacity="0"><rect x="112" y="206" width="176" height="26" rx="13" fill="#fff"/><text x="200" y="223.5" text-anchor="middle" ${FONT} font-size="13" fill="#27253f">${caption}</text></g>` : ''),
 
   night: () =>
-    `<defs><path id="joy-sp" d="M0 -6 L1.6 -1.6 L6 0 L1.6 1.6 L0 6 L-1.6 1.6 L-6 0 L-1.6 -1.6 Z"/><mask id="joy-moon-mask"><rect width="400" height="260" fill="#fff"/><circle cx="214" cy="48" r="27" fill="#000"/></mask>
+    `<defs><path id="joy-sp" d="M0 -6 L1.6 -1.6 L6 0 L1.6 1.6 L0 6 L-1.6 1.6 L-6 0 L-1.6 -1.6 Z"/>${RIG_DEFS}<mask id="joy-moon-mask"><rect width="400" height="260" fill="#fff"/><circle cx="214" cy="48" r="27" fill="#000"/></mask>
       <filter id="joy-soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter></defs>
      <circle class="mg" cx="196" cy="62" r="38" fill="#ffe9a8" opacity=".35" filter="url(#joy-soft)"/>
      <circle cx="196" cy="62" r="31" fill="#ffe9a8" mask="url(#joy-moon-mask)"/>` +
@@ -105,7 +133,7 @@ const INIT: Record<AnimKind, Init> = {
     const Pt = (t: number): P => { const u = t * 1.1; return [200 + 140 * Math.sin(u), 130 + 58 * Math.sin(2 * u) + 4 * Math.sin(t * 9)] }
     return { dur: 0, rest: 3, frame: (t) => {
       const [x, y] = Pt(t), [x2] = Pt(t + 0.03)
-      place(b, x, y, clamp((x2 - x) * 6, -1, 1) * 12, 1.3)
+      place(b, x, y, clamp((x2 - x) * 6, -1, 1) * 12, 1.3); wing(b, t)
       trail.forEach((el, i) => {
         const [tx, ty] = Pt(t - (i + 1) * 0.07), k = 1 - i / trail.length
         el.setAttribute('transform', `translate(${tx.toFixed(1)} ${ty.toFixed(1)}) scale(${((0.35 + 0.65 * k) * (0.8 + 0.4 * Math.sin(t * 8 + i))).toFixed(2)})`)
@@ -115,14 +143,14 @@ const INIT: Record<AnimKind, Init> = {
   },
 
   land: (s) => {
-    const b = $(s, '.bw'), bf = $(s, '.joy-bf'), lo = $(s, '.lo'), sk = $$(s, '.sk')
+    const b = $(s, '.bw'), lo = $(s, '.lo'), sk = $$(s, '.sk')
     const IN: [P, P, P] = [[-30, 230], [120, 10], [206, 92]], OUT: [P, P, P] = [[206, 92], [300, 10], [440, -30]]
     return { dur: 6.8, rest: 3.4, frame: (t) => {
       let r: { x: number; y: number; ang: number }, sc = 0.9, slow = false
       if (t < 2.4) { const u = E.out(t / 2.4); r = arc(...IN, u); r.x += Math.sin(t * 7) * 6 * (1 - u); r.ang = clamp(r.ang - 90, -25, 25) * (1 - seg(t, 1.7, 2.4)) }
       else if (t < 5.2) { r = { x: 206, y: 92 + Math.sin(t * 2) * 1.2, ang: Math.sin(t * 1.5) * 5 }; slow = true; sc = 0.8 }
       else { r = arc(...OUT, E.io(seg(t, 5.2, 6.3))); r.ang = 12; sc = 0.9 }
-      place(b, r.x, r.y, r.ang, sc); bf.classList.toggle('joy-bf-slow', slow)
+      place(b, r.x, r.y, r.ang, sc); wing(b, t, slow)
       const d = t - 2.4
       lo.setAttribute('transform', `translate(200 187) scale(${(1 + 0.05 * bounce(d)).toFixed(3)} ${(1 - 0.08 * bounce(d)).toFixed(3)}) translate(-200 -187)`)
       burst(sk, 206, 104, d, 34)
@@ -130,7 +158,7 @@ const INIT: Record<AnimKind, Init> = {
   },
 
   plant: (s) => {
-    const stem = $(s, '.stem'), l1 = $(s, '.l1'), l2 = $(s, '.l2'), fl = $(s, '.fl'), seed = $(s, '.seed'), b = $(s, '.bw'), bf = $(s, '.joy-bf')
+    const stem = $(s, '.stem'), l1 = $(s, '.l1'), l2 = $(s, '.l2'), fl = $(s, '.fl'), seed = $(s, '.seed'), b = $(s, '.bw')
     const IN: [P, P, P] = [[-30, 70], [110, 0], [206, 84]], OUT: [P, P, P] = [[206, 84], [300, 20], [440, -20]]
     return { dur: 9, rest: 6, frame: (t) => {
       stem.setAttribute('stroke-dashoffset', (1 - E.out(seg(t, 0.8, 2.6))).toFixed(3))
@@ -143,7 +171,7 @@ const INIT: Record<AnimKind, Init> = {
       if (t < 4.6) r = { x: -30, y: 70, ang: 0 }
       else if (t < 7.4) { const u = E.out(seg(t, 4.6, 5.9)); r = arc(...IN, u); r.ang = clamp(r.ang - 90, -25, 25) * (1 - seg(t, 5.3, 5.9)); r.y += Math.sin(t * 1.8) * 0.8 * seg(t, 5.9, 6); slow = t > 5.9 }
       else { r = arc(...OUT, E.io(seg(t, 7.4, 8.5))); r.ang = 12 }
-      place(b, r.x, r.y, r.ang, 0.8); bf.classList.toggle('joy-bf-slow', slow)
+      place(b, r.x, r.y, r.ang, 0.8); wing(b, t, slow, 1)
     } }
   },
 
@@ -163,7 +191,7 @@ const INIT: Record<AnimKind, Init> = {
       })
       const bt = t - 1.3
       if (bt < 0) b.setAttribute('opacity', '0')
-      else { b.setAttribute('opacity', '1'); const k = E.out(clamp(bt / 1.6)); place(b, 200 + 46 * Math.sin(bt * 1.7) * k, 126 - 84 * k + Math.sin(bt * 2.4) * 5 * k, Math.cos(bt * 1.7) * 10, 0.2 + 0.8 * E.out(clamp(bt / 0.6))) }
+      else { b.setAttribute('opacity', '1'); const k = E.out(clamp(bt / 1.6)); place(b, 200 + 46 * Math.sin(bt * 1.7) * k, 126 - 84 * k + Math.sin(bt * 2.4) * 5 * k, Math.cos(bt * 1.7) * 10, 0.2 + 0.8 * E.out(clamp(bt / 0.6))); wing(b, t, false, 2) }
       cap?.setAttribute('opacity', String(seg(t, 2, 2.6)))
     } }
   },
@@ -184,24 +212,21 @@ const INIT: Record<AnimKind, Init> = {
       })
       const bt = t - 4
       if (bt < 0) b.setAttribute('opacity', '0')
-      else { b.setAttribute('opacity', '1'); const k = E.out(clamp(bt)); place(b, 330 - 90 * (1 - k), 36 - 30 * (1 - k) + Math.sin(bt * 3) * 4, Math.sin(bt * 2) * 8, 0.2 + 0.8 * E.out(clamp(bt / 0.5))) }
+      else { b.setAttribute('opacity', '1'); const k = E.out(clamp(bt)); place(b, 330 - 90 * (1 - k), 36 - 30 * (1 - k) + Math.sin(bt * 3) * 4, Math.sin(bt * 2) * 8, 0.2 + 0.8 * E.out(clamp(bt / 0.5))); wing(b, t, false, 3) }
       burst(sk, 330, 60, t - 4, 30)
       cap?.setAttribute('opacity', String(seg(t, 4.6, 5.2)))
     } }
   },
 
   night: (s) => {
-    const b = $(s, '.bw'), bf = $(s, '.joy-bf'), st = $$(s, '.st'), glow = $(s, '.mg'), trail = $$(s, '.tr')
-    bf.style.animation = 'none' // the wings are driven below, so they can follow the flight
+    const b = $(s, '.bw'), st = $$(s, '.st'), glow = $(s, '.mg'), trail = $$(s, '.tr')
     // A slow, looping wander built from a few sine waves: no corners, no sudden stops.
     const Pt = (t: number): P => [200 + 110 * Math.sin(0.42 * t) + 28 * Math.sin(0.97 * t + 1.3), 136 + 36 * Math.sin(0.63 * t + 0.4) + 12 * Math.sin(1.51 * t)]
     return { dur: 0, rest: 3, frame: (t) => {
       const [x, y] = Pt(t)
       const vx = 110 * 0.42 * Math.cos(0.42 * t) + 28 * 0.97 * Math.cos(0.97 * t + 1.3)
-      const ph = t * Math.PI * 2 * 1.7 // about 1.7 wing beats a second
-      const lift = Math.sin(ph) * 3.5 // body rises a little on each beat
-      place(b, x, y - lift, clamp(vx / 40, -1, 1) * 12, 1.6)
-      bf.setAttribute('transform', `scale(${(0.6 + 0.4 * (0.5 + 0.5 * Math.cos(ph))).toFixed(3)} ${(1 + 0.05 * Math.sin(ph)).toFixed(3)})`)
+      place(b, x, y, clamp(vx / 30, -1, 1) * 14 + 4 * Math.sin(t * 1.3), 1.6)
+      wing(b, t, true)
       trail.forEach((el, i) => {
         const [tx, ty] = Pt(t - (i + 1) * 0.16), k = 1 - i / trail.length
         el.setAttribute('transform', `translate(${tx.toFixed(1)} ${(ty + 4 * i * 0.3).toFixed(1)}) scale(${((0.3 + 0.5 * k) * (0.8 + 0.3 * Math.sin(t * 5 + i))).toFixed(2)})`)

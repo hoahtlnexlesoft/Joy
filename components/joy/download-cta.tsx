@@ -126,7 +126,7 @@ export function MobileDownloadBar() {
       data-no-reveal
       aria-hidden={!show}
       className={cn(
-        'fixed inset-x-0 z-[60] px-3 pr-[4.75rem] transition-all duration-300 md:hidden',
+        'fixed inset-x-0 z-[60] px-3 pr-[6rem] transition-all duration-300 md:hidden',
         // same line as the contact bubble (bubble: bottom-4, size-14 -> its centre is 2.75rem up; this bar is h-12)
         'bottom-5',
         show ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-full opacity-0',

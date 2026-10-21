@@ -192,7 +192,7 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login', next = 
               </p>
             </header>
 
-            <div className="mb-[4%] grid h-[clamp(2.75rem,4vw,3.25rem)] grid-cols-2 rounded-full bg-[#ffffff] p-1" role="tablist" aria-label="Choose how to log in">
+            <div className="mb-[4%] grid h-[clamp(2.75rem,4vw,3.25rem)] grid-cols-2 rounded-full bg-[#f6f1fb] p-1" role="tablist" aria-label="Choose how to log in">
               <button
                 type="button"
                 id="login-tab-email"
@@ -550,7 +550,7 @@ function SignupFlow({ onClose, onSwitchToLogin, next }: { onClose: () => void; o
             </p>
           </header>
 
-          <div className="mb-[3%] grid h-11 shrink-0 grid-cols-2 rounded-full bg-[#ffffff] p-1" role="tablist" aria-label="Choose how to sign up">
+          <div className="mb-[3%] grid h-11 shrink-0 grid-cols-2 rounded-full bg-[#f6f1fb] p-1" role="tablist" aria-label="Choose how to sign up">
             {tab('phone', 'Phone', <Smartphone className="size-[1em]" strokeWidth={2.5} aria-hidden="true" />)}
             {tab('email', 'Email', <Mail className="size-[1em]" strokeWidth={2.8} aria-hidden="true" />)}
           </div>

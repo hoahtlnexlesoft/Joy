@@ -16,6 +16,7 @@ export function BootLoader() {
     const finish = () => {
       if (done) return
       done = true
+      try { sessionStorage.setItem('joy-booted', '1') } catch {}
       setPhase('out')
       window.setTimeout(() => setPhase('gone'), 500)
     }
@@ -29,7 +30,8 @@ export function BootLoader() {
   if (phase === 'gone') return null
   return (
     <div className={phase === 'out' ? 'joy-boot joy-boot-out' : 'joy-boot'}>
-      <PageLoader kind="night" />
+      <div className="joy-boot-night"><PageLoader kind="night" /></div>
+      <div className="joy-boot-orbit"><PageLoader /></div>
     </div>
   )
 }

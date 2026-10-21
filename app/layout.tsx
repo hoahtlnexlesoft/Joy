@@ -69,6 +69,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fredoka.variable} ${jakarta.variable} ${caveat.variable} ${myanmar.variable} ${notoSans.variable}`}>
       <body className="antialiased">
+        <script dangerouslySetInnerHTML={{ __html: "try{if(sessionStorage.getItem('joy-booted'))document.documentElement.setAttribute('data-joy-booted','1')}catch(e){}" }} />
         <BootLoader />
         <noscript><style>{'.joy-boot{display:none!important}'}</style></noscript>
         {children}

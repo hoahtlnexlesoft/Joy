@@ -19,13 +19,13 @@ type Card = {
 
 const CARDS: Card[] = [
   { kind: 'orbit', letter: 'A', name: 'Figure-8 butterfly', tag: 'Page loader', bg: 'linear-gradient(160deg,#fff4e6,#ffe1ee 55%,#ece4ff)',
-    where: 'Full-page loader when you move between pages.', how: 'Click any link (Pricing, How it works, Parent Portal) on a slow connection.',
+    where: 'Full-page loader whenever you move between pages, including the Parent Portal. Also shown on later page loads in the same visit.', how: 'Click any link (Pricing, How it works, Parent Portal) on a slow connection.',
     full: { label: 'Preview full page', kind: 'orbit', text: 'Joy is getting ready' } },
   { kind: 'night', letter: 'B', name: 'Night light', tag: 'First load', bg: 'linear-gradient(170deg,#2a2550,#4b3f86 70%,#6a4f9c)',
-    where: 'The very first screen when the site opens on a slow network.', how: 'Open the site on a slow connection. It stays hidden if the page loads fast.',
+    where: 'Only the very first load of a visit, when the site opens on a slow network.', how: 'Open the site on a slow connection. It stays hidden if the page loads fast.',
     full: { label: 'Preview full page', kind: 'night', text: 'Joy is getting ready' } },
-  { kind: 'land', letter: 'C', name: 'Butterfly lands on the logo', tag: 'Opening Parent Portal', bg: 'linear-gradient(160deg,#eaf4ff,#f6ecff 60%,#fff0f4)',
-    where: 'Loader while the Parent Portal opens.', how: 'Open the Parent Portal on a slow connection.',
+  { kind: 'land', letter: 'C', name: 'Butterfly lands on the logo', tag: 'Spare option', bg: 'linear-gradient(160deg,#eaf4ff,#f6ecff 60%,#fff0f4)',
+    where: 'Not used yet. Kept as a spare loader (for example after login).', how: 'Press Preview full page.',
     full: { label: 'Preview full page', kind: 'land', text: 'Opening your Parent Portal…' } },
   { kind: 'gift', letter: 'D', name: 'Gift box opens', tag: 'After buying a plan', bg: 'linear-gradient(160deg,#ffeef3,#fff4e0 55%,#efe8ff)', caption: 'Discovery is ready for Thomas',
     where: 'Top of the "… is ready for …" dialog after a purchase.', how: 'Parent Portal → Plans → Buy a plan → finish checkout.' },

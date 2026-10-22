@@ -515,3 +515,6 @@ html:not([data-joy-booted]) .joy-boot-classic { display: none; }
   a[href], summary, select:not(:disabled), label[for], input:is([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="file"]):not(:disabled) { cursor: pointer; }
   button:disabled, [aria-disabled="true"] { cursor: not-allowed; }
 }
+
+/* Review-only: while the Tablet / Mobile frame is open, only the framed page shows the comment toolbar. */
+html[data-joy-device] .rv { display: none !important; }

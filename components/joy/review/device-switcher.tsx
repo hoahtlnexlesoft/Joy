@@ -28,8 +28,11 @@ export function DeviceSwitcher() {
     if (mode === 'desktop') return
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    // the framed page has its own comment toolbar, so hide this page's one while the frame is open
+    document.documentElement.setAttribute('data-joy-device', '1')
     return () => {
       document.body.style.overflow = prev
+      document.documentElement.removeAttribute('data-joy-device')
     }
   }, [mode])
 

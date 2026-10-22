@@ -93,7 +93,7 @@
   }
 
   /* ---------- state ---------- */
-  var S = { tedit: null, teditText: '', hidden: lsGet(HIDE_KEY, '') === '1', q: '', pmenu: null, expanded: {}, fold: (function () { try { return JSON.parse(lsGet('rv_fold', '{}')) || {}; } catch (e) { return {}; } })(), pop: null, popMenu: false, popEmoji: false, popReply: '', editWhere: 'panel', menu: null, editing: null, editText: '', threads: [], name: lsGet(NAME_KEY, ''), mode: false, open: false, draft: null, draftText: '', draftImages: [], nameInput: '',
+  var S = { pillMin: lsGet('joy-review-pillmin', '') === '1', tedit: null, teditText: '', hidden: lsGet(HIDE_KEY, '') === '1', q: '', pmenu: null, expanded: {}, fold: (function () { try { return JSON.parse(lsGet('rv_fold', '{}')) || {}; } catch (e) { return {}; } })(), pop: null, popMenu: false, popEmoji: false, popReply: '', editWhere: 'panel', menu: null, editing: null, editText: '', threads: [], name: lsGet(NAME_KEY, ''), mode: false, open: false, draft: null, draftText: '', draftImages: [], nameInput: '',
             active: null, flash: null, filter: 'all', replyFor: null, replyText: '', copied: false, copiedId: null, lightbox: null };
   var pending = 0, writes = 0, lastSend = '', lastPull = 0;
 
@@ -270,7 +270,11 @@
   '}' +
   '@media (max-width:640px){.jrv-panel{width:100vw}.jrv-rail{top:auto;bottom:80px;width:40px;padding:6px 0;border-radius:10px 0 0 10px;border:1px solid #e0e0e0;border-right:0}.jrv-rail-list{display:none}' +
     '.jrv-seg button{height:32px;padding:0 12px;font-size:12.5px}.jrv-seg svg{width:15px;height:15px}.jrv-pill{bottom:10px}' +
-    '.jrv-popwrap .jrv-pop{width:272px}.jrv-draft{width:256px}.jrv-pin{width:24px;height:24px;font-size:10.5px}}';
+    '.jrv-popwrap .jrv-pop{width:272px}.jrv-draft{width:256px}.jrv-pin{width:24px;height:24px;font-size:10.5px}}' +
+  '.jrv-seg{padding:3px;gap:2px}.jrv-seg button{height:30px;padding:0 12px;font-size:12.5px;gap:6px}.jrv-seg svg{width:15px;height:15px}.jrv-pill{bottom:10px;gap:6px}' +
+  '.jrv-seg button.jrv-pmin{width:26px;padding:0;justify-content:center;color:#94a3b8}.jrv-seg button.jrv-pmin svg{width:14px;height:14px}.jrv-seg button.jrv-bell{padding:0 9px}' +
+  '.jrv-mini{position:fixed;left:12px;bottom:12px;z-index:2147482600;width:38px;height:38px;border-radius:50%;background:#223246;color:#fff;display:grid;place-items:center;box-shadow:0 8px 20px -6px rgba(0,0,0,.5);outline:1px solid rgba(255,255,255,.1)}.jrv-mini svg{width:17px;height:17px}.jrv-mini span{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:#e5484d;color:#fff;font-size:10px;font-weight:700;line-height:16px;text-align:center}' +
+  '@media (max-width:640px){.jrv-t{display:none}.jrv-seg button{width:34px;padding:0;justify-content:center}.jrv-seg button.jrv-bell{width:34px;padding:0}.jrv-seg button.jrv-pmin{width:24px}.jrv-pill{bottom:8px}.jrv-mini{width:34px;height:34px;bottom:10px}}';
 
   var ICON = {
     bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>',
@@ -489,8 +493,9 @@
     }
     var open = S.threads.filter(function (t) { return !t.resolved; }).length;
     var shown = S.threads.filter(function (t) { return S.filter === 'all' ? true : S.filter === 'open' ? !t.resolved : t.resolved; });
+    if (S.pillMin && !S.mode) { var nm = unread().length; ui.innerHTML = '<button class="jrv-mini" id="rvPillOpen" title="Comments toolbar" aria-label="Open comments toolbar">' + ICON.chat + (nm ? '<span>' + nm + '</span>' : '') + '</button>' + inboxHtml(); return; }
     var h = '<div class="jrv-pill">' + (S.mode === 'edit' ? '<span class="jrv-hint">Click any text and type · Enter to save · Esc to cancel</span>' : S.mode ? '<span class="jrv-hint">Click anything to comment · Esc to cancel</span>' : '') +
-      '<div class="jrv-seg"><button id="rvBrowse" class="' + (!S.mode ? 'on' : '') + '">' + ICON.pointer + 'Browse</button><button id="rvComment" class="' + (S.mode === true ? 'on' : '') + '">' + ICON.chat + 'Comment</button><button id="rvEditMode" class="' + (S.mode === 'edit' ? 'on' : '') + '">' + ICON.pencil + 'Edit text</button>' + bellBtn() + '</div></div>' + inboxHtml();
+      '<div class="jrv-seg"><button id="rvBrowse" class="' + (!S.mode ? 'on' : '') + '">' + ICON.pointer + '<span class="jrv-t">Browse</span></button><button id="rvComment" class="' + (S.mode === true ? 'on' : '') + '">' + ICON.chat + '<span class="jrv-t">Comment</span></button><button id="rvEditMode" class="' + (S.mode === 'edit' ? 'on' : '') + '">' + ICON.pencil + '<span class="jrv-t">Edit text</span></button>' + bellBtn() + '<button id="rvPillMin" class="jrv-pmin" title="Minimise" aria-label="Minimise toolbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button></div></div>' + inboxHtml();
     if (!S.open) {
       h += '<aside class="jrv-rail"><button class="jrv-side" id="rvTab" title="Open comments" aria-label="Open comments">' + ICON.side + '</button><button class="jrv-side" id="rvHide" title="Hide comments (full view)" aria-label="Hide comments">' + ICON.eyeoff + '</button><div class="jrv-rail-list">' +
         S.threads.slice().sort(function (a, b) { return (b.at || 0) - (a.at || 0); }).map(function (t, i) { var col = t.resolved ? '#9CA3AF' : colorFor(t.author); return '<button class="jrv-dot' + (S.active === t.id ? ' on' : '') + (t.resolved ? ' done' : '') + '" data-rail="' + t.id + '" style="background:' + col + ';color:' + col + '" title="#' + NUM[t.id] + ' · ' + esc(labelFor(t.page)) + ' · ' + esc(t.author) + ': ' + esc(t.text.slice(0, 80)) + '"><span style="color:#fff">' + esc((t.author.trim()[0] || '?')) + '</span></button>'; }).join('') +
@@ -665,6 +670,8 @@
     var a0, b = e.target.closest('button,[data-lb],#rvLb'); if (!b) return;
     if (b.id === 'rvLb') { S.lightbox = null; return renderUi(); }
     if (b.hasAttribute('data-lb')) { e.stopPropagation(); S.lightbox = b.getAttribute('src'); return renderUi(); }
+    if (b.id === 'rvPillMin') { S.pillMin = true; lsSet('joy-review-pillmin', '1'); S.pmenu = null; return renderAll(); }
+    if (b.id === 'rvPillOpen') { S.pillMin = false; lsSet('joy-review-pillmin', ''); return renderAll(); }
     if (b.id === 'rvBrowse') { S.draft = null; if (S.tedit) endTextEdit(true); return setMode(false); }
     if (b.id === 'rvComment') { S.draft = null; if (S.tedit) endTextEdit(true); return setMode(true); }
     if (b.id === 'rvEditMode') { S.draft = null; if (S.tedit) endTextEdit(true); return setMode(S.mode === 'edit' ? false : 'edit'); }

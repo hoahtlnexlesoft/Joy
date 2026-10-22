@@ -737,32 +737,32 @@ export function CommentLayer() {
       )}
 
       {/* bottom-center mode pill (Browse / Comment) */}
-      <div data-review-ui style={{ left: 'calc(50% - var(--joy-dock, 0px) / 2)' }} className="fixed bottom-3 z-[110] flex -translate-x-1/2 flex-col items-center gap-2 md:bottom-4">
+      <div data-review-ui style={{ left: 'calc(50% - var(--joy-dock, 0px) / 2)' }} className="fixed bottom-[5.5rem] z-[110] flex -translate-x-1/2 flex-col items-center gap-2 md:bottom-4">
         {mode && (
           <span className="whitespace-nowrap rounded-full bg-slate-900/90 px-3 py-1.5 text-xs font-semibold text-white">
             Click anything to comment · Esc to cancel
           </span>
         )}
-        <div className="flex items-center gap-0.5 rounded-full bg-slate-900/95 p-0.5 text-xs font-semibold shadow-xl ring-1 ring-white/10 sm:gap-1 sm:p-1 sm:text-sm">
+        <div className="flex items-center gap-1 rounded-full bg-slate-900 p-1 text-sm font-semibold shadow-xl ring-1 ring-white/10">
           <button
             onClick={() => {
               setDraft(null)
               setMode(false)
             }}
-            aria-label="Browse" className={`flex h-8 items-center gap-1.5 rounded-full px-3 transition max-sm:size-8 max-sm:justify-center max-sm:px-0 sm:h-9 sm:gap-2 sm:px-4 ${!mode ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:text-white'}`}
+            className={`flex h-9 items-center gap-2 rounded-full px-4 transition ${!mode ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:text-white'}`}
           >
             <MousePointerClick className="size-4" />
-            <span className="max-sm:sr-only">Browse</span>
+            Browse
           </button>
           <button
             onClick={() => {
               setDraft(null)
               setMode(true)
             }}
-            aria-label="Comment" className={`flex h-8 items-center gap-1.5 rounded-full px-3 transition max-sm:size-8 max-sm:justify-center max-sm:px-0 sm:h-9 sm:gap-2 sm:px-4 ${mode ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:text-white'}`}
+            className={`flex h-9 items-center gap-2 rounded-full px-4 transition ${mode ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:text-white'}`}
           >
             <MessageCircle className="size-4" />
-            <span className="max-sm:sr-only">Comment</span>
+            Comment
           </button>
         </div>
       </div>

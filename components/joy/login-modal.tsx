@@ -12,6 +12,8 @@ import {
   Eye,
   EyeOff,
   Heart,
+  Eye,
+  EyeOff,
   LockKeyhole,
   Mail,
   ShieldCheck,
@@ -262,10 +264,9 @@ export function LoginModal({ open, onClose, mode: initialMode = 'login', next = 
                     onClick={() => setShowPassword((visible) => !visible)}
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                     aria-pressed={showPassword}
-                    className="shrink-0 text-sm font-medium text-[#8984ad] hover:text-[#52428a] focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
+                    className="grid shrink-0 cursor-pointer place-items-center text-sm font-medium text-[#8984ad] hover:text-[#52428a] focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
                   >
-                    {showPassword ? 'Hide' : 'Show'}
-                    <span className="sr-only"> password</span>
+                    {showPassword ? <Eye className="size-[18px]" aria-hidden="true" /> : <EyeOff className="size-[18px]" aria-hidden="true" />}
                   </button>
                 </div>
               </div>
@@ -425,10 +426,10 @@ function PasswordField({ id, label, autoComplete, onChange }: { id: string; labe
           type="button"
           onClick={() => setShow((v) => !v)}
           aria-pressed={show}
-          className="shrink-0 text-sm font-medium text-[#8984ad] hover:text-[#52428a] focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
+          className="grid shrink-0 cursor-pointer place-items-center text-sm font-medium text-[#8984ad] hover:text-[#52428a] focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
         >
-          {show ? 'Hide' : 'Show'}
-          <span className="sr-only"> password</span>
+          {show ? <Eye className="size-[18px]" aria-hidden="true" /> : <EyeOff className="size-[18px]" aria-hidden="true" />}
+          <span className="sr-only">{show ? 'Hide password' : 'Show password'}</span>
         </button>
       </div>
     </div>

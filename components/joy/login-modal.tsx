@@ -12,8 +12,6 @@ import {
   Eye,
   EyeOff,
   Heart,
-  Eye,
-  EyeOff,
   LockKeyhole,
   Mail,
   ShieldCheck,

@@ -245,9 +245,15 @@ function Children({ app }: { app: App }) {
   const soon = endingSoon(s)
   const KID_PER = 4
   const [kidPg, setKidPg] = useState(1)
-  const kidPages = Math.max(1, Math.ceil(s.children.length / KID_PER))
+  const [kidFilter, setKidFilter] = useState<'all' | 'expired' | 'active'>('all')
+  // "expired" = had a plan before, but none is active now
+  const isExp = (c: Child) => unlockOf(s, c) === 'Free' && s.plans.some((p) => isExpired(p) && p.children.includes(c.id))
+  const expiredCount = s.children.filter(isExp).length
+  const filter = expiredCount ? kidFilter : 'all'
+  const kidList = filter === 'expired' ? s.children.filter(isExp) : filter === 'active' ? s.children.filter((c) => !isExp(c)) : s.children
+  const kidPages = Math.max(1, Math.ceil(kidList.length / KID_PER))
   const kidPage = Math.min(kidPg, kidPages)
-  const kidsShown = s.children.slice((kidPage - 1) * KID_PER, kidPage * KID_PER)
+  const kidsShown = kidList.slice((kidPage - 1) * KID_PER, kidPage * KID_PER)
   return (
     <div className="flex flex-col gap-6">
       <section className="relative isolate overflow-hidden rounded-[2rem] bg-gradient-to-r from-[#fffaf4] via-[#fffaf4] to-[#f6f1fb] shadow-[0_22px_50px_-30px_rgba(248, 96, 143, 0.55)] ring-1 ring-white/80 sm:rounded-[2.5rem]">
@@ -306,9 +312,19 @@ function Children({ app }: { app: App }) {
           <h2 className="font-display text-xl font-semibold text-[#27253f]">{t('Your children')} <span className="text-base font-medium text-[#6b6380]">({s.children.length})</span></h2>
           <Btn small onClick={() => app.open({ k: 'child' })}><Plus className="size-4" aria-hidden="true" /> {t('Add a child')}</Btn>
         </div>
+        {expiredCount > 0 && (
+          <div role="group" aria-label={t('Filter children')} className="-mb-2 flex flex-wrap gap-2">
+            {([['all', t('All'), s.children.length], ['expired', t('Expired'), expiredCount], ['active', t('Active'), s.children.length - expiredCount]] as const).map(([k, label, n]) => (
+              <button key={k} type="button" aria-pressed={filter === k} onClick={() => { setKidFilter(k); setKidPg(1) }} className={cn('inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full px-4 text-sm font-bold ring-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]', filter === k ? 'bg-[#27253f] text-white ring-[#27253f]' : 'bg-white/80 text-[#6b6380] ring-[#e6d6ff] hover:bg-white')}>
+                {label}<span className={cn('text-xs font-semibold', filter === k ? 'text-white/70' : 'text-[#9a93ad]')}>{n}</span>
+              </button>
+            ))}
+          </div>
+        )}
         <div id="children-grid" className="grid scroll-mt-28 gap-4 sm:grid-cols-2">
           {kidsShown.map((c) => {
             const u = unlockOf(s, c)
+            const exp = isExp(c)
             return (
               <article key={c.id} className="group relative overflow-hidden rounded-[2.4rem] border shadow-[0_16px_32px_-18px_rgba(39, 37, 63, 0.3)] transition duration-300 hover:-translate-y-1.5 hover:rotate-[0.6deg] hover:shadow-[0_24px_44px_-24px_rgba(39, 37, 63, 0.4)]" style={{ borderColor: `${c.color}66`, background: `linear-gradient(120deg,${c.color}2e 0%,#ffffff 62%,${c.color}1f 100%)` }}>
                 <span aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-60" style={{ backgroundImage: `radial-gradient(${c.color}40 1.6px, transparent 1.8px)`, backgroundSize: '18px 18px', maskImage: 'linear-gradient(120deg, transparent 35%, #000)', WebkitMaskImage: 'linear-gradient(120deg, transparent 35%, #000)' }} />
@@ -323,8 +339,8 @@ function Children({ app }: { app: App }) {
                       <b className="font-display text-[1.7rem] font-semibold leading-tight text-[#27253f]">{c.name}<span className="ml-1 text-lg" aria-hidden="true"><Emo e="🌟" /></span></b>
                       <span className="text-sm text-[#6b6380]">{c.arch ?? t('Getting to know them')}</span>
                     </div>
-                    <span className="relative z-10 inline-flex w-fit items-center gap-1.5 whitespace-nowrap rounded-full bg-white/80 px-3 py-1 text-xs font-bold shadow-sm" style={{ boxShadow: `inset 0 0 0 2px ${c.color}44`, color: c.color }}>
-                      <Crown className="size-3.5" aria-hidden="true" />{u === 'Free' ? t('Free plan') : `${u} ${t('unlock')}`}
+                    <span className="relative z-10 inline-flex w-fit items-center gap-1.5 whitespace-nowrap rounded-full bg-white/80 px-3 py-1 text-xs font-bold shadow-sm" style={{ boxShadow: `inset 0 0 0 2px ${exp ? '#b9b3c9' : c.color}44`, color: exp ? '#8a8399' : c.color }}>
+                      <Crown className="size-3.5" aria-hidden="true" />{exp ? t('Expired') : u === 'Free' ? t('Free plan') : `${u} ${t('unlock')}`}
                     </span>
                   </div>
                   <ChildThumb c={c} className="absolute -bottom-1 right-0 size-28 transition duration-300 group-hover:scale-105 sm:size-32" />

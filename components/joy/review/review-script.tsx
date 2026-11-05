@@ -7,8 +7,8 @@ export function ReviewScript() {
   const base = process.env.NEXT_PUBLIC_JOY_PREVIEW === '1' ? './review/' : '/review/'
   return (
     <>
-      <Script src={`${base}config.js`} strategy="afterInteractive" />
-      <Script src={`${base}review.js?v=6`} strategy="afterInteractive" />
+      <Script src={`${base}config.js?v=2`} strategy="afterInteractive" />
+      <Script src={`${base}review.js?v=7`} strategy="afterInteractive" />
     </>
   )
 }

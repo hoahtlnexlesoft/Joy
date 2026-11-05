@@ -245,12 +245,9 @@ function Children({ app }: { app: App }) {
   const soon = endingSoon(s)
   const KID_PER = 4
   const [kidPg, setKidPg] = useState(1)
-  const [kidFilter, setKidFilter] = useState<'all' | 'expired' | 'active'>('all')
   // "expired" = had a plan before, but none is active now
   const isExp = (c: Child) => unlockOf(s, c) === 'Free' && s.plans.some((p) => isExpired(p) && p.children.includes(c.id))
-  const expiredCount = s.children.filter(isExp).length
-  const filter = expiredCount ? kidFilter : 'all'
-  const kidList = filter === 'expired' ? s.children.filter(isExp) : filter === 'active' ? s.children.filter((c) => !isExp(c)) : s.children
+  const kidList = s.children
   const kidPages = Math.max(1, Math.ceil(kidList.length / KID_PER))
   const kidPage = Math.min(kidPg, kidPages)
   const kidsShown = kidList.slice((kidPage - 1) * KID_PER, kidPage * KID_PER)
@@ -318,15 +315,6 @@ function Children({ app }: { app: App }) {
           <h2 className="font-display text-xl font-semibold text-[#27253f]">{t('Your children')} <span className="text-base font-medium text-[#6b6380]">({s.children.length})</span></h2>
           <Btn small onClick={() => app.open({ k: 'child' })}><Plus className="size-4" aria-hidden="true" /> {t('Add a child')}</Btn>
         </div>
-        {expiredCount > 0 && (
-          <div role="group" aria-label={t('Filter children')} className="-mb-2 flex flex-wrap gap-2">
-            {([['all', t('All'), s.children.length], ['expired', t('Expired'), expiredCount], ['active', t('Active'), s.children.length - expiredCount]] as const).map(([k, label, n]) => (
-              <button key={k} type="button" aria-pressed={filter === k} onClick={() => { setKidFilter(k); setKidPg(1) }} className={cn('inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full px-4 text-sm font-bold ring-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]', filter === k ? 'bg-[#27253f] text-white ring-[#27253f]' : 'bg-white/80 text-[#6b6380] ring-[#e6d6ff] hover:bg-white')}>
-                {label}<span className={cn('text-xs font-semibold', filter === k ? 'text-white/70' : 'text-[#9a93ad]')}>{n}</span>
-              </button>
-            ))}
-          </div>
-        )}
         <div id="children-grid" className="grid scroll-mt-28 gap-4 sm:grid-cols-2">
           {kidsShown.map((c) => {
             const u = unlockOf(s, c)

@@ -94,8 +94,9 @@ export function initialState(): State {
     plans: [
       { id: 'p1', name: 'Discovery', type: 'Premium', label: '1 month', price: 4.99, start: addDays(now, -27), end: addDays(now, 3), children: ['c1'] },
       { id: 'p2', name: 'Mastery', type: 'Special', label: '12 months', price: 59.99, start: addDays(now, -20), end: addDays(now, 345), children: [] },
-      { id: 'p3', name: 'Adventure', type: 'Premium', label: '3 months', price: 12.99, start: addDays(now, -60), end: addDays(now, 31), children: ['c2'] },
+      { id: 'p3', name: 'Adventure', type: 'Premium', label: '3 months', price: 12.99, start: addDays(now, -60), end: addDays(now, 2), children: ['c2'] },
       { id: 'p5', name: 'Guided Growth', type: 'Premium', label: '12 months', price: 44.99, start: addDays(now, -375), end: addDays(now, -10), children: ['c3'] },
+      { id: 'p6', name: 'Discovery', type: 'Premium', label: '1 month', price: 4.99, start: addDays(now, -28), end: addDays(now, 3), children: ['c5'] },
       { id: 'p4', name: 'Trial Gift', type: 'Premium Plus', label: '10 days', price: 0, voucher: 'WELCOME10', start: addDays(now, -70), end: addDays(now, -60), children: ['c1', 'c2', 'c3', 'c4'] },
     ],
     payments: [

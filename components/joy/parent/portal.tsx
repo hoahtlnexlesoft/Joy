@@ -293,12 +293,18 @@ function Children({ app }: { app: App }) {
         const first = [...soon].sort((x, y) => daysLeft(x) - daysLeft(y))[0]
         const ids = Array.from(new Set(soon.flatMap((p) => p.children)))
         const names = ids.map((i) => s.children.find((c) => c.id === i)?.name).filter(Boolean) as string[]
-        const who = names.length <= 2 ? names.join(', ') : `${names.slice(0, 2).join(', ')} ${t('and')} ${names.length - 2} ${t('others')}`
+        const who = names.length <= 3 ? (names.length > 1 ? `${names.slice(0, -1).join(', ')} ${t('and')} ${names[names.length - 1]}` : names[0] ?? '') : `${names.slice(0, 2).join(', ')} ${t('and')} ${names.length - 2} ${t('others')}`
         const d = daysLeft(first)
+        const when = `${d} ${t(d === 1 ? 'day' : 'days')}`
         return (
           <div role="status" className="flex flex-wrap items-center gap-3 rounded-2xl bg-[#f7f0e7] p-4 text-sm text-[#7a5a2b]">
             <span aria-hidden="true"><Emo e="🔔" /></span>
-            <div className="min-w-0 flex-1"><b>{first.name} {t('ends in')} {d} {t(d === 1 ? 'day' : 'days')}</b> {t('for')} {who}. {t('Plans don’t renew automatically.')}</div>
+            <div className="min-w-0 flex-1">
+              {soon.length === 1
+                ? <><b>{first.name} {t('ends in')} {when}</b> {t('for')} {who}.</>
+                : <><b>{soon.length} {t('plans end soon')}</b> ({t('next one in')} {when}) {t('for')} {who}.</>}
+              {' '}{t('Plans don’t renew automatically.')}
+            </div>
             <Btn small variant="blue" onClick={() => app.open({ k: 'buy', plan: first.type === 'Special' ? 'Mastery' : first.name, child: first.children[0] })}>{t('Buy a new plan')}</Btn>
           </div>
         )

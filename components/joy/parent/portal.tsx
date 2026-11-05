@@ -404,7 +404,7 @@ function ChildDetail({ app, child: c }: { app: App; child: Child }) {
               <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2.5 text-sm">
                 <Row k={t('Child name')} v={c.name} /><Row k={t('Age')} v={`${ageOf(c.dob)} ${t('years old')}`} /><Row k={t('Date of birth')} v={fmtDate(new Date(c.dob))} /><Row k={t('Gender')} v={t(c.gender)} /><Row k={t('Unique needs')} v={c.needs.length ? c.needs.map((n) => t(n)).join(', ') : t('None set')} />
               </dl>
-              {c.needs.length ? <p className="mt-4 rounded-2xl bg-[#fff3d6] px-4 py-3 text-xs text-[#8a6d2f]"><Emo e="✨" /> {t('Calm Senses activities are on for')} {c.name} {t('with a Premium or Premium Plus plan.')}</p> : null}
+              {c.needs.length ? <p className="mt-4 rounded-2xl bg-[#fff3d6] px-4 py-3 text-xs text-[#8a6d2f]"><Emo e="✨" /> {t('Calm Senses activities will be unlocked for')} {c.name} {t('with a Premium plan.')}</p> : null}
             </Card>
             <Card title={`${c.name}${t('’s nature')}`}>
               {known ? (

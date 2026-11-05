@@ -302,7 +302,10 @@ function Children({ app }: { app: App }) {
                 : <><b>{soon.length} {t('plans end soon')}</b> ({t('next one in')} {when}) {t('for')} {who}.</>}
               {' '}{t('Plans don’t renew automatically.')}
             </div>
-            <Btn small variant="blue" onClick={() => app.open({ k: 'buy', plan: first.type === 'Special' ? 'Mastery' : first.name, child: first.children[0] })}>{t('Buy a new plan')}</Btn>
+            <div className="flex flex-wrap items-center gap-2">
+              <Btn small variant="ghost" onClick={() => app.go({ name: 'plans' })}>{t('View active plans')}</Btn>
+              <Btn small variant="blue" onClick={() => app.open({ k: 'buy', plan: first.type === 'Special' ? 'Mastery' : first.name, child: first.children[0] })}>{t('Buy a new plan')}</Btn>
+            </div>
           </div>
         )
       })()}

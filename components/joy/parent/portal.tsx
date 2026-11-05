@@ -282,13 +282,21 @@ function Children({ app }: { app: App }) {
         </div>
       </section>
 
-      {soon.map((p) => (
-        <div key={p.id} role="status" className="flex flex-wrap items-center gap-3 rounded-2xl bg-[#f7f0e7] p-4 text-sm text-[#7a5a2b]">
-          <span aria-hidden="true"><Emo e="🔔" /></span>
-          <div className="min-w-0 flex-1"><b>{p.name} {t('ends in')} {daysLeft(p)} {t(daysLeft(p) === 1 ? 'day' : 'days')}</b> {t('for')} {p.children.map((i) => s.children.find((c) => c.id === i)?.name).join(', ')}. {t('Plans don’t renew automatically.')}</div>
-          <Btn small variant="blue" onClick={() => app.open({ k: 'buy', plan: p.type === 'Special' ? 'Mastery' : p.name, child: p.children[0] })}>{t('Buy a new plan')}</Btn>
-        </div>
-      ))}
+      {soon.length > 0 && (() => {
+        // one banner for everything ending soon (10 expiring children must not mean 10 banners)
+        const first = [...soon].sort((x, y) => daysLeft(x) - daysLeft(y))[0]
+        const ids = Array.from(new Set(soon.flatMap((p) => p.children)))
+        const names = ids.map((i) => s.children.find((c) => c.id === i)?.name).filter(Boolean) as string[]
+        const who = names.length <= 2 ? names.join(', ') : `${names.slice(0, 2).join(', ')} ${t('and')} ${names.length - 2} ${t('others')}`
+        const d = daysLeft(first)
+        return (
+          <div role="status" className="flex flex-wrap items-center gap-3 rounded-2xl bg-[#f7f0e7] p-4 text-sm text-[#7a5a2b]">
+            <span aria-hidden="true"><Emo e="🔔" /></span>
+            <div className="min-w-0 flex-1"><b>{first.name} {t('ends in')} {d} {t(d === 1 ? 'day' : 'days')}</b> {t('for')} {who}. {t('Plans don’t renew automatically.')}</div>
+            <Btn small variant="blue" onClick={() => app.open({ k: 'buy', plan: first.type === 'Special' ? 'Mastery' : first.name, child: first.children[0] })}>{t('Buy a new plan')}</Btn>
+          </div>
+        )
+      })()}
 
       {!s.children.length ? (
         <Empty cute="children" title={t('Add your first child')} action={<Btn onClick={() => app.open({ k: 'child' })}>{t('+ Add a child')}</Btn>}>{t('Tell Joy a little about your child to start their journey. You can add all your children to one parent account.')}</Empty>

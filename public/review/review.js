@@ -41,7 +41,7 @@
   var esc = function (s) { return String(s == null ? '' : s).normalize('NFC').replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var authorKey = function (n) { return String(n || '').normalize('NFC').trim().toLowerCase(); };
   var mine = function (a) { return !!S.name && authorKey(a) === authorKey(S.name); }; // only the author may edit their own comment/reply
-  var COLORS = ['#306eed'];
+  var COLORS = ['#306eed', '#e0457b', '#0f9d7a', '#e8833a', '#8b5cf6', '#0891b2', '#c026d3', '#4d7c0f', '#dc2626', '#b45309', '#4f46e5', '#0e7490'];
   var AUTHORS = [];
   function colorFor(name) {
     var i = AUTHORS.indexOf(authorKey(name)); if (i >= 0) return COLORS[i % COLORS.length];
@@ -524,7 +524,7 @@
           var on = S.active === t.id, col = colorFor(t.author), nr = (t.replies || []).length, long = (t.text || '').length > 40, ex = S.expanded && S.expanded[t.id];
           h += '<div class="jrv-row2' + (on ? ' on' : '') + (t.resolved ? ' done' : '') + (S.menu === t.id ? ' menu' : '') + '">' +
             '<button class="jrv-row2-main" data-goto="' + t.id + '"><span class="jrv-av" style="background:' + col + '">' + esc((t.author.trim()[0] || '?')) + '</span>' +
-            '<span class="jrv-row2-b"><span class="jrv-row2-m"><span class="jrv-no">#' + NUM[t.id] + '</span><b>' + esc(t.author) + '</b><span class="jrv-ago">· ' + ago(t.at) + '</span>' + (t.resolved ? '' : '<i class="jrv-unread" title="Open"></i>') + '</span>' +
+            '<span class="jrv-row2-b"><span class="jrv-row2-m"><span class="jrv-no">#' + NUM[t.id] + '</span><b style="color:' + col + '">' + esc(t.author) + '</b><span class="jrv-ago">· ' + ago(t.at) + '</span>' + (t.resolved ? '' : '<i class="jrv-unread" title="Open"></i>') + '</span>' +
             '<span class="jrv-row2-t' + (ex ? ' ex' : '') + '">' + esc(t.text || (t.images && t.images.length ? '[image]' : '')) + '</span></span></button>' +
             (long ? '<button class="jrv-sm" data-expand="' + t.id + '">' + (ex ? 'Show less' : 'Show more') + '</button>' : '') +
             (nr ? '<button class="jrv-nr" data-goto="' + t.id + '">' + nr + ' ' + (nr > 1 ? 'replies' : 'reply') + '</button>' : '') +
@@ -808,7 +808,7 @@
       var mine = !!S.name && who.some(function (n) { return authorKey(n) === authorKey(S.name); });
       return '<button class="jrv-react' + (mine ? ' on' : '') + '" data-react="' + t.id + '|' + r[0] + '" title="' + esc(r[1] + ': ' + who.join(', ')) + '">' + ICON[r[0]] + '<span>' + who.length + '</span></button>'; }).join('');
     var editing = S.editing === t.id && S.editWhere === 'pop';
-    var row = function (name, at, text, extra, ed, tool) { return '<div class="jrv-pop-c">' + avatar(name, 26) + '<div class="jrv-pop-cb"><div class="jrv-pop-meta"><b>' + esc(name) + '</b><span>' + ago(at) + (ed ? ' · đã sửa' : '') + '</span>' + (tool || '') + '</div>' + (text != null ? '<p>' + esc(text) + '</p>' : '') + (extra || '') + '</div></div>'; };
+    var row = function (name, at, text, extra, ed, tool) { return '<div class="jrv-pop-c">' + avatar(name, 26) + '<div class="jrv-pop-cb"><div class="jrv-pop-meta"><b style="color:' + colorFor(name) + '">' + esc(name) + '</b><span>' + ago(at) + (ed ? ' · đã sửa' : '') + '</span>' + (tool || '') + '</div>' + (text != null ? '<p>' + esc(text) + '</p>' : '') + (extra || '') + '</div></div>'; };
     var h = '<div class="jrv-pop" role="dialog" aria-label="Comment">' +
       '<div class="jrv-pop-h"><span class="jrv-pop-ttl"><b>Comment #' + NUM[t.id] + '</b><span class="jrv-pop-pg" title="' + esc(labelFor(t.page)) + '"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>' + esc(labelFor(t.page)) + '</span></span><span class="jrv-pop-tools">' +
         (t.kind !== 'edit' && mine(t.author) ? '<button data-popedit="' + t.id + '" aria-label="Edit" title="Edit">' + ICON.pencil + '</button>' : '') +

@@ -82,7 +82,29 @@ export function PlanCard({ app, p }: { app: App; p: Plan }) {
                   <span key={k.id} title={k.name} className="grid size-8 place-items-center overflow-hidden rounded-full ring-2 ring-white" style={{ background: `${k.color}2e` }}><ChildThumb c={k} className="size-7" /></span>
                 ))}
               </span>
-              <span className="text-xs font-bold text-[#4a3a63]">{kids.slice(0, 3).map((k) => k.name).join(', ')}{kids.length > 3 ? ` +${kids.length - 3}` : ''}</span>
+              {exp ? (
+                <span className="text-xs font-bold text-[#4a3a63]">{kids.slice(0, 3).map((k) => k.name).join(', ')}{kids.length > 3 ? ` +${kids.length - 3}` : ''}</span>
+              ) : (
+                <span className="flex flex-wrap items-center gap-1.5">
+                  {kids.map((k) => (
+                    <span key={k.id} className="inline-flex items-center gap-1 rounded-full bg-white py-0.5 pl-2.5 pr-1 text-xs font-bold text-[#4a3a63] ring-1 ring-[#e6d6ff]">
+                      {k.name}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          app.setS((st) => ({ ...st, plans: st.plans.map((x) => (x.id === p.id ? { ...x, children: x.children.filter((i) => i !== k.id) } : x)) }))
+                          app.toast(`${k.name} ${tr('was removed from')} ${p.name}.`)
+                        }}
+                        aria-label={`${tr('Remove')} ${k.name} ${tr('from this plan')}`}
+                        title={`${tr('Remove')} ${k.name}`}
+                        className="grid size-5 cursor-pointer place-items-center rounded-full text-[#8a8399] transition hover:bg-[#ffe7ef] hover:text-[#e5484d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f8608f]"
+                      >
+                        <svg viewBox="0 0 12 12" className="size-2.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" /></svg>
+                      </button>
+                    </span>
+                  ))}
+                </span>
+              )}
             </>
           ) : <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-muted-foreground">{tr('Not assigned yet')}</span>}
         </div>

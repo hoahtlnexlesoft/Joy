@@ -214,19 +214,6 @@ export function FeelingLog({ child }: { child: Child }) {
                 ))}
               </ul>
             ) : <p className="mt-3 text-sm text-muted-foreground">No check-ins on this day.</p>}
-            {sd.acts.length ? (
-              <>
-                <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Activities that day</p>
-                <ul className="mt-2 flex flex-col gap-2">
-                  {sd.acts.map((a, i) => (
-                    <li key={i} className="flex flex-wrap items-center gap-2 text-sm">
-                      {a.tags.map((n) => { const t = TAGS.find((x) => x[0] === n)!; return <span key={n} className="rounded-full px-2.5 py-0.5 text-xs font-bold" style={{ color: t[2], background: t[3] }}><EmoText>{`${t[1]} ${n}`}</EmoText></span> })}
-                      {a.name}
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : null}
           </aside>
         </div>
       </Card>

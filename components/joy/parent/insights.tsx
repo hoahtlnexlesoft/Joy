@@ -200,7 +200,7 @@ export function FeelingLog({ child }: { child: Child }) {
                 <button key={k} type="button" disabled={fut} onClick={() => setSel(k)} aria-label={new Date(k + 'T00:00').toDateString() + (f.length ? ', ' + f.map((x) => x.mood[0]).join(' and ') : '')}
                   className={cn('flex aspect-square flex-col items-center justify-center rounded-xl text-xs transition disabled:opacity-30', k === sel ? 'bg-gradient-joy text-white' : f.length ? 'bg-[#f7f0e7] hover:bg-[#efe4d7]' : 'bg-[#f6f1fb] hover:bg-[#f6f1fb]', k === todayK && k !== sel && 'ring-2 ring-joy-pink/50')}>
                   <span className="font-semibold">{d}</span>
-                  <span className="text-sm leading-none" aria-hidden="true"><EmoText>{f.slice(0, 2).map((x) => x.mood[1]).join('')}</EmoText></span>
+                  <span className="text-sm leading-none" aria-hidden="true"><EmoText>{f[0] ? f[0].mood[1] + f[0].el[1] : ''}</EmoText></span>
                 </button>
               )
             })}

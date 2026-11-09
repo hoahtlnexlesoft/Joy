@@ -210,9 +210,17 @@ export function FeelingLog({ child }: { child: Child }) {
             {sd.feel.length ? (
               <ul className="mt-3 flex flex-col gap-3">
                 {sd.feel.map((x, i) => (
-                  <li key={i} className="flex flex-col gap-2">
-                    <div className="flex items-center gap-3"><span className="text-2xl" aria-hidden="true"><Emo e={x.mood[1]} /></span><div><small className="block text-xs text-muted-foreground">Feeling</small><b className="block text-sm">{x.mood[0]}</b></div></div>
-                    <div className="flex items-center gap-3"><span className="text-2xl" aria-hidden="true"><Emo e={x.el[1]} /></span><div><small className="block text-xs text-muted-foreground">Element</small><b className="block text-sm">{x.el[0]}</b></div></div>
+                  <li key={i} className="grid grid-cols-2 gap-3">
+                    <div className="flex flex-col items-center gap-1 rounded-2xl bg-[#f6f1fb] px-3 py-4 text-center">
+                      <span className="text-4xl leading-none" aria-hidden="true"><Emo e={x.mood[1]} /></span>
+                      <small className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Feeling</small>
+                      <b className="text-sm">{x.mood[0]}</b>
+                    </div>
+                    <div className="flex flex-col items-center gap-1 rounded-2xl px-3 py-4 text-center" style={{ background: x.el[2] + '26' }}>
+                      <span className="text-4xl leading-none" aria-hidden="true"><Emo e={x.el[1]} /></span>
+                      <small className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Element</small>
+                      <b className="text-sm">{x.el[0]}</b>
+                    </div>
                   </li>
                 ))}
               </ul>

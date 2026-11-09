@@ -151,7 +151,7 @@ const ACT_NAMES: Record<string, string[]> = {
 const SECTIONS: [string, string, number][] = [['Morning Mindfulness', '☀️', 8], ['Afternoon Adventures', '🎒', 14], ['Evening Enchantment', '🌙', 19]]
 
 export type FeelEntry = { mood: [string, string]; el: [string, string, string]; time: Date }
-export type ActEntry = { name: string; tag: string; sec: string; secIc: string; time: Date }
+export type ActEntry = { name: string; tag: string; tags: string[]; sec: string; secIc: string; time: Date }
 export type DayData = { feel: FeelEntry[]; acts: ActEntry[] }
 
 export const startOfDay = (d: Date) => { const x = new Date(d); x.setHours(0, 0, 0, 0); return x }
@@ -187,7 +187,9 @@ export function childData(c: Child): Record<string, DayData> {
     SECTIONS.forEach(([sec, ic, hr]) => {
       if (r() < 0.62) {
         const t = TAGS[Math.floor(r() * TAGS.length)][0], names = ACT_NAMES[t]
-        e.acts.push({ name: names[Math.floor(r() * names.length)], tag: t, sec, secIc: ic, time: new Date(d.getTime() + hr * 36e5 + Math.floor(r() * 55) * 6e4) })
+        const tags = [t]
+        if (r() < 0.4) { const rest = TAGS.map((x) => x[0]).filter((x) => x !== t); const n = r() < 0.5 ? 2 : 1; while (tags.length <= n) tags.push(rest.splice(Math.floor(r() * rest.length), 1)[0]) }
+        e.acts.push({ name: names[Math.floor(r() * names.length)], tag: t, tags, sec, secIc: ic, time: new Date(d.getTime() + hr * 36e5 + Math.floor(r() * 55) * 6e4) })
       }
     })
     e.feel = e.feel.filter((x) => x.time <= now)

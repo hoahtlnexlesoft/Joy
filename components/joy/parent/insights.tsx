@@ -218,9 +218,12 @@ export function FeelingLog({ child }: { child: Child }) {
               <>
                 <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Activities that day</p>
                 <ul className="mt-2 flex flex-col gap-2">
-                  {sd.acts.map((a, i) => { const t = TAGS.find((x) => x[0] === a.tag)!; return (
-                    <li key={i} className="flex items-center gap-2 text-sm"><span className="rounded-full px-2.5 py-0.5 text-xs font-bold" style={{ color: t[2], background: t[3] }}><EmoText>{`${t[1]} ${a.tag}`}</EmoText></span>{a.name}</li>
-                  ) })}
+                  {sd.acts.map((a, i) => (
+                    <li key={i} className="flex flex-wrap items-center gap-2 text-sm">
+                      {a.tags.map((n) => { const t = TAGS.find((x) => x[0] === n)!; return <span key={n} className="rounded-full px-2.5 py-0.5 text-xs font-bold" style={{ color: t[2], background: t[3] }}><EmoText>{`${t[1]} ${n}`}</EmoText></span> })}
+                      {a.name}
+                    </li>
+                  ))}
                 </ul>
               </>
             ) : null}
@@ -260,8 +263,8 @@ export function ActivitiesTab({ child }: { child: Child }) {
         <Empty cute="balloon" title="No activities in this period">{child.name} hasn’t played {period === 1 ? 'today' : `in the last ${period} days`}. Try a longer period to see earlier activities.</Empty>
       </div>
     )
-  const cnt = Object.fromEntries(TAGS.map((t) => [t[0], all.filter((a) => a.tag === t[0]).length]))
-  const list = all.filter((a) => tag === 'all' || a.tag === tag).sort((a, b) => b.time.getTime() - a.time.getTime())
+  const cnt = Object.fromEntries(TAGS.map((t) => [t[0], all.filter((a) => a.tags.includes(t[0])).length]))
+  const list = all.filter((a) => tag === 'all' || a.tags.includes(tag)).sort((a, b) => b.time.getTime() - a.time.getTime())
   const shown = more ? list : list.slice(0, 12)
   const groups: Record<string, typeof shown> = {}
   shown.forEach((a) => { const k = dayKey(startOfDay(a.time)); (groups[k] = groups[k] || []).push(a) })
@@ -297,11 +300,19 @@ export function ActivitiesTab({ child }: { child: Child }) {
               <div key={k}>
                 <h3 className="mb-2 mt-4 text-sm font-semibold text-muted-foreground first:mt-0">{dayLabel(k)}</h3>
                 <ul className="flex flex-col gap-2">
-                  {arr.map((a, i) => { const t = TAGS.find((x) => x[0] === a.tag)!; return (
+                  {arr.map((a, i) => { const ts = a.tags.map((n) => TAGS.find((x) => x[0] === n)!); const t = ts[0]; return (
                     <li key={i} className="flex items-center gap-3 rounded-2xl bg-[#ffffff] p-3">
-                      <span className="grid size-10 shrink-0 place-items-center rounded-xl text-lg" style={{ background: t[3] }} aria-hidden="true"><Emo e={t[1]} /></span>
+                      {ts.length === 1 ? (
+                        <span className="grid size-10 shrink-0 place-items-center rounded-xl text-lg" style={{ background: t[3] }} aria-hidden="true"><Emo e={t[1]} /></span>
+                      ) : (
+                        <span className="grid size-10 shrink-0 grid-cols-2 place-items-center gap-0 rounded-xl p-0.5 text-[13px] leading-none" style={{ background: t[3] }} aria-hidden="true">
+                          {ts.map((x, k) => <span key={x[0]} className={ts.length === 3 && k === 2 ? 'col-span-2' : ''}><Emo e={x[1]} /></span>)}
+                        </span>
+                      )}
                       <div className="min-w-0 flex-1"><b className="block truncate text-sm">{a.name}</b><small className="text-xs text-muted-foreground">{a.secIc} {a.sec}</small></div>
-                      <span className="hidden rounded-full px-2.5 py-0.5 text-xs font-bold sm:inline" style={{ color: t[2], background: t[3] }}>{a.tag}</span>
+                      <span className="hidden flex-wrap justify-end gap-1 sm:flex">
+                        {ts.map((x) => <span key={x[0]} className="rounded-full px-2.5 py-0.5 text-xs font-bold" style={{ color: x[2], background: x[3] }}>{x[0]}</span>)}
+                      </span>
                       <time className="text-xs text-muted-foreground">{fmtTime(a.time)}</time>
                     </li>
                   ) })}

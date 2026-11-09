@@ -163,8 +163,12 @@ export const dayLabel = (k: string) => {
 }
 
 const cache: Record<string, Record<string, DayData>> = {}
+/** Demo switch: true = every child shows the empty Feeling Log / Activities state. Set false to bring the sample data back. */
+export const DEMO_EMPTY_LOGS = true
+
 export function childData(c: Child): Record<string, DayData> {
   if (cache[c.id]) return cache[c.id]
+  if (DEMO_EMPTY_LOGS) return (cache[c.id] = {})
   let s = 0
   for (const ch of c.id + c.name) s = (s * 31 + ch.charCodeAt(0)) >>> 0
   const r = () => { s = (s + 0x6d2b79f5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296 }

@@ -158,7 +158,7 @@ export function FeelingLog({ child }: { child: Child }) {
             </div>
             <ul className="flex min-w-[10rem] flex-1 flex-col gap-1.5 text-sm">
               {elC.map(([e, n]) => (
-                <li key={e[0]} className="flex items-center gap-2"><i className="size-2.5 rounded-full" style={{ background: e[2] }} /><span><EmoText>{`${e[1]} ${e[0]}`}</EmoText></span><b className="ml-auto">{n}</b><em className="w-10 text-right text-xs not-italic text-muted-foreground">{Math.round((n / tot) * 100)}%</em></li>
+                <li key={e[0]} className="flex items-center gap-2"><span><EmoText>{`${e[1]} ${e[0]}`}</EmoText></span><b className="ml-auto">{n}</b><em className="w-10 text-right text-xs not-italic text-muted-foreground">{Math.round((n / tot) * 100)}%</em></li>
               ))}
             </ul>
           </div>

@@ -238,10 +238,28 @@ export function ActivitiesTab({ child }: { child: Child }) {
   const [more, setMore] = useState(false)
   const data = childData(child)
   if (!child.element || !Object.keys(data).length)
-    return <Empty cute="balloon" title="No activities yet">When {child.name} starts playing, every activity shows here with its movement tag.</Empty>
+    return (
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <Seg label="Period" value={period} onChange={setPeriod} options={[[1, 'Today'], [7, '7 days'], [30, '30 days'], [60, '60 days']]} />
+          <span className="text-xs text-muted-foreground">0 activities</span>
+        </div>
+        <Empty cute="balloon" title="No activities yet">When {child.name} starts playing, every activity shows here with its movement tag.</Empty>
+      </div>
+    )
 
   const keys = rangeDays(period)
   const all = keys.flatMap((k) => data[k]?.acts ?? [])
+  if (!all.length)
+    return (
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <Seg label="Period" value={period} onChange={setPeriod} options={[[1, 'Today'], [7, '7 days'], [30, '30 days'], [60, '60 days']]} />
+          <span className="text-xs text-muted-foreground">0 activities</span>
+        </div>
+        <Empty cute="balloon" title="No activities in this period">{child.name} hasn’t played {period === 1 ? 'today' : `in the last ${period} days`}. Try a longer period to see earlier activities.</Empty>
+      </div>
+    )
   const cnt = Object.fromEntries(TAGS.map((t) => [t[0], all.filter((a) => a.tag === t[0]).length]))
   const list = all.filter((a) => tag === 'all' || a.tag === tag).sort((a, b) => b.time.getTime() - a.time.getTime())
   const shown = more ? list : list.slice(0, 12)

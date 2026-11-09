@@ -210,7 +210,10 @@ export function FeelingLog({ child }: { child: Child }) {
             {sd.feel.length ? (
               <ul className="mt-3 flex flex-col gap-3">
                 {sd.feel.map((x, i) => (
-                  <li key={i} className="flex items-center gap-3"><span className="text-2xl" aria-hidden="true"><Emo e={x.mood[1]} /></span><div><b className="block text-sm">Felt {x.mood[0].toLowerCase()}</b><small className="text-xs text-muted-foreground">picked {x.el[1]} {x.el[0]}</small></div></li>
+                  <li key={i} className="flex flex-col gap-2">
+                    <div className="flex items-center gap-3"><span className="text-2xl" aria-hidden="true"><Emo e={x.mood[1]} /></span><div><small className="block text-xs text-muted-foreground">Feeling</small><b className="block text-sm">{x.mood[0]}</b></div></div>
+                    <div className="flex items-center gap-3"><span className="text-2xl" aria-hidden="true"><Emo e={x.el[1]} /></span><div><small className="block text-xs text-muted-foreground">Element</small><b className="block text-sm">{x.el[0]}</b></div></div>
+                  </li>
                 ))}
               </ul>
             ) : <p className="mt-3 text-sm text-muted-foreground">No check-ins on this day.</p>}

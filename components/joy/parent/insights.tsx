@@ -300,14 +300,9 @@ export function ActivitiesTab({ child }: { child: Child }) {
                 <ul className="flex flex-col gap-2">
                   {arr.map((a, i) => { const ts = a.tags.map((n) => TAGS.find((x) => x[0] === n)!); const t = ts[0]; return (
                     <li key={i} className="flex items-center gap-3 rounded-2xl bg-[#ffffff] p-3">
-                      {ts.length === 1 ? (
-                        <span className="grid size-10 shrink-0 place-items-center rounded-xl text-lg" style={{ background: t[3] }} aria-hidden="true"><Emo e={t[1]} /></span>
-                      ) : (
-                        <span className="grid size-10 shrink-0 grid-cols-2 place-items-center gap-0 rounded-xl p-0.5 text-[13px] leading-none" style={{ background: t[3] }} aria-hidden="true">
-                          {ts.map((x, k) => <span key={x[0]} className={ts.length === 3 && k === 2 ? 'col-span-2' : ''}><Emo e={x[1]} /></span>)}
-                        </span>
-                      )}
+                      <span className="grid size-10 shrink-0 place-items-center rounded-xl text-lg" style={{ background: t[3] }} aria-hidden="true"><Emo e={t[1]} /></span>
                       <div className="min-w-0 flex-1"><b className="block truncate text-sm">{a.name}</b><small className="text-xs text-muted-foreground">{a.secIc} {a.sec}</small></div>
+                      {ts.length > 1 ? <span className="rounded-full bg-[#f6f1fb] px-2 py-0.5 text-xs font-bold text-muted-foreground sm:hidden">+{ts.length - 1}</span> : null}
                       <span className="hidden flex-wrap justify-end gap-1 sm:flex">
                         {ts.map((x) => <span key={x[0]} className="rounded-full px-2.5 py-0.5 text-xs font-bold" style={{ color: x[2], background: x[3] }}>{x[0]}</span>)}
                       </span>

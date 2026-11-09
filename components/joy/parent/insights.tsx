@@ -121,6 +121,16 @@ export function FeelingLog({ child }: { child: Child }) {
 
   const keys = rangeDays(period)
   const entries = keys.flatMap((k) => data[k]?.feel ?? [])
+  if (!entries.length)
+    return (
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <Seg label="Period" value={period} onChange={setPeriod} options={[[7, 'Last 7 days'], [30, 'Last 30 days'], [90, 'Last 90 days']]} />
+          <span className="text-xs text-muted-foreground">0 check-ins</span>
+        </div>
+        <Empty cute="bubble" title="No check-ins in this period">{child.name} hasn’t checked in during the last {period} days. Try a longer period to see earlier check-ins.</Empty>
+      </div>
+    )
   const elC = ELS.map((e) => [e, entries.filter((x) => x.el[0] === e[0]).length] as const).sort((a, b) => b[1] - a[1])
   const mC = MOODS.map((m) => [m, entries.filter((x) => x.mood[0] === m[0]).length] as const).filter((x) => x[1]).sort((a, b) => b[1] - a[1])
   const tot = entries.length || 1

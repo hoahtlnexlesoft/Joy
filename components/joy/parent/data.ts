@@ -188,6 +188,7 @@ export function childData(c: Child): Record<string, DayData> {
     })
     e.feel = e.feel.filter((x) => x.time <= now)
     e.acts = e.acts.filter((x) => x.time <= now)
+    if (c.id === 'c4' && n < 35) { e.feel = []; e.acts = [] } // demo: Mia's plan expired, no recent check-ins
     days[k] = e
   }
   return (cache[c.id] = days)

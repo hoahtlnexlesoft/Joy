@@ -143,7 +143,6 @@ export function FeelingLog({ child }: { child: Child }) {
   const first = (base.getDay() + 6) % 7
   const dim = new Date(base.getFullYear(), base.getMonth() + 1, 0).getDate()
   const todayK = dayKey(startOfDay(new Date()))
-  const sd = data[sel] ?? { feel: [], acts: [] }
 
   return (
     <div className="flex flex-col gap-5">
@@ -187,7 +186,7 @@ export function FeelingLog({ child }: { child: Child }) {
           </div>
         }
       >
-        <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+        <div className="mx-auto w-full max-w-2xl">
           <div className="grid grid-cols-7 gap-1.5">
             {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((d) => <span key={d} className="pb-1 text-center text-xs font-semibold text-muted-foreground">{d}</span>)}
             {Array.from({ length: first }, (_, i) => <span key={'b' + i} />)}
@@ -205,26 +204,6 @@ export function FeelingLog({ child }: { child: Child }) {
               )
             })}
           </div>
-          <aside aria-live="polite" className="rounded-2xl bg-[#ffffff] p-4">
-            <h3 className="font-display text-lg font-medium">{dayLabel(sel)}</h3>
-            {sd.feel.length ? (
-              <ul className="mt-3 flex flex-col gap-3">
-                {sd.feel.map((x, i) => (
-                  <li key={i} className="flex items-center gap-3"><span className="text-2xl" aria-hidden="true"><Emo e={x.mood[1]} /></span><div><b className="block text-sm">Felt {x.mood[0].toLowerCase()}</b><small className="text-xs text-muted-foreground">{fmtTime(x.time)} · picked {x.el[1]} {x.el[0]}</small></div></li>
-                ))}
-              </ul>
-            ) : <p className="mt-3 text-sm text-muted-foreground">No check-ins on this day.</p>}
-            {sd.acts.length ? (
-              <>
-                <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Activities that day</p>
-                <ul className="mt-2 flex flex-col gap-2">
-                  {sd.acts.map((a, i) => { const t = TAGS.find((x) => x[0] === a.tag)!; return (
-                    <li key={i} className="flex items-center gap-2 text-sm"><span className="rounded-full px-2.5 py-0.5 text-xs font-bold" style={{ color: t[2], background: t[3] }}><EmoText>{`${t[1]} ${a.tag}`}</EmoText></span>{a.name}</li>
-                  ) })}
-                </ul>
-              </>
-            ) : null}
-          </aside>
         </div>
       </Card>
     </div>

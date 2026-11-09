@@ -109,7 +109,15 @@ export function FeelingLog({ child }: { child: Child }) {
   const [sel, setSel] = useState(() => dayKey(startOfDay(new Date())))
   const data = childData(child)
   if (!child.element || !Object.keys(data).length)
-    return <Empty cute="bubble" title="No check-ins yet">After each activity, {child.name} picks how they feel. Their feeling log starts here.</Empty>
+    return (
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <Seg label="Period" value={period} onChange={setPeriod} options={[[7, 'Last 7 days'], [30, 'Last 30 days'], [90, 'Last 90 days']]} />
+          <span className="text-xs text-muted-foreground">0 check-ins</span>
+        </div>
+        <Empty cute="bubble" title="No check-ins yet">After each activity, {child.name} picks how they feel. Their feeling log starts here: the most common element, mood and a calendar of daily check-ins.</Empty>
+      </div>
+    )
 
   const keys = rangeDays(period)
   const entries = keys.flatMap((k) => data[k]?.feel ?? [])

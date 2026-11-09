@@ -90,6 +90,7 @@ export function initialState(): State {
       { id: 'c3', name: 'Smith', dob: '2020-02-20', gender: 'Boy', needs: ['Sensory sensitivity'], element: 'Garden', animal: 'Panda', nature: 'Caring Nurturer', arch: 'Nurturer', stage: 'Crystal', color: COLORS[2] },
       { id: 'c4', name: 'Mia', dob: '2022-08-09', gender: 'Girl', needs: [], element: 'Sky', animal: 'Hummingbird', nature: 'Wise Seeker', arch: 'Seeker', stage: 'Alpha', color: COLORS[3] },
       { id: 'c5', name: 'Leo', dob: '2023-03-18', gender: 'Boy', needs: [], element: 'Stone', animal: 'Owl', nature: 'Gentle Helper', arch: 'Helper', stage: 'Alpha', color: COLORS[4] },
+      { id: 'c6', name: 'Noah', dob: '2022-01-25', gender: 'Boy', needs: [], element: null, animal: null, nature: null, arch: null, stage: 'Alpha', color: COLORS[5] },
     ],
     plans: [
       { id: 'p1', name: 'Discovery', type: 'Premium', label: '1 month', price: 4.99, start: addDays(now, -27), end: addDays(now, 3), children: ['c1'] },

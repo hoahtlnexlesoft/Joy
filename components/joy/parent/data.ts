@@ -181,7 +181,7 @@ export function childData(c: Child): Record<string, DayData> {
     const d = addDays(today, -n), k = dayKey(d)
     const e: DayData = { feel: [], acts: [] }
     if (r() < 0.82) {
-      const cnt = r() < 0.35 ? 2 : 1
+      const cnt = 1 // one check-in (mood + element) per day
       for (let j = 0; j < cnt; j++) e.feel.push({ mood: w(MOODS, moodBias), el: w(ELS, elBias), time: new Date(d.getTime() + (j ? 18 : 9) * 36e5 + Math.floor(r() * 50) * 6e4) })
     }
     SECTIONS.forEach(([sec, ic, hr]) => {
